@@ -1,0 +1,54 @@
+# Quantile regression in R
+
+This shows how to manipulate data from the SPF in R.
+
+```{r library, message=FALSE}
+library(readxl)
+library(xts)
+library(lubridate)
+library(tidyverse)
+library(quantmod)
+library(quantreg)
+```
+
+## Getting the data
+
+We download the data and save it locally.
+
+```{r spf}
+h <- "https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/survey-of-professional-forecasters/historical-data/"
+f <- "meanlevel.xlsx"
+
+download.file(paste0(h, f), destfile=f, mode="wb")
+```
+
+Retrieve the unemployment data for the average unemployment forecast.
+
+```{r}
+UNEMP <- f %>%
+  read_excel(na="#N/A", sheet="UNEMP") %>% 
+  mutate(Date=as.Date(as.yearqtr(paste(YEAR, QUARTER), format="%Y %q"))) 
+
+Usel <- UNEMP %>% 
+  select(Date, UNEMP1, UNEMP3, UNEMP4, UNEMP5, UNEMP6) %>%
+  mutate(UNRATE = lead(UNEMP1,1)) %>%
+  select(Date, UNRATE, 
+         UNEMP1=UNEMP3, UNEMP2=UNEMP4, UNEMP3=UNEMP5, UNEMP4=UNEMP6) %>%
+  mutate(UNEMP1 = lag(UNEMP1,1), 
+         UNEMP2 = lag(UNEMP2,2), 
+         UNEMP3 = lag(UNEMP3,3), 
+         UNEMP4 = lag(UNEMP4,4)) %>%
+  pivot_longer(cols = -c(Date, UNRATE), names_to="Which", values_to="Val") %>%
+  filter(year(Date) > 2000)
+```
+
+Plots
+
+```{r warning=FALSE, fig.align='center'}
+Usel %>% 
+  ggplot(aes(x=Date)) + 
+  geom_line(aes(y=UNRATE), colour="red") + 
+  geom_point(aes(y=Val, colour=Which, shape=Which)) +
+  theme_light() + 
+  labs(title="Mean unemployment forecasts", x="",y="", caption = "Source: SPF")
+```

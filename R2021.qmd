@@ -1,0 +1,137 @@
+# Non-econometric methods for econometricians
+
+## Selected ML and Dataviz techniques using R
+
+Econometricians are used to handling data, performing analysis and reporting results. But somewhere along the line data became big and unstructured, analysis was now machines learning about something and outputs became visualisations.
+
+This online seminar takes some big(ish) datasets, sets the machines on them and draws some great graphs. If you ever wondered what use a tree was for forecasting or why everything is a network (including neural ones), or wanted to draw a map with your house in it, or to understand a document without the bother of reading it (or a few other things besides) then you might find something to interest you. All done in R.
+
+Specifically, this seminar is designed to introduce some of the key methods used outside of econometrics that econometricians will find very useful in their work in a central bank. This includes some important machine learning techniques as a gateway to others, particularly tree-based methods and neural networks, as well as text processing and map making. All the way through there is an emphasis on the network properties of many of these techniques. We make extensive use of the `tidyverse`, including `ggplot2` and `tidytext`, and a number of statistics, machine learning, geographical data and other packages.
+
+The framework for each day is the following:
+
+-   Each day is divided into two two-hour sessions starting at 10.30 am and 2.00 pm GMT.
+-   The first hour of each will be an online presentation covering a particular topic (or topics) with a look at both techniques and code.
+-   After a quick break the second hour will be largely devoted to the code itself or resources to understand how to code the material.
+
+We may run polls during the event to prioritize the topics covered in the webinars as it is not expected that everyone will be able to try out everything.
+
+### The code
+
+All code and some of the data will be made available through the Juno portal. For each presentation the .Rmd (R markdown) file is supplied that creates the presentation, an HTML file of the presentation for you to step through which can be re-created from the .Rmd file, and a further .R file of the code that we use. Some additional code and data is included, including links to a number of videos that cover some additional aspects both in this file and in the presentations.
+
+Some data will need to be downloaded from original other sites if all the examples are to be followed. All code is additionally available at <https://github.com/andrewpeterblake/R2020> or <https://github.com/andrewpeterblake/R2021> or through the QR codes below.
+
+```{r echo=FALSE, fig.align='center', out.width="25%", fig.cap="GitHub: 2020 (grey, left), 2021 (pink, right)", fig.show='hold'}
+library(qrcode)
+qr2020 <- qr_code("https://github.com/andrewpeterblake/R2020")
+qr2021 <- qr_code("https://github.com/andrewpeterblake/R2021")
+plot(qr2020, col=c("white", "grey55"))
+plot(qr2021, col=c("white", "salmon2"))
+```
+
+#### HOW TO ENSURE RSTUDIO FINDS THE CODE
+
+To use the code, in particular so that R Studio finds the data files etc, create a directory for each topic, (e.g. Trees, ANN etc) and copy the contents from the zip file or GitHub. Then create a new project in R Studio that uses that directory as its home directory, using "File/New Project" in the drop down menu. Opening files within a project sets the home directory to that directory, so everything (including the sub-directories) can be found.
+
+------------------------------------------------------------------------
+
+## Day 1: Trees and maps
+
+#### 10.30 am -- 12.30 pm
+
+Trees
+
+-   Classification and regression trees
+-   Econometrics strikes back: Bootstrap/bagging and Boosting/Model selection
+-   Random forests
+-   Visualising decision trees
+-   Use example: House prices
+
+The presentations for this are `Trees.html` and `LondonHP.html`; The two programs `TreeCancer.R` and `TreeNW.R` are the use examples.
+
+#### 2.00 pm -- 4.00 pm
+
+Maps in R
+
+-   How to draw a map in R
+-   A guide to some resources
+-   Choropleths
+-   Use examples: Climate change, regional data, postcode wrangling
+
+The presentation for this is `MapAER.html` (see also `Weatherpretty.html`); The program `MapAERcode.R` is the main map drawing code, I've included `ZAF.R` as as short simple way and source for two countries, and the directory `Trendz` contains the program (`app.R`) and data for the weather example.
+
+```{r echo=FALSE, fig.align='right', out.width="25%", out.extra='style="float:right"'}
+plot(qr_code("https://vimeo.com/463164257"), col=c("white", "red"))
+```
+
+I've included an additional video (red QR code) for more about Shiny. This uses unemployment data from the [Survey of Professional Forecasters](https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/survey-of-professional-forecasters). The code we look at is for climate change data [World Bank data](https://climateknowledgeportal.worldbank.org/).
+
+A comprehensive treatment of maps is @Geocomputation *Geocomputation in R*, but it is quite a lot to assimilate all at once.
+
+<br>
+
+------------------------------------------------------------------------
+
+## Day 2: Networks
+
+#### 10.30 am -- 12.30 pm
+
+Neural networks
+
+-   What is an ANN? Deep learning?
+-   Function approximation via a network
+-   Data: fit, validate, test
+-   Network architecture
+-   Use examples: House prices revisited
+
+The presentation for this is `IntroANN.html`; The program `ANN.R` replicates the ANN estimation. The data used is the same as for Day 1.
+
+#### 2.00 pm -- 4.00 pm
+
+Networks in R
+
+-   DAGs and ANNs as network graphs
+-   Incidence matrices
+-   Measuring connectivity: Degree and betweenness
+-   Plotting with `igraph`
+-   Use examples: Industry inter-relationships
+
+```{r echo=FALSE, fig.align='right', out.width="25%", out.extra='style="float:right"'}
+plot(qr_code("https://codingclubuc3m.rbind.io/talk/2020-01-21/"), col=c("white", "blue"))
+plot(qr_code("https://www.r-bloggers.com/2020/01/graph-theory-101-with-corruption-cases-in-spain/"), col=c("white", "purple"))
+```
+
+The presentation used for the first part of this is `DAG.html` and the program `Draw_DAG_ANN.R` draws the ANN examples from Day 2 Session 1 as well as some of the DAG examples. The example is modified from @Mixtape *Causal Inference: The Mixtape*, which is a great read with R code. The pdf `HandShake3.pdf` is the source of the director network graphs, and `Graph101a.R` is a subset of the analytical work on the corruption data set as described in the post [*Graph Theory 101*](https://www.r-bloggers.com/2020/01/graph-theory-101-with-corruption-cases-in-spain/) (purple QR code), which is the work of [Marina Medina](https://codingclubuc3m.rbind.io/talk/2020-01-21/) (blue QR code link to presentation site).
+
+------------------------------------------------------------------------
+
+## Day 3: Text
+
+#### 10.30 am -- 12.30 pm
+
+Text modelling, a 'tidytext' approach (Session 1)
+
+-   Data cleaning
+-   Sentiment
+-   Topic modelling
+
+#### 2.00 pm -- 4.00 pm
+
+Text modelling, a 'tidytext' approach (Session 2)
+
+-   Parts-of-speech tagging
+-   Text regression
+-   Use examples: Central bank minutes, reports
+
+------------------------------------------------------------------------
+
+## Finally...
+
+For me, the best (although slightly dated) text is @ESL [The Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/) and the best source for the mathematics, with an easy-reading version by some of the same authors @ITSL [Introduction to Statistical Learning](https://www.statlearning.com/).
+
+I also rather like @HOMLR [Hands-On Machine Learning with R](https://bradleyboehmke.github.io/HOML/) which is something of a cookbook rather than a technical manual but with wide scope. @Taddy is more elementary.
+
+On text, just read @Silge [Text Mining with R: A Tidy Approach](https://www.tidytextmining.com/) and then @SuperText [Supervised Machine Learning for Text Analysis in R](https://smltar.com/). That's it.
+
+Two books I would solidly recommend to make us all into better statisticians and not just econometricians are @GHV [Regression and Other Stories](http://www.stat.columbia.edu/~gelman/regression), and @McElreath [Statistical Rethinking](https://github.com/rmcelreath/rethinking).

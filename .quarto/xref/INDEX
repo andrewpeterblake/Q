@@ -1,0 +1,26 @@
+{
+  "index.qmd": {
+    "index.html": "5c0c04f1"
+  },
+  "intro.qmd": {
+    "intro.html": "bb79b31f"
+  },
+  "summary.qmd": {
+    "summary.html": "1cd4c3e8"
+  },
+  "references.qmd": {
+    "references.html": "74119e73"
+  },
+  "MapAER.qmd": {
+    "MapAER.html": "d65e2ad0"
+  },
+  "QR.qmd": {
+    "QR.html": "bfded256"
+  },
+  "Stemp.qmd": {
+    "Stemp.html": "b6f359d4"
+  },
+  "R2021.qmd": {
+    "R2021.html": "41bf2696"
+  }
+}

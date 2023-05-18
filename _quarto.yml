@@ -1,0 +1,26 @@
+project:
+  type: book
+
+book:
+  title: "Q"
+  author: "andrew p. blake"
+  date: "18/05/2023"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - R2021.qmd
+    - QR.qmd
+    - Stemp.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: CourseRefs.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
