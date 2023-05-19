@@ -6,6 +6,7 @@ book:
   title: "Quantiles"
   author: "andrew p. blake"
   date: "18/05/2023"
+  cover-image: Specs.GIF
   chapters:
     - index.qmd
     - intro.qmd
@@ -21,7 +22,7 @@ format:
   html:
     theme: cosmo
   pdf:
-    documentclass: scrreprt
+    documentclass: book
 
 editor: visual
 
