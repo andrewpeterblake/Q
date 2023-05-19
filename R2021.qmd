@@ -38,7 +38,7 @@ To use the code, in particular so that R Studio finds the data files etc, create
 
 ## Day 1: Trees and maps
 
-#### 10.30 am -- 12.30 pm
+### 10.30 am -- 12.30 pm
 
 Trees
 
@@ -50,7 +50,7 @@ Trees
 
 The presentations for this are `Trees.html` and `LondonHP.html`; The two programs `TreeCancer.R` and `TreeNW.R` are the use examples.
 
-#### 2.00 pm -- 4.00 pm
+### 2.00 pm -- 4.00 pm
 
 Maps in R
 
@@ -75,7 +75,7 @@ A comprehensive treatment of maps is @Geocomputation *Geocomputation in R*, but 
 
 ## Day 2: Networks
 
-#### 10.30 am -- 12.30 pm
+### 10.30 am -- 12.30 pm
 
 Neural networks
 
@@ -87,7 +87,7 @@ Neural networks
 
 The presentation for this is `IntroANN.html`; The program `ANN.R` replicates the ANN estimation. The data used is the same as for Day 1.
 
-#### 2.00 pm -- 4.00 pm
+### 2.00 pm -- 4.00 pm
 
 Networks in R
 
@@ -108,7 +108,7 @@ The presentation used for the first part of this is `DAG.html` and the program `
 
 ## Day 3: Text
 
-#### 10.30 am -- 12.30 pm
+### 10.30 am -- 12.30 pm
 
 Text modelling, a 'tidytext' approach (Session 1)
 
