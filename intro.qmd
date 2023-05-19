@@ -3,3 +3,15 @@
 This is a book created from markdown and executable code.
 
 See @Mumtaz_BOOK. 
+
+------------------------------------------------------------------------
+
+## Reading is good for you
+
+For me, the best (although slightly dated) text is @ESL [The Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/) and the best source for the mathematics, with an easy-reading version by some of the same authors @ITSL [Introduction to Statistical Learning](https://www.statlearning.com/).
+
+I also rather like @HOMLR [Hands-On Machine Learning with R](https://bradleyboehmke.github.io/HOML/) which is something of a cookbook rather than a technical manual but with wide scope. @Taddy is more elementary.
+
+On text, just read @Silge [Text Mining with R: A Tidy Approach](https://www.tidytextmining.com/) and then @SuperText [Supervised Machine Learning for Text Analysis in R](https://smltar.com/). That's it.
+
+Two books I would solidly recommend to make us all into better statisticians and not just econometricians are @GHV [Regression and Other Stories](http://www.stat.columbia.edu/~gelman/regression), and @McElreath [Statistical Rethinking](https://github.com/rmcelreath/rethinking).
