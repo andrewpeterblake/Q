@@ -221,7 +221,13 @@ div.csl-indent {
    
   <ul>
   <li><a href="#study-question-1.3.2" id="toc-study-question-1.3.2" class="nav-link active" data-scroll-target="#study-question-1.3.2"><span class="toc-section-number">4.1</span>  Study question 1.3.2</a></li>
-  <li><a href="#answers" id="toc-answers" class="nav-link" data-scroll-target="#answers"><span class="toc-section-number">4.2</span>  Answers</a></li>
+  <li><a href="#exercises-and-answers" id="toc-exercises-and-answers" class="nav-link" data-scroll-target="#exercises-and-answers"><span class="toc-section-number">4.2</span>  Exercises and answers</a>
+  <ul class="collapse">
+  <li><a href="#find-pelevel-h" id="toc-find-pelevel-h" class="nav-link" data-scroll-target="#find-pelevel-h"><span class="toc-section-number">4.2.1</span>  Find <span class="math inline">\(P(eLevel = H)\)</span></a></li>
+  <li><a href="#find-pelevel-h-vee-gender-f" id="toc-find-pelevel-h-vee-gender-f" class="nav-link" data-scroll-target="#find-pelevel-h-vee-gender-f"><span class="toc-section-number">4.2.2</span>  Find <span class="math inline">\(P(eLevel = H\ \vee \ Gender = F)\)</span></a></li>
+  <li><a href="#find-pelevel-h-gender-f" id="toc-find-pelevel-h-gender-f" class="nav-link" data-scroll-target="#find-pelevel-h-gender-f"><span class="toc-section-number">4.2.3</span>  Find <span class="math inline">\(P(eLevel = H\ |\ Gender = F)\)</span></a></li>
+  <li><a href="#find-pgender-f-elevel-h" id="toc-find-pgender-f-elevel-h" class="nav-link" data-scroll-target="#find-pgender-f-elevel-h"><span class="toc-section-number">4.2.4</span>  Find <span class="math inline">\(P(Gender = F\ | \ eLevel = H)\)</span></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -248,15 +254,18 @@ div.csl-indent {
 <p>Outline how to solve the <span class="citation" data-cites="Primer">Pearl, Glymour, and Jewell (<a href="references.html#ref-Primer" role="doc-biblioref">2016</a>)</span> exercises in R.</p>
 <section id="study-question-1.3.2" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="study-question-1.3.2"><span class="header-section-number">4.1</span> Study question 1.3.2</h2>
+<p>Data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ed <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Gender =</span> <span class="fu">c</span>(<span class="st">"M"</span>,<span class="st">"M"</span>,<span class="st">"M"</span>,<span class="st">"M"</span>,<span class="st">"F"</span>,<span class="st">"F"</span>,<span class="st">"F"</span>,<span class="st">"F"</span>),</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">eLevel =</span> <span class="fu">c</span>(<span class="st">"U"</span>,<span class="st">"H"</span>,<span class="st">"C"</span>,<span class="st">"G"</span>,<span class="st">"U"</span>,<span class="st">"H"</span>,<span class="st">"C"</span>,<span class="st">"G"</span>),</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">num    =</span> <span class="fu">c</span>(<span class="dv">112</span>,<span class="dv">231</span>,<span class="dv">595</span>,<span class="dv">242</span>,<span class="dv">136</span>,<span class="dv">189</span>,<span class="dv">763</span>,<span class="dv">172</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>which we tabulate as</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <thead>
@@ -321,16 +330,15 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="answers" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="answers"><span class="header-section-number">4.2</span> Answers</h2>
-<p><span class="math display">\[
-P(eLevel = H)
-\]</span></p>
+<section id="exercises-and-answers" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="exercises-and-answers"><span class="header-section-number">4.2</span> Exercises and answers</h2>
+<section id="find-pelevel-h" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="find-pelevel-h"><span class="header-section-number">4.2.1</span> Find <span class="math inline">\(P(eLevel = H)\)</span></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eLevel <span class="sc">==</span> <span class="st">"H"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_H =</span> <span class="fu">n</span>()<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eLevel <span class="sc">==</span> <span class="st">"H"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_H =</span> <span class="fu">n</span>()<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <thead>
@@ -361,14 +369,14 @@ P(eLevel = H)
 </table>
 </div>
 </div>
-<p><span class="math display">\[
-P(eLevel = H\ \vee \ Gender = F)
-\]</span></p>
+</section>
+<section id="find-pelevel-h-vee-gender-f" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="find-pelevel-h-vee-gender-f"><span class="header-section-number">4.2.2</span> Find <span class="math inline">\(P(eLevel = H\ \vee \ Gender = F)\)</span></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">"F"</span> <span class="sc">|</span> eLevel <span class="sc">==</span> <span class="st">"H"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_HorF =</span> <span class="fu">sum</span>(num)<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">"F"</span> <span class="sc">|</span> eLevel <span class="sc">==</span> <span class="st">"H"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_HorF =</span> <span class="fu">sum</span>(num)<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <thead>
@@ -420,16 +428,16 @@ P(eLevel = H\ \vee \ Gender = F)
 </table>
 </div>
 </div>
-<p><span class="math display">\[
-P(eLevel = H\ |\ Gender = F)
-\]</span></p>
+</section>
+<section id="find-pelevel-h-gender-f" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="find-pelevel-h-gender-f"><span class="header-section-number">4.2.3</span> Find <span class="math inline">\(P(eLevel = H\ |\ Gender = F)\)</span></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tcond =</span> <span class="fu">sum</span>(num)) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eLevel <span class="sc">==</span> <span class="st">"H"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_HgivenF =</span> <span class="fu">sum</span>(num)<span class="sc">/</span>tcond) <span class="sc">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tcond =</span> <span class="fu">sum</span>(num)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eLevel <span class="sc">==</span> <span class="st">"H"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_HgivenF =</span> <span class="fu">sum</span>(num)<span class="sc">/</span>tcond) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <thead>
@@ -455,16 +463,16 @@ P(eLevel = H\ |\ Gender = F)
 </table>
 </div>
 </div>
-<p><span class="math display">\[
-P(Gender = F\ | \ eLevel = H)
-\]</span></p>
+</section>
+<section id="find-pgender-f-elevel-h" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="find-pgender-f-elevel-h"><span class="header-section-number">4.2.4</span> Find <span class="math inline">\(P(Gender = F\ | \ eLevel = H)\)</span></h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eLevel <span class="sc">==</span> <span class="st">"H"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tcond =</span> <span class="fu">sum</span>(num)) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_FgivenH =</span> <span class="fu">sum</span>(num)<span class="sc">/</span>tcond) <span class="sc">%&gt;%</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eLevel <span class="sc">==</span> <span class="st">"H"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tcond =</span> <span class="fu">sum</span>(num)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_FgivenH =</span> <span class="fu">sum</span>(num)<span class="sc">/</span>tcond) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <thead>
@@ -497,6 +505,7 @@ P(Gender = F\ | \ eLevel = H)
 Pearl, Judea, Madelyn Glymour, and Nicholas P. Jewell. 2016. <em>Causal Inference in Statistics: A Primer</em>. Chichester: John Wiley &amp; Sons. <a href="http://bayes.cs.ucla.edu/PRIMER/">http://bayes.cs.ucla.edu/PRIMER/</a>.
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->

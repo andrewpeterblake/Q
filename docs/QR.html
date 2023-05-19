@@ -201,6 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#getting-the-data" id="toc-getting-the-data" class="nav-link active" data-scroll-target="#getting-the-data"><span class="toc-section-number">3.1</span>  Getting the data</a></li>
+  <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots"><span class="toc-section-number">3.2</span>  Plots</a></li>
   </ul>
 </nav>
     </div>
@@ -260,7 +261,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(Date, UNRATE), <span class="at">names_to=</span><span class="st">"Which"</span>, <span class="at">values_to=</span><span class="st">"Val"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Date) <span class="sc">&gt;</span> <span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Plots</p>
+</section>
+<section id="plots" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="plots"><span class="header-section-number">3.2</span> Plots</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Usel <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Date)) <span class="sc">+</span> </span>

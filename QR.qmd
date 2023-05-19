@@ -23,7 +23,6 @@ download.file(paste0(h, f), destfile=f, mode="wb")
 ```
 
 Retrieve the unemployment data for the average unemployment forecast.
-
 ```{r}
 UNEMP <- f %>%
   read_excel(na="#N/A", sheet="UNEMP") %>% 
@@ -42,7 +41,7 @@ Usel <- UNEMP %>%
   filter(year(Date) > 2000)
 ```
 
-Plots
+## Plots
 
 ```{r warning=FALSE, fig.align='center'}
 Usel %>% 

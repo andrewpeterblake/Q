@@ -161,20 +161,11 @@ div.csl-indent {
   <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code"><span class="toc-section-number">2.1.1</span>  The code</a></li>
   </ul></li>
   <li><a href="#how-to-ensure-rstudio-finds-the-code" id="toc-how-to-ensure-rstudio-finds-the-code" class="nav-link" data-scroll-target="#how-to-ensure-rstudio-finds-the-code"><span class="toc-section-number">2.2</span>  HOW TO ENSURE RSTUDIO FINDS THE CODE</a></li>
-  <li><a href="#day-1-trees-and-maps" id="toc-day-1-trees-and-maps" class="nav-link" data-scroll-target="#day-1-trees-and-maps"><span class="toc-section-number">2.3</span>  Day 1: Trees and maps</a>
+  <li><a href="#typical-program-structure" id="toc-typical-program-structure" class="nav-link" data-scroll-target="#typical-program-structure"><span class="toc-section-number">2.3</span>  Typical program structure</a>
   <ul class="collapse">
-  <li><a href="#am-12.30-pm" id="toc-am-12.30-pm" class="nav-link" data-scroll-target="#am-12.30-pm"><span class="toc-section-number">2.3.1</span>  10.30 am – 12.30 pm</a></li>
-  <li><a href="#pm-4.00-pm" id="toc-pm-4.00-pm" class="nav-link" data-scroll-target="#pm-4.00-pm"><span class="toc-section-number">2.3.2</span>  2.00 pm – 4.00 pm</a></li>
-  </ul></li>
-  <li><a href="#day-2-networks" id="toc-day-2-networks" class="nav-link" data-scroll-target="#day-2-networks"><span class="toc-section-number">2.4</span>  Day 2: Networks</a>
-  <ul class="collapse">
-  <li><a href="#am-12.30-pm-1" id="toc-am-12.30-pm-1" class="nav-link" data-scroll-target="#am-12.30-pm-1"><span class="toc-section-number">2.4.1</span>  10.30 am – 12.30 pm</a></li>
-  <li><a href="#pm-4.00-pm-1" id="toc-pm-4.00-pm-1" class="nav-link" data-scroll-target="#pm-4.00-pm-1"><span class="toc-section-number">2.4.2</span>  2.00 pm – 4.00 pm</a></li>
-  </ul></li>
-  <li><a href="#day-3-text" id="toc-day-3-text" class="nav-link" data-scroll-target="#day-3-text"><span class="toc-section-number">2.5</span>  Day 3: Text</a>
-  <ul class="collapse">
-  <li><a href="#am-12.30-pm-2" id="toc-am-12.30-pm-2" class="nav-link" data-scroll-target="#am-12.30-pm-2"><span class="toc-section-number">2.5.1</span>  10.30 am – 12.30 pm</a></li>
-  <li><a href="#pm-4.00-pm-2" id="toc-pm-4.00-pm-2" class="nav-link" data-scroll-target="#pm-4.00-pm-2"><span class="toc-section-number">2.5.2</span>  2.00 pm – 4.00 pm</a></li>
+  <li><a href="#day-1-trees-and-maps" id="toc-day-1-trees-and-maps" class="nav-link" data-scroll-target="#day-1-trees-and-maps"><span class="toc-section-number">2.3.1</span>  Day 1: Trees and maps</a></li>
+  <li><a href="#day-2-networks" id="toc-day-2-networks" class="nav-link" data-scroll-target="#day-2-networks"><span class="toc-section-number">2.3.2</span>  Day 2: Networks</a></li>
+  <li><a href="#day-3-text" id="toc-day-3-text" class="nav-link" data-scroll-target="#day-3-text"><span class="toc-section-number">2.3.3</span>  Day 3: Text</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -241,11 +232,12 @@ div.csl-indent {
 <p>To use the code, in particular so that R Studio finds the data files etc, create a directory for each topic, (e.g.&nbsp;Trees, ANN etc) and copy the contents from the zip file or GitHub. Then create a new project in R Studio that uses that directory as its home directory, using “File/New Project” in the drop down menu. Opening files within a project sets the home directory to that directory, so everything (including the sub-directories) can be found.</p>
 <hr>
 </section>
-<section id="day-1-trees-and-maps" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="day-1-trees-and-maps"><span class="header-section-number">2.3</span> Day 1: Trees and maps</h2>
-<section id="am-12.30-pm" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="am-12.30-pm"><span class="header-section-number">2.3.1</span> 10.30 am – 12.30 pm</h3>
-<p>Trees</p>
+<section id="typical-program-structure" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="typical-program-structure"><span class="header-section-number">2.3</span> Typical program structure</h2>
+<section id="day-1-trees-and-maps" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="day-1-trees-and-maps"><span class="header-section-number">2.3.1</span> Day 1: Trees and maps</h3>
+<section id="trees" class="level4" data-number="2.3.1.1">
+<h4 data-number="2.3.1.1" class="anchored" data-anchor-id="trees"><span class="header-section-number">2.3.1.1</span> Trees</h4>
 <ul>
 <li>Classification and regression trees</li>
 <li>Econometrics strikes back: Bootstrap/bagging and Boosting/Model selection</li>
@@ -255,9 +247,8 @@ div.csl-indent {
 </ul>
 <p>The presentations for this are <code>Trees.html</code> and <code>LondonHP.html</code>; The two programs <code>TreeCancer.R</code> and <code>TreeNW.R</code> are the use examples.</p>
 </section>
-<section id="pm-4.00-pm" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="pm-4.00-pm"><span class="header-section-number">2.3.2</span> 2.00 pm – 4.00 pm</h3>
-<p>Maps in R</p>
+<section id="maps" class="level4" data-number="2.3.1.2">
+<h4 data-number="2.3.1.2" class="anchored" data-anchor-id="maps"><span class="header-section-number">2.3.1.2</span> Maps</h4>
 <ul>
 <li>How to draw a map in R</li>
 <li>A guide to some resources</li>
@@ -269,7 +260,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-right" style="float:right">
 <figure class="figure">
-<p><img src="R2021_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:25.0%"></p>
+<p><img src="R2021_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
 </figure>
 </div>
 </div>
@@ -280,11 +271,10 @@ div.csl-indent {
 <hr>
 </section>
 </section>
-<section id="day-2-networks" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="day-2-networks"><span class="header-section-number">2.4</span> Day 2: Networks</h2>
-<section id="am-12.30-pm-1" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="am-12.30-pm-1"><span class="header-section-number">2.4.1</span> 10.30 am – 12.30 pm</h3>
-<p>Neural networks</p>
+<section id="day-2-networks" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="day-2-networks"><span class="header-section-number">2.3.2</span> Day 2: Networks</h3>
+<section id="neural-networks" class="level4" data-number="2.3.2.1">
+<h4 data-number="2.3.2.1" class="anchored" data-anchor-id="neural-networks"><span class="header-section-number">2.3.2.1</span> Neural networks</h4>
 <ul>
 <li>What is an ANN? Deep learning?</li>
 <li>Function approximation via a network</li>
@@ -294,9 +284,8 @@ div.csl-indent {
 </ul>
 <p>The presentation for this is <code>IntroANN.html</code>; The program <code>ANN.R</code> replicates the ANN estimation. The data used is the same as for Day 1.</p>
 </section>
-<section id="pm-4.00-pm-1" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="pm-4.00-pm-1"><span class="header-section-number">2.4.2</span> 2.00 pm – 4.00 pm</h3>
-<p>Networks in R</p>
+<section id="networks-real-ones" class="level4" data-number="2.3.2.2">
+<h4 data-number="2.3.2.2" class="anchored" data-anchor-id="networks-real-ones"><span class="header-section-number">2.3.2.2</span> Networks (real ones)</h4>
 <ul>
 <li>DAGs and ANNs as network graphs</li>
 <li>Incidence matrices</li>
@@ -324,20 +313,18 @@ div.csl-indent {
 <hr>
 </section>
 </section>
-<section id="day-3-text" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="day-3-text"><span class="header-section-number">2.5</span> Day 3: Text</h2>
-<section id="am-12.30-pm-2" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="am-12.30-pm-2"><span class="header-section-number">2.5.1</span> 10.30 am – 12.30 pm</h3>
-<p>Text modelling, a ‘tidytext’ approach (Session 1)</p>
+<section id="day-3-text" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="day-3-text"><span class="header-section-number">2.3.3</span> Day 3: Text</h3>
+<section id="text-modelling-a-tidytext-approach-session-1" class="level4" data-number="2.3.3.1">
+<h4 data-number="2.3.3.1" class="anchored" data-anchor-id="text-modelling-a-tidytext-approach-session-1"><span class="header-section-number">2.3.3.1</span> Text modelling, a ‘tidytext’ approach (Session 1)</h4>
 <ul>
 <li>Data cleaning</li>
 <li>Sentiment</li>
 <li>Topic modelling</li>
 </ul>
 </section>
-<section id="pm-4.00-pm-2" class="level3" data-number="2.5.2">
-<h3 data-number="2.5.2" class="anchored" data-anchor-id="pm-4.00-pm-2"><span class="header-section-number">2.5.2</span> 2.00 pm – 4.00 pm</h3>
-<p>Text modelling, a ‘tidytext’ approach (Session 2)</p>
+<section id="text-modelling-a-tidytext-approach-session-2" class="level4" data-number="2.3.3.2">
+<h4 data-number="2.3.3.2" class="anchored" data-anchor-id="text-modelling-a-tidytext-approach-session-2"><span class="header-section-number">2.3.3.2</span> Text modelling, a ‘tidytext’ approach (Session 2)</h4>
 <ul>
 <li>Parts-of-speech tagging</li>
 <li>Text regression</li>
@@ -353,6 +340,7 @@ Cunningham, Scott. 2021. <em>Causal Inference: The Mixtape</em>. New Haven &amp;
 Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation with <span>R</span></em>. 1st ed. The <span>R</span> Series. Boca Raton: Chapman &amp; Hall/CRC. <a href="https://geocompr.robinlovelace.net/">https://geocompr.robinlovelace.net/</a>.
 </div>
 </div>
+</section>
 </section>
 </section>
 

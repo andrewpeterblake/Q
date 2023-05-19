@@ -38,11 +38,11 @@ To use the code, in particular so that R Studio finds the data files etc, create
 
 ------------------------------------------------------------------------
 
-## Day 1: Trees and maps
+## Typical program structure
 
-### 10.30 am -- 12.30 pm
+### Day 1: Trees and maps
 
-Trees
+#### Trees
 
 -   Classification and regression trees
 -   Econometrics strikes back: Bootstrap/bagging and Boosting/Model selection
@@ -52,9 +52,7 @@ Trees
 
 The presentations for this are `Trees.html` and `LondonHP.html`; The two programs `TreeCancer.R` and `TreeNW.R` are the use examples.
 
-### 2.00 pm -- 4.00 pm
-
-Maps in R
+#### Maps
 
 -   How to draw a map in R
 -   A guide to some resources
@@ -63,7 +61,7 @@ Maps in R
 
 The presentation for this is `MapAER.html` (see also `Weatherpretty.html`); The program `MapAERcode.R` is the main map drawing code, I've included `ZAF.R` as as short simple way and source for two countries, and the directory `Trendz` contains the program (`app.R`) and data for the weather example.
 
-```{r echo=FALSE, fig.align='right', out.width="25%", out.extra='style="float:right"'}
+```{r echo=FALSE, fig.align='right', out.width="50%", out.extra='style="float:right"'}
 plot(qr_code("https://vimeo.com/463164257"), col=c("white", "red"))
 ```
 
@@ -75,11 +73,9 @@ A comprehensive treatment of maps is @Geocomputation *Geocomputation in R*, but 
 
 ------------------------------------------------------------------------
 
-## Day 2: Networks
+### Day 2: Networks
 
-### 10.30 am -- 12.30 pm
-
-Neural networks
+#### Neural networks
 
 -   What is an ANN? Deep learning?
 -   Function approximation via a network
@@ -89,9 +85,7 @@ Neural networks
 
 The presentation for this is `IntroANN.html`; The program `ANN.R` replicates the ANN estimation. The data used is the same as for Day 1.
 
-### 2.00 pm -- 4.00 pm
-
-Networks in R
+#### Networks (real ones)
 
 -   DAGs and ANNs as network graphs
 -   Incidence matrices
@@ -108,19 +102,15 @@ The presentation used for the first part of this is `DAG.html` and the program `
 
 ------------------------------------------------------------------------
 
-## Day 3: Text
+### Day 3: Text
 
-### 10.30 am -- 12.30 pm
-
-Text modelling, a 'tidytext' approach (Session 1)
+#### Text modelling, a 'tidytext' approach (Session 1)
 
 -   Data cleaning
 -   Sentiment
 -   Topic modelling
 
-### 2.00 pm -- 4.00 pm
-
-Text modelling, a 'tidytext' approach (Session 2)
+#### Text modelling, a 'tidytext' approach (Session 2)
 
 -   Parts-of-speech tagging
 -   Text regression
