@@ -1,6 +1,6 @@
 # Non-econometric methods for econometricians
 
-## Selected ML and Dataviz techniques using R
+## Selected ML and Dataviz techniques in R
 
 Econometricians are used to handling data, performing analysis and reporting results. But somewhere along the line data became big and unstructured, analysis was now machines learning about something and outputs became visualisations.
 

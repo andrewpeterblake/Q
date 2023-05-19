@@ -49,5 +49,5 @@ Usel %>%
   geom_line(aes(y=UNRATE), colour="red") + 
   geom_point(aes(y=Val, colour=Which, shape=Which)) +
   theme_light() + 
-  labs(title="Mean unemployment forecasts", x="",y="", caption = "Source: SPF")
+  labs(title="Mean unemployment forecasts", x="", y="", caption="Source: SPF")
 ```
