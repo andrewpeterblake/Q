@@ -4,8 +4,9 @@ project:
 
 book:
   title: "Quantiles"
-  author: "andrew p. blake"
-  date: "18/05/2023"
+  author: "andrew p blake"
+  date: "2024"
+  status: "In Preparation"
   cover-image: Specs.GIF
   chapters:
     - index.qmd
@@ -20,7 +21,9 @@ bibliography: CourseRefs.bib
 
 format:
   html:
-    theme: cosmo
+    theme: 
+      light: sandstone
+      dark: darkly
   pdf:
     documentclass: book
 

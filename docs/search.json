@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Quantiles",
     "section": "",
-    "text": "Preface\nThis book is the result of an initiative that the Bank of England began in the early 1990s. This was a different world with a burgeoning new world order, as the Iron Curtain crumbled and the European experiment gathered momentum.\nPlaceholders abound.\nDisclaimer: The Bank of England does not accept any liability for misleading or inaccurate information or omissions in the information provided. The subject matter reflects the views of the individual presenter and not the wider Bank of England or its Policy Committees."
+    "text": "Genesis\nThis book is the result of an initiative that the Bank of England began in the early 1990s. This was a different world with a burgeoning new world order, as the Iron Curtain crumbled and the European experiment gathered momentum.\nPlaceholders abound.\nDisclaimer: The Bank of England does not accept any liability for misleading or inaccurate information or omissions in the information provided. The subject matter reflects the views of the individual presenter and not the wider Bank of England or its Policy Committees."
   },
   {
     "objectID": "intro.html#reading-is-good-for-you",
@@ -46,7 +46,7 @@
     "href": "QR.html#plots",
     "title": "3  Quantile regression in R",
     "section": "3.2 Plots",
-    "text": "3.2 Plots\n\nUsel %>% \n  ggplot(aes(x=Date)) + \n  geom_line(aes(y=UNRATE), colour=\"red\") + \n  geom_point(aes(y=Val, colour=Which, shape=Which)) +\n  theme_light() + \n  labs(title=\"Mean unemployment forecasts\", x=\"\",y=\"\", caption = \"Source: SPF\")"
+    "text": "3.2 Plots\n\nUsel %>% \n  ggplot(aes(x=Date)) + \n  geom_line(aes(y=UNRATE), colour=\"red\") + \n  geom_point(aes(y=Val, colour=Which, shape=Which)) +\n  theme_light() + \n  labs(title=\"Mean unemployment forecasts\", x=\"\", y=\"\", caption=\"Source: SPF\")"
   },
   {
     "objectID": "Stemp.html#study-question-1.3.2",
@@ -82,5 +82,19 @@
     "title": "2  Non-econometric methods for econometricians",
     "section": "2.1 Selected ML and Dataviz techniques in R",
     "text": "2.1 Selected ML and Dataviz techniques in R\nEconometricians are used to handling data, performing analysis and reporting results. But somewhere along the line data became big and unstructured, analysis was now machines learning about something and outputs became visualisations.\nThis online seminar takes some big(ish) datasets, sets the machines on them and draws some great graphs. If you ever wondered what use a tree was for forecasting or why everything is a network (including neural ones), or wanted to draw a map with your house in it, or to understand a document without the bother of reading it (or a few other things besides) then you might find something to interest you. All done in R.\nSpecifically, this seminar is designed to introduce some of the key methods used outside of econometrics that econometricians will find very useful in their work in a central bank. This includes some important machine learning techniques as a gateway to others, particularly tree-based methods and neural networks, as well as text processing and map making. All the way through there is an emphasis on the network properties of many of these techniques. We make extensive use of the tidyverse, including ggplot2 and tidytext, and a number of statistics, machine learning, geographical data and other packages.\nThe framework for each day is the following:\n\nEach day is divided into two two-hour sessions starting at 10.30 am and 2.00 pm GMT.\nThe first hour of each will be an online presentation covering a particular topic (or topics) with a look at both techniques and code.\nAfter a quick break the second hour will be largely devoted to the code itself or resources to understand how to code the material.\n\nWe may run polls during the event to prioritize the topics covered in the webinars as it is not expected that everyone will be able to try out everything.\n\n2.1.1 The code\nAll code and some of the data will be made available through the Juno portal. For each presentation the .Rmd (R markdown) file is supplied that creates the presentation, an HTML file of the presentation for you to step through which can be re-created from the .Rmd file, and a further .R file of the code that we use. Some additional code and data is included, including links to a number of videos that cover some additional aspects both in this file and in the presentations.\nSome data will need to be downloaded from original other sites if all the examples are to be followed. All code is additionally available at https://github.com/andrewpeterblake/R2020 or https://github.com/andrewpeterblake/R2021 or through the QR codes below.\n\n\n\n\n\nGitHub: 2020 (grey, left), 2021 (pink, right)\n\n\n\n\n\n\n\nGitHub: 2020 (grey, left), 2021 (pink, right)"
+  },
+  {
+    "objectID": "index.html#genesis",
+    "href": "index.html#genesis",
+    "title": "Quantiles",
+    "section": "Genesis",
+    "text": "Genesis\nThis book is the result of an initiative that the Bank of England began in the early 1990s. This was a different world with a burgeoning new world order, as the Iron Curtain crumbled and the European experiment gathered momentum.\nPlaceholders abound."
+  },
+  {
+    "objectID": "index.html#disclaimer",
+    "href": "index.html#disclaimer",
+    "title": "Quantiles",
+    "section": "Disclaimer",
+    "text": "Disclaimer\nThe Bank of England does not accept any liability for misleading or inaccurate information or omissions in the information provided. The subject matter reflects the views of the individual presenter and not the wider Bank of England or its Policy Committees."
   }
 ]
