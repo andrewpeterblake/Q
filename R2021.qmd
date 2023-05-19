@@ -30,7 +30,9 @@ plot(qr2020, col=c("white", "grey55"))
 plot(qr2021, col=c("white", "salmon2"))
 ```
 
-#### HOW TO ENSURE RSTUDIO FINDS THE CODE
+----------------------------
+
+## HOW TO ENSURE RSTUDIO FINDS THE CODE
 
 To use the code, in particular so that R Studio finds the data files etc, create a directory for each topic, (e.g. Trees, ANN etc) and copy the contents from the zip file or GitHub. Then create a new project in R Studio that uses that directory as its home directory, using "File/New Project" in the drop down menu. Opening files within a project sets the home directory to that directory, so everything (including the sub-directories) can be found.
 
@@ -123,15 +125,3 @@ Text modelling, a 'tidytext' approach (Session 2)
 -   Parts-of-speech tagging
 -   Text regression
 -   Use examples: Central bank minutes, reports
-
-------------------------------------------------------------------------
-
-## Finally...
-
-For me, the best (although slightly dated) text is @ESL [The Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/) and the best source for the mathematics, with an easy-reading version by some of the same authors @ITSL [Introduction to Statistical Learning](https://www.statlearning.com/).
-
-I also rather like @HOMLR [Hands-On Machine Learning with R](https://bradleyboehmke.github.io/HOML/) which is something of a cookbook rather than a technical manual but with wide scope. @Taddy is more elementary.
-
-On text, just read @Silge [Text Mining with R: A Tidy Approach](https://www.tidytextmining.com/) and then @SuperText [Supervised Machine Learning for Text Analysis in R](https://smltar.com/). That's it.
-
-Two books I would solidly recommend to make us all into better statisticians and not just econometricians are @GHV [Regression and Other Stories](http://www.stat.columbia.edu/~gelman/regression), and @McElreath [Statistical Rethinking](https://github.com/rmcelreath/rethinking).
