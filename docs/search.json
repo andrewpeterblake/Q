@@ -39,7 +39,7 @@
     "href": "R2021.html#day-3-text",
     "title": "2  Non-econometric methods for econometricians",
     "section": "2.4 Day 3: Text",
-    "text": "2.4 Day 3: Text\n\n2.4.1 10.30 am – 12.30 pm\nText modelling, a ‘tidytext’ approach (Session 1)\n\nData cleaning\nSentiment\nTopic modelling\n\n\n2.4.1.1 2.00 pm – 4.00 pm\nText modelling, a ‘tidytext’ approach (Session 2)\n\nParts-of-speech tagging\nText regression\nUse examples: Central bank minutes, reports"
+    "text": "2.4 Day 3: Text\n\n2.4.1 10.30 am – 12.30 pm\nText modelling, a ‘tidytext’ approach (Session 1)\n\nData cleaning\nSentiment\nTopic modelling\n\n\n\n2.4.2 2.00 pm – 4.00 pm\nText modelling, a ‘tidytext’ approach (Session 2)\n\nParts-of-speech tagging\nText regression\nUse examples: Central bank minutes, reports"
   },
   {
     "objectID": "R2021.html#finally",

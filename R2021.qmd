@@ -116,7 +116,7 @@ Text modelling, a 'tidytext' approach (Session 1)
 -   Sentiment
 -   Topic modelling
 
-#### 2.00 pm -- 4.00 pm
+### 2.00 pm -- 4.00 pm
 
 Text modelling, a 'tidytext' approach (Session 2)
 
