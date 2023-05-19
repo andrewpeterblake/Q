@@ -30,7 +30,7 @@ ed %>%
 ```{r kableA}
 ed %>%
   filter(eLevel == "H") %>%
-  mutate(p_H = n()/total) %>%
+  mutate(p_H = sum(num)/total) %>%
   kable()
 ```
 

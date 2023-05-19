@@ -337,7 +337,7 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ed <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eLevel <span class="sc">==</span> <span class="st">"H"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_H =</span> <span class="fu">n</span>()<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_H =</span> <span class="fu">sum</span>(num)<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
@@ -356,14 +356,14 @@ div.csl-indent {
 <td style="text-align: left;">H</td>
 <td style="text-align: right;">231</td>
 <td style="text-align: right;">2440</td>
-<td style="text-align: right;">0.0008197</td>
+<td style="text-align: right;">0.1721311</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">F</td>
 <td style="text-align: left;">H</td>
 <td style="text-align: right;">189</td>
 <td style="text-align: right;">2440</td>
-<td style="text-align: right;">0.0008197</td>
+<td style="text-align: right;">0.1721311</td>
 </tr>
 </tbody>
 </table>
