@@ -1,13 +1,14 @@
 ---
 title-block-banner: TRUE
-affiliation: "ccbs, bank of england"
 ---
 
 ## Genesis {#sec-genesis .unnumbered}
 
 This book is the result of an initiative the Bank of England began in the early 1990s, and a prescient one. This was at a major historical turning point, one that signalled a burgeoning new world order, as the Iron Curtain crumbled, the European experiment gathered momentum, and industrial might began an inexorable shift eastwards.
 
-![](Specs.GIF){width="420"}Placeholders abound.
+![](Specs.GIF){width="420"}
+
+Placeholders abound.
 
 ## Disclaimer {#sec-disclaimer}
 

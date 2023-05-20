@@ -3,8 +3,12 @@ project:
   output-dir: docs
 
 book:
-  title: "Quantiles, Networks, Time"
-  author: "andrew p blake"
+  title: Quantiles, Networks, Time
+  author: 
+    - name: andrew p blake 
+      affiliations:
+        - name: ccbs
+          address: bank of england
   date: "2024"
   status: "In Preparation"
   chapters:
