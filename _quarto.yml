@@ -7,7 +7,6 @@ book:
   author: "andrew p blake"
   date: "2024"
   status: "In Preparation"
-  cover-image: Specs.GIF
   chapters:
     - index.qmd
     - intro.qmd
