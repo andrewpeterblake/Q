@@ -52,7 +52,6 @@ Fewer Scottish Islands makes the graphs a lot clearer with little loss of inform
 
 In what follows we filter out the islands using 
 ```{r map0q, message=FALSE, warning=FALSE, fig.align='center'}
-fle <- "LAD_Dec_2015_GCB_GB"
 shape <- read_sf(dsn=".", layer=fle) %>%
   filter(!lad15nm %in% c("Shetland Islands","Orkney Islands")) %>%
   mutate(Country=str_sub(lad15cd, 1, 1), .after=1)
@@ -65,29 +64,24 @@ shape %>%
   group_by(Country) %>%
   summarise() %>%
   ggplot() +
-  geom_sf(aes(fill=Country), color="grey77", linewidth=.5, alpha=.66) +
+  geom_sf(aes(fill=Country), color="grey77", linewidth=.25, alpha=.66) +
   theme_void()
 ```
 Note the really nice feature -- if we group by something, in this case country, we can summarise to amalgamate the geometries!
 
-You may have noticed, one thing that that's missing on the LA graphs is the boundaries. They aren't, they're just invisible. That's because I have set `colour = NA`, so we can fix that by choosing a colour and making the lines very thin so they don't swamp the map, as in the country one.
-
-```{r bounds, fig.align='center', out.width="55%", out.extra='style="float:right; padding:5px"'}
-
-```
+You may have noticed, one thing that that's missing on the LA graphs is the boundaries. They aren't, they're just invisible. That's because I set `colour = NA`, so I can fix that by choosing a colour and making the lines very thin so they don't swamp the map, as in the country one.
 
 One further amendment, the `fill` is moved inside the `aes()` specification and made conditional. `R` now chooses unique colours for each of the regions.
 
 Two things now need to be done to get the map colours right to illustrate regional inflation rates. First we need to amalgamate some of the Local Authority boundaries to the Land Registry definitions, and second we need to assign the inflation rate to each area.
 
-### Inflation data and regions
+## Inflation data and regions
 
 We have a map, and we have that data in a form that is easy to understand. If we can suitably attach an inflation rate to each area then we can fill the individual areas with a colour unique to each individual inflation rates.
 
 Recall that the Land Registry areas aren't quite what we have, and will need amalgamating. @BFP supplied me the areas that needed amalgamating (and the inflation rates) using the [ONS codes](https://en.wikipedia.org/wiki/ONS_coding_system). This is contained in the metadata `lad15cd` above.
 
 The data is structured in 'wide' format with one row for each Land Registry region. The details aren't very important for us now, but what it means is I can manipulate it to get
-
 ```{r}
 # Price data by Land Registry region, converted to long format
 hp_data <- read_excel("house_price_data_figure_1.xls")  %>% 
@@ -101,15 +95,11 @@ hp_data <- read_excel("house_price_data_figure_1.xls")  %>%
 codes <- hp_data %>% 
   select(lad15cd, land_reg_region) 
 ```
-
 The important thing that the `pivot_longer` achieves is that for every `land_reg_region` I get a list of all the ONS codes that makes up the Local Authority level. So if I look at `buckinghamshire` as an example there are four ONS codes now associated with it.
-
 ```{r}
 filter(codes, land_reg_region == "buckinghamshire")
 ```
-
-Join:
-
+Join these together
 ```{r}
 # Join polygons defined by Land Registry regions
 gg <- shape %>%
@@ -118,15 +108,13 @@ gg <- shape %>%
   group_by(land_reg_region) %>%
   summarise() 
 ```
+which produces a match between the Land Registry and the Local Authority areas, plus the inflation rates.
 
-produces a match between the Land Registry and the Local Authority areas, plus the inflation rates. To illustrate this just filter out the `buckinghamshire` ones again to see:
-
-## Inflation in grayscale
+### Inflation in grayscale
 
 All the information required to plot the Land Registry-based regional inflation rates is now available. As you can see from the `buckinghamshire` data above, there are three average rates in three different periods, so I'll focus on one, 2002-2007 to begin with.
 
 First, augment the geographic data with the inflation data, and call them something better.
-
 ```{r, fig.align='center'}
 gg %>%
   ggplot() +
@@ -134,9 +122,7 @@ gg %>%
           color=NA, alpha=.66, show.legend = FALSE) +
   theme_void()
 ```
-
-Then calculate some limits for the gradient, and modify the specify a plot to include specifically gray and put the legend at the bottom.
-
+Then specify gray and put the legend at the bottom.
 ```{r, fig.align='center'}
 nms <- gsub("av_hp_growth", "HPI", colnames(hp_data))
 
@@ -147,7 +133,7 @@ hp_data %>%
   left_join(gg) %>%
   ggplot() +
   geom_sf(aes(geometry=geometry, fill=HPI_02_07), 
-          color=NA, alpha=.66, show.legend = FALSE) +
+          color=NA, alpha=.66, show.legend = TRUE) +
   theme_void() +
   scale_fill_gradient(low=grey(0.9), high=grey(0.05)) +
   theme(legend.direction = "horizontal", 

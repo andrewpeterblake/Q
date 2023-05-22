@@ -230,11 +230,11 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#how-heterogenous-is-uk-house-price-inflation" id="toc-how-heterogenous-is-uk-house-price-inflation" class="nav-link active" data-scroll-target="#how-heterogenous-is-uk-house-price-inflation"><span class="toc-section-number">5.1</span>  How heterogenous is UK house price inflation?</a>
+  <li><a href="#how-heterogenous-is-uk-house-price-inflation" id="toc-how-heterogenous-is-uk-house-price-inflation" class="nav-link active" data-scroll-target="#how-heterogenous-is-uk-house-price-inflation"><span class="toc-section-number">5.1</span>  How heterogenous is UK house price inflation?</a></li>
+  <li><a href="#inflation-data-and-regions" id="toc-inflation-data-and-regions" class="nav-link" data-scroll-target="#inflation-data-and-regions"><span class="toc-section-number">5.2</span>  Inflation data and regions</a>
   <ul class="collapse">
-  <li><a href="#inflation-data-and-regions" id="toc-inflation-data-and-regions" class="nav-link" data-scroll-target="#inflation-data-and-regions"><span class="toc-section-number">5.1.1</span>  Inflation data and regions</a></li>
+  <li><a href="#inflation-in-grayscale" id="toc-inflation-in-grayscale" class="nav-link" data-scroll-target="#inflation-in-grayscale"><span class="toc-section-number">5.2.1</span>  Inflation in grayscale</a></li>
   </ul></li>
-  <li><a href="#inflation-in-grayscale" id="toc-inflation-in-grayscale" class="nav-link" data-scroll-target="#inflation-in-grayscale"><span class="toc-section-number">5.2</span>  Inflation in grayscale</a></li>
   </ul>
 </nav>
     </div>
@@ -314,10 +314,9 @@ div.csl-indent {
 <p>Fewer Scottish Islands makes the graphs a lot clearer with little loss of information, given the tiny number of transactions in the Orkneys and the Shetlands, very far to the north.</p>
 <p>In what follows we filter out the islands using</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fle <span class="ot">&lt;-</span> <span class="st">"LAD_Dec_2015_GCB_GB"</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="at">dsn=</span><span class="st">"."</span>, <span class="at">layer=</span>fle) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>lad15nm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Shetland Islands"</span>,<span class="st">"Orkney Islands"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country=</span><span class="fu">str_sub</span>(lad15cd, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">.after=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="at">dsn=</span><span class="st">"."</span>, <span class="at">layer=</span>fle) <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>lad15nm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Shetland Islands"</span>,<span class="st">"Orkney Islands"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country=</span><span class="fu">str_sub</span>(lad15cd, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">.after=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where we also create an indicator of country using the first letter of the code string.</p>
 <p>So the country map is</p>
@@ -326,7 +325,7 @@ div.csl-indent {
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Country) <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill=</span>Country), <span class="at">color=</span><span class="st">"grey77"</span>, <span class="at">linewidth=</span><span class="dv">1</span>, <span class="at">alpha=</span>.<span class="dv">66</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill=</span>Country), <span class="at">color=</span><span class="st">"grey77"</span>, <span class="at">linewidth=</span>.<span class="dv">25</span>, <span class="at">alpha=</span>.<span class="dv">66</span>) <span class="sc">+</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -337,14 +336,12 @@ div.csl-indent {
 </div>
 </div>
 <p>Note the really nice feature – if we group by something, in this case country, we can summarise to amalgamate the geometries!</p>
-<p>You may have noticed, one thing that that’s missing on the LA graphs is the boundaries. They aren’t, they’re just invisible. That’s because I have set <code>colour = NA</code>, so we can fix that by choosing a colour and making the lines very thin so they don’t swamp the map, as in the country one.</p>
-<div class="cell" data-layout-align="center">
-
-</div>
+<p>You may have noticed, one thing that that’s missing on the LA graphs is the boundaries. They aren’t, they’re just invisible. That’s because I set <code>colour = NA</code>, so I can fix that by choosing a colour and making the lines very thin so they don’t swamp the map, as in the country one.</p>
 <p>One further amendment, the <code>fill</code> is moved inside the <code>aes()</code> specification and made conditional. <code>R</code> now chooses unique colours for each of the regions.</p>
 <p>Two things now need to be done to get the map colours right to illustrate regional inflation rates. First we need to amalgamate some of the Local Authority boundaries to the Land Registry definitions, and second we need to assign the inflation rate to each area.</p>
-<section id="inflation-data-and-regions" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="inflation-data-and-regions"><span class="header-section-number">5.1.1</span> Inflation data and regions</h3>
+</section>
+<section id="inflation-data-and-regions" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="inflation-data-and-regions"><span class="header-section-number">5.2</span> Inflation data and regions</h2>
 <p>We have a map, and we have that data in a form that is easy to understand. If we can suitably attach an inflation rate to each area then we can fill the individual areas with a colour unique to each individual inflation rates.</p>
 <p>Recall that the Land Registry areas aren’t quite what we have, and will need amalgamating. <span class="citation" data-cites="BFP">Bahaj, Foulis, and Pinter (<a href="references.html#ref-BFP" role="doc-biblioref">2020</a>)</span> supplied me the areas that needed amalgamating (and the inflation rates) using the <a href="https://en.wikipedia.org/wiki/ONS_coding_system">ONS codes</a>. This is contained in the metadata <code>lad15cd</code> above.</p>
 <p>The data is structured in ‘wide’ format with one row for each Land Registry region. The details aren’t very important for us now, but what it means is I can manipulate it to get</p>
@@ -374,7 +371,7 @@ div.csl-indent {
 4 E07000007 buckinghamshire</code></pre>
 </div>
 </div>
-<p>Join:</p>
+<p>Join these together</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join polygons defined by Land Registry regions</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> shape <span class="sc">%&gt;%</span></span>
@@ -383,11 +380,9 @@ div.csl-indent {
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(land_reg_region) <span class="sc">%&gt;%</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>produces a match between the Land Registry and the Local Authority areas, plus the inflation rates. To illustrate this just filter out the <code>buckinghamshire</code> ones again to see:</p>
-</section>
-</section>
-<section id="inflation-in-grayscale" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="inflation-in-grayscale"><span class="header-section-number">5.2</span> Inflation in grayscale</h2>
+<p>which produces a match between the Land Registry and the Local Authority areas, plus the inflation rates.</p>
+<section id="inflation-in-grayscale" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="inflation-in-grayscale"><span class="header-section-number">5.2.1</span> Inflation in grayscale</h3>
 <p>All the information required to plot the Land Registry-based regional inflation rates is now available. As you can see from the <code>buckinghamshire</code> data above, there are three average rates in three different periods, so I’ll focus on one, 2002-2007 to begin with.</p>
 <p>First, augment the geographic data with the inflation data, and call them something better.</p>
 <div class="cell" data-layout-align="center">
@@ -404,7 +399,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Then calculate some limits for the gradient, and modify the specify a plot to include specifically gray and put the legend at the bottom.</p>
+<p>Then specify gray and put the legend at the bottom.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nms <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"av_hp_growth"</span>, <span class="st">"HPI"</span>, <span class="fu">colnames</span>(hp_data))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -415,7 +410,7 @@ div.csl-indent {
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(gg) <span class="sc">%&gt;%</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry=</span>geometry, <span class="at">fill=</span>HPI_02_07), </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">color=</span><span class="cn">NA</span>, <span class="at">alpha=</span>.<span class="dv">66</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">color=</span><span class="cn">NA</span>, <span class="at">alpha=</span>.<span class="dv">66</span>, <span class="at">show.legend =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="fu">grey</span>(<span class="fl">0.9</span>), <span class="at">high=</span><span class="fu">grey</span>(<span class="fl">0.05</span>)) <span class="sc">+</span></span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.direction =</span> <span class="st">"horizontal"</span>, </span>
@@ -439,6 +434,7 @@ div.csl-indent {
 Bahaj, Saleem, Angus Foulis, and Gabor Pinter. 2020. <span>“Home Values and Firm Behavior.”</span> <em>American Economic Review</em> 110 (7): 2225–70. <a href="https://doi.org/10.1257/aer.20180649">https://doi.org/10.1257/aer.20180649</a>.
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->
