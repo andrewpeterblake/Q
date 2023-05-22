@@ -27,11 +27,15 @@ shape <- read_sf(dsn=".", layer=fle) %>%
   filter(!lad15nm %in% c("Shetland Islands","Orkney Islands")) %>%
   mutate(Country=str_sub(lad15cd, 1, 1), .after=1)
 ```
+
 We can look at the attributes using `summary`.
+
 ```{r summary, message=FALSE, warning=FALSE, fig.align='center'}
 summary(shape)
 ```
+
 This can be plotted straightforwardly using `ggplot`.
+
 ```{r map0a, message=FALSE, warning=FALSE, fig.align='center'}
 shape %>%
   ggplot() +
