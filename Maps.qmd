@@ -11,7 +11,7 @@ A simple enough question, and one that @BFP thought was best answered with a map
 
 Before all of this we need some data, with boundaries that correspond to areas that we have data for. The regional inflation data is available at the level of the [Land Registry](https://www.gov.uk/government/organisations/land-registry), which almost by local authority but amalgamates a number of the areas. So a map at Local Authority level would be fine as long as we can amalgamate some of the regions.
 
-The map data used here is available from the UK's [ONS geoportal](https://geoportal.statistics.gov.uk/), with a lot of administrative data available including local authority boundaries. The Local Authority data is specifically available from [here](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2015-boundaries?layer=0), where I use the clipped full extent version. There are a number of possibilities, but in general high water mark, and enough but not too much detail is needed.
+The map data used here is available from the UK's [ONS geoportal](https://geoportal.statistics.gov.uk/), with a lot of administrative data available including local authority boundaries. The Local Authority data is specifically available from [here](https://geoportal.statistics.gov.uk/maps/lad-dec-2015-generalised-clipped-boundaries-gb), where I use the clipped full extent version. There are a number of possibilities, but in general high water mark, and enough but not too much detail is needed.
 
 ```{r libs, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -23,9 +23,7 @@ The information in the map file is comprehensive, and by Local Authority as of D
 
 ```{r map0, message=FALSE, warning=FALSE, fig.align='center'}
 fle <- "LAD_Dec_2015_GCB_GB"
-shape <- read_sf(dsn=".", layer=fle) %>%
-  filter(!lad15nm %in% c("Shetland Islands","Orkney Islands")) %>%
-  mutate(Country=str_sub(lad15cd, 1, 1), .after=1)
+shape <- read_sf(dsn=".", layer=fle)
 ```
 
 We can look at the attributes using `summary`.
@@ -42,34 +40,37 @@ shape %>%
   geom_sf(aes(geometry=geometry, fill=lad15nm), 
           color=NA, alpha=.66, show.legend=FALSE) +
   theme_void()
+```
 
+Looking at the read-out above, each of the 380 regions have some metadata associated, which are contained in each of the listed attributes. It should be obvious that `objectid` is just a sequence from 1 to 380. `lad15nm` turns out to be a list of names of the regions -- I suspect `lad` for Local Authority District, `15` for 2015 and `nm` for name -- and it is easy to specify this as the name to use for the region when using `tidy`.
+
+Now this can be plotted using `ggplot`, using `geometry` for the $x$ and $y$ coordinates. The choice of fill colour is determined by `fill` and we can set the colour of the lines by `colour` (or `color`). The two extra arguments are for a suitable blank style and to impose an appropriate ratio of height to width.
+
+Immediately, the awkward shape of the British Isles is apparent. (Note this is a plot of Great Britain, and there is no Northern Ireland.) The islands to the far north are somewhat unnecessary, although quite rightly the inhabitants get a bit tired of being left off maps! Nonetheless I'll do exactly the same by filtering out the polygons associated with `Orkney Islands` and `Shetland Islands`.
+
+Fewer Scottish Islands makes the graphs a lot clearer with little loss of information, given the tiny number of transactions in the Orkneys and the Shetlands, very far to the north.
+
+In what follows we filter out the islands using 
+```{r map0q, message=FALSE, warning=FALSE, fig.align='center'}
+fle <- "LAD_Dec_2015_GCB_GB"
+shape <- read_sf(dsn=".", layer=fle) %>%
+  filter(!lad15nm %in% c("Shetland Islands","Orkney Islands")) %>%
+  mutate(Country=str_sub(lad15cd, 1, 1), .after=1)
+```
+where we also create an indicator of country using the first letter of the code string.
+
+So the country map is
+```{r map0d, message=FALSE, warning=FALSE, fig.align='center'}
 shape %>%
   group_by(Country) %>%
   summarise() %>%
   ggplot() +
-  geom_sf(aes(fill=Country), color="grey77", alpha=.66) +
+  geom_sf(aes(fill=Country), color="grey77", linewidth=.5, alpha=.66) +
   theme_void()
 ```
+Note the really nice feature -- if we group by something, in this case country, we can summarise to amalgamate the geometries!
 
-### Tidy data
-
-However, `ggplot` can be used.
-
-Looking at the read-out above, each of the 380 regions have some metadata associated, which are contained in each of the listed attributes. It should be obvious that `objectid` is just a sequence from 1 to 380. `lad15nm` turns out to be a list of names of the regions -- I suspect `lad` for Local Authority District, `15` for 2015 and `nm` for name -- and it is easy to specify this as the name to use for the region when using `tidy`.
-
-Now this can be plotted using `ggplot`, using `long` and `lat` as the $x$ and $y$ coordinates. The choice of fill colour is determined by `fill` and we can set the colour of the lines by `colour` (or `color`). The two extra arguments are for a suitable blank style and to impose an appropriate ratio of height to width.
-
-Immediately, the awkward shape of the British Isles is apparent. (Note this is a plot of Great Britain, and there is no Northern Ireland.) The islands to the far north are somewhat unnecessary, although quite rightly the inhabitants get a bit tired of being left off maps! Nonetheless I'll do exactly the same by filtering out the polygons associated with `Orkney Islands` and `Shetland Islands`.
-
-```{r nois, fig.align='center', out.width="55%", out.extra='style="float:left; padding:5px"'}
-
-```
-
-Fewer Scottish Islands makes the graphs a lot clearer with little loss of information, given the tiny number of transactions in the Orkneys and the Shetlands, very far to the north.
-
-### LA boundaries
-
-You may have noticed, one thing that that's missing on all of these graphs is the Local Authority boundaries. They aren't, they're just invisible. That's because I have set `colour = NA` in all the graphs above, so we can fix that by choosing a colour and making the lines very thin so they don't swamp the map.
+You may have noticed, one thing that that's missing on the LA graphs is the boundaries. They aren't, they're just invisible. That's because I have set `colour = NA`, so we can fix that by choosing a colour and making the lines very thin so they don't swamp the map, as in the country one.
 
 ```{r bounds, fig.align='center', out.width="55%", out.extra='style="float:right; padding:5px"'}
 

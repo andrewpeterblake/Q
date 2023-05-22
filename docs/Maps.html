@@ -232,9 +232,7 @@ div.csl-indent {
   <ul>
   <li><a href="#how-heterogenous-is-uk-house-price-inflation" id="toc-how-heterogenous-is-uk-house-price-inflation" class="nav-link active" data-scroll-target="#how-heterogenous-is-uk-house-price-inflation"><span class="toc-section-number">5.1</span>  How heterogenous is UK house price inflation?</a>
   <ul class="collapse">
-  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data"><span class="toc-section-number">5.1.1</span>  Tidy data</a></li>
-  <li><a href="#la-boundaries" id="toc-la-boundaries" class="nav-link" data-scroll-target="#la-boundaries"><span class="toc-section-number">5.1.2</span>  LA boundaries</a></li>
-  <li><a href="#inflation-data-and-regions" id="toc-inflation-data-and-regions" class="nav-link" data-scroll-target="#inflation-data-and-regions"><span class="toc-section-number">5.1.3</span>  Inflation data and regions</a></li>
+  <li><a href="#inflation-data-and-regions" id="toc-inflation-data-and-regions" class="nav-link" data-scroll-target="#inflation-data-and-regions"><span class="toc-section-number">5.1.1</span>  Inflation data and regions</a></li>
   </ul></li>
   <li><a href="#inflation-in-grayscale" id="toc-inflation-in-grayscale" class="nav-link" data-scroll-target="#inflation-in-grayscale"><span class="toc-section-number">5.2</span>  Inflation in grayscale</a></li>
   </ul>
@@ -270,7 +268,7 @@ div.csl-indent {
 <li>It has to be in grayscale.</li>
 </ul>
 <p>Before all of this we need some data, with boundaries that correspond to areas that we have data for. The regional inflation data is available at the level of the <a href="https://www.gov.uk/government/organisations/land-registry">Land Registry</a>, which almost by local authority but amalgamates a number of the areas. So a map at Local Authority level would be fine as long as we can amalgamate some of the regions.</p>
-<p>The map data used here is available from the UK’s <a href="https://geoportal.statistics.gov.uk/">ONS geoportal</a>, with a lot of administrative data available including local authority boundaries. The Local Authority data is specifically available from <a href="https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2015-boundaries?layer=0">here</a>, where I use the clipped full extent version. There are a number of possibilities, but in general high water mark, and enough but not too much detail is needed.</p>
+<p>The map data used here is available from the UK’s <a href="https://geoportal.statistics.gov.uk/">ONS geoportal</a>, with a lot of administrative data available including local authority boundaries. The Local Authority data is specifically available from <a href="https://geoportal.statistics.gov.uk/maps/lad-dec-2015-generalised-clipped-boundaries-gb">here</a>, where I use the clipped full extent version. There are a number of possibilities, but in general high water mark, and enough but not too much detail is needed.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
@@ -279,22 +277,20 @@ div.csl-indent {
 <p>The information in the map file is comprehensive, and by Local Authority as of December 2015.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fle <span class="ot">&lt;-</span> <span class="st">"LAD_Dec_2015_GCB_GB"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="at">dsn=</span><span class="st">"."</span>, <span class="at">layer=</span>fle) <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>lad15nm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Shetland Islands"</span>,<span class="st">"Orkney Islands"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country=</span><span class="fu">str_sub</span>(lad15cd, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">.after=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="at">dsn=</span><span class="st">"."</span>, <span class="at">layer=</span>fle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can look at the attributes using <code>summary</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   lad15cd            Country            lad15nm            lad15nmw        
- Length:378         Length:378         Length:378         Length:378        
+<pre><code>   lad15cd            lad15nm            lad15nmw           GlobalID        
+ Length:380         Length:380         Length:380         Length:380        
  Class :character   Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-   GlobalID                  geometry  
- Length:378         MULTIPOLYGON :378  
- Class :character   epsg:27700   :  0  
- Mode  :character   +proj=tmer...:  0  </code></pre>
+          geometry  
+ MULTIPOLYGON :380  
+ epsg:27700   :  0  
+ +proj=tmer...:  0  </code></pre>
 </div>
 </div>
 <p>This can be plotted straightforwardly using <code>ggplot</code>.</p>
@@ -311,61 +307,63 @@ div.csl-indent {
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shape <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Country) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill=</span>Country), <span class="at">color=</span><span class="st">"grey77"</span>, <span class="at">alpha=</span>.<span class="dv">66</span>) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Looking at the read-out above, each of the 380 regions have some metadata associated, which are contained in each of the listed attributes. It should be obvious that <code>objectid</code> is just a sequence from 1 to 380. <code>lad15nm</code> turns out to be a list of names of the regions – I suspect <code>lad</code> for Local Authority District, <code>15</code> for 2015 and <code>nm</code> for name – and it is easy to specify this as the name to use for the region when using <code>tidy</code>.</p>
+<p>Now this can be plotted using <code>ggplot</code>, using <code>geometry</code> for the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates. The choice of fill colour is determined by <code>fill</code> and we can set the colour of the lines by <code>colour</code> (or <code>color</code>). The two extra arguments are for a suitable blank style and to impose an appropriate ratio of height to width.</p>
+<p>Immediately, the awkward shape of the British Isles is apparent. (Note this is a plot of Great Britain, and there is no Northern Ireland.) The islands to the far north are somewhat unnecessary, although quite rightly the inhabitants get a bit tired of being left off maps! Nonetheless I’ll do exactly the same by filtering out the polygons associated with <code>Orkney Islands</code> and <code>Shetland Islands</code>.</p>
+<p>Fewer Scottish Islands makes the graphs a lot clearer with little loss of information, given the tiny number of transactions in the Orkneys and the Shetlands, very far to the north.</p>
+<p>In what follows we filter out the islands using</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fle <span class="ot">&lt;-</span> <span class="st">"LAD_Dec_2015_GCB_GB"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="at">dsn=</span><span class="st">"."</span>, <span class="at">layer=</span>fle) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>lad15nm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Shetland Islands"</span>,<span class="st">"Orkney Islands"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country=</span><span class="fu">str_sub</span>(lad15cd, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">.after=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>where we also create an indicator of country using the first letter of the code string.</p>
+<p>So the country map is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>shape <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Country) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill=</span>Country), <span class="at">color=</span><span class="st">"grey77"</span>, <span class="at">linewidth=</span><span class="dv">1</span>, <span class="at">alpha=</span>.<span class="dv">66</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Maps_files/figure-html/map0a-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Maps_files/figure-html/map0d-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="tidy-data" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="tidy-data"><span class="header-section-number">5.1.1</span> Tidy data</h3>
-<p>However, <code>ggplot</code> can be used.</p>
-<p>Looking at the read-out above, each of the 380 regions have some metadata associated, which are contained in each of the listed attributes. It should be obvious that <code>objectid</code> is just a sequence from 1 to 380. <code>lad15nm</code> turns out to be a list of names of the regions – I suspect <code>lad</code> for Local Authority District, <code>15</code> for 2015 and <code>nm</code> for name – and it is easy to specify this as the name to use for the region when using <code>tidy</code>.</p>
-<p>Now this can be plotted using <code>ggplot</code>, using <code>long</code> and <code>lat</code> as the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates. The choice of fill colour is determined by <code>fill</code> and we can set the colour of the lines by <code>colour</code> (or <code>color</code>). The two extra arguments are for a suitable blank style and to impose an appropriate ratio of height to width.</p>
-<p>Immediately, the awkward shape of the British Isles is apparent. (Note this is a plot of Great Britain, and there is no Northern Ireland.) The islands to the far north are somewhat unnecessary, although quite rightly the inhabitants get a bit tired of being left off maps! Nonetheless I’ll do exactly the same by filtering out the polygons associated with <code>Orkney Islands</code> and <code>Shetland Islands</code>.</p>
-<div class="cell" data-layout-align="center">
-
-</div>
-<p>Fewer Scottish Islands makes the graphs a lot clearer with little loss of information, given the tiny number of transactions in the Orkneys and the Shetlands, very far to the north.</p>
-</section>
-<section id="la-boundaries" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="la-boundaries"><span class="header-section-number">5.1.2</span> LA boundaries</h3>
-<p>You may have noticed, one thing that that’s missing on all of these graphs is the Local Authority boundaries. They aren’t, they’re just invisible. That’s because I have set <code>colour = NA</code> in all the graphs above, so we can fix that by choosing a colour and making the lines very thin so they don’t swamp the map.</p>
+<p>Note the really nice feature – if we group by something, in this case country, we can summarise to amalgamate the geometries!</p>
+<p>You may have noticed, one thing that that’s missing on the LA graphs is the boundaries. They aren’t, they’re just invisible. That’s because I have set <code>colour = NA</code>, so we can fix that by choosing a colour and making the lines very thin so they don’t swamp the map, as in the country one.</p>
 <div class="cell" data-layout-align="center">
 
 </div>
 <p>One further amendment, the <code>fill</code> is moved inside the <code>aes()</code> specification and made conditional. <code>R</code> now chooses unique colours for each of the regions.</p>
 <p>Two things now need to be done to get the map colours right to illustrate regional inflation rates. First we need to amalgamate some of the Local Authority boundaries to the Land Registry definitions, and second we need to assign the inflation rate to each area.</p>
-</section>
-<section id="inflation-data-and-regions" class="level3" data-number="5.1.3">
-<h3 data-number="5.1.3" class="anchored" data-anchor-id="inflation-data-and-regions"><span class="header-section-number">5.1.3</span> Inflation data and regions</h3>
+<section id="inflation-data-and-regions" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="inflation-data-and-regions"><span class="header-section-number">5.1.1</span> Inflation data and regions</h3>
 <p>We have a map, and we have that data in a form that is easy to understand. If we can suitably attach an inflation rate to each area then we can fill the individual areas with a colour unique to each individual inflation rates.</p>
 <p>Recall that the Land Registry areas aren’t quite what we have, and will need amalgamating. <span class="citation" data-cites="BFP">Bahaj, Foulis, and Pinter (<a href="references.html#ref-BFP" role="doc-biblioref">2020</a>)</span> supplied me the areas that needed amalgamating (and the inflation rates) using the <a href="https://en.wikipedia.org/wiki/ONS_coding_system">ONS codes</a>. This is contained in the metadata <code>lad15cd</code> above.</p>
 <p>The data is structured in ‘wide’ format with one row for each Land Registry region. The details aren’t very important for us now, but what it means is I can manipulate it to get</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Price data by Land Registry region, converted to long format</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>hp_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"house_price_data_figure_1.xls"</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">"land_reg_region"</span>, <span class="fu">starts_with</span>(<span class="st">"e_"</span>), <span class="fu">starts_with</span>(<span class="st">"av_"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to  =</span> <span class="st">"name"</span>, </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"lad15cd"</span>, </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">cols      =</span> <span class="fu">c</span>(<span class="sc">-</span>land_reg_region, <span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"av_"</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(land_reg_region, lad15cd, <span class="fu">starts_with</span>(<span class="st">"av_"</span>)) </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>codes <span class="ot">&lt;-</span> hp_data <span class="sc">%&gt;%</span> </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lad15cd, land_reg_region) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Price data by Land Registry region, converted to long format</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>hp_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"house_price_data_figure_1.xls"</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">"land_reg_region"</span>, <span class="fu">starts_with</span>(<span class="st">"e_"</span>), <span class="fu">starts_with</span>(<span class="st">"av_"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to  =</span> <span class="st">"name"</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"lad15cd"</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">cols      =</span> <span class="fu">c</span>(<span class="sc">-</span>land_reg_region, <span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"av_"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(land_reg_region, lad15cd, <span class="fu">starts_with</span>(<span class="st">"av_"</span>)) </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>codes <span class="ot">&lt;-</span> hp_data <span class="sc">%&gt;%</span> </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lad15cd, land_reg_region) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The important thing that the <code>pivot_longer</code> achieves is that for every <code>land_reg_region</code> I get a list of all the ONS codes that makes up the Local Authority level. So if I look at <code>buckinghamshire</code> as an example there are four ONS codes now associated with it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(codes, land_reg_region <span class="sc">==</span> <span class="st">"buckinghamshire"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(codes, land_reg_region <span class="sc">==</span> <span class="st">"buckinghamshire"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   lad15cd   land_reg_region
@@ -378,12 +376,12 @@ div.csl-indent {
 </div>
 <p>Join:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join polygons defined by Land Registry regions</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> shape <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"lad"</span>,<span class="st">"C"</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(codes, <span class="at">by=</span><span class="st">"lad15cd"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(land_reg_region) <span class="sc">%&gt;%</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join polygons defined by Land Registry regions</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> shape <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"lad"</span>,<span class="st">"C"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(codes, <span class="at">by=</span><span class="st">"lad15cd"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(land_reg_region) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>produces a match between the Land Registry and the Local Authority areas, plus the inflation rates. To illustrate this just filter out the <code>buckinghamshire</code> ones again to see:</p>
 </section>
@@ -393,11 +391,11 @@ div.csl-indent {
 <p>All the information required to plot the Land Registry-based regional inflation rates is now available. As you can see from the <code>buckinghamshire</code> data above, there are three average rates in three different periods, so I’ll focus on one, 2002-2007 to begin with.</p>
 <p>First, augment the geographic data with the inflation data, and call them something better.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gg <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry=</span>geometry, <span class="at">fill=</span>land_reg_region), </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">color=</span><span class="cn">NA</span>, <span class="at">alpha=</span>.<span class="dv">66</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>gg <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry=</span>geometry, <span class="at">fill=</span>land_reg_region), </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">color=</span><span class="cn">NA</span>, <span class="at">alpha=</span>.<span class="dv">66</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -408,21 +406,21 @@ div.csl-indent {
 </div>
 <p>Then calculate some limits for the gradient, and modify the specify a plot to include specifically gray and put the legend at the bottom.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nms <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"av_hp_growth"</span>, <span class="st">"HPI"</span>, <span class="fu">colnames</span>(hp_data))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>hp_data <span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>( <span class="sc">~</span> nms) <span class="sc">%&gt;%</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(land_reg_region, <span class="fu">starts_with</span>(<span class="st">"HPI"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(gg) <span class="sc">%&gt;%</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry=</span>geometry, <span class="at">fill=</span>HPI_02_07), </span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">color=</span><span class="cn">NA</span>, <span class="at">alpha=</span>.<span class="dv">66</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="fu">grey</span>(<span class="fl">0.9</span>), <span class="at">high=</span><span class="fu">grey</span>(<span class="fl">0.05</span>)) <span class="sc">+</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.direction =</span> <span class="st">"horizontal"</span>, </span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position  =</span> <span class="fu">c</span>(<span class="fl">0.75</span>,<span class="fl">0.05</span>),</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title     =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nms <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"av_hp_growth"</span>, <span class="st">"HPI"</span>, <span class="fu">colnames</span>(hp_data))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>hp_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_all</span>( <span class="sc">~</span> nms) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(land_reg_region, <span class="fu">starts_with</span>(<span class="st">"HPI"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(gg) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry=</span>geometry, <span class="at">fill=</span>HPI_02_07), </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">color=</span><span class="cn">NA</span>, <span class="at">alpha=</span>.<span class="dv">66</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="fu">grey</span>(<span class="fl">0.9</span>), <span class="at">high=</span><span class="fu">grey</span>(<span class="fl">0.05</span>)) <span class="sc">+</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.direction =</span> <span class="st">"horizontal"</span>, </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position  =</span> <span class="fu">c</span>(<span class="fl">0.75</span>,<span class="fl">0.05</span>),</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title     =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(land_reg_region)`</code></pre>
 </div>
