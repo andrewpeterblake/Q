@@ -16,6 +16,7 @@ book:
     - index.qmd
     - intro.qmd
     - R2021.qmd
+    - BVAR.qmd
     - QR.qmd
     - Stemp.qmd
     - Maps.qmd
