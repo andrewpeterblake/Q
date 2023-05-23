@@ -1,4 +1,4 @@
-# Quantile regression in R
+# Quantile regression
 
 This shows how to manipulate data from the SPF in R.
 

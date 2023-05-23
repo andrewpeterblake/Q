@@ -1,4 +1,4 @@
-# Causal Inference in Statistics
+# Causal Inference
 
 Outline how to solve the @Primer exercises in R.
 
