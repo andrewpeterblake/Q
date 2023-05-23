@@ -310,7 +310,15 @@ div.csl-indent {
 </section>
 <section id="bvar-hyperparameters" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="bvar-hyperparameters"><span class="header-section-number">3.3</span> BVAR hyperparameters</h2>
-<p>We will (similarly to the straightforward Minnesota prior) need some control parameters: - <span class="math inline">\(\tau\)</span> controls the overall tightness of the prior for the AR coefficients - <span class="math inline">\(d\)</span> controls the prior on higher lags; - <span class="math inline">\(\lambda\)</span> controls the prior on constants; - <span class="math inline">\(\gamma\)</span> controls the prior on the sum of coefficients; - <span class="math inline">\(\delta\)</span> controls the cointegration prior; where - <span class="math inline">\(\sigma_i\)</span> standard deviation of error terms from individual OLS regressions; - <span class="math inline">\(\mu_i\)</span> sample means of the data.</p>
+<p>We will (similarly to the straightforward Minnesota prior) need some control parameters:</p>
+<pre><code>- $\tau$ controls the overall tightness of the prior for the AR coefficients
+- $d$ controls the prior on higher lags;
+- $\lambda$ controls the prior on constants;
+- $\gamma$ controls the prior on the sum of coefficients;
+- $\delta$ controls the cointegration prior;</code></pre>
+<p>where</p>
+<pre><code>- $\sigma_i$ standard deviation of error terms from individual OLS regressions;
+- $\mu_i$ sample means of the data.</code></pre>
 <section id="first-lag" class="level4" data-number="3.3.0.1">
 <h4 data-number="3.3.0.1" class="anchored" data-anchor-id="first-lag"><span class="header-section-number">3.3.0.1</span> First lag</h4>
 <p>Now consider the following artificial data for the <strong>first lag</strong>. We construct some dummy observations of the dependent and explanatory variables that look like: <span class="math display">\[
@@ -500,31 +508,31 @@ X^* = \left [ \matrix{1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 <p>We specify a VAR with two lags, and use it to forecast 12 periods ahead. The BVAR are specified using the names above, with only <code>tau</code> particularly binding in this case. We set the total number of iterations in each case to 20000 and discard the first half. The parameter <code>nb</code> is used to set how much back data should appear in a fan chart.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">#########</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Options</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">#########</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>nf <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="co"># Max forecast horizon</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="dv">21</span> <span class="co"># No. back periods plotted in graphs</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>l  <span class="ot">&lt;-</span> <span class="dv">2</span>  <span class="co"># Number of lags in VAR</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># specify parameters of the Minnesota-type prior</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>tau    <span class="ot">&lt;-</span> .<span class="dv">1</span>   <span class="co"># controls prior on own 1st lags (1 makes wibbly)</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>d      <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># decay for higher lags</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># prior for the constant</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>gamma  <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># sum of coefficients unit roots</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>delta  <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># cointegration prior</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Gibbs control</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>reps <span class="ot">&lt;-</span> <span class="dv">20000</span> <span class="co"># total numbers of Gibbs iterations</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>burn <span class="ot">&lt;-</span> <span class="dv">10000</span> <span class="co"># number of burn-in iterations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">#########</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Options</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">#########</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>nf <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="co"># Max forecast horizon</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="dv">21</span> <span class="co"># No. back periods plotted in graphs</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>l  <span class="ot">&lt;-</span> <span class="dv">2</span>  <span class="co"># Number of lags in VAR</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># specify parameters of the Minnesota-type prior</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>tau    <span class="ot">&lt;-</span> .<span class="dv">1</span>   <span class="co"># controls prior on own 1st lags (1 makes wibbly)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>d      <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># decay for higher lags</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># prior for the constant</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>gamma  <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># sum of coefficients unit roots</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>delta  <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># cointegration prior</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Gibbs control</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>reps <span class="ot">&lt;-</span> <span class="dv">20000</span> <span class="co"># total numbers of Gibbs iterations</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>burn <span class="ot">&lt;-</span> <span class="dv">10000</span> <span class="co"># number of burn-in iterations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In what follows we vary <code>tau</code> and the lag length to illustrate their effects. To do this we create the augmented data and then run the Gibbs sampler, using:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create augmented data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Yplus <span class="ot">&lt;-</span> <span class="fu">augmentData</span>(Y, l, tau, d, lambda, gamma, delta)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Gibbs sampler</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>out   <span class="ot">&lt;-</span> <span class="fu">Gibbs_estimate</span>(Yplus[[<span class="dv">1</span>]], Yplus[[<span class="dv">2</span>]], reps, burn, <span class="dv">1</span>, nf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create augmented data</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Yplus <span class="ot">&lt;-</span> <span class="fu">augmentData</span>(Y, l, tau, d, lambda, gamma, delta)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Gibbs sampler</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>out   <span class="ot">&lt;-</span> <span class="fu">Gibbs_estimate</span>(Yplus[[<span class="dv">1</span>]], Yplus[[<span class="dv">2</span>]], reps, burn, <span class="dv">1</span>, nf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where <code>Y</code> contains the data in a dataframe/tibble with the date in the first column as in the data example above. The code strips out the date and then uses the remaining <span class="math inline">\(N\)</span> columns in the BVAR. See the Code Appendix for the details of the functions.</p>
 <div class="cell">
@@ -532,15 +540,15 @@ X^* = \left [ \matrix{1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 <p>The output contains any <strong><em>forecast</em></strong> draws from the Gibbs sampler in the third list element from the <code>Gibbs_estimate()</code> function. The first two elements are coefficient draws. Two further functions plots the fan charts using the Gibbs draws:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># String to put in subtitle</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>controls <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Lag length "</span>, l, <span class="st">": tau="</span>, tau, <span class="st">", d="</span>, d,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">", lambda="</span>, lambda, <span class="st">", gamma="</span>, gamma, <span class="st">", delta="</span>, delta)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fan_chart</span>(Y, out[[<span class="dv">3</span>]], controls, nb)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>p           <span class="ot">&lt;-</span> <span class="fu">coeff_plot</span>(Y, l, out[[<span class="dv">1</span>]], out[[<span class="dv">2</span>]], <span class="dv">333</span>, controls)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>pnum        <span class="ot">&lt;-</span> pnum<span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>pce[[pnum]] <span class="ot">&lt;-</span> p[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># String to put in subtitle</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>controls <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Lag length "</span>, l, <span class="st">": tau="</span>, tau, <span class="st">", d="</span>, d,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">", lambda="</span>, lambda, <span class="st">", gamma="</span>, gamma, <span class="st">", delta="</span>, delta)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fan_chart</span>(Y, out[[<span class="dv">3</span>]], controls, nb)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>p           <span class="ot">&lt;-</span> <span class="fu">coeff_plot</span>(Y, l, out[[<span class="dv">1</span>]], out[[<span class="dv">2</span>]], <span class="dv">333</span>, controls)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>pnum        <span class="ot">&lt;-</span> pnum<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>pce[[pnum]] <span class="ot">&lt;-</span> p[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where the string <code>controls</code> is put in the chart subtitle and the coefficient densities. It can be anything but is a good place to remind yourself of how you specified the model. Notice we save the coefficient plots for later use.</p>
 <section id="example-1-bvar2-with-tau0.1" class="level4" data-number="3.4.0.1">

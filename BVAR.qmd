@@ -80,12 +80,15 @@ $$
 ## BVAR hyperparameters
 
 We will (similarly to the straightforward Minnesota prior) need some control parameters:
+
     - $\tau$ controls the overall tightness of the prior for the AR coefficients
     - $d$ controls the prior on higher lags;
     - $\lambda$ controls the prior on constants;
     - $\gamma$ controls the prior on the sum of coefficients;
     - $\delta$ controls the cointegration prior;
+
 where
+
     - $\sigma_i$ standard deviation of error terms from individual OLS regressions;
     - $\mu_i$ sample means of the data.
 
