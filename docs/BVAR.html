@@ -83,6 +83,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -271,7 +290,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="bvars-with-dummy-variable-priors" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="bvars-with-dummy-variable-priors"><span class="header-section-number">3.2</span> BVARs with dummy variable priors</h2>
-<p>Rather than combine a prior distribution with a likelihood and draw from the resulting joint posterior distribution there is another convenient way of parameterizing the problem. We can instead add some ‘dummy variables’ that have the same properties of the prior so we have a single modified likelihood that incorporates the prior information. This approach was most obviously adopted by <span class="citation" data-cites="Banbura">(<a href="references.html#ref-Banbura" role="doc-biblioref"><strong>Banbura?</strong></a>)</span>. Further discussion of this can be found in <span class="citation" data-cites="PriorsVAR">(<a href="references.html#ref-PriorsVAR" role="doc-biblioref"><strong>PriorsVAR?</strong></a>)</span>. In general this is a version of the <span class="citation" data-cites="Theil">(<a href="references.html#ref-Theil" role="doc-biblioref"><strong>Theil?</strong></a>)</span> <strong><em>mixed estimator</em></strong> given a Bayesian interpretation.</p>
+<p>Rather than combine a prior distribution with a likelihood and draw from the resulting joint posterior distribution there is another convenient way of parameterizing the problem. We can instead add some ‘dummy variables’ that have the same properties of the prior so we have a single modified likelihood that incorporates the prior information. This approach was most obviously adopted by <span class="citation" data-cites="Banbura">Banbura, Giannone, and Reichlin (<a href="references.html#ref-Banbura" role="doc-biblioref">2010</a>)</span>. Further discussion of this can be found in <span class="citation" data-cites="PriorsVAR">Giannone, Lenza, and Primiceri (<a href="references.html#ref-PriorsVAR" role="doc-biblioref">2015</a>)</span>. In general this is a version of the <span class="citation" data-cites="Theil">Theil and Goldberger (<a href="references.html#ref-Theil" role="doc-biblioref">1961</a>)</span> <strong><em>mixed estimator</em></strong> given a Bayesian interpretation.</p>
 <section id="var-model" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="var-model"><span class="header-section-number">3.2.1</span> VAR model</h3>
 <p>Simple bi-variate two-lag VAR model: <span class="math display">\[
@@ -359,7 +378,7 @@ X_{D,2} = \left [ \matrix{0 &amp; 0 &amp; 0 &amp; \frac{\sigma_1 2^d}{\tau} &amp
   X_{D,4} = \left [ \matrix{0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \cr
     0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 }\right]
 \]</span> with the magnitude of the diagonal elements of <span class="math inline">\(\Sigma\)</span> controlled by the scale of the diagonal elements of <span class="math inline">\(Y_{D,4}\)</span>, as larger diagonal elements implement the prior belief that the variance of <span class="math inline">\(\nu_1\)</span> and <span class="math inline">\(\nu_2\)</span> is larger.</p>
-<p><span class="citation" data-cites="Banbura">(<a href="references.html#ref-Banbura" role="doc-biblioref"><strong>Banbura?</strong></a>)</span> stop here, but there are additional priors that could be added.</p>
+<p><span class="citation" data-cites="Banbura">Banbura, Giannone, and Reichlin (<a href="references.html#ref-Banbura" role="doc-biblioref">2010</a>)</span> stop here, but there are additional priors that could be added.</p>
 </section>
 <section id="sum-of-coefficients" class="level4" data-number="3.3.1.4">
 <h4 data-number="3.3.1.4" class="anchored" data-anchor-id="sum-of-coefficients"><span class="header-section-number">3.3.1.4</span> Sum of coefficients</h4>
@@ -762,6 +781,17 @@ X^* = \left [ \matrix{1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-Banbura" class="csl-entry" role="doc-biblioentry">
+Banbura, M., D. Giannone, and L. Reichlin. 2010. <span>“Large <span>B</span>ayesian Vector Auto Regressions.”</span> <em>Journal of Applied Econometrics</em> 25 (1): 71–92.
+</div>
+<div id="ref-PriorsVAR" class="csl-entry" role="doc-biblioentry">
+Giannone, Domenico, Michele Lenza, and Giorgio E. Primiceri. 2015. <span>“<span class="nocase">Prior Selection for Vector Autoregressions</span>.”</span> <em>The Review of Economics and Statistics</em> 97 (2): 436–51.
+</div>
+<div id="ref-Theil" class="csl-entry" role="doc-biblioentry">
+Theil, Henri, and Arthur S. Goldberger. 1961. <span>“On Pure and Mixed Statistical Estimation in Economics.”</span> <em>International Economic Review</em> 2: 317–32.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

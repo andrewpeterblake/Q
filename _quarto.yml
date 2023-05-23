@@ -23,7 +23,7 @@ book:
     - summary.qmd
     - references.qmd
 
-bibliography: CourseRefs.bib
+bibliography: [CourseRefs.bib, BVAR.bib]
 
 format:
   html:
