@@ -1,1 +1,1 @@
-{"options":{"chapters":true},"entries":[{"caption":"Disclaimer","key":"sec-disclaimer","order":{"section":[0,1,0,0,0,0,0],"number":1}}],"headings":["sec-genesis","sec-disclaimer"]}
+{"entries":[{"key":"sec-disclaimer","order":{"section":[0,1,0,0,0,0,0],"number":1},"caption":"Disclaimer"}],"options":{"chapters":true},"headings":["sec-genesis","sec-disclaimer"]}

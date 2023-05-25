@@ -20,7 +20,7 @@ options(signif=5)
 
 How do we solve rational expectations models? Here I show how to implement versions of the @BK80 and @Klein solutions to linear rational expectations models in R. The implementation is fairly general, and copes with singular models. It is a very transparent implementation, with all the necessary code, and also shows how to calculate and plot impulse responses. 
 
-# Model
+## Model
 
 We take a simple New Keynesian model
 $$
@@ -65,7 +65,7 @@ $$
 $$
 Anyone wanting to code up solutions should familiarize themselves with this before continuing.
 
-## Coding up the model in R
+### Coding up the model in R
 
 Before we begin coding this in R, load the `tidyverse` libraries so we can do impulse responses with our usual toolkit and then we can forget about it. 
 ```{r libs, message=FALSE, warning=FALSE}
@@ -177,7 +177,7 @@ response_plot(z, "Impulse responses: Taylor rule")
 ```
 This is clearly exploding. But it's rational -- we're solving forward so expectations are always fulfilled. This is a key the insight of the early rational expectations modelers -- rational isn't enough, non-explosive is necessary too. Fortunately we know how to find this.
 
-# @BK80
+## @BK80
 
 To solve this model to give a unique _stable_ rational expectations equilibrium, we appeal to the following. Consider the eigenvalue decomposition
 $$
@@ -341,7 +341,7 @@ Re(M[ix,iz] %*% solve(M[iz,iz])) # Again, drop tiny complex bits
 
 The result is identical. This method is particularly useful if there are fewer predetermined variables than jumps as the matrix we need to invert is of the same dimension as the predetermined variables this way round.
 
-## Impulse responses
+### Impulse responses
 
 We now call the impulse response function using the model solved for rational expectations.
 ```{r}
@@ -354,7 +354,7 @@ response_plot(z, "Impulse responses: Taylor rule")
 ```
 Now, that looks better! It is no longer explosive. It also makes complete economic sense, which you can verify by going through the dynamics of the different demand, supply and monetary shocks.
 
-# Generalized solution
+## Generalized solution
 
 Sometimes for a model $E$ is singular. A more general solution was proposed by @Klein, that doesn't require $E$ to be non-singular. This uses a generalized Schur decomposition instead of an eigenvalue one and is applied to the structural model represented by the matrix pencil $(A,E)$, and is considered much more numerically stable (see @Pappas). The generalized Schur form of $(A,E)$ is $(QTZ', QSZ')$, so we can write the model as
 $$
