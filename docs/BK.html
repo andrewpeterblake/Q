@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Quantiles, Networks, Time - 3&nbsp; Linear rational expectations models</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./BVAR.html" rel="next">
+<link href="./R2021.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Quantiles, Networks, Time</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Genesis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R2021.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Non-econometric methods for econometricians</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BK.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BVAR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./QR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quantile regression</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Stemp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Causal Inference</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Maps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">4</span>  Introduction</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">5</span>  Model</a>
+  <ul class="collapse">
+  <li><a href="#coding-up-the-model-in-r" id="toc-coding-up-the-model-in-r" class="nav-link" data-scroll-target="#coding-up-the-model-in-r"><span class="toc-section-number">5.1</span>  Coding up the model in R</a></li>
+  </ul></li>
+  <li><a href="#bk80" id="toc-bk80" class="nav-link" data-scroll-target="#bk80"><span class="toc-section-number">6</span>  <span class="citation" data-cites="BK80">Blanchard and Kahn (1980)</span></a>
+  <ul class="collapse">
+  <li><a href="#r-code" id="toc-r-code" class="nav-link" data-scroll-target="#r-code"><span class="toc-section-number">6.0.1</span>  R code</a></li>
+  <li><a href="#stochastic-part" id="toc-stochastic-part" class="nav-link" data-scroll-target="#stochastic-part"><span class="toc-section-number">6.0.2</span>  Stochastic part</a></li>
+  <li><a href="#r-code-1" id="toc-r-code-1" class="nav-link" data-scroll-target="#r-code-1"><span class="toc-section-number">6.0.3</span>  R code</a></li>
+  <li><a href="#digression-right-eigenvector-version" id="toc-digression-right-eigenvector-version" class="nav-link" data-scroll-target="#digression-right-eigenvector-version"><span class="toc-section-number">6.0.4</span>  Digression – right eigenvector version</a></li>
+  <li><a href="#impulse-responses" id="toc-impulse-responses" class="nav-link" data-scroll-target="#impulse-responses"><span class="toc-section-number">6.1</span>  Impulse responses</a></li>
+  </ul></li>
+  <li><a href="#generalized-solution" id="toc-generalized-solution" class="nav-link" data-scroll-target="#generalized-solution"><span class="toc-section-number">7</span>  Generalized solution</a>
+  <ul class="collapse">
+  <li><a href="#singular-models-optimal-policy" id="toc-singular-models-optimal-policy" class="nav-link" data-scroll-target="#singular-models-optimal-policy"><span class="toc-section-number">7.1</span>  Singular models: optimal policy</a>
+  <ul class="collapse">
+  <li><a href="#optimal-impulse-responses" id="toc-optimal-impulse-responses" class="nav-link" data-scroll-target="#optimal-impulse-responses"><span class="toc-section-number">7.1.1</span>  Optimal impulse responses</a></li>
+  </ul></li>
+  <li><a href="#dummy-jumps" id="toc-dummy-jumps" class="nav-link" data-scroll-target="#dummy-jumps"><span class="toc-section-number">7.2</span>  Dummy jumps</a></li>
+  <li><a href="#substituting-out" id="toc-substituting-out" class="nav-link" data-scroll-target="#substituting-out"><span class="toc-section-number">7.3</span>  Substituting out</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<style>
+pre code, code {
+  white-space: pre;
+  overflow-x: scroll;
+  word-break: keep-all;
+  word-wrap: initial;
+}
+</style>
+<section id="introduction" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Introduction</h1>
+<p>How do we solve rational expectations models? Here I show how to implement versions of the <span class="citation" data-cites="BK80">Blanchard and Kahn (<a href="references.html#ref-BK80" role="doc-biblioref">1980</a>)</span> and <span class="citation" data-cites="Klein">Klein (<a href="references.html#ref-Klein" role="doc-biblioref">2000</a>)</span> solutions to linear rational expectations models in R. The implementation is fairly general, and copes with singular models. It is a very transparent implementation, with all the necessary code, and also shows how to calculate and plot impulse responses.</p>
+</section>
+<section id="model" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Model</h1>
+<p>We take a simple New Keynesian model <span class="math display">\[
+\begin{align}
+y_t    &amp;= y_{t+1}^e-\frac{1}{\sigma} (i_t - \pi_{t+1}^e) + e_t^1 \\
+\pi_t  &amp;= \beta \pi_{t+1}^e + \kappa y_t + e_t^2 \\
+i_t    &amp;= \gamma i_{t-1} + (1-\gamma) \delta \pi_t + \varepsilon_t^3 \\
+e_t^1  &amp;= \rho_1 e_{t-1}^1 + \varepsilon_t^1 \\
+e_t^2  &amp;= \rho_2 e_{t-1}^2 + \varepsilon_t^2
+\end{align}
+\]</span> The model comprises a dynamic IS curve, a Phillips Curve and a policy rule with smoothing. There are three shocks, two of which are persistent. This we need to write in the general algebraic linear state-space form: <span class="math display">\[
+E\begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = A \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + B \varepsilon_t  
+\]</span> We map our variables to their algebraic equivalent as (<span class="math inline">\(z_t\)</span>, <span class="math inline">\(x_t\)</span>) <span class="math inline">\(=\)</span> ((<span class="math inline">\(e^1_t\)</span>, <span class="math inline">\(e^2_t\)</span>, <span class="math inline">\(i_t\)</span>), (<span class="math inline">\(y_t\)</span>, <span class="math inline">\(\pi_t\)</span>)). Then the model in state-space form but including the matrix <span class="math inline">\(E\)</span> is <span class="math display">\[
+\begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+                1 &amp; 0 &amp; -\frac{1}{\sigma} &amp; 1 &amp; \frac{1}{\sigma} \\
+                0 &amp; 1 &amp; 0 &amp; 0 &amp; \beta
+\end{bmatrix}
+\begin{bmatrix} e^1_t \\ e^2_t \\ i_t \\ y^e_{t+1} \\ \pi^e_{t+1} \end{bmatrix}
+   =
+   \begin{bmatrix} \rho_1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; \rho_2 &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; \gamma &amp; 0 &amp; (1-\gamma)\delta \\
+                0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+                0 &amp; 0 &amp; 0 &amp; -\kappa &amp; 1
+   \end{bmatrix}
+\begin{bmatrix} e^1_{t-1} \\ e^2_{t-1} \\ i_{t-1} \\ y_t \\ \pi_t \end{bmatrix}    
+   +
+      \begin{bmatrix}
+                1 &amp; 0 &amp; 0  \\
+                0 &amp; 1 &amp; 0 \\
+                0 &amp; 0 &amp; 1 \\
+                0 &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; 0
+   \end{bmatrix}
+   \begin{bmatrix} \varepsilon^1_t \\ \varepsilon^2_t \\ \varepsilon^3_t \end{bmatrix}    
+\]</span> Anyone wanting to code up solutions should familiarize themselves with this before continuing.</p>
+<section id="coding-up-the-model-in-r" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="coding-up-the-model-in-r"><span class="header-section-number">5.1</span> Coding up the model in R</h2>
+<p>Before we begin coding this in R, load the <code>tidyverse</code> libraries so we can do impulse responses with our usual toolkit and then we can forget about it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Set the model parameters</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nf    <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ns    <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ne    <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>np    <span class="ot">&lt;-</span> ns<span class="sc">-</span>nf</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>beta  <span class="ot">&lt;-</span> <span class="fl">0.99</span>   <span class="co"># Discount factor </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">2.0</span>    <span class="co"># Elas. substitution</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>kappa <span class="ot">&lt;-</span> <span class="fl">0.075</span>  <span class="co"># Slope PC</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="fl">1.5</span>    <span class="co"># Inflation feedback</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>gamma <span class="ot">&lt;-</span> <span class="fl">0.75</span>   <span class="co"># Smoothing</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>rho_1 <span class="ot">&lt;-</span> <span class="fl">0.9</span>    <span class="co"># AR1</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>rho_2 <span class="ot">&lt;-</span> <span class="fl">0.8</span>    <span class="co"># AR1</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="fl">0.33</span>,<span class="fl">0.33</span>,<span class="fl">0.33</span>)) <span class="co"># SE of 3 shocks</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now define the model matrices ‘long hand’ and some variable names, which we put in <code>labels</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"e^1"</span>,<span class="st">"e^2"</span>,<span class="st">"i"</span>,<span class="st">"y"</span>,<span class="st">"pi"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ns)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ns)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">1</span>,ns,ne)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Now put the equations in matrix form</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(E[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(A[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="ot">&lt;-</span> <span class="fu">c</span>(rho_1, rho_2)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">3</span>,<span class="dv">3</span>]             <span class="ot">&lt;-</span> <span class="dv">1</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">4</span>,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>sigma, <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span>sigma)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>)]       <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, beta)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">3</span>,<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>)]       <span class="ot">&lt;-</span> <span class="fu">c</span>(gamma, (<span class="dv">1</span><span class="sc">-</span>gamma)<span class="sc">*</span>delta)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">4</span>,<span class="dv">4</span>]             <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>)]        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>kappa, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>where for example, <span class="math inline">\(E\)</span> and <span class="math inline">\(A\)</span> are</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>E</caption>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> -0.5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.50 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.99 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>A</caption>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 0.9 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.8 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.75 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.375 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.000 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> -0.075 </td>
+   <td style="text-align:right;"> 1.000 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Calculate the reduced form state-space model <span class="math display">\[
+\begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = C \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + D \varepsilon_t  
+\]</span> which is done in R very simply as</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">solve</span>(E,A)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">solve</span>(E,B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Why can’t we solve this for impulse responses?</p>
+<p>The following function simulates the impulse responses of a model in a loop within a loop<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and returns the time series in a suitably organised data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>impulse_responses <span class="ot">&lt;-</span> <span class="cf">function</span>(P, Q, Omega, labels, T) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  s   <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="fu">ncol</span>(Q), <span class="dv">1</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  z   <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(Q), T)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(z) <span class="ot">&lt;-</span> labels</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  dza <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(Q)) {</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    s[j]  <span class="ot">&lt;-</span> Omega[j,j]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    z[,<span class="dv">1</span>] <span class="ot">&lt;-</span> Q <span class="sc">%*%</span> s</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(T<span class="dv">-1</span>)) {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      z[,i<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> P <span class="sc">%*%</span> z[,i]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    s[j] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    dz <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">t</span>(z)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Period =</span> <span class="dv">1</span><span class="sc">:</span>T, <span class="at">Shock =</span> <span class="fu">paste0</span>(<span class="st">"epsilon^"</span>,j))</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    dza <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(dza,dz)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(dza)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A function to plot the impulses will be useful, so we create one.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>response_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(series, title) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">pivot_longer</span>(series, <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(Period,Shock), <span class="at">names_to=</span><span class="st">"Var"</span>, <span class="at">values_to =</span> <span class="st">"Val"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>Period, <span class="at">y=</span>Val, <span class="at">group=</span>Shock, <span class="at">colour=</span>Var), <span class="at">show.legend=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">facet_grid</span>(Shock<span class="sc">~</span>Var, <span class="at">scales=</span><span class="st">"free"</span>, <span class="at">labeller=</span>label_parsed) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">scale_x_continuous</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>           <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">labs</span>(<span class="at">title=</span>title, <span class="at">x=</span><span class="st">""</span>,<span class="at">y=</span><span class="st">""</span>))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Call the impulse response function using the model <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>T <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">impulse_responses</span>(C, D, Omega, labels, T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and plot</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">response_plot</span>(z, <span class="st">"Impulse responses: Taylor rule"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BK_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Oh! That’s not looking good. Let’s try a few more periods.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>T <span class="ot">&lt;-</span> <span class="dv">150</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">impulse_responses</span>(C, D, Omega, labels, T)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">response_plot</span>(z, <span class="st">"Impulse responses: Taylor rule"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BK_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This is clearly exploding. But it’s rational – we’re solving forward so expectations are always fulfilled. This is a key the insight of the early rational expectations modelers – rational isn’t enough, non-explosive is necessary too. Fortunately we know how to find this.</p>
+</section>
+</section>
+<section id="bk80" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> <span class="citation" data-cites="BK80">Blanchard and Kahn (<a href="references.html#ref-BK80" role="doc-biblioref">1980</a>)</span></h1>
+<p>To solve this model to give a unique <em>stable</em> rational expectations equilibrium, we appeal to the following. Consider the eigenvalue decomposition <span class="math display">\[
+  MC=\Lambda M
+\]</span> where <span class="math inline">\(\Lambda\)</span> is a diagonal matrix of <em>eigenvalues</em> in increasing absolute value and <span class="math inline">\(M\)</span> is a non-singular matrix of <em>left eigenvectors</em>. Note that computer routines (including the one in R) usually calculate <em>right eigenvectors</em> such that <span class="math inline">\(CV=V\Lambda\)</span> and that <span class="math inline">\(M=V^{-1}\)</span>, so be aware of this in what follows.</p>
+<p>We can <em>diagonalise</em> <span class="math inline">\(C\)</span> and write it as <span class="math inline">\(C=M^{-1}\Lambda M\)</span>. So pre-multiplying the reduced form model by <span class="math inline">\(M\)</span> gives <span class="math display">\[
+M \begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = \Lambda M \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + M D \varepsilon_t
+\]</span> <span class="citation" data-cites="BK80">Blanchard and Kahn (<a href="references.html#ref-BK80" role="doc-biblioref">1980</a>)</span> (following <span class="citation" data-cites="Vaughan">Vaughan (<a href="references.html#ref-Vaughan" role="doc-biblioref">1970</a>)</span>) show uniqueness requires as many unstable eigenvalues as jump variables. To see this, define <span class="math display">\[
+\begin{bmatrix} \xi_{t-1}^{s} \\  \xi_t^{u} \end{bmatrix}
+  =  \begin{bmatrix} M_{11} &amp; M_{12} \\  M_{21} &amp; M_{22} \end{bmatrix}
+      \begin{bmatrix} z_{t-1} \\  x_t \end{bmatrix}
+\]</span> Write the normalized model as <span class="math display">\[
+\begin{bmatrix} \xi_t^s \\ \xi_{t+1}^u \end{bmatrix}
+= \begin{bmatrix} \Lambda_s &amp; 0 \\ 0 &amp; \Lambda_u \end{bmatrix}
+\begin{bmatrix} \xi_{t-1}^s \\ \xi_t^u \end{bmatrix} +
+\begin{bmatrix} M_1 \\ M_2 \end{bmatrix} D\varepsilon_t
+\]</span> where the eigenvalues are split into stable (<span class="math inline">\(\Lambda_s\)</span>) and unstable (<span class="math inline">\(\Lambda_u\)</span>). If we ignore the stochastic bit for a moment <span class="math display">\[
+\begin{bmatrix} \xi_t^s \\ \xi_{t+1}^u \end{bmatrix}
+= \begin{bmatrix} \Lambda_s &amp; 0 \\ 0 &amp; \Lambda_u \end{bmatrix}
+\begin{bmatrix} \xi_{t-1}^s \\ \xi_t^u \end{bmatrix}
+\]</span></p>
+<p>We seek a non-explosive solution, and this turns out to be easy to find using the following</p>
+<ul>
+<li>The dynamics of <span class="math inline">\(\xi_t^u\)</span> are determined by <span class="math inline">\(\Lambda_u\)</span> and nothing else;</li>
+<li>If they don’t start at <span class="math inline">\(0\)</span> they must explode;</li>
+<li>This implies they must start at <span class="math inline">\(0\)</span> and are always <span class="math inline">\(0\)</span>.</li>
+</ul>
+<p>Thus the definition of the canonical variables necessarily implies <span class="math display">\[
+\begin{bmatrix} \xi_{t-1}^s \\  0 \end{bmatrix}
+  =  \begin{bmatrix} M_{11} &amp; M_{12} \\  M_{21} &amp; M_{22} \end{bmatrix}
+      \begin{bmatrix} z_{t-1} \\  x_t \end{bmatrix}
+\]</span></p>
+<p>From this it is clear that the jump variables themselves are only on the saddle path if <span class="math display">\[
+   M_{21} z_{t-1} + M_{22} x_t = 0
+\]</span></p>
+<p>The rational solution implies that the jump variables are linearly related to the predetermined ones through <span class="math display">\[
+\begin{aligned}
+x_t &amp;= -M_{22}^{-1} M_{21}z_{t-1} \\
+    &amp;= N z_{t-1}
+\end{aligned}
+\]</span> We’ll deal with the shocks in a moment.</p>
+<section id="r-code" class="level3" data-number="6.0.1">
+<h3 data-number="6.0.1" class="anchored" data-anchor-id="r-code"><span class="header-section-number">6.0.1</span> R code</h3>
+<p>How do we do this in R? First, find the eigenvalue decomposition of <span class="math inline">\(C\)</span> using</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">eigen</span>(C, <span class="at">symmetric=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>which yields</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>eigen() decomposition
+$values
+[1] 1.0715518+0.092734i 1.0715518-0.092734i 0.9000000+0.000000i
+[4] 0.8000000+0.000000i 0.6548762+0.000000i
+
+$vectors
+                      [,1]                  [,2]         [,3]           [,4]
+[1,]  0.0000000+0.0000000i  0.0000000+0.0000000i 0.2854942+0i  0.00000000+0i
+[2,]  0.0000000+0.0000000i  0.0000000+0.0000000i 0.0000000+0i  0.09783896+0i
+[3,]  0.1599159-0.5089425i  0.1599159+0.5089425i 0.7830500+0i  0.49622464+0i
+[4,] -0.6991064+0.0000000i -0.6991064+0.0000000i 0.4552131+0i -0.86012270+0i
+[5,]  0.2629802-0.3968579i  0.2629802+0.3968579i 0.3132200+0i  0.06616328+0i
+              [,5]
+[1,]  0.0000000+0i
+[2,]  0.0000000+0i
+[3,]  0.6351203+0i
+[4,] -0.7554249+0i
+[5,] -0.1611069+0i</code></pre>
+</div>
+</div>
+<p>However this calculates <em>right</em> eigenvectors. We will need to invert it for left ones. Given the number of jump variables in the model satisfies the Blanchard-Kahn conditions of as many unstable roots (1.072+0.093i, 1.072-0.093i) as jump variables (2) we can calculate the reaction function from the eigenvectors</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>iz <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>np</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ix <span class="ot">&lt;-</span> (np<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>ns</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>M  <span class="ot">&lt;-</span> <span class="fu">solve</span>(m<span class="sc">$</span>vectors[,ns<span class="sc">:</span><span class="dv">1</span>])        <span class="co"># Invert &amp; reverse order for increasing abs value</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>N  <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">Re</span>(<span class="fu">solve</span>(M[ix,ix], M[ix,iz])) <span class="co"># Drop tiny complex bits (if any)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>where <code>iz</code> are the indices of the first <code>np</code> variables and <code>ix</code> those of the remaining <code>nf</code> ones.</p>
+</section>
+<section id="stochastic-part" class="level3" data-number="6.0.2">
+<h3 data-number="6.0.2" class="anchored" data-anchor-id="stochastic-part"><span class="header-section-number">6.0.2</span> Stochastic part</h3>
+<p>What about the shocks? Assume the stochastic reaction function is <span class="math display">\[
+  x_t = N z_{t-1} + G \varepsilon_t
+\]</span> Following <span class="citation" data-cites="BlakeCE">Blake (<a href="references.html#ref-BlakeCE" role="doc-biblioref">2004</a>)</span>, note that <span class="math inline">\(x_{t+1}^e = N z_t\)</span> as the expected value of <span class="math inline">\(\varepsilon_{t+1}=0\)</span>, meaning we can write <span class="math display">\[
+Nz_t = C_{21}z_{t-1} + C_{22} x_t + D_2 \varepsilon_t
+\]</span> or <span class="math display">\[
+N\left( C_{11}z_{t-1} + C_{12}x_t + D_1 \varepsilon_t\right) = C_{21}z_{t-1} + C_{22} x_t + D_2 \varepsilon_t
+\]</span> Gathering terms we obtain <span class="math display">\[
+  (C_{22} - N C_{12}) x_t = (NC_{11} - C_{21}) z_{t-1} + (N D_1 - D_2) \varepsilon_t
+\]</span> which implies <span class="math display">\[
+G=(C_{22} - N C_{12})^{-1}(N D_1 - D_2)
+\]</span> Notice it also implies <span class="math inline">\(N = (C_{22} - N C_{12})^{-1}(NC_{11} - C_{21})\)</span>. It is this fixed point nature of the solution for <span class="math inline">\(N\)</span> – which in turn implies the quadratic matrix equation <span class="math inline">\(C_{21} = NC_{11} - C_{22}N + N C_{12}N\)</span> – that means we need to use the <span class="citation" data-cites="BK80">Blanchard and Kahn (<a href="references.html#ref-BK80" role="doc-biblioref">1980</a>)</span> method in the first place.</p>
+</section>
+<section id="r-code-1" class="level3" data-number="6.0.3">
+<h3 data-number="6.0.3" class="anchored" data-anchor-id="r-code-1"><span class="header-section-number">6.0.3</span> R code</h3>
+<p>All of this means that</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">solve</span>((C[ix,ix] <span class="sc">-</span> N <span class="sc">%*%</span> C[iz,ix]), (N <span class="sc">%*%</span> D[iz,]<span class="sc">-</span> D[ix,]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>so for our model and parameters <span class="math inline">\(N\)</span> and <span class="math inline">\(G\)</span> are</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>N</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        [,1]      [,2]       [,3]
+[1,] 4.85680 -2.758647 -1.1894200
+[2,] 1.79286  1.962790 -0.2536635</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>G</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]      [,2]      [,3]
+[1,] 5.396445 -3.448309 -1.585893
+[2,] 1.992067  2.453488 -0.338218</code></pre>
+</div>
+</div>
+<p>The ‘fixed point’ check is that the following should be the same as <span class="math inline">\(N\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>((C[ix,ix] <span class="sc">-</span> N <span class="sc">%*%</span> C[iz,ix]), (N <span class="sc">%*%</span> C[iz,iz]<span class="sc">-</span> C[ix,iz]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        [,1]      [,2]       [,3]
+[1,] 4.85680 -2.758647 -1.1894200
+[2,] 1.79286  1.962790 -0.2536635</code></pre>
+</div>
+</div>
+<p>which it is.</p>
+<p>The solved model is finally <span class="math display">\[
+\begin{align}
+\begin{bmatrix} z_t \\ x_t \end{bmatrix} &amp;= \begin{bmatrix} C_{11}+C_{12}N &amp; 0 \\ N &amp; 0 \end{bmatrix} \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + \begin{bmatrix} D_1+C_{12}G \\ G \end{bmatrix} \varepsilon_t \\
+&amp;= P \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + Q \varepsilon_t
+\end{align}
+\]</span> which can be coded as</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>P  <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rbind</span>((C[iz,iz] <span class="sc">+</span> C[iz,ix] <span class="sc">%*%</span> N), N), <span class="fu">matrix</span>(<span class="dv">0</span>,ns,nf))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>Q  <span class="ot">&lt;-</span> <span class="fu">rbind</span>(D[iz,] <span class="sc">+</span> C[iz,ix] <span class="sc">%*%</span> G, G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="digression-right-eigenvector-version" class="level3" data-number="6.0.4">
+<h3 data-number="6.0.4" class="anchored" data-anchor-id="digression-right-eigenvector-version"><span class="header-section-number">6.0.4</span> Digression – right eigenvector version</h3>
+<p>It turns out that we could use the output from the standard eigenvalue/vector routine directly by exploiting the following. This time, let <span class="math inline">\(M\)</span> be the matrix of <em>right eigenvectors</em> so <span class="math display">\[
+  C M = M \Lambda \text{  or  } C = M\Lambda M^{-1}
+\]</span><br>
+and <span class="math display">\[
+\begin{bmatrix} M_{11} &amp; M_{12} \\ M_{21} &amp; M_{22} \end{bmatrix}
+\begin{bmatrix} \xi_{t-1}^s \\ \xi_t^u \end{bmatrix}
+=
+\begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix}
+\]</span></p>
+<p>Written this way around, if <span class="math inline">\(\xi_t^{u}=0\)</span> <span class="math inline">\(\forall\ t\)</span> then (again ignoring stochastics)</p>
+<p><span class="math display">\[
+  M_{11} \xi_{t-1}^s = z_{t-1}, \ M_{21}\xi_t^s = x_t
+\]</span></p>
+<p><span class="math display">\[
+   \Rightarrow x_t = M_{21} M_{11}^{-1} z_t
+\]</span> so</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> m<span class="sc">$</span>vectors[,ns<span class="sc">:</span><span class="dv">1</span>]            <span class="co"># Don't invert as already right vectors, but reorder</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Re</span>(M[ix,iz] <span class="sc">%*%</span> <span class="fu">solve</span>(M[iz,iz])) <span class="co"># Again, drop tiny complex bits</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        [,1]      [,2]       [,3]
+[1,] 4.85680 -2.758647 -1.1894200
+[2,] 1.79286  1.962790 -0.2536635</code></pre>
+</div>
+</div>
+<p>The result is identical. This method is particularly useful if there are fewer predetermined variables than jumps as the matrix we need to invert is of the same dimension as the predetermined variables this way round.</p>
+</section>
+<section id="impulse-responses" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="impulse-responses"><span class="header-section-number">6.1</span> Impulse responses</h2>
+<p>We now call the impulse response function using the model solved for rational expectations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>T <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">impulse_responses</span>(P, Q, Omega, labels, T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now plot these responses</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">response_plot</span>(z, <span class="st">"Impulse responses: Taylor rule"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BK_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now, that looks better! It is no longer explosive. It also makes complete economic sense, which you can verify by going through the dynamics of the different demand, supply and monetary shocks.</p>
+</section>
+</section>
+<section id="generalized-solution" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Generalized solution</h1>
+<p>Sometimes for a model <span class="math inline">\(E\)</span> is singular. A more general solution was proposed by <span class="citation" data-cites="Klein">Klein (<a href="references.html#ref-Klein" role="doc-biblioref">2000</a>)</span>, that doesn’t require <span class="math inline">\(E\)</span> to be non-singular. This uses a generalized Schur decomposition instead of an eigenvalue one and is applied to the structural model represented by the matrix pencil <span class="math inline">\((A,E)\)</span>, and is considered much more numerically stable (see <span class="citation" data-cites="Pappas">Pappas, Laub, and Sandell (<a href="references.html#ref-Pappas" role="doc-biblioref">1980</a>)</span>). The generalized Schur form of <span class="math inline">\((A,E)\)</span> is <span class="math inline">\((QTZ', QSZ')\)</span>, so we can write the model as <span class="math display">\[
+E \begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} \equiv QTZ' \begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} \equiv QT \begin{bmatrix} \xi_t^s \\ \xi_{t+1}^u \end{bmatrix}
+\]</span> and <span class="math display">\[
+A \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} \equiv QSZ' \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} \equiv QS\begin{bmatrix} \xi_{t-1}^s \\ \xi_t^u \end{bmatrix}
+\]</span> so the model pre-multiplied by <span class="math inline">\(Q'\)</span> is <span class="math display">\[
+T \begin{bmatrix} \xi_{t+1}^s \\ \xi_{t+1}^u \end{bmatrix} = S \begin{bmatrix} \xi_t^s \\ \xi_t^u \end{bmatrix} + Q'B\varepsilon_t
+\]</span></p>
+<p>We use the function <code>gqz</code> from the library <code>geigen</code> for this</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gqz</span>(A, E, <span class="at">sort=</span><span class="st">"S"</span>) <span class="co"># Option "S" puts the stable roots first</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can check that this is actually saddle path using <code>gevalues()</code> to get all the eigenvalues from the generalized Schur decomposition, and the unstable ones are</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gevalues</span>(d)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>e[<span class="fu">abs</span>(e) <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.071552+0.092734i 1.071552-0.092734i</code></pre>
+</div>
+</div>
+<p>The number of <em>stable</em> roots is returned in <code>d$sdim</code> which is 3.</p>
+<p>We then modify our solution function to calculate <code>Ns</code> and <code>Gs</code> using the matrix <code>Z</code> and a generalized version of the formula for <span class="math inline">\(G\)</span> and calculate the reduced form model <code>Ps</code> and `Q which are <span class="math display">\[
+\begin{align}
+    N_s &amp;= Z_{21} Z_{11}^{-1} \\
+    H   &amp;= (E_{11} + E_{12} N_s)^{-1} \\
+    W   &amp;= (E_{21} + E_{22} N_s) H\\
+    G_s &amp;= (A_{22} - W A_{12})^{-1} (W B_1 - B_2) \\
+    P_s &amp;= H (A_{11} + A_{12} N_s) \\
+    Q_s &amp;= H (B_1 + A_{12} G_s)
+\end{align}
+\]</span> Verify this yourself with a bit of matrix algebra!</p>
+<p>The R code for this is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>solveGenBK <span class="ot">&lt;-</span> <span class="cf">function</span>(E,A,B,n) {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  d  <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gqz</span>(A, E, <span class="at">sort=</span><span class="st">"S"</span>) </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  np <span class="ot">&lt;-</span> d<span class="sc">$</span>sdim</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">nrow</span>(E)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Number of unstable roots is"</span>, ns<span class="sc">-</span>np))</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> np) {</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    iz <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    ix <span class="ot">&lt;-</span> (n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>ns</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    Ns <span class="ot">&lt;-</span> d<span class="sc">$</span>Z[ix,iz] <span class="sc">%*%</span> <span class="fu">solve</span>(d<span class="sc">$</span>Z[iz,iz])</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    H  <span class="ot">&lt;-</span> <span class="fu">solve</span>(E[iz,iz] <span class="sc">+</span> E[iz,ix] <span class="sc">%*%</span> Ns)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    W  <span class="ot">&lt;-</span> (E[ix,iz] <span class="sc">+</span> E[ix,ix] <span class="sc">%*%</span> Ns) <span class="sc">%*%</span> H</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    Gs <span class="ot">&lt;-</span> <span class="fu">solve</span>((A[ix,ix] <span class="sc">-</span> W <span class="sc">%*%</span> A[iz,ix]), (W <span class="sc">%*%</span> B[iz,] <span class="sc">-</span> B[ix,]))</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    As <span class="ot">&lt;-</span> H <span class="sc">%*%</span> (A[iz,iz] <span class="sc">+</span> A[iz,ix] <span class="sc">%*%</span> Ns)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    Bs <span class="ot">&lt;-</span> H <span class="sc">%*%</span> (B[iz,] <span class="sc">+</span> A[iz,ix] <span class="sc">%*%</span> Gs)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">P=</span><span class="fu">cbind</span>(<span class="fu">rbind</span>(As,Ns),<span class="fu">matrix</span>(<span class="dv">0</span>,ns,ns<span class="sc">-</span>n)), <span class="at">Q=</span><span class="fu">rbind</span>(Bs, Gs)))</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> { </span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="sc">-</span><span class="dv">1</span>) </span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using this on our original model gives</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>S  <span class="ot">&lt;-</span> <span class="fu">solveGenBK</span>(E,A,B,np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of unstable roots is 2"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>Ps <span class="ot">&lt;-</span> S<span class="sc">$</span>P</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>Qs <span class="ot">&lt;-</span> S<span class="sc">$</span>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and comparing <code>Ps</code> and <code>Qs</code> with <code>P</code> and <code>Q</code> obtained using Blanchard-Kahn we find</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">max</span>(<span class="fu">abs</span>(P<span class="sc">-</span>Ps), <span class="fu">abs</span>(Q<span class="sc">-</span>Qs)), <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>They are, as expected, the same – at least up to 12 decimal places, which should be enough.</p>
+<section id="singular-models-optimal-policy" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="singular-models-optimal-policy"><span class="header-section-number">7.1</span> Singular models: optimal policy</h2>
+<p>However, this is an easy test. What we need is to use a model that can’t be solved using the BK method. Under optimal policy, the interest rate instrument rule is replaced with a targeting rule, so that <span class="math display">\[
+  \pi_t = -\mu \Delta y_t - \varepsilon^3_t
+\]</span> for some value of <span class="math inline">\(\mu\)</span> that reflects the optimal trade-off between output (gap) growth and inflation, and we’ve included a disturbance which we can loosely describe as a monetary policy shock. We modify the model above by dropping the Taylor rule in favor of the targeting rule. This requires a lagged value of <span class="math inline">\(y\)</span> to be created. The following does the trick</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>nf <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>ne <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="dv">6</span>      <span class="co"># One extra state</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>np <span class="ot">&lt;-</span> ns<span class="sc">-</span>nf</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">0.75</span>   <span class="co"># Representative trade-off</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"e^1"</span>,<span class="st">"e^2"</span>,<span class="st">"ylag"</span>,<span class="st">"i"</span>,<span class="st">"y"</span>,<span class="st">"pi"</span>) <span class="co"># New variable order</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ns)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> E</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ne)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">4</span>,<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(E[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(A[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="ot">&lt;-</span> <span class="fu">c</span>(rho_1, rho_2)</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">3</span>,<span class="dv">5</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">4</span>,<span class="dv">3</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">4</span>,<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>mu)</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>sigma, <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span>sigma)</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span>,<span class="dv">5</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">6</span>,<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, beta)</span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">6</span>,<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>kappa, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The new <span class="math inline">\(E\)</span> and <span class="math inline">\(A\)</span> system matrices are then</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>E</caption>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> -0.5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.50 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.99 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="cell-output-display">
+
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>A</caption>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 0.9 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.8 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.000 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> -1.333 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.000 </td>
+   <td style="text-align:right;"> 0.000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> -0.075 </td>
+   <td style="text-align:right;"> 1.000 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Now we have a singular model. The matrix <span class="math inline">\(E\)</span> is clearly singular as rows 3 and 4 are identical. But we have a problem using the code above. To use it we need the matrices <span class="math inline">\(H\)</span> and <span class="math inline">\((A_{22} - W A_{21})\)</span> to be non-singular. What to do?</p>
+<p>There are two ways out. <span class="citation" data-cites="Klein">Klein (<a href="references.html#ref-Klein" role="doc-biblioref">2000</a>)</span> gives a solution that depends on the decomposed matrix pencil, which is what is typically implemented, but you don’t actually need it although it is easiest. Instead, all you need to do is reorder the equations.</p>
+<p>The real problem is that with a targeting rule that doesn’t include the interest rate, and the interest rate is now only determined by the IS curve. But we can swap the location of any two rows of the model arbitrarily. If we swap the positions of the equations for the IS curve and the targeting rule (rows 4 and 5) using the following</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>,] <span class="ot">&lt;-</span> E[<span class="dv">5</span><span class="sc">:</span><span class="dv">4</span>,]</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>,] <span class="ot">&lt;-</span> A[<span class="dv">5</span><span class="sc">:</span><span class="dv">4</span>,]</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>,] <span class="ot">&lt;-</span> B[<span class="dv">5</span><span class="sc">:</span><span class="dv">4</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>then the model is unchanged but now we have</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    0    0  0.0
+[2,]    0    1    0  0.0
+[3,]    0    0    1  0.0
+[4,]    1    0    0 -0.5</code></pre>
+</div>
+</div>
+<p>so <span class="math inline">\(E_{11} + E_{12}N\)</span> is likely non-singular (it is). Also, note after the re-ordering <span class="math inline">\(A_{22}\)</span> is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       [,1]      [,2]
+[1,]  0.000 -1.333333
+[2,] -0.075  1.000000</code></pre>
+</div>
+</div>
+<p>which is guaranteed non-singular for zero <span class="math inline">\(W\)</span>. We can now proceed as before. First, check for saddle path stability</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gevalues</span>(geigen<span class="sc">::</span><span class="fu">gqz</span>(A, E, <span class="at">sort=</span><span class="st">"S"</span>))</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>e[<span class="fu">abs</span>(e) <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.378195      Inf</code></pre>
+</div>
+</div>
+<p>which confirms that it has a unique saddle path stable solution. This is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>So <span class="ot">&lt;-</span> <span class="fu">solveGenBK</span>(E,A,B,np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of unstable roots is 2"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>Po <span class="ot">&lt;-</span> So<span class="sc">$</span>P</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>Qo <span class="ot">&lt;-</span> So<span class="sc">$</span>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The solved model is then</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>Po</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]      [,2]          [,3] [,4] [,5] [,6]
+[1,]  0.9  0.000000  0.000000e+00    0    0    0
+[2,]  0.0  0.800000  6.986592e-17    0    0    0
+[3,]  0.0 -1.863455  7.329156e-01    0    0    0
+[4,]  1.8 -1.241330 -2.446879e-01    0    0    0
+[5,]  0.0 -1.863455  7.329156e-01    0    0    0
+[6,]  0.0  1.397591  2.003133e-01    0    0    0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>Qo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]      [,2]          [,3]
+[1,]    1  0.000000  0.000000e+00
+[2,]    0  1.000000 -6.986592e-17
+[3,]    0 -2.329318 -7.329156e-01
+[4,]    2 -1.551663  2.446879e-01
+[5,]    0 -2.329318 -7.329156e-01
+[6,]    0  1.746989 -2.003133e-01</code></pre>
+</div>
+</div>
+<section id="optimal-impulse-responses" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="optimal-impulse-responses"><span class="header-section-number">7.1.1</span> Optimal impulse responses</h3>
+<p>We can now simulate the model under optimal policy and plot using</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>zo <span class="ot">&lt;-</span> <span class="fu">impulse_responses</span>(Po, Qo, Omega, labels, T) <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>ylag) <span class="co"># Drop duplicate series</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">response_plot</span>(zo, <span class="st">"Impulse responses: Optimal policy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BK_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="dummy-jumps" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="dummy-jumps"><span class="header-section-number">7.2</span> Dummy jumps</h2>
+<p>But this isn’t the only way to get this to work. Effectively what we just did was create an extra predetermined variable and reorder the system to give us non-singularity. What if instead of including an unused <span class="math inline">\(i_{t-1}\)</span> on the right hand side, we instead include an unused <span class="math inline">\(i^e_{t+1}\)</span> on the left hand side? So we swap to having one more jump variable, one less predetermined one?</p>
+<p>Compare the following to the previous model. When we pick out the interest rate we do so on the right hand side of the matrix equation, not the left as before.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="dv">6</span>      <span class="co"># One extra state</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>nf <span class="ot">&lt;-</span> <span class="dv">3</span>      <span class="co"># And one extra jump</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>np <span class="ot">&lt;-</span> ns<span class="sc">-</span>nf</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"e^1"</span>,<span class="st">"e^2"</span>,<span class="st">"ylag"</span>,<span class="st">"i"</span>,<span class="st">"y"</span>,<span class="st">"pi"</span>) <span class="co"># New variable order</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ns)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> E</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ne)</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">4</span>,<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(E[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(A[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="ot">&lt;-</span> <span class="fu">c</span>(rho_1, rho_2)</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">3</span>,<span class="dv">5</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">4</span>,<span class="dv">3</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">4</span>,<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>mu)</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>)]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span>sigma) <span class="co"># One less coeffiecint</span></span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span>sigma, <span class="dv">1</span>)    <span class="co"># One more - nothing else changes</span></span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">6</span>,<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, beta)</span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">6</span>,<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>kappa, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is still a singular model, as we can see from</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>E</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]    1    0    0    0    0 0.00
+[2,]    0    1    0    0    0 0.00
+[3,]    0    0    1    0    0 0.00
+[4,]    0    0    1    0    0 0.00
+[5,]    1    0    0    0    1 0.50
+[6,]    0    1    0    0    0 0.99</code></pre>
+</div>
+</div>
+<p>with column 4 all zeros. Is <em>this</em> model saddle path stable?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gevalues</span>(geigen<span class="sc">::</span><span class="fu">gqz</span>(A, E, <span class="at">sort=</span><span class="st">"S"</span>) )</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>e[<span class="fu">abs</span>(e) <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]     -Inf 1.378195      Inf</code></pre>
+</div>
+</div>
+<p>Again, it is with an extra unstable root for the extra jump variable. We could simplify the solution. As that top left 3 by 3 block, <span class="math inline">\(E_{11}\)</span>, is the identity matrix and <span class="math inline">\(E_{12}\)</span> is all zeros this <code>Ei</code> is always an identity matrix. However, here we simply re-use <code>solveGenBG</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>So2 <span class="ot">&lt;-</span> <span class="fu">solveGenBK</span>(E,A,B,np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of unstable roots is 3"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>Po2 <span class="ot">&lt;-</span> So2<span class="sc">$</span>P</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>Qo2 <span class="ot">&lt;-</span> So2<span class="sc">$</span>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now the solved model is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>Po2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]      [,2]       [,3] [,4] [,5] [,6]
+[1,]  0.9  0.000000  0.0000000    0    0    0
+[2,]  0.0  0.800000  0.0000000    0    0    0
+[3,]  0.0 -1.863455  0.7329156    0    0    0
+[4,]  1.8 -1.241330 -0.2446879    0    0    0
+[5,]  0.0 -1.863455  0.7329156    0    0    0
+[6,]  0.0  1.397591  0.2003133    0    0    0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>Qo2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]      [,2]       [,3]
+[1,]    1  0.000000  0.0000000
+[2,]    0  1.000000  0.0000000
+[3,]    0 -2.329318 -0.7329156
+[4,]    2 -1.551663  0.2446879
+[5,]    0 -2.329318 -0.7329156
+[6,]    0  1.746989 -0.2003133</code></pre>
+</div>
+</div>
+<p>which is actually identical to our previous solution. This is because I have preserved the order of the solved-out variables, and shows that the swap from a predetermined to a jump variable is completely arbitrary.</p>
+</section>
+<section id="substituting-out" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="substituting-out"><span class="header-section-number">7.3</span> Substituting out</h2>
+<p>But even this doesn’t exhaust the possible re-parametrisations of the model. We can reduce the number of jump variables to 1 and find the same solution. There exist formal methods for reducing models (see <span class="citation" data-cites="KW2002">King and Watson (<a href="references.html#ref-KW2002" role="doc-biblioref">2002</a>)</span>) but there is an obvious way to proceed here. From the targeting rule, it must be that <span class="math display">\[
+  y^e_{t+1} = y_t - \frac{1}{\mu}\pi^e_{t+1}
+\]</span> as the expected shock is zero. This means the IS curve can be rewritten <span class="math display">\[
+y_t = y_t - \frac{1}{\mu}\pi^e_{t+1} - \frac{1}{\sigma} \left (i_t - \pi_{t+1}^e \right ) + e_t^1
+\]</span> implying <span class="math display">\[
+i_t =  \left (1 - \frac{\sigma}{\mu} \right )\pi_{t+1}^e + \sigma e_t^1
+\]</span> This is the required interest rate consistent with the targeting rule holding. Now the only jump variable is the inflation rate as we have eliminated the expected output gap. <span class="math display">\[
+\begin{aligned}
+y_t    &amp;= y_{t-1} -\frac{1}{\mu} \pi_t  + \frac{1}{\mu} \varepsilon^3_t \\
+\pi_t  &amp;= \beta \pi_{t+1}^e + \kappa y_t + e_t^2 \\
+i_t    &amp;= \left (1 - \frac{\sigma}{\mu} \right ) \pi_{t+1}^e + \sigma e_t^1 \\
+e_t^1  &amp;= \rho_1 e_{t-1}^1 + \varepsilon_t^1 \\
+e_t^2  &amp;= \rho_2 e_{t-1}^2 + \varepsilon_t^2
+\end{aligned}
+\]</span></p>
+<p>We can code this</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="dv">5</span>      <span class="co"># Back to 5 states</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>nf <span class="ot">&lt;-</span> <span class="dv">1</span>      <span class="co"># Now only one jump</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>np <span class="ot">&lt;-</span> ns<span class="sc">-</span>nf</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"e^1"</span>,<span class="st">"e^2"</span>,<span class="st">"i"</span>,<span class="st">"y"</span>,<span class="st">"pi"</span>) <span class="co"># Lose a y</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ns)</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> E</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ne)</span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">4</span>,<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(E[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(A[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="ot">&lt;-</span> <span class="fu">c</span>(rho_1, rho_2)</span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">3</span>,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>sigma, <span class="dv">1</span>, sigma<span class="sc">/</span>mu<span class="dv">-1</span>)</span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">4</span>,<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>)]      <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>mu)</span>
+<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, kappa, beta)</span>
+<span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span>,<span class="dv">5</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and solve it using</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>Ss <span class="ot">&lt;-</span> <span class="fu">solveGenBK</span>(E,A,B,np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of unstable roots is 1"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>Ps <span class="ot">&lt;-</span> Ss<span class="sc">$</span>P</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>Qs <span class="ot">&lt;-</span> Ss<span class="sc">$</span>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Compare the realized of <code>Ps</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>Ps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]      [,2] [,3]       [,4] [,5]
+[1,]  0.9  0.000000    0  0.0000000    0
+[2,]  0.0  0.800000    0  0.0000000    0
+[3,]  1.8 -1.241330    0 -0.2446879    0
+[4,]  0.0 -1.863455    0  0.7329156    0
+[5,]  0.0  1.397591    0  0.2003133    0</code></pre>
+</div>
+</div>
+<p>with <code>Po</code> above, say. This is the most ‘efficient’ way of programming the model, in that we have only five states, and indeed the repeated behavioral equations we had before have disappeared in the reduced form solution. Just to confirm this, simulating and plotting this version gives</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">response_plot</span>(<span class="fu">impulse_responses</span>(Ps,Qs,Omega,labels,T), <span class="st">"Optimal, substituted out"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BK_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>which are identical results to those above. But of course <span class="math inline">\(E\)</span> is now convertible so we could solve this using the simplest Blanchard-Kahn variant.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-BlakeCE" class="csl-entry" role="doc-biblioentry">
+Blake, Andrew P. 2004. <span>“Analytic Derivatives in Linear Rational Expectations Models.”</span> <em>Computational Economics</em> 24 (1): 77–96.
+</div>
+<div id="ref-BK80" class="csl-entry" role="doc-biblioentry">
+Blanchard, O., and C. Kahn. 1980. <span>“The Solution of Linear Difference Models Under Rational Expectations.”</span> <em>Econometrica</em> 48 (5): 1305–11.
+</div>
+<div id="ref-KW2002" class="csl-entry" role="doc-biblioentry">
+King, Robert G., and Mark W. Watson. 2002. <span>“System Reduction and Solution Algorithms for Singular Linear Difference Systems Under Rational Expectations.”</span> <em>Computational Economics</em> 20 (1–2): 57–86.
+</div>
+<div id="ref-Klein" class="csl-entry" role="doc-biblioentry">
+Klein, Paul. 2000. <span>“Using the Generalized <span>S</span>chur Form to Solve a Multivariate Linear Rational Expectations Model.”</span> <em>Journal of Economic Dynamics and Control</em> 24 (10): 1405–23.
+</div>
+<div id="ref-Pappas" class="csl-entry" role="doc-biblioentry">
+Pappas, T., A. J. Laub, and N. R. Sandell. 1980. <span>“On the Numerical Solution of the Discrete-Time Algebraic Riccati Equation.”</span> <em>IEEE Transaction on Automatic Control</em> AC-25.4: 631–41.
+</div>
+<div id="ref-Vaughan" class="csl-entry" role="doc-biblioentry">
+Vaughan, D. R. 1970. <span>“A Non Recursive Algorithm Solution for the Discrete Riccati Equation.”</span> <em>IEEE Transactions on Automatic Control</em> AC-15.5: 597–99.
+</div>
+</div>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Sometimes a loop is the right way to do something.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./R2021.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Non-econometric methods for econometricians</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./BVAR.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

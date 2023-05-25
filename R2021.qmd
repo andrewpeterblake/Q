@@ -22,7 +22,7 @@ All code and some of the data will be made available through the Juno portal. Fo
 
 Some data will need to be downloaded from original other sites if all the examples are to be followed. All code is additionally available at <https://github.com/andrewpeterblake/R2020> or <https://github.com/andrewpeterblake/R2021> or through the QR codes below.
 
-```{r echo=FALSE, fig.align='center', out.width="25%", fig.cap="GitHub: 2020 (grey, left), 2021 (pink, right)", fig.show='hold'}
+```{r echo=FALSE, fig.align='center', out.width="33%", fig.cap="GitHub: 2020 (grey, left), 2021 (pink, right)", fig.show='hold'}
 library(qrcode)
 qr2020 <- qr_code("https://github.com/andrewpeterblake/R2020")
 qr2021 <- qr_code("https://github.com/andrewpeterblake/R2021")
@@ -61,7 +61,7 @@ The presentations for this are `Trees.html` and `LondonHP.html`; The two program
 
 The presentation for this is `MapAER.html` (see also `Weatherpretty.html`); The program `MapAERcode.R` is the main map drawing code, I've included `ZAF.R` as as short simple way and source for two countries, and the directory `Trendz` contains the program (`app.R`) and data for the weather example.
 
-```{r echo=FALSE, fig.align='right', out.width="50%", out.extra='style="float:right"'}
+```{r echo=FALSE, fig.align='right', out.width="33%", out.extra='style="float:right"'}
 plot(qr_code("https://vimeo.com/463164257"), col=c("white", "red"))
 ```
 

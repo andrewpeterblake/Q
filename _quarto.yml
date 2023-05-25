@@ -16,6 +16,7 @@ book:
     - index.qmd
     - intro.qmd
     - R2021.qmd
+    - BK.qmd
     - BVAR.qmd
     - QR.qmd
     - Stemp.qmd
@@ -23,7 +24,7 @@ book:
     - summary.qmd
     - references.qmd
 
-bibliography: [CourseRefs.bib, BVAR.bib]
+bibliography: [CourseRefs.bib, BVAR.bib, Refs2.bib]
 
 format:
   html:
