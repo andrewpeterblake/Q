@@ -16,13 +16,21 @@ book:
     - index.qmd
     - intro.qmd
     - R2021.qmd
-    - BK.qmd
-    - BVAR.qmd
-    - QR.qmd
-    - Stemp.qmd
-    - Maps.qmd
-    - summary.qmd
-    - references.qmd
+    - part: "Quantiles"
+      chapters:
+        - QR.qmd
+    - part: "Networks"
+      chapters: 
+        - Stemp.qmd
+        - Maps.qmd
+    - part: "Time"
+      chapters: 
+      - BK.qmd
+      - BVAR.qmd
+    - part: "End matter"
+      chapters:
+      - summary.qmd
+      - references.qmd
 
 bibliography: [CourseRefs.bib, BVAR.bib, Refs2.bib]
 

@@ -56,7 +56,7 @@ Anyone wanting to code up solutions should familiarize themselves with this befo
 
 ### Coding up the model in R
 
-Before we begin coding this in R, load the `tidyverse` libraries so we can do impulse responses with our usual toolkit and then we can forget about it. 
+Before we begin coding this in R, load the `tidyverse` libraries so we can do impulse responses with our usual tool kit and then we can forget about it. 
 ```{r libs, message=FALSE, warning=FALSE}
 library(tidyverse)
 ```
@@ -164,7 +164,7 @@ T <- 150
 z <- impulse_responses(C, D, Omega, labels, T)
 response_plot(z, "Impulse responses: Taylor rule")
 ```
-This is clearly exploding. But it's rational -- we're solving forward so expectations are always fulfilled. This is a key the insight of the early rational expectations modelers -- rational isn't enough, non-explosive is necessary too. Fortunately we know how to find this.
+This is clearly exploding. But it's rational -- we're solving forward so expectations are always fulfilled. This is a key the insight of the early rational expectations modellers -- rational isn't enough, non-explosive is necessary too. Fortunately we know how to find this.
 
 ## @BK80
 
@@ -425,7 +425,7 @@ However, this is an easy test. What we need is to use a model that can't be solv
 $$
   \pi_t = -\mu \Delta y_t - \varepsilon^3_t
 $$
-for some value of $\mu$ that reflects the optimal trade-off between output (gap) growth and inflation, and we've included a disturbance which we can loosely describe as a monetary policy shock. We modify the model above by dropping the Taylor rule in favor of the targeting rule. This requires a lagged value of $y$ to be created. The following does the trick
+for some value of $\mu$ that reflects the optimal trade-off between output (gap) growth and inflation, and we've included a disturbance which we can loosely describe as a monetary policy shock. We modify the model above by dropping the Taylor rule in favour of the targeting rule. This requires a lagged value of $y$ to be created. The following does the trick
 ```{r}
 nf <- 2
 ne <- 3
@@ -534,7 +534,7 @@ A[3,5]           <- 1
 E[4,3]           <- 1
 A[4,c(3, 6)]     <- c(1, -1/mu)
 
-E[5,c(1, 5, 6)]  <- c(1, 1, 1/sigma) # One less coeffiecint
+E[5,c(1, 5, 6)]  <- c(1, 1, 1/sigma) # One less coefficient
 A[5,c(4, 5)]     <- c(1/sigma, 1)    # One more - nothing else changes
 
 E[6,c(2, 6)]     <- c(1, beta)
@@ -623,8 +623,8 @@ Compare the realized of `Ps`
 ```{r}
 Ps
 ```
-with `Po` above, say. This is the most 'efficient' way of programming the model, in that we have only five states, and indeed the repeated behavioral equations we had before have disappeared in the reduced form solution. Just to confirm this, simulating and plotting this version gives
+with `Po` above, say. This is the most 'efficient' way of programming the model, in that we have only five states, and indeed the repeated behavioural equations we had before have disappeared in the reduced form solution. Just to confirm this, simulating and plotting this version gives
 ```{r fig.align='center'}
 response_plot(impulse_responses(Ps,Qs,Omega,labels,T), "Optimal, substituted out")
 ```
-which are identical results to those above. But of course $E$ is now convertible so we could solve this using the simplest Blanchard-Kahn variant.
+which are identical results to those above. But of course $E$ is now invertible so we could solve this using the simplest Blanchard-Kahn variant. Try it!
