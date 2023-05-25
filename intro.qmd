@@ -4,8 +4,6 @@ This is a book created from markdown and executable code.
 
 See @Mumtaz_BOOK. 
 
-------------------------------------------------------------------------
-
 ## Reading is good for you
 
 For me, the best (although slightly dated) text is @ESL [The Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/) and the best source for the mathematics, with an easy-reading version by some of the same authors @ITSL [Introduction to Statistical Learning](https://www.statlearning.com/).
