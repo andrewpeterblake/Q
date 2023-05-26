@@ -144,7 +144,7 @@
     "href": "BK.html#introduction",
     "title": "6  Linear rational expectations models",
     "section": "6.1 Introduction",
-    "text": "6.1 Introduction\nHow do we solve rational expectations models? Here I show how to implement versions of the Blanchard and Kahn (1980) and Klein (2000) solutions to linear rational expectations models in R. The implementation is fairly general, and copes with singular models. It is a very transparent implementation, with all the necessary code, and also shows how to calculate and plot impulse responses."
+    "text": "6.1 Introduction\nHow do we solve rational expectations models? What does that even mean? Here I show how to implement versions of the Blanchard and Kahn (1980) and Klein (2000) solutions to linear rational expectations models in R. The implementation is fairly general, and copes with singular models. It is a very transparent implementation, with all the necessary code, and also shows how to calculate and plot impulse responses."
   },
   {
     "objectID": "BK.html#model",
