@@ -2,10 +2,6 @@
 title: "Appendix 1"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.width=10, fig.align="center")
-```
-
 ## ggplot2
 
 -   Key part of the [`tidyverse`](https://www.tidyverse.org/) -- for many [the only part](https://en.wikipedia.org/wiki/ggplot2)
