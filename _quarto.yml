@@ -34,6 +34,8 @@ book:
       chapters:
       - summary.qmd
       - references.qmd
+      appendices:
+      - Appendix1.qmd
 
 bibliography: [CourseRefs.bib, BVAR.bib, Refs2.bib]
 
