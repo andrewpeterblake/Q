@@ -12,10 +12,13 @@ book:
           address: bank of england
   date: "2024"
   status: "In Preparation"
+  
   chapters:
     - index.qmd
-    - intro.qmd
-    - R2021.qmd
+    - part: "Methods matter"
+      chapters:
+        - intro.qmd
+        - R2021.qmd
     - part: "Quantiles"
       chapters:
         - QR.qmd

@@ -3,6 +3,13 @@
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 options(signif=5)
+mat_print <- function(x) {
+  paste(c("\\left[\\begin{array}{r}",
+          paste(c(t(x)),
+                rep(c(rep("&", nrow(x)-1), '\\\\'), ncol(x)),
+                collapse=""),
+          "\\end{array}\\right]"), collapse="")
+}
 ```
 
 ## Introduction
@@ -97,14 +104,12 @@ A[4,4]             <- 1
 A[5,c(4,5)]        <- c(-kappa, 1)
 ```
 where for example, $E$ and $A$ are
-```{r echo=FALSE, warning=FALSE, message=FALSE}
-library(kableExtra)
-knitr::kable(E, digits=3, caption="E", booktabs=TRUE) %>%
-  kable_styling(full_width=F)
-knitr::kable(A, digits=3, caption="A", booktabs=TRUE) %>%
-  kable_styling(full_width=F)
-```
-
+$$  
+E = `r mat_print(round(E,2))` 
+$$
+$$  
+A = `r mat_print(round(A,3))` 
+$$
 Calculate the reduced form state-space model
 $$
 \begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = C \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + D \varepsilon_t  
@@ -457,14 +462,12 @@ A[6,c(5, 6)]     <- c(-kappa, 1)
 ```
 
 The new $E$ and $A$ system matrices are then
-
-```{r echo=FALSE, warning=FALSE, message=FALSE}
-knitr::kable(E, digits=3, caption="E", booktabs=TRUE) %>%
-  kable_styling(full_width=F, "striped", stripe_index = c(3,4))
-knitr::kable(A, digits=3, caption="A", booktabs=TRUE) %>%
-  kable_styling(full_width=F, "striped")
-```
-
+$$  
+E = `r mat_print(round(E,2))` 
+$$
+$$  
+A = `r mat_print(round(A,3))` 
+$$
 Now we have a singular model. The matrix $E$ is clearly singular as rows 3 and 4 are identical. But we have a problem using the code above. To use it we need the matrices $H$ and $(A_{22} - W A_{21})$ to be non-singular. What to do?
 
 There are two ways out. @Klein gives a solution that depends on the decomposed matrix pencil, which is what is typically implemented, but you don't actually need it although it is easiest. Instead, all you need to do is reorder the equations. 
