@@ -798,46 +798,30 @@ A = \left[\begin{array}{r}0.9 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\0 &amp;0.8 &a
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>,] <span class="ot">&lt;-</span> A[<span class="dv">5</span><span class="sc">:</span><span class="dv">4</span>,]</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>,] <span class="ot">&lt;-</span> B[<span class="dv">5</span><span class="sc">:</span><span class="dv">4</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>then the model is unchanged but now we have</p>
+<p>then the model is unchanged but now we have <span class="math display">\[  
+E_{11} = \left[\begin{array}{r}1 &amp;0 &amp;0 &amp;0 \\0 &amp;1 &amp;0 &amp;0 \\0 &amp;0 &amp;1 &amp;0 \\1 &amp;0 &amp;0 &amp;-0.5 \\\end{array}\right]
+\]</span> so <span class="math inline">\(E_{11} + E_{12}N\)</span> is likely non-singular (it is). Also, note after the re-ordering <span class="math inline">\(A_{22}\)</span> is <span class="math display">\[  
+A_{22} = \left[\begin{array}{r}0 &amp;-1.33 \\-0.07 &amp;1 \\\end{array}\right]
+\]</span> which is guaranteed non-singular for zero <span class="math inline">\(W\)</span>. We can now proceed as before. First, check for saddle path stability</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3] [,4]
-[1,]    1    0    0  0.0
-[2,]    0    1    0  0.0
-[3,]    0    0    1  0.0
-[4,]    1    0    0 -0.5</code></pre>
-</div>
-</div>
-<p>so <span class="math inline">\(E_{11} + E_{12}N\)</span> is likely non-singular (it is). Also, note after the re-ordering <span class="math inline">\(A_{22}\)</span> is</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       [,1]      [,2]
-[1,]  0.000 -1.333333
-[2,] -0.075  1.000000</code></pre>
-</div>
-</div>
-<p>which is guaranteed non-singular for zero <span class="math inline">\(W\)</span>. We can now proceed as before. First, check for saddle path stability</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gevalues</span>(geigen<span class="sc">::</span><span class="fu">gqz</span>(A, E, <span class="at">sort=</span><span class="st">"S"</span>))</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>e[<span class="fu">abs</span>(e) <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gevalues</span>(geigen<span class="sc">::</span><span class="fu">gqz</span>(A, E, <span class="at">sort=</span><span class="st">"S"</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>e[<span class="fu">abs</span>(e) <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.378195      Inf</code></pre>
 </div>
 </div>
 <p>which confirms that it has a unique saddle path stable solution. This is</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>So <span class="ot">&lt;-</span> <span class="fu">solveGenBK</span>(E,A,B,np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>So <span class="ot">&lt;-</span> <span class="fu">solveGenBK</span>(E,A,B,np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Number of unstable roots is 2"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>Po <span class="ot">&lt;-</span> So<span class="sc">$</span>P</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>Qo <span class="ot">&lt;-</span> So<span class="sc">$</span>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>Po <span class="ot">&lt;-</span> So<span class="sc">$</span>P</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>Qo <span class="ot">&lt;-</span> So<span class="sc">$</span>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The solved model is then</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>Po</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>Po</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]      [,2]          [,3] [,4] [,5] [,6]
 [1,]  0.9  0.000000  0.000000e+00    0    0    0
@@ -847,7 +831,7 @@ A = \left[\begin{array}{r}0.9 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\0 &amp;0.8 &a
 [5,]  0.0 -1.863455  7.329156e-01    0    0    0
 [6,]  0.0  1.397591  2.003133e-01    0    0    0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>Qo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>Qo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]      [,2]          [,3]
 [1,]    1  0.000000  0.000000e+00
@@ -862,13 +846,13 @@ A = \left[\begin{array}{r}0.9 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\0 &amp;0.8 &a
 <h3 data-number="6.5.1" class="anchored" data-anchor-id="optimal-impulse-responses"><span class="header-section-number">6.5.1</span> Optimal impulse responses</h3>
 <p>We can now simulate the model under optimal policy and plot using</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>zo <span class="ot">&lt;-</span> <span class="fu">impulse_responses</span>(Po, Qo, Omega, labels, T) <span class="sc">%&gt;%</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>ylag) <span class="co"># Drop duplicate series</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">response_plot</span>(zo, <span class="st">"Impulse responses: Optimal policy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>zo <span class="ot">&lt;-</span> <span class="fu">impulse_responses</span>(Po, Qo, Omega, labels, T) <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>ylag) <span class="co"># Drop duplicate series</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">response_plot</span>(zo, <span class="st">"Impulse responses: Optimal policy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="BK_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="BK_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -880,64 +864,53 @@ A = \left[\begin{array}{r}0.9 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\0 &amp;0.8 &a
 <p>But this isn’t the only way to get this to work. Effectively what we just did was create an extra predetermined variable and reorder the system to give us non-singularity. What if instead of including an unused <span class="math inline">\(i_{t-1}\)</span> on the right hand side, we instead include an unused <span class="math inline">\(i^e_{t+1}\)</span> on the left hand side? So we swap to having one more jump variable, one less predetermined one?</p>
 <p>Compare the following to the previous model. When we pick out the interest rate we do so on the right hand side of the matrix equation, not the left as before.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="dv">6</span>      <span class="co"># One extra state</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>nf <span class="ot">&lt;-</span> <span class="dv">3</span>      <span class="co"># And one extra jump</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>np <span class="ot">&lt;-</span> ns<span class="sc">-</span>nf</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"e^1"</span>,<span class="st">"e^2"</span>,<span class="st">"ylag"</span>,<span class="st">"i"</span>,<span class="st">"y"</span>,<span class="st">"pi"</span>) <span class="co"># New variable order</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ns)</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> E</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ne)</span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">4</span>,<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(E[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(A[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="ot">&lt;-</span> <span class="fu">c</span>(rho_1, rho_2)</span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">3</span>,<span class="dv">5</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">4</span>,<span class="dv">3</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">4</span>,<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>mu)</span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>)]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span>sigma) <span class="co"># One less coefficient</span></span>
-<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span>sigma, <span class="dv">1</span>)    <span class="co"># One more - nothing else changes</span></span>
-<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">6</span>,<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, beta)</span>
-<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">6</span>,<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>kappa, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="dv">6</span>      <span class="co"># One extra state</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>nf <span class="ot">&lt;-</span> <span class="dv">3</span>      <span class="co"># And one extra jump</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>np <span class="ot">&lt;-</span> ns<span class="sc">-</span>nf</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"e^1"</span>,<span class="st">"e^2"</span>,<span class="st">"ylag"</span>,<span class="st">"i"</span>,<span class="st">"y"</span>,<span class="st">"pi"</span>) <span class="co"># New variable order</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ns)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> E</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ne)</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">4</span>,<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(E[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(A[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="ot">&lt;-</span> <span class="fu">c</span>(rho_1, rho_2)</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">3</span>,<span class="dv">5</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">4</span>,<span class="dv">3</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">4</span>,<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>mu)</span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>)]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span>sigma) <span class="co"># One less coefficient</span></span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span>sigma, <span class="dv">1</span>)    <span class="co"># One more - nothing else changes</span></span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">6</span>,<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, beta)</span>
+<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">6</span>,<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)]     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>kappa, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This is still a singular model, as we can see from</p>
+<p>This is still a singular model, as we can see from <span class="math display">\[  
+E = \left[\begin{array}{r}1 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\0 &amp;1 &amp;0 &amp;0 &amp;0 &amp;0 \\0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;0 \\0 &amp;0 &amp;1 &amp;0 &amp;0 &amp;0 \\1 &amp;0 &amp;0 &amp;0 &amp;1 &amp;0.5 \\0 &amp;1 &amp;0 &amp;0 &amp;0 &amp;0.99 \\\end{array}\right]
+\]</span> with column 4 all zeros. Is <em>this</em> model saddle path stable?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>E</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3] [,4] [,5] [,6]
-[1,]    1    0    0    0    0 0.00
-[2,]    0    1    0    0    0 0.00
-[3,]    0    0    1    0    0 0.00
-[4,]    0    0    1    0    0 0.00
-[5,]    1    0    0    0    1 0.50
-[6,]    0    1    0    0    0 0.99</code></pre>
-</div>
-</div>
-<p>with column 4 all zeros. Is <em>this</em> model saddle path stable?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gevalues</span>(geigen<span class="sc">::</span><span class="fu">gqz</span>(A, E, <span class="at">sort=</span><span class="st">"S"</span>) )</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>e[<span class="fu">abs</span>(e) <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gevalues</span>(geigen<span class="sc">::</span><span class="fu">gqz</span>(A, E, <span class="at">sort=</span><span class="st">"S"</span>) )</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>e[<span class="fu">abs</span>(e) <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]     -Inf 1.378195      Inf</code></pre>
 </div>
 </div>
 <p>Again, it is with an extra unstable root for the extra jump variable. We could simplify the solution. As that top left 3 by 3 block, <span class="math inline">\(E_{11}\)</span>, is the identity matrix and <span class="math inline">\(E_{12}\)</span> is all zeros this <code>Ei</code> is always an identity matrix. However, here we simply re-use <code>solveGenBG</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>So2 <span class="ot">&lt;-</span> <span class="fu">solveGenBK</span>(E,A,B,np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>So2 <span class="ot">&lt;-</span> <span class="fu">solveGenBK</span>(E,A,B,np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Number of unstable roots is 3"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>Po2 <span class="ot">&lt;-</span> So2<span class="sc">$</span>P</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>Qo2 <span class="ot">&lt;-</span> So2<span class="sc">$</span>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>Po2 <span class="ot">&lt;-</span> So2<span class="sc">$</span>P</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>Qo2 <span class="ot">&lt;-</span> So2<span class="sc">$</span>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now the solved model is</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>Po2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>Po2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]      [,2]       [,3] [,4] [,5] [,6]
 [1,]  0.9  0.000000  0.0000000    0    0    0
@@ -947,7 +920,7 @@ A = \left[\begin{array}{r}0.9 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\0 &amp;0.8 &a
 [5,]  0.0 -1.863455  0.7329156    0    0    0
 [6,]  0.0  1.397591  0.2003133    0    0    0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>Qo2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>Qo2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]      [,2]       [,3]
 [1,]    1  0.000000  0.0000000
@@ -979,41 +952,41 @@ e_t^2  &amp;= \rho_2 e_{t-1}^2 + \varepsilon_t^2
 \]</span></p>
 <p>We can code this</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="dv">5</span>      <span class="co"># Back to 5 states</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>nf <span class="ot">&lt;-</span> <span class="dv">1</span>      <span class="co"># Now only one jump</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>np <span class="ot">&lt;-</span> ns<span class="sc">-</span>nf</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"e^1"</span>,<span class="st">"e^2"</span>,<span class="st">"i"</span>,<span class="st">"y"</span>,<span class="st">"pi"</span>) <span class="co"># Lose a y</span></span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ns)</span>
-<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> E</span>
-<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ne)</span>
-<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">4</span>,<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(E[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(A[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="ot">&lt;-</span> <span class="fu">c</span>(rho_1, rho_2)</span>
-<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">3</span>,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>sigma, <span class="dv">1</span>, sigma<span class="sc">/</span>mu<span class="dv">-1</span>)</span>
-<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">4</span>,<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>)]      <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>mu)</span>
-<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, kappa, beta)</span>
-<span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span>,<span class="dv">5</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="dv">5</span>      <span class="co"># Back to 5 states</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>nf <span class="ot">&lt;-</span> <span class="dv">1</span>      <span class="co"># Now only one jump</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>np <span class="ot">&lt;-</span> ns<span class="sc">-</span>nf</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"e^1"</span>,<span class="st">"e^2"</span>,<span class="st">"i"</span>,<span class="st">"y"</span>,<span class="st">"pi"</span>) <span class="co"># Lose a y</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ns)</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> E</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,ns,ne)</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>B[<span class="dv">4</span>,<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(E[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(A[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="ot">&lt;-</span> <span class="fu">c</span>(rho_1, rho_2)</span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">3</span>,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>sigma, <span class="dv">1</span>, sigma<span class="sc">/</span>mu<span class="dv">-1</span>)</span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">4</span>,<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>)]      <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>mu)</span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, kappa, beta)</span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">5</span>,<span class="dv">5</span>]           <span class="ot">&lt;-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and solve it using</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>Ss <span class="ot">&lt;-</span> <span class="fu">solveGenBK</span>(E,A,B,np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>Ss <span class="ot">&lt;-</span> <span class="fu">solveGenBK</span>(E,A,B,np)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Number of unstable roots is 1"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>Ps <span class="ot">&lt;-</span> Ss<span class="sc">$</span>P</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>Qs <span class="ot">&lt;-</span> Ss<span class="sc">$</span>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>Ps <span class="ot">&lt;-</span> Ss<span class="sc">$</span>P</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>Qs <span class="ot">&lt;-</span> Ss<span class="sc">$</span>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Compare the realized of <code>Ps</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>Ps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>Ps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]      [,2] [,3]       [,4] [,5]
 [1,]  0.9  0.000000    0  0.0000000    0
@@ -1025,11 +998,11 @@ e_t^2  &amp;= \rho_2 e_{t-1}^2 + \varepsilon_t^2
 </div>
 <p>with <code>Po</code> above, say. This is the most ‘efficient’ way of programming the model, in that we have only five states, and indeed the repeated behavioural equations we had before have disappeared in the reduced form solution. Just to confirm this, simulating and plotting this version gives</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">response_plot</span>(<span class="fu">impulse_responses</span>(Ps,Qs,Omega,labels,T), <span class="st">"Optimal, substituted out"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">response_plot</span>(<span class="fu">impulse_responses</span>(Ps,Qs,Omega,labels,T), <span class="st">"Optimal, substituted out"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="BK_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="BK_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

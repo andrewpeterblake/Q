@@ -479,13 +479,13 @@ A[4:5,] <- A[5:4,]
 B[4:5,] <- B[5:4,]
 ```
 then the model is unchanged but now we have
-```{r}
-E[1:4,1:4]
-```
+$$  
+E_{11} = `r mat_print(round(E[1:4,1:4],2))` 
+$$
 so $E_{11} + E_{12}N$ is likely non-singular (it is). Also, note after the re-ordering $A_{22}$ is
-```{r}
-A[5:6,5:6]
-```
+$$  
+A_{22} = `r mat_print(round(A[5:6,5:6],2))` 
+$$
 which is guaranteed non-singular for zero $W$. We can now proceed as before. First, check for saddle path stability
 ```{r warning=FALSE}
 e <- geigen::gevalues(geigen::gqz(A, E, sort="S"))
@@ -544,9 +544,9 @@ E[6,c(2, 6)]     <- c(1, beta)
 A[6,c(5, 6)]     <- c(-kappa, 1)
 ```
 This is still a singular model, as we can see from
-```{r}
-E
-```
+$$  
+E = `r mat_print(round(E,2))` 
+$$
 with column 4 all zeros. Is _this_ model saddle path stable? 
 ```{r warning=FALSE}
 e <- geigen::gevalues(geigen::gqz(A, E, sort="S") )
