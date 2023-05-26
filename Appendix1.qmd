@@ -1,6 +1,4 @@
----
-title: "Appendix 1"
----
+# Appendix 1
 
 ## ggplot2
 
