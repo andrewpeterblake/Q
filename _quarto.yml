@@ -36,6 +36,7 @@ book:
       - references.qmd
   appendices:
     - Appendix1.qmd
+    - LinAlg.qmd
 
 bibliography: [CourseRefs.bib, BVAR.bib, Refs2.bib]
 

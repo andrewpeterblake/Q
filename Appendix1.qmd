@@ -1,4 +1,4 @@
-# Appendix 1
+# Appendix: `ggplot2`
 
 ## ggplot2
 
