@@ -1,5 +1,15 @@
 # Linear algebra
 
+```{r setup, include=FALSE}
+mat_print <- function(x) {
+  paste(c("\\left[\\begin{array}{r}",
+          paste(c(t(x)),
+                rep(c(rep("&", nrow(x)-1), '\\\\'), ncol(x)),
+                collapse=""),
+          "\\end{array}\\right]"), collapse="")
+}
+```
+
 ## Modelling in economics **is** linear algebra
 
 That's a bit extreme, but you mostly need to do linear algebra to program up many of the estimators we need, or to solve a rational expectations models. 
@@ -87,9 +97,11 @@ $$
 $$
 where
 $$
-A = \left [ \matrix{1 &2 & 0 \cr
+A = \left [ \begin{array}{r}
+             1 &  2 & 0 \cr
              1 & -3 & 2\cr
-             -2 & 0 & 3} \right ], \qquad 
+            -2 &  0 & 3
+            \end{array} \right ], \qquad 
   b = \left[ \matrix{6 \\ 0 \\ 2} \right ]
 $$
 and then use `solve`.
@@ -143,29 +155,30 @@ round(Re(s), digits=12)
 
 ## Precision
 
-Take a real matrix $A_{mn}$ with $n \le m$ and pre-multiply by its own transpose, i.e.\ $AA = A'A$. $AA$ is symmetric, positive semi-definite. If $rank(A) = n$, then $rank(AA) = n$ and positive definite, and its inverse exists.
+Take a real matrix $A_{mn}$ with $n \le m$ and pre-multiply by its own transpose, i.e.\ $S = A'A$. $AA$ is symmetric, positive semi-definite. If $rank(A) = n$, then $rank(S) = n$ and positive definite, and its inverse exists.
 
 ```{r}
 A  <- matrix(c(1, .2, 0, 1), 2, 2)
-AA <- t(A) %*% A
-AA
+S <- t(A) %*% A
+S
 ```
-Let's invert $AA$ three different ways.
+Let's invert $S$ three different ways.
 ```{r}
-i1 <- solve(AA) 
-i2 <- chol2inv(chol(AA))
-i3 <- qr.solve(AA) 
-
-i1 %*% AA
-i2 %*% AA
-i3 %*% AA
+i1 <- solve(S) 
+i2 <- chol2inv(chol(S))
+i3 <- qr.solve(S) 
 ```
-
+Pre-multiplying $S$ by its inverse gives
+$$
+I_k = `r mat_print(diag(2))`
+$$
+Looking at the results of doing this for each method gives
 ```{r}
-id <- i3 %*% AA
-T1 <- knitr::kable(as.data.frame(id), caption = "An identity matrix", format="html")
-kableExtra::kable_styling(T1, full_width = FALSE, position = "center")
+i1 %*% S
+i2 %*% S
+i3 %*% S
 ```
+which are all slightly different but by tiny -- and insignificant -- amounts.
 
 ## Programming the regression problem
 
@@ -176,11 +189,10 @@ $$
 where $\epsilon \sim N(0,.2)$, $X$ is a $(k+1)\times n$ matrix of regressors including a constant and $B$ a $k+1$ vector of coefficients. Let's generate some random data of an arbitrary sized problem:
 ```{r manip}
 X <- matrix(rnorm(180, 2, 1), 60, 3)
-head(A, 6) # Print first six rows
+head(X, 6) # Print first six rows
 X <- cbind(1, X) # Add a constant
 tail(X,6) # Print last six rows
 ```
-
 Now create a dependent variable that is a linear combination of these variables plus some noise. Create the linear relationship first so we know what it is:
 ```{r B}
 B <- matrix(c(0.5,1,-1,.2), 4, 1)
@@ -189,8 +201,7 @@ and then the dependent variable:
 ```{r dep}
 y <- X %*% B + 0.2*rnorm(60)
 ```
-
-We could now do a regression - i.e. calculate
+We could now do a regression -- i.e. calculate
 $$
   \hat B = (X'X)^{-1}X'y
 $$
@@ -204,7 +215,7 @@ Bhat
 ```
 But I wouldn't do it like this (we'll see why in a minute). A better way would be 
 ```{r better}
-Bhat2 <- chol2inv(chol(crossprod(X)))%*%crossprod(X,y)
+Bhat2 <- chol2inv(chol(crossprod(X))) %*% crossprod(X,y)
 ```
 or even
 ```{r betteryet}
@@ -212,19 +223,17 @@ Bhat3 <- qr.solve(X,y)
 ```
 which both evaluate to the same $\hat B$ values.
 
-## Testing timings
+### Test timings
 
 Why does it matter how you do things? It should be obvious that it might, but it turns out some fairly trivial things can make a lot of difference. We set some parameters so we can create a bigger problem.
 ```{r message=FALSE, warning=FALSE}
 n <- 400
 k <- 12
 ```
-
 We will use seven different methods to calculate an estimate of $B$. These are two variations on the three calculations below (where the brackets matter!):
 $$
 \hat B_1 = ((X'X)^{-1}) X' y 
 $$
-
 $$
 \hat B_2 = ((X'X)^{-1}) (X' y) 
 $$
@@ -232,8 +241,6 @@ $$
 \hat B_3 = ((X'X)^{-1} (X' y))
 $$
 where we do it either 'by hand' or using `crossprob`, plus using `qr.solve`.
-
-
 ```{r}
 library(tictoc)
 
@@ -310,9 +317,7 @@ for (i in 1:reps) {
   }
 t[[7]] <- toc(quiet = TRUE)
 ```
-
 How do we display the timings we saved in `t`? We could do a simple (but dull) table, or something a but nicer.
-
 ```{r warning=FALSE, message=FALSE, fig.align="center"}
 library(tidyverse)
 
@@ -327,9 +332,10 @@ FF <- c("solve(t(X)%*%X) %*% t(X) %*% y",
 v <- tibble(Method = 1:7, 
             Times = as.numeric(gsub(" sec elapsed", "", unlist(t)[seq(3,21,3)])), 
             Formula = FF) %>% 
-  mutate(Col = case_when(
-    Times == min(Times) ~ "red",
-    TRUE ~ "blue"
+  mutate(
+    Col = case_when(
+      Times == min(Times) ~ "red",
+      TRUE ~ "blue"
   ))
 
 ggplot(v) + 
@@ -343,4 +349,3 @@ ggplot(v) +
   labs(y=paste("Seconds taken to do",reps,"replications"), x="", 
        title="Timings of different numerical regression methods")
 ```
-
