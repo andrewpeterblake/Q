@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>linalg</title>
+<title>Quantiles, Networks, Time - Appendix B — Linear algebra</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,40 +86,257 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<script src="LinAlg_files/libs/clipboard/clipboard.min.js"></script>
-<script src="LinAlg_files/libs/quarto-html/quarto.js"></script>
-<script src="LinAlg_files/libs/quarto-html/popper.min.js"></script>
-<script src="LinAlg_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="LinAlg_files/libs/quarto-html/anchor.min.js"></script>
-<link href="LinAlg_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="LinAlg_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="LinAlg_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="LinAlg_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="LinAlg_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Appendix1.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
 
-<script src="LinAlg_files/libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="LinAlg_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
-<body class="fullcontent">
+<body class="nav-sidebar floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Appendix B — Linear algebra</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Quantiles, Networks, Time</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Genesis</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Methods matter</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R2021.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Non-econometric methods for econometricians</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Quantiles</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./QR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Quantile regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Networks</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Stemp.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Causal Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Maps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Time</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BK.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BVAR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">End matter</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Appendix1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix: <code>ggplot2</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./LinAlg.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Linear algebra</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#modelling-in-economics-is-linear-algebra" id="toc-modelling-in-economics-is-linear-algebra" class="nav-link active" data-scroll-target="#modelling-in-economics-is-linear-algebra"><span class="toc-section-number">B.1</span>  Modelling in economics <strong>is</strong> linear algebra</a></li>
+  <li><a href="#beginning-to-program" id="toc-beginning-to-program" class="nav-link" data-scroll-target="#beginning-to-program"><span class="toc-section-number">B.2</span>  Beginning to program</a>
+  <ul class="collapse">
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions"><span class="toc-section-number">B.2.1</span>  Functions</a></li>
+  </ul></li>
+  <li><a href="#linear-algebra" id="toc-linear-algebra" class="nav-link" data-scroll-target="#linear-algebra"><span class="toc-section-number">B.3</span>  Linear algebra</a></li>
+  <li><a href="#starting-to-do-linear-algebra" id="toc-starting-to-do-linear-algebra" class="nav-link" data-scroll-target="#starting-to-do-linear-algebra"><span class="toc-section-number">B.4</span>  Starting to do linear algebra</a>
+  <ul class="collapse">
+  <li><a href="#problem" id="toc-problem" class="nav-link" data-scroll-target="#problem"><span class="toc-section-number">B.4.1</span>  Problem</a></li>
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution"><span class="toc-section-number">B.4.2</span>  Solution</a></li>
+  </ul></li>
+  <li><a href="#eigenvalue-decomposition" id="toc-eigenvalue-decomposition" class="nav-link" data-scroll-target="#eigenvalue-decomposition"><span class="toc-section-number">B.5</span>  Eigenvalue decomposition</a></li>
+  <li><a href="#precision" id="toc-precision" class="nav-link" data-scroll-target="#precision"><span class="toc-section-number">B.6</span>  Precision</a></li>
+  <li><a href="#programming-the-regression-problem" id="toc-programming-the-regression-problem" class="nav-link" data-scroll-target="#programming-the-regression-problem"><span class="toc-section-number">B.7</span>  Programming the regression problem</a></li>
+  <li><a href="#testing-timings" id="toc-testing-timings" class="nav-link" data-scroll-target="#testing-timings"><span class="toc-section-number">B.8</span>  Testing timings</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Appendix B — Linear algebra</h1>
+</div>
 
 
-<section id="linear-algebra" class="level1">
-<h1>Linear algebra</h1>
-<section id="modelling-in-economics-is-linear-algebra" class="level2">
-<h2 class="anchored" data-anchor-id="modelling-in-economics-is-linear-algebra">Modelling in economics <strong>is</strong> linear algebra</h2>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="modelling-in-economics-is-linear-algebra" class="level2" data-number="B.1">
+<h2 data-number="B.1" class="anchored" data-anchor-id="modelling-in-economics-is-linear-algebra"><span class="header-section-number">B.1</span> Modelling in economics <strong>is</strong> linear algebra</h2>
 <p>That’s a bit extreme, but you mostly need to do linear algebra to program up many of the estimators we need, or to solve a rational expectations models.</p>
 </section>
-<section id="beginning-to-program" class="level2">
-<h2 class="anchored" data-anchor-id="beginning-to-program">Beginning to program</h2>
+<section id="beginning-to-program" class="level2" data-number="B.2">
+<h2 data-number="B.2" class="anchored" data-anchor-id="beginning-to-program"><span class="header-section-number">B.2</span> Beginning to program</h2>
 <p>A few non-linear algebra things we will need are summarized in the following table.</p>
 <table class="table">
 <caption>Useful things</caption>
@@ -182,8 +399,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<section id="functions" class="level3">
-<h3 class="anchored" data-anchor-id="functions">Functions</h3>
+<section id="functions" class="level3" data-number="B.2.1">
+<h3 data-number="B.2.1" class="anchored" data-anchor-id="functions"><span class="header-section-number">B.2.1</span> Functions</h3>
 <p>Everything in R is a function (although it doesn’t look like it). Defining a function is simple:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>name_of_function <span class="ot">&lt;-</span> <span class="cf">function</span>(function_arguments){</span>
@@ -206,8 +423,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="linear-algebra-1" class="level2">
-<h2 class="anchored" data-anchor-id="linear-algebra-1">Linear algebra</h2>
+<section id="linear-algebra" class="level2" data-number="B.3">
+<h2 data-number="B.3" class="anchored" data-anchor-id="linear-algebra"><span class="header-section-number">B.3</span> Linear algebra</h2>
 <p>Assume the following: <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are real matrices of dimension <span class="math inline">\(n\times n\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span> are real <span class="math inline">\(n-\)</span>vectors, <span class="math inline">\(X\)</span> is a real <span class="math inline">\(T\times k\)</span> matrix, and <span class="math inline">\(S\)</span> is a symmetric real matrix.</p>
 <table class="table">
 <caption>Maths commands essential to linear algebra</caption>
@@ -331,10 +548,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </section>
-<section id="starting-to-do-linear-algebra" class="level2">
-<h2 class="anchored" data-anchor-id="starting-to-do-linear-algebra">Starting to do linear algebra</h2>
-<section id="problem" class="level3">
-<h3 class="anchored" data-anchor-id="problem">Problem</h3>
+<section id="starting-to-do-linear-algebra" class="level2" data-number="B.4">
+<h2 data-number="B.4" class="anchored" data-anchor-id="starting-to-do-linear-algebra"><span class="header-section-number">B.4</span> Starting to do linear algebra</h2>
+<section id="problem" class="level3" data-number="B.4.1">
+<h3 data-number="B.4.1" class="anchored" data-anchor-id="problem"><span class="header-section-number">B.4.1</span> Problem</h3>
 <p>Consider the following simultaneous system of equations: <span class="math display">\[
 \begin{align}
 x_1 + 2x_2 &amp;= 6 \\
@@ -351,8 +568,8 @@ A = \left [ \matrix{1 &amp;2 &amp; 0 \cr
   b = \left[ \matrix{6 \\ 0 \\ 2} \right ]
 \]</span> and then use <code>solve</code>.</p>
 </section>
-<section id="solution" class="level3">
-<h3 class="anchored" data-anchor-id="solution">Solution</h3>
+<section id="solution" class="level3" data-number="B.4.2">
+<h3 data-number="B.4.2" class="anchored" data-anchor-id="solution"><span class="header-section-number">B.4.2</span> Solution</h3>
 <p>R code to create these matrices is:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>,<span class="sc">-</span><span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="dv">3</span>,<span class="dv">3</span>) <span class="co"># Matrices are populated by column by default</span></span>
@@ -373,8 +590,8 @@ A = \left [ \matrix{1 &amp;2 &amp; 0 \cr
 </div>
 </section>
 </section>
-<section id="eigenvalue-decomposition" class="level2">
-<h2 class="anchored" data-anchor-id="eigenvalue-decomposition">Eigenvalue decomposition</h2>
+<section id="eigenvalue-decomposition" class="level2" data-number="B.5">
+<h2 data-number="B.5" class="anchored" data-anchor-id="eigenvalue-decomposition"><span class="header-section-number">B.5</span> Eigenvalue decomposition</h2>
 <p>Any square matrix can be decomposed into a non-singular matrix <span class="math inline">\(V\)</span> of eigenvectors and a diagonal matrix of eigenvalues <span class="math inline">\(\Lambda\)</span> such that: <span class="math display">\[
 A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
 \]</span></p>
@@ -423,8 +640,8 @@ A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
 </div>
 </div>
 </section>
-<section id="precision" class="level2">
-<h2 class="anchored" data-anchor-id="precision">Precision</h2>
+<section id="precision" class="level2" data-number="B.6">
+<h2 data-number="B.6" class="anchored" data-anchor-id="precision"><span class="header-section-number">B.6</span> Precision</h2>
 <p>Take a real matrix <span class="math inline">\(A_{mn}\)</span> with <span class="math inline">\(n \le m\)</span> and pre-multiply by its own transpose, i.e.&nbsp;<span class="math inline">\(AA = A'A\)</span>. <span class="math inline">\(AA\)</span> is symmetric, positive semi-definite. If <span class="math inline">\(rank(A) = n\)</span>, then <span class="math inline">\(rank(AA) = n\)</span> and positive definite, and its inverse exists.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>A  <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, .<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
@@ -490,8 +707,8 @@ A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
 </div>
 </div>
 </section>
-<section id="programming-the-regression-problem" class="level2">
-<h2 class="anchored" data-anchor-id="programming-the-regression-problem">Programming the regression problem</h2>
+<section id="programming-the-regression-problem" class="level2" data-number="B.7">
+<h2 data-number="B.7" class="anchored" data-anchor-id="programming-the-regression-problem"><span class="header-section-number">B.7</span> Programming the regression problem</h2>
 <p>Let’s look at the familiar regression problem for some generated data. <span class="math display">\[
   y = XB + \epsilon
 \]</span> where <span class="math inline">\(\epsilon \sim N(0,.2)\)</span>, <span class="math inline">\(X\)</span> is a <span class="math inline">\((k+1)\times n\)</span> matrix of regressors including a constant and <span class="math inline">\(B\)</span> a <span class="math inline">\(k+1\)</span> vector of coefficients. Let’s generate some random data of an arbitrary sized problem:</p>
@@ -506,13 +723,13 @@ A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, X) <span class="co"># Add a constant</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(X,<span class="dv">6</span>) <span class="co"># Print last six rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      [,1]      [,2]      [,3]     [,4]
-[55,]    1 2.2187337 2.7469661 4.231206
-[56,]    1 0.3359646 1.8437763 1.745590
-[57,]    1 0.2586667 1.6249902 1.054811
-[58,]    1 1.1766639 0.3292489 1.956772
-[59,]    1 2.6076447 2.4532817 1.597593
-[60,]    1 2.7197596 1.3070512 1.485664</code></pre>
+<pre><code>      [,1]       [,2]      [,3]      [,4]
+[55,]    1  3.2883524 4.0058978 1.9276571
+[56,]    1  2.6353007 0.9491907 3.2521896
+[57,]    1 -0.6548399 1.3255955 3.0891983
+[58,]    1  0.6420179 2.7842496 1.4509775
+[59,]    1  1.4839185 0.7260015 3.2324601
+[60,]    1  0.6575740 3.5025515 0.6634842</code></pre>
 </div>
 </div>
 <p>Now create a dependent variable that is a linear combination of these variables plus some noise. Create the linear relationship first so we know what it is:</p>
@@ -533,10 +750,10 @@ A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>           [,1]
-[1,]  0.2475912
-[2,]  1.0829103
-[3,] -0.9985425
-[4,]  0.2406031</code></pre>
+[1,]  0.4614130
+[2,]  0.9932904
+[3,] -0.9627091
+[4,]  0.1843332</code></pre>
 </div>
 </div>
 <p>But I wouldn’t do it like this (we’ll see why in a minute). A better way would be</p>
@@ -549,8 +766,8 @@ A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
 </div>
 <p>which both evaluate to the same <span class="math inline">\(\hat B\)</span> values.</p>
 </section>
-<section id="testing-timings" class="level2">
-<h2 class="anchored" data-anchor-id="testing-timings">Testing timings</h2>
+<section id="testing-timings" class="level2" data-number="B.8">
+<h2 data-number="B.8" class="anchored" data-anchor-id="testing-timings"><span class="header-section-number">B.8</span> Testing timings</h2>
 <p>Why does it matter how you do things? It should be obvious that it might, but it turns out some fairly trivial things can make a lot of difference. We set some parameters so we can create a bigger problem.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">400</span></span>
@@ -678,11 +895,11 @@ A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
 </div>
 </div>
 </div>
-</section>
+
+
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -703,6 +920,121 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -816,6 +1148,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Appendix1.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix: <code>ggplot2</code></span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
