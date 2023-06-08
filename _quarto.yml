@@ -19,6 +19,7 @@ book:
       chapters:
         - intro.qmd
         - R2021.qmd
+        - Kalman.qmd
     - part: "Quantiles"
       chapters:
         - QR.qmd
@@ -38,7 +39,7 @@ book:
     - Appendix1.qmd
     - LinAlg.qmd
 
-bibliography: [CourseRefs.bib, BVAR.bib, Refs2.bib]
+bibliography: [CourseRefs.bib, BVAR.bib, Refs2.bib, refsBayes.bib]
 
 format:
   html:
