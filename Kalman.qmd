@@ -45,15 +45,16 @@ $$
 
 We need a framework that nests this type of model (and many more). State-space models are one such framework, amenable to classical (and Bayesian) estimation. Quite a lot of apparatus required before we can apply maximum likelihood. 
 
-**Key point**: 
+**Key points**: 
+
  - Many quantities routinely used to build models and analyse policy are _unobservable_.
 - Econometricians face a major problem estimating such models: everything unobserved needs estimating simultaneously (states and parameters).
 - Fortunately there is a method we can use: the ***Kalman filter*** (@Kalman).
 - Has the useful spin-off that we can also use it to calculate the value of the likelihood function.
 
-## The filter
+## What is a filter?
 
-Imagine we had a time-varying parameter model where we estimate $\beta_t$; this becomes a time series so we have a lot of parameters to estimate: we outline an estimation method here, the _Kalman Filter_.
+Imagine we had a time-varying parameter model where we estimate $\beta_t$; this becomes a time series so we have a lot of parameters to estimate: we outline an estimation method here, which we will then characterise as the _Kalman Filter_.
 
 Simple observation and transition equations
 $$
@@ -72,39 +73,26 @@ where $\beta_t$ is a vector of stochastic variables, $y_t$ a vector of measureme
 
 > "The object of filtering is to update our knowledge of the system each time a new observation $y_t$ is brought in." (@Durbin)
 
-## The filter
-
 Filtering is specifically this: perhaps we have some estimates already of $\beta_t$ for $t=1...t-1$, then given the new period-$t$ observation of $y_t$ how should we estimate a new value of $\beta_t$? This immediately implies a recursive structure to estimation problems, consistent with on-line (or real-time) estimation.
 The Kalman filter uses the period $t$ news available from observed $y_t$ to update our estimates of $\beta_t$ using the regression lemma.
 
 ### Forecasting
 
 Consider the simple first-order VAR model
-
 $$
-
   \beta_t = F\beta_{t-1}+v_{t},\quad v_t\sim N(0,Q)
-
 $$
-
-- We can use to make the _conditional_ forecast
-
+We can use to make the _conditional_ forecast
 $$
   \beta_{t|t-1} = F\beta_{t-1}
 $$
+where $\beta_{t|t-1}=E[\beta_t|\psi_{t-1}]$ and $\psi_{t-1}$ is the information set available at time $t-1$.
 
-where $\beta_{t|t-1}=E[\beta_t|\psi_{t-1}]$ and $\psi_{t-1}$ is the information set available at time $t-1$
-
-- If $\psi_{t-1}$ includes $\beta_{t-1}$ we can straightforwardly forecast next period (and the next-but-one period etc) using the model
-
-- This is a standard forecasting exercise given any estimated (or even calibrated) economic model
+If $\psi_{t-1}$ includes $\beta_{t-1}$ we can straightforwardly forecast next period (and the next-but-one period etc) using the model. This is a standard forecasting exercise given any estimated (or even calibrated) economic model.
 
 ### Uncertainty
 
-- How can we assess the associated forecast uncertainty?
-
-- The forecast covariance $P_{t|t-1} = var(\beta_t|\psi_{t-1})$ is given by
-
+How can we assess the associated forecast uncertainty? The forecast covariance $P_{t|t-1} = var(\beta_t|\psi_{t-1})$ is given by
 $$
 \begin{align}
 P_{t|t-1} &= E\left[ (\beta_t - \beta_{t|t-1})(\beta_t-\beta_{t|t-1})'\right]   \\
@@ -141,12 +129,7 @@ where $\eta_{t|t-1}$ is uncorrelated with $\psi_{t-1}$ . So the 'news' over that
 
 ### Current-data predictions
 
- 
-
-- Now we find $E [\beta_t | \psi_t]$ -- the best prediction of the unknown coefficient vector given _current_ information
-
-- Using the regression lemma we know that
-
+Now we find $E [\beta_t | \psi_t]$ -- the best prediction of the unknown coefficient vector given _current_ information. Using the regression lemma we know that
 $$
 \begin{align}
 E[\beta_t | \psi_t ] &= E[\beta_t | \psi_{t-1}, \eta_{t|t-1} ]  \\
