@@ -220,10 +220,6 @@ $$
   - \frac{1}{2}\sum_{t=1}^T \left( \log \det f_{t|t-1} + \eta_{t|t-1}' f_{t|t-1}^{-1} \eta_{t|t-1} \ | \ \theta \right)
 \end{eqnarray*}
 $$
-where $\Phi =\frac{Tm}{2}\log \left( 2\pi \right)$ and $\theta$ are all the non-state parameters to be estimated.
-
-We can use the Kalman filter to obtain $\eta_{t|t-1}$ and $f_{t|t-1}$ as they are the _prediction error_ and its _variance_. This is the ***prediction error decomposition*** of the log-likelihood. 
+where $\Phi =\frac{Tm}{2}\log \left( 2\pi \right)$ and $\theta$ are all the non-state parameters to be estimated. We can use the Kalman filter to obtain $\eta_{t|t-1}$ and $f_{t|t-1}$ as they are the _prediction error_ and its _variance_. This is the ***prediction error decomposition*** of the log-likelihood. 
 
 A maximum likelihood estimate maximizes $\log L(y|\theta)$ by choice of $\theta$.
-
- 

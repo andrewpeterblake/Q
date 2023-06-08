@@ -46,6 +46,7 @@ format:
     theme: 
       light: sandstone
       dark: darkly
+    css: CCBS.css
   pdf:
     documentclass: book
 

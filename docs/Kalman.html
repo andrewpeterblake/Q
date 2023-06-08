@@ -84,6 +84,7 @@ div.csl-indent {
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<link rel="stylesheet" href="CCBS.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -467,8 +468,7 @@ P_{t|t}       &amp;= P_{t|t-1} - P_{t|t-1}H_t' f_{t|t-1}^{-1}H_tP_{t|t-1}   \tag
   &amp;=&amp; -\Phi
   - \frac{1}{2}\sum_{t=1}^T \left( \log \det f_{t|t-1} + \eta_{t|t-1}' f_{t|t-1}^{-1} \eta_{t|t-1} \ | \ \theta \right)
 \end{eqnarray*}
-\]</span> where <span class="math inline">\(\Phi =\frac{Tm}{2}\log \left( 2\pi \right)\)</span> and <span class="math inline">\(\theta\)</span> are all the non-state parameters to be estimated.</p>
-<p>We can use the Kalman filter to obtain <span class="math inline">\(\eta_{t|t-1}\)</span> and <span class="math inline">\(f_{t|t-1}\)</span> as they are the <em>prediction error</em> and its <em>variance</em>. This is the <strong><em>prediction error decomposition</em></strong> of the log-likelihood.</p>
+\]</span> where <span class="math inline">\(\Phi =\frac{Tm}{2}\log \left( 2\pi \right)\)</span> and <span class="math inline">\(\theta\)</span> are all the non-state parameters to be estimated. We can use the Kalman filter to obtain <span class="math inline">\(\eta_{t|t-1}\)</span> and <span class="math inline">\(f_{t|t-1}\)</span> as they are the <em>prediction error</em> and its <em>variance</em>. This is the <strong><em>prediction error decomposition</em></strong> of the log-likelihood.</p>
 <p>A maximum likelihood estimate maximizes <span class="math inline">\(\log L(y|\theta)\)</span> by choice of <span class="math inline">\(\theta\)</span>.</p>
 
 
