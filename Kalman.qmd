@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Literature
 
-Alternatives to what follows can be found in @KimNelson, @Harvey89, @Hamilton1994, or @Durbin. There are many books devoted to the Kalman filter [as a causal Amazon search](https://www.amazon.co.uk/s?k=kalman+filtering&i=stripbooks) mostly from an engineering perspective. However econometricians since @HarveyPierse have used it in a way somewhat different from standard engineering applications. We will cover the filter and then look at a simple example. 
+Alternatives to what follows can be found in @Harvey89, @Hamilton1994, @KimNelson, @Durbin or @BISSM. There are many books devoted to the Kalman filter [as a causal Amazon search](https://www.amazon.co.uk/s?k=kalman+filtering&i=stripbooks) mostly from an engineering perspective. However econometricians since @HarveyPierse have used it in a way somewhat different from standard engineering applications. We will cover the filter and then look at a simple example if filtering, then develop a maximum likelihood estimation approach.  
 
 ## Reminder of a state-space model
 
