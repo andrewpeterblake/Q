@@ -23,6 +23,7 @@ book:
     - part: "Quantiles"
       chapters:
         - QR.qmd
+        - CK.qmd
     - part: "Networks"
       chapters: 
         - Stemp.qmd
@@ -46,7 +47,6 @@ format:
     theme: 
       light: sandstone
       dark: darkly
-    css: CCBS.css
   pdf:
     documentclass: book
 
