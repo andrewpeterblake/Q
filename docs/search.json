@@ -86,16 +86,16 @@
   {
     "objectID": "QR.html#getting-the-data",
     "href": "QR.html#getting-the-data",
-    "title": "3  Quantile regression",
-    "section": "3.1 Getting the data",
-    "text": "3.1 Getting the data\nWe download the data and save it locally.\n\nh <- \"https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/survey-of-professional-forecasters/historical-data/\"\nf <- \"meanlevel.xlsx\"\n\ndownload.file(paste0(h, f), destfile=f, mode=\"wb\")\n\nRetrieve the unemployment data for the average unemployment forecast.\n\nUNEMP <- f %>%\n  read_excel(na=\"#N/A\", sheet=\"UNEMP\") %>% \n  mutate(Date=as.Date(as.yearqtr(paste(YEAR, QUARTER), format=\"%Y %q\"))) \n\nUsel <- UNEMP %>% \n  select(Date, UNEMP1, UNEMP3, UNEMP4, UNEMP5, UNEMP6) %>%\n  mutate(UNRATE = lead(UNEMP1,1)) %>%\n  select(Date, UNRATE, \n         UNEMP1=UNEMP3, UNEMP2=UNEMP4, UNEMP3=UNEMP5, UNEMP4=UNEMP6) %>%\n  mutate(UNEMP1 = lag(UNEMP1,1), \n         UNEMP2 = lag(UNEMP2,2), \n         UNEMP3 = lag(UNEMP3,3), \n         UNEMP4 = lag(UNEMP4,4)) %>%\n  pivot_longer(cols = -c(Date, UNRATE), names_to=\"Which\", values_to=\"Val\") %>%\n  filter(year(Date) > 2000)"
+    "title": "4  Quantile regression",
+    "section": "4.1 Getting the data",
+    "text": "4.1 Getting the data\nWe download the data and save it locally.\n\nh &lt;- \"https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/survey-of-professional-forecasters/historical-data/\"\nf &lt;- \"meanlevel.xlsx\"\n\ndownload.file(paste0(h, f), destfile=f, mode=\"wb\")\n\nRetrieve the unemployment data for the average unemployment forecast.\n\nUNEMP &lt;- f %&gt;%\n  read_excel(na=\"#N/A\", sheet=\"UNEMP\") %&gt;% \n  mutate(Date=as.Date(as.yearqtr(paste(YEAR, QUARTER), format=\"%Y %q\"))) \n\nUsel &lt;- UNEMP %&gt;% \n  select(Date, UNEMP1, UNEMP3, UNEMP4, UNEMP5, UNEMP6) %&gt;%\n  mutate(UNRATE = lead(UNEMP1,1)) %&gt;%\n  select(Date, UNRATE, \n         UNEMP1=UNEMP3, UNEMP2=UNEMP4, UNEMP3=UNEMP5, UNEMP4=UNEMP6) %&gt;%\n  mutate(UNEMP1 = lag(UNEMP1,1), \n         UNEMP2 = lag(UNEMP2,2), \n         UNEMP3 = lag(UNEMP3,3), \n         UNEMP4 = lag(UNEMP4,4)) %&gt;%\n  pivot_longer(cols = -c(Date, UNRATE), names_to=\"Which\", values_to=\"Val\") %&gt;%\n  filter(year(Date) &gt; 2000)"
   },
   {
     "objectID": "QR.html#plots",
     "href": "QR.html#plots",
-    "title": "3  Quantile regression",
-    "section": "3.2 Plots",
-    "text": "3.2 Plots\n\nUsel %>% \n  ggplot(aes(x=Date)) + \n  geom_line(aes(y=UNRATE), colour=\"red\") + \n  geom_point(aes(y=Val, colour=Which, shape=Which)) +\n  theme_light() + \n  labs(title=\"Mean unemployment forecasts\", x=\"\", y=\"\", caption=\"Source: SPF\")"
+    "title": "4  Quantile regression",
+    "section": "4.2 Plots",
+    "text": "4.2 Plots\n\nUsel %&gt;% \n  ggplot(aes(x=Date)) + \n  geom_line(aes(y=UNRATE), colour=\"red\") + \n  geom_point(aes(y=Val, colour=Which, shape=Which)) +\n  theme_light() + \n  labs(title=\"Mean unemployment forecasts\", x=\"\", y=\"\", caption=\"Source: SPF\")"
   },
   {
     "objectID": "Stemp.html#study-question-1.3.2",
@@ -249,7 +249,7 @@
     "href": "index.html#sec-genesis",
     "title": "Quantiles, Networks, Time",
     "section": "Genesis",
-    "text": "Genesis\nThis book owes it origin to an initiative the Bank of England began in the early 1990s, and a prescient one. This was at a major historical turning point, one that signalled a burgeoning new world order, as the Iron Curtain crumbled, the European experiment gathered momentum, and industrial might continued an inexorable shift eastwards.\n\nPlaceholders abound.\n\n\n\n\n\n\nDisclaimer\n\n\n\nThe Bank of England does not accept any liability for misleading or inaccurate information or omissions in the information provided. The subject matter reflects the views of the author and not the wider Bank of England or its Policy Committees."
+    "text": "Genesis\nThis book owes it origin to an initiative the Bank of England began in the early 1990s, and a prescient one. This was at a major historical turning point, one that signalled a burgeoning new world order, as the Iron Curtain crumbled, the European experiment gathered momentum, and industrial might continued an inexorable shift eastwards.\n\n\n\nVilla Sterne, Pretoria\n\n\nPlaceholders abound.\n\n\n\n\n\n\nDisclaimer\n\n\n\nThe Bank of England does not accept any liability for misleading or inaccurate information or omissions in the information provided. The subject matter reflects the views of the author and not the wider Bank of England or its Policy Committees."
   },
   {
     "objectID": "index.html#sec-disclaimer",
