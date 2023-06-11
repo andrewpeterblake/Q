@@ -64,11 +64,15 @@ The presentations for this are `Trees.html` and `LondonHP.html`; The two program
 
 The presentation for this is `MapAER.html` (see also `Weatherpretty.html`); The program `MapAERcode.R` is the main map drawing code, I've included `ZAF.R` as as short simple way and source for two countries, and the directory `Trendz` contains the program (`app.R`) and data for the weather example.
 
-```{r echo=FALSE, fig.align='right', out.width="33%", out.extra='style="float:right"'}
+::: {layout-ncol=2}
+
+```{r echo=FALSE, width="55%"}
 plot(qr_code("https://vimeo.com/463164257"), col=c("white", "red"))
 ```
 
 I've included an additional video (red QR code) for more about Shiny. This uses unemployment data from the [Survey of Professional Forecasters](https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/survey-of-professional-forecasters). The code we look at is for climate change data [World Bank data](https://climateknowledgeportal.worldbank.org/).
+
+:::
 
 A comprehensive treatment of maps is @Geocomputation *Geocomputation in R*, but it is quite a lot to assimilate all at once.
 
@@ -107,14 +111,20 @@ The presentation used for the first part of this is `DAG.html` and the program `
 
 ### Day 3: Text
 
-#### Text modelling, a 'tidytext' approach (Session 1)
+Text modelling, a 'tidytext' approach.
+
+::: {layout-ncol=2}
+
+#### Session 1
 
 - Data cleaning
 - Sentiment
 - Topic modelling
 
-#### Text modelling, a 'tidytext' approach (Session 2)
+#### Session 2
 
 - Parts-of-speech tagging
 - Text regression
 - Use examples: Central bank minutes, reports
+
+:::
