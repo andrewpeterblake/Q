@@ -24,8 +24,11 @@ Some data will need to be downloaded from original other sites if all the exampl
 
 ```{r}
 #| echo: FALSE
-#| fig-cap: "GitHub 2020 (grey, left), 2021 (pink, right)"
-#| layout: [[45,-10,45]]
+#| fig-cap: "GitHub repositories for historic CCBS courses"
+#| fig-subcap: 
+#|   - "2020"
+#|   - "2021"
+#| layout: [[-5,40,-10,40,-5]]
 
 library(qrcode)
 qr2020 <- qr_code("https://github.com/andrewpeterblake/R2020")
