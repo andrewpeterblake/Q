@@ -25,15 +25,11 @@ The information in the map file is comprehensive, and by Local Authority as of D
 fle <- "LAD_Dec_2015_GCB_GB"
 shape <- read_sf(dsn=".", layer=fle)
 ```
-
 We can look at the attributes using `summary`.
-
 ```{r summary, message=FALSE, warning=FALSE, fig.align='center'}
 summary(shape)
 ```
-
 This can be plotted straightforwardly using `ggplot`.
-
 ```{r map0a, message=FALSE, warning=FALSE, fig.align='center'}
 shape %>%
   ggplot() +
@@ -41,16 +37,15 @@ shape %>%
           color=NA, alpha=.66, show.legend=FALSE) +
   theme_void()
 ```
-
 Looking at the read-out above, each of the 380 regions have some metadata associated, which are contained in each of the listed attributes. It should be obvious that `objectid` is just a sequence from 1 to 380. `lad15nm` turns out to be a list of names of the regions -- I suspect `lad` for Local Authority District, `15` for 2015 and `nm` for name -- and it is easy to specify this as the name to use for the region when using `tidy`.
 
 Now this can be plotted using `ggplot`, using `geometry` for the $x$ and $y$ coordinates. The choice of fill colour is determined by `fill` and we can set the colour of the lines by `colour` (or `color`). The two extra arguments are for a suitable blank style and to impose an appropriate ratio of height to width.
 
 Immediately, the awkward shape of the British Isles is apparent. (Note this is a plot of Great Britain, and there is no Northern Ireland.) The islands to the far north are somewhat unnecessary, although quite rightly the inhabitants get a bit tired of being left off maps! Nonetheless I'll do exactly the same by filtering out the polygons associated with `Orkney Islands` and `Shetland Islands`.
 
-Fewer Scottish Islands makes the graphs a lot clearer with little loss of information, given the tiny number of transactions in the Orkneys and the Shetlands, very far to the north.
+Fewer Scottish Islands makes the graphs a lot clearer with little loss of information, paticularly given the tiny number of transactions in the Orkneys and the Shetlands, very far to the north.
 
-In what follows we filter out the islands using 
+In what follows we filter out the islands using
 ```{r map0q, message=FALSE, warning=FALSE, fig.align='center'}
 shape <- read_sf(dsn=".", layer=fle) %>%
   filter(!lad15nm %in% c("Shetland Islands","Orkney Islands")) %>%
@@ -58,7 +53,7 @@ shape <- read_sf(dsn=".", layer=fle) %>%
 ```
 where we also create an indicator of country using the first letter of the code string.
 
-So the country map is
+So the final country map is
 ```{r map0d, message=FALSE, warning=FALSE, fig.align='center'}
 shape %>%
   group_by(Country) %>%
@@ -67,7 +62,12 @@ shape %>%
   geom_sf(aes(fill=Country), color="grey77", linewidth=.25, alpha=.66) +
   theme_void()
 ```
+
+::: {.callout-tip}
+## `group` and `summarise` can join geographical areas
+
 Note the really nice feature -- if we group by something, in this case country, we can summarise to amalgamate the geometries!
+:::
 
 You may have noticed, one thing that that's missing on the LA graphs is the boundaries. They aren't, they're just invisible. That's because I set `colour = NA`, so I can fix that by choosing a colour and making the lines very thin so they don't swamp the map, as in the country one.
 
@@ -82,6 +82,7 @@ We have a map, and we have that data in a form that is easy to understand. If we
 Recall that the Land Registry areas aren't quite what we have, and will need amalgamating. @BFP supplied me the areas that needed amalgamating (and the inflation rates) using the [ONS codes](https://en.wikipedia.org/wiki/ONS_coding_system). This is contained in the metadata `lad15cd` above.
 
 The data is structured in 'wide' format with one row for each Land Registry region. The details aren't very important for us now, but what it means is I can manipulate it to get
+
 ```{r}
 # Price data by Land Registry region, converted to long format
 hp_data <- read_excel("house_price_data_figure_1.xls")  %>% 
@@ -95,6 +96,7 @@ hp_data <- read_excel("house_price_data_figure_1.xls")  %>%
 codes <- hp_data %>% 
   select(lad15cd, land_reg_region) 
 ```
+
 The important thing that the `pivot_longer` achieves is that for every `land_reg_region` I get a list of all the ONS codes that makes up the Local Authority level. So if I look at `buckinghamshire` as an example there are four ONS codes now associated with it.
 ```{r}
 filter(codes, land_reg_region == "buckinghamshire")

@@ -6,7 +6,18 @@ title-block-banner: TRUE
 
 This book owes it origin to an initiative the Bank of England began in the early 1990s, and a prescient one. This was at a major historical turning point, one that signalled a burgeoning new world order, as the Iron Curtain crumbled, the European experiment gathered momentum, and industrial might continued an inexorable shift eastwards.
 
+::: {layout-ncol=2}
+
+![Puppet, Yogyakarta](Yogyakarta.jpg)
+
+![Abu Dhabi, United Arab Emirates](AbuDhabi.jpg)
+
 ![Villa Sterne, Pretoria](Specs.GIF)
+
+![Downtown, Seoul](Korea.jpg)
+:::
+
+![Montevideo](Montevideo.jpg)
 
 Placeholders abound.
 

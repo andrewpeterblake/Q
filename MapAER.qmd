@@ -23,21 +23,16 @@ library("maptools")
 ```
 
 The information in the map file is comprehensive, and by Local Authority as of December 2015.
-
-```{r map0, message=FALSE, warning=FALSE, fig.align='center'}
+```{r map0, message=FALSE, warning=FALSE}
 gla  <- readOGR(dsn="Local_Authority_Districts_(December_2015)_Boundaries", 
                 layer="Local_Authority_Districts_(December_2015)_Boundaries",
                 verbose=FALSE)
 ```
-
 This can be plotted straightforwardly using `plot`.
-
 ```{r map0a, message=FALSE, warning=FALSE, fig.align='center'}
 plot(gla, bg="grey77", col="lightblue4", border=NA)
 ```
-
-We can look at the attributes using `summary`.
-
+We can look at the attributes using `summary`:
 ```{r summary, message=FALSE, warning=FALSE, fig.align='center'}
 summary(gla)
 ```
