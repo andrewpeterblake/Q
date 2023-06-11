@@ -10,6 +10,7 @@ opts_chunk$set(echo = TRUE)
 ## Study question 1.3.2
 
 Data:
+
 ```{r cars, echo = TRUE, message=FALSE, warning=FALSE}
 library(tidyverse)
 ed <- tibble(Gender = c("M","M","M","M","F","F","F","F"),
@@ -17,7 +18,9 @@ ed <- tibble(Gender = c("M","M","M","M","F","F","F","F"),
              num    = c(112,231,595,242,136,189,763,172)) %>%
   mutate(total = sum(num))
 ```
+
 which we tabulate as
+
 ```{r}
 ed %>%
   kable()
