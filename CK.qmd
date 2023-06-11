@@ -137,16 +137,10 @@ $$
 
 $$
 
- 
-
 - This is the _prediction error decomposition_ of the log-likelihood
-
 - For a classical approach we estimate $\theta$ by numerically maximizing $\log L(\psi_T|\theta)$
-
 - This gives a point estimate for the value of $\theta$ and we typically apply classical inference using the estimated standard errors
-
 - Note to do this we need to evaluate the best estimate of the state as well as maximize the likelihood: the Kalman Filter is a key ingredient in both
-
 - A suitable numerical maximization routine will (in principle) maximize the likelihood straightforwardly
 
     - Often use Chris Sims' **csminwel** in Matlab as well-suited to this type of problem
@@ -250,16 +244,11 @@ $$
 $$
 All these quantities are outputs of the Kalman filter so smoothing is easy to implement
 
-Smoothed variance of $\beta_{t|T}$ found by multiplying out (smooth)
-
-Rearranging and using $\beta_{t+1|t} = \mu + F\beta_{t|t}$ gives
-
+The smoothed variance of $\beta_{t|T}$ found by multiplying out (smooth). To do this use $\beta_{t+1|t} = \mu + F\beta_{t|t}$ so rearranging gives
 $$
   \widetilde{\beta}_{t|T} + K_{t|T}\beta_{t+1|T} = \widetilde{\beta}_{t|t}+K_{t|T}\beta_{t+1|t}
 $$
-where $\widetilde{\beta}_{t|t}=\beta_t-\beta_{t|t}$
-
-Square both sides and take expectations
+where $\widetilde{\beta}_{t|t}=\beta_t-\beta_{t|t}$. Now square both sides and take expectations
 $$
   P_{t|T} + K_{t|T} E\left[\beta_{t+1|T}\beta_{t+1|T}' \right] K_{t|T}' = P_{t|t} + K_{t|T} E\left[ \beta_{t+1|t} \beta_{t+1|t}' \right] K_{t|T}'
 $$
@@ -269,60 +258,44 @@ $$
 $$
 to obtain
 $$
-  P_{t|T} = P_{t|t} + K_{t|T} (P_{t+1|T}-P_{t+1|t}) K_{t|T}'
+  P_{t|T} = P_{t|t} + K_{t|T} (P_{t+1|T}-P_{t+1|t}) K_{t|T}'.
 $$
 
-# Kalman filter in econometrics
+## Kalman filter in econometrics
 
-## Classical approach
+### Classical approach
+
+The typical procedure is some variation on:
 
 - Formulate state-space model
-
 - Estimate the model by maximum likelihood
-
 - Condition on the parameters to retrieve the (usually smoothed) state estimates and standard errors
-
 - Use Cramer-Rao to calculate the standard errors of any other parameter estimates
 
-- For this the Kalman filter is a useful tool, as it allows a great deal of flexibility in the estimation of a variety of models
+For this the Kalman filter is a useful tool, as it allows a great deal of flexibility in the estimation of a variety of models, as is is an appropriate tool for models with unobserved components. However, it must be used with care: it is easy to try to estimate models that are essentially unidentified.
 
-- It is the appropriate tool for models with unobserved components
+Further useful tools
 
-- It must be used with care: it is easy to try to estimate models that are essentially unidentified
+- The _Extended Kalman filter_ linearises the filter at every step and can be used for nonlinear models (such as ones where you need to estimate $B_T$ and $\theta$ simultaneously)
+- Increasingly non-Gaussian non-linear models are estimated using the _particle filter_
 
-- Further useful tools
+### Bayesian approach
 
-    - The _Extended Kalman filter_ linearises the filter at every step and can be used for nonlinear models (such as ones where you need to estimate $B_T$ and $\theta$ simultaneously)
-
-    - Increasingly non-Gaussian non-linear models are estimated using the _particle filter_
-
- 
-
-## Bayesian approach
-
- 
-
-- Bayesian approach is to generate the entire distribution of the model parameters
+Bayesian approach is to generate the entire distribution of the model parameters.
 
 - Now no longer just look for the point estimate obtained by maximum likelihood
-
 - Use Gibbs sampling or some other appropriate method applied to the state space model
-
 - In particular we treat the states and the parameters as jointly determined by the data
-
 - As the state is estimated we need a way to draw the states conditional on the other estimates to do Gibbs sampling
-
 - Seek a conditional updating algorithm that replicates the Gibbs sampling approach we have used before
 
-- We require a procedure such that:
+We require a procedure such that:
 
-    - **Step 1** Conditional on $\theta$ and the data, generate the sequence $B_T = (\beta_1, \beta_2, \ldots, \beta_T)$
+- **Step 1** Conditional on $\theta$ and the data, generate the sequence $B_T = (\beta_1, \beta_2, \ldots, \beta_T)$
+- **Step 2** Conditional on $B_T$ and the data, generate values of $\theta$
+- **Step 3** Iterate previous two steps until convergence
 
-    - **Step 2** Conditional on $B_T$ and the data, generate values of $\theta$
-
-    - **Step 3** Iterate previous two steps until convergence
-
-- In this way the joint distribution of the two can be obtained from the resulting simulation
+In this way the joint distribution of the two can be obtained from the resulting simulation.
 
 ## Carter-Kohn algorithm
 
