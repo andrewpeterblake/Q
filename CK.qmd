@@ -131,7 +131,13 @@ $$
 $$
 This is the _prediction error decomposition_ of the log-likelihood. For a classical approach we estimate $\theta$ by numerically maximizing $\log L(\psi_T|\theta)$.This gives a point estimate for the value of $\theta$ and we typically apply classical inference using the estimated standard errors. Note to do this we need to evaluate the best estimate of the state as well as maximize the likelihood: the Kalman Filter is a key ingredient in both.
 
-A suitable numerical maximization routine will (in principle) maximize the likelihood straightforwardly. Often use Chris Sims' **csminwel** in Matlab as well-suited to this type of problem. Can show (via Cramer-Rao) that
+::: {.callout-note}
+## Maximisation
+
+A suitable numerical maximization routine will (in principle) maximize the likelihood straightforwardly. Often use [Chris Sims'](http://www.princeton.edu/~sims/) [**csminwel**](http://sims.princeton.edu/yftp/optimize/rfiles/csminwel.R) in Matlab or R as well-suited to this type of problem. 
+:::
+
+Can show (via Cramer-Rao) that
 $$
 \widehat{\theta}\sim N\left(\theta, -\frac{\partial^2 \log L(\psi_T|\theta)}{\partial\theta\partial\theta'} \right)
 $$
@@ -161,40 +167,31 @@ We use this to derive a recursive update to _smooth_ our estimates. We will also
 
 ## Smoothing
 
-The Kalman filter estimates $\beta_t$ recursively: it only uses information available up until time $t$
-
-- This means that the estimate of $\beta_{T|T}$ uses all available information, but any previous estimate doesn't
-
-- Indeed there must be some values of $\eta_{i|t-1}$
-
+The Kalman filter estimates $\beta_t$ recursively: it only uses information available up until time $t$. This means that the estimate of $\beta_{T|T}$ uses all available information, but any previous estimate doesn't. Indeed there must be some values of $\eta_{i|t-1}$
 $$
    \beta_{t|T} = E(\beta_t | \psi_{t-1}, \eta_{t|t-1}, \eta_{t+1|t-1},...,\eta_{T|t-1})
 $$
 where the 'news' is relative to period $t$
 
-- We could update $\beta_{t|t-1}$ using the (uncorrelated) future innovations
-
+We could update $\beta_{t|t-1}$ using the (uncorrelated) future innovations
 $$
   \beta_{t|T}=\beta_{t|t}+\sum_{j=t}^T\Sigma_{\beta_t\eta_j}\Sigma_{\eta_j\eta_j}^{-1}\eta_{j|t-1}
 $$
-and recalling $\beta_{t|t}=E(\beta_t|\psi_{t-1},\eta_{t|t-1})$
+and recalling $\beta_{t|t}=E(\beta_t|\psi_{t-1},\eta_{t|t-1})$.
 
-- This is a _fixed interval smoother_; often used for full sample estimates of $\beta_t$
+This is a _fixed interval smoother_; often used for full sample estimates of $\beta_t$. Remember we already have an estimate of $\beta_{T|T}$ from the Kalman filter so _smoothers work backwards_; we sketch a derivation here.
 
-- Remember we already have an estimate of $\beta_{T|T}$ from the Kalman filter so _smoothers work backwards_; we sketch a derivation here
-
-- In the last but one period we have a different prediction error
-
+In the last but one period we have a different prediction error
 $$
    \varsigma_{T|T-1} = \beta_{T|T} - F\beta_{T-1|T-1} - \mu
 $$
-which is the error in predicting $\beta_T$ using $\psi_{T-1}$
+which is the error in predicting $\beta_T$ using $\psi_{T-1}$.
 
-- An 'update' has to be of the form
+An 'update' has to be of the form
 $$
 \beta_{T-1|T}=\beta_{T-1|T-1} + \Sigma_{\beta\varsigma}\Sigma_{\varsigma\varsigma}^{-1}\varsigma_{T|T-1}
 $$
-where $\Sigma_{\varsigma\varsigma} = var\left[ \varsigma_T|\psi_{T-1}\right]$ and $\Sigma_{\beta \varsigma}=cov\left[\beta_{T-1},\varsigma_T|\psi_{T-1}\right]$
+where $\Sigma_{\varsigma\varsigma} = var\left[ \varsigma_T|\psi_{T-1}\right]$ and $\Sigma_{\beta \varsigma}=cov\left[\beta_{T-1},\varsigma_T|\psi_{T-1}\right]$.
 
 These are
 $$

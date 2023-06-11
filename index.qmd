@@ -15,6 +15,7 @@ This book owes it origin to an initiative the Bank of England began in the early
 ![Villa Sterne, Pretoria](Specs.GIF)
 
 ![Downtown, Seoul](Korea.jpg)
+
 :::
 
 ![Montevideo](Montevideo.jpg)

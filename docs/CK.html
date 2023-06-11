@@ -433,7 +433,20 @@ L(y) = \frac{1}{(2\pi \sigma^2)^{n/2}}\exp \left[ -\frac{1}{2\sigma^2}(y-X\beta)
 \]</span> Note we could obtain <span class="math inline">\(\eta_{t|t-1}\)</span> and <span class="math inline">\(f_{t|t-1}\)</span> from the Kalman filter, i.e. <span class="math display">\[
   f_{t|t-1} = (H_tP_{t|t-1}H_t' + Q) = \Sigma_{\eta\eta}
 \]</span> This is the <em>prediction error decomposition</em> of the log-likelihood. For a classical approach we estimate <span class="math inline">\(\theta\)</span> by numerically maximizing <span class="math inline">\(\log L(\psi_T|\theta)\)</span>.This gives a point estimate for the value of <span class="math inline">\(\theta\)</span> and we typically apply classical inference using the estimated standard errors. Note to do this we need to evaluate the best estimate of the state as well as maximize the likelihood: the Kalman Filter is a key ingredient in both.</p>
-<p>A suitable numerical maximization routine will (in principle) maximize the likelihood straightforwardly. Often use Chris Sims’ <strong>csminwel</strong> in Matlab as well-suited to this type of problem. Can show (via Cramer-Rao) that <span class="math display">\[
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Maximisation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A suitable numerical maximization routine will (in principle) maximize the likelihood straightforwardly. Often use <a href="http://www.princeton.edu/~sims/">Chris Sims’</a> <a href="http://sims.princeton.edu/yftp/optimize/rfiles/csminwel.R"><strong>csminwel</strong></a> in Matlab or R as well-suited to this type of problem.</p>
+</div>
+</div>
+<p>Can show (via Cramer-Rao) that <span class="math display">\[
 \widehat{\theta}\sim N\left(\theta, -\frac{\partial^2 \log L(\psi_T|\theta)}{\partial\theta\partial\theta'} \right)
 \]</span></p>
 </section>
@@ -459,33 +472,19 @@ E[z|y,\varepsilon] &amp;= \mu_z + \Sigma_{zy}\Sigma_{yy}^{-1}(y-\mu_y) + \Sigma_
 </section>
 <section id="smoothing" class="level2" data-number="5.5">
 <h2 data-number="5.5" class="anchored" data-anchor-id="smoothing"><span class="header-section-number">5.5</span> Smoothing</h2>
-<p>The Kalman filter estimates <span class="math inline">\(\beta_t\)</span> recursively: it only uses information available up until time <span class="math inline">\(t\)</span></p>
-<ul>
-<li><p>This means that the estimate of <span class="math inline">\(\beta_{T|T}\)</span> uses all available information, but any previous estimate doesn’t</p></li>
-<li><p>Indeed there must be some values of <span class="math inline">\(\eta_{i|t-1}\)</span></p></li>
-</ul>
-<p><span class="math display">\[
+<p>The Kalman filter estimates <span class="math inline">\(\beta_t\)</span> recursively: it only uses information available up until time <span class="math inline">\(t\)</span>. This means that the estimate of <span class="math inline">\(\beta_{T|T}\)</span> uses all available information, but any previous estimate doesn’t. Indeed there must be some values of <span class="math inline">\(\eta_{i|t-1}\)</span> <span class="math display">\[
    \beta_{t|T} = E(\beta_t | \psi_{t-1}, \eta_{t|t-1}, \eta_{t+1|t-1},...,\eta_{T|t-1})
 \]</span> where the ‘news’ is relative to period <span class="math inline">\(t\)</span></p>
-<ul>
-<li>We could update <span class="math inline">\(\beta_{t|t-1}\)</span> using the (uncorrelated) future innovations</li>
-</ul>
-<p><span class="math display">\[
+<p>We could update <span class="math inline">\(\beta_{t|t-1}\)</span> using the (uncorrelated) future innovations <span class="math display">\[
   \beta_{t|T}=\beta_{t|t}+\sum_{j=t}^T\Sigma_{\beta_t\eta_j}\Sigma_{\eta_j\eta_j}^{-1}\eta_{j|t-1}
-\]</span> and recalling <span class="math inline">\(\beta_{t|t}=E(\beta_t|\psi_{t-1},\eta_{t|t-1})\)</span></p>
-<ul>
-<li><p>This is a <em>fixed interval smoother</em>; often used for full sample estimates of <span class="math inline">\(\beta_t\)</span></p></li>
-<li><p>Remember we already have an estimate of <span class="math inline">\(\beta_{T|T}\)</span> from the Kalman filter so <em>smoothers work backwards</em>; we sketch a derivation here</p></li>
-<li><p>In the last but one period we have a different prediction error</p></li>
-</ul>
-<p><span class="math display">\[
+\]</span> and recalling <span class="math inline">\(\beta_{t|t}=E(\beta_t|\psi_{t-1},\eta_{t|t-1})\)</span>.</p>
+<p>This is a <em>fixed interval smoother</em>; often used for full sample estimates of <span class="math inline">\(\beta_t\)</span>. Remember we already have an estimate of <span class="math inline">\(\beta_{T|T}\)</span> from the Kalman filter so <em>smoothers work backwards</em>; we sketch a derivation here.</p>
+<p>In the last but one period we have a different prediction error <span class="math display">\[
    \varsigma_{T|T-1} = \beta_{T|T} - F\beta_{T-1|T-1} - \mu
-\]</span> which is the error in predicting <span class="math inline">\(\beta_T\)</span> using <span class="math inline">\(\psi_{T-1}\)</span></p>
-<ul>
-<li>An ‘update’ has to be of the form <span class="math display">\[
+\]</span> which is the error in predicting <span class="math inline">\(\beta_T\)</span> using <span class="math inline">\(\psi_{T-1}\)</span>.</p>
+<p>An ‘update’ has to be of the form <span class="math display">\[
 \beta_{T-1|T}=\beta_{T-1|T-1} + \Sigma_{\beta\varsigma}\Sigma_{\varsigma\varsigma}^{-1}\varsigma_{T|T-1}
-\]</span> where <span class="math inline">\(\Sigma_{\varsigma\varsigma} = var\left[ \varsigma_T|\psi_{T-1}\right]\)</span> and <span class="math inline">\(\Sigma_{\beta \varsigma}=cov\left[\beta_{T-1},\varsigma_T|\psi_{T-1}\right]\)</span></li>
-</ul>
+\]</span> where <span class="math inline">\(\Sigma_{\varsigma\varsigma} = var\left[ \varsigma_T|\psi_{T-1}\right]\)</span> and <span class="math inline">\(\Sigma_{\beta \varsigma}=cov\left[\beta_{T-1},\varsigma_T|\psi_{T-1}\right]\)</span>.</p>
 <p>These are <span class="math display">\[
 \begin{align}
 \Sigma_{\varsigma\varsigma} &amp;= var(\beta_T - F\beta_{T-1|T-1}-\mu) \\
