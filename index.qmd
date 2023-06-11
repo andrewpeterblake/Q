@@ -4,12 +4,15 @@ title-block-banner: TRUE
 
 ## Genesis {#sec-genesis .unnumbered}
 
-This book is the result of an initiative the Bank of England began in the early 1990s, and a prescient one. This was at a major historical turning point, one that signalled a burgeoning new world order, as the Iron Curtain crumbled, the European experiment gathered momentum, and industrial might began an inexorable shift eastwards.
+This book owes it origin to an initiative the Bank of England began in the early 1990s, and a prescient one. This was at a major historical turning point, one that signalled a burgeoning new world order, as the Iron Curtain crumbled, the European experiment gathered momentum, and industrial might continued an inexorable shift eastwards.
 
 ![](Specs.GIF){width="420"}
 
 Placeholders abound.
 
-## Disclaimer {#sec-disclaimer}
 
-*The Bank of England does not accept any liability for misleading or inaccurate information or omissions in the information provided. The subject matter reflects the views of the individual presenter and not the wider Bank of England or its Policy Committees.*
+::: {.callout-note}
+## Disclaimer
+
+The Bank of England does not accept any liability for misleading or inaccurate information or omissions in the information provided. The subject matter reflects the views of the author and not the wider Bank of England or its Policy Committees.
+:::

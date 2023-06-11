@@ -1,8 +1,8 @@
 # Introduction
 
-This is a book created from markdown and executable code.
+This is a book created using [Quarto](quarto.org) and includes all examples as executable code.
 
-See @Mumtaz_BOOK. 
+See @Mumtaz_BOOK.
 
 ## Reading is good for you
 
