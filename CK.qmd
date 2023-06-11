@@ -118,35 +118,20 @@ ML estimate of $\sigma^2$ divided by $n$ (not $n-k$) so biased in small samples 
 
 ## Kalman filter tricks
 
-- For some initial condition -- say $\beta_0 \sim N(\mu_0,P_0))$ -- the conditional log-likelihood for sample $1$ to $T$
-
+For some initial condition -- say $\beta_0 \sim N(\mu_0,P_0))$ -- the conditional log-likelihood for sample $1$ to $T$
 $$
 \begin{align}
 \log L(\psi_t|\theta) &= \sum\nolimits_{t=1}^T\log p(y_t|\psi_{t-1},\theta) \\
 &\propto -\sum\nolimits_{t=1}^T\left( \log \left\vert f_{t|t-1}\right\vert +\eta_{t|t-1}' f_{t|t-1}^{-1}\eta_{t|t-1} |\ \theta \right)
-
 \end{align}
-
 $$
-
-- Note we could obtain $\eta_{t|t-1}$ and $f_{t|t-1}$ from the Kalman filter, i.e.
-
+Note we could obtain $\eta_{t|t-1}$ and $f_{t|t-1}$ from the Kalman filter, i.e.
 $$
-
   f_{t|t-1} = (H_tP_{t|t-1}H_t' + Q) = \Sigma_{\eta\eta}
-
 $$
+This is the _prediction error decomposition_ of the log-likelihood. For a classical approach we estimate $\theta$ by numerically maximizing $\log L(\psi_T|\theta)$.This gives a point estimate for the value of $\theta$ and we typically apply classical inference using the estimated standard errors. Note to do this we need to evaluate the best estimate of the state as well as maximize the likelihood: the Kalman Filter is a key ingredient in both.
 
-- This is the _prediction error decomposition_ of the log-likelihood
-- For a classical approach we estimate $\theta$ by numerically maximizing $\log L(\psi_T|\theta)$
-- This gives a point estimate for the value of $\theta$ and we typically apply classical inference using the estimated standard errors
-- Note to do this we need to evaluate the best estimate of the state as well as maximize the likelihood: the Kalman Filter is a key ingredient in both
-- A suitable numerical maximization routine will (in principle) maximize the likelihood straightforwardly
-
-    - Often use Chris Sims' **csminwel** in Matlab as well-suited to this type of problem
-
-- Can show (Cramer-Rao) that
-
+A suitable numerical maximization routine will (in principle) maximize the likelihood straightforwardly. Often use Chris Sims' **csminwel** in Matlab as well-suited to this type of problem. Can show (via Cramer-Rao) that
 $$
 \widehat{\theta}\sim N\left(\theta, -\frac{\partial^2 \log L(\psi_T|\theta)}{\partial\theta\partial\theta'} \right)
 $$
@@ -172,14 +157,11 @@ E[z|y,\varepsilon] &= \mu_z + \Sigma_{zy}\Sigma_{yy}^{-1}(y-\mu_y) + \Sigma_{z\v
 &= E[z|y] + \Sigma_{z\varepsilon}\Sigma_{\varepsilon\varepsilon }^{-1}\varepsilon
 \end{align}
 $$
-
-- We use this to derive a recursive update to _smooth_ our estimates
-
-- We will also derive an appropriate conditional expectation which we can use in Gibbs sampling
+We use this to derive a recursive update to _smooth_ our estimates. We will also derive an appropriate conditional expectation which we can use in Gibbs sampling.
 
 ## Smoothing
 
-- The Kalman filter estimates $\beta_t$ recursively: it only uses information available up until time $t$
+The Kalman filter estimates $\beta_t$ recursively: it only uses information available up until time $t$
 
 - This means that the estimate of $\beta_{T|T}$ uses all available information, but any previous estimate doesn't
 

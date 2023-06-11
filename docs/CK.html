@@ -425,33 +425,15 @@ L(y) = \frac{1}{(2\pi \sigma^2)^{n/2}}\exp \left[ -\frac{1}{2\sigma^2}(y-X\beta)
 </section>
 <section id="kalman-filter-tricks" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="kalman-filter-tricks"><span class="header-section-number">5.3</span> Kalman filter tricks</h2>
-<ul>
-<li>For some initial condition – say <span class="math inline">\(\beta_0 \sim N(\mu_0,P_0))\)</span> – the conditional log-likelihood for sample <span class="math inline">\(1\)</span> to <span class="math inline">\(T\)</span></li>
-</ul>
-<p>$$ <span class="math display">\[\begin{align}
+<p>For some initial condition – say <span class="math inline">\(\beta_0 \sim N(\mu_0,P_0))\)</span> – the conditional log-likelihood for sample <span class="math inline">\(1\)</span> to <span class="math inline">\(T\)</span> <span class="math display">\[
+\begin{align}
 \log L(\psi_t|\theta) &amp;= \sum\nolimits_{t=1}^T\log p(y_t|\psi_{t-1},\theta) \\
 &amp;\propto -\sum\nolimits_{t=1}^T\left( \log \left\vert f_{t|t-1}\right\vert +\eta_{t|t-1}' f_{t|t-1}^{-1}\eta_{t|t-1} |\ \theta \right)
-
-\end{align}\]</span></p>
-<p>$$</p>
-<ul>
-<li>Note we could obtain <span class="math inline">\(\eta_{t|t-1}\)</span> and <span class="math inline">\(f_{t|t-1}\)</span> from the Kalman filter, i.e.</li>
-</ul>
-<p>$$</p>
-<p>f_{t|t-1} = (H_tP_{t|t-1}H_t’ + Q) = _{}</p>
-<p>$$</p>
-<ul>
-<li><p>This is the <em>prediction error decomposition</em> of the log-likelihood</p></li>
-<li><p>For a classical approach we estimate <span class="math inline">\(\theta\)</span> by numerically maximizing <span class="math inline">\(\log L(\psi_T|\theta)\)</span></p></li>
-<li><p>This gives a point estimate for the value of <span class="math inline">\(\theta\)</span> and we typically apply classical inference using the estimated standard errors</p></li>
-<li><p>Note to do this we need to evaluate the best estimate of the state as well as maximize the likelihood: the Kalman Filter is a key ingredient in both</p></li>
-<li><p>A suitable numerical maximization routine will (in principle) maximize the likelihood straightforwardly</p>
-<ul>
-<li>Often use Chris Sims’ <strong>csminwel</strong> in Matlab as well-suited to this type of problem</li>
-</ul></li>
-<li><p>Can show (Cramer-Rao) that</p></li>
-</ul>
-<p><span class="math display">\[
+\end{align}
+\]</span> Note we could obtain <span class="math inline">\(\eta_{t|t-1}\)</span> and <span class="math inline">\(f_{t|t-1}\)</span> from the Kalman filter, i.e. <span class="math display">\[
+  f_{t|t-1} = (H_tP_{t|t-1}H_t' + Q) = \Sigma_{\eta\eta}
+\]</span> This is the <em>prediction error decomposition</em> of the log-likelihood. For a classical approach we estimate <span class="math inline">\(\theta\)</span> by numerically maximizing <span class="math inline">\(\log L(\psi_T|\theta)\)</span>.This gives a point estimate for the value of <span class="math inline">\(\theta\)</span> and we typically apply classical inference using the estimated standard errors. Note to do this we need to evaluate the best estimate of the state as well as maximize the likelihood: the Kalman Filter is a key ingredient in both.</p>
+<p>A suitable numerical maximization routine will (in principle) maximize the likelihood straightforwardly. Often use Chris Sims’ <strong>csminwel</strong> in Matlab as well-suited to this type of problem. Can show (via Cramer-Rao) that <span class="math display">\[
 \widehat{\theta}\sim N\left(\theta, -\frac{\partial^2 \log L(\psi_T|\theta)}{\partial\theta\partial\theta'} \right)
 \]</span></p>
 </section>
@@ -472,17 +454,13 @@ L(y) = \frac{1}{(2\pi \sigma^2)^{n/2}}\exp \left[ -\frac{1}{2\sigma^2}(y-X\beta)
 E[z|y,\varepsilon] &amp;= \mu_z + \Sigma_{zy}\Sigma_{yy}^{-1}(y-\mu_y) + \Sigma_{z\varepsilon}\Sigma_{\varepsilon\varepsilon}^{-1}\varepsilon \\
 &amp;= E[z|y] + \Sigma_{z\varepsilon}\Sigma_{\varepsilon\varepsilon }^{-1}\varepsilon
 \end{align}
-\]</span></p>
-<ul>
-<li><p>We use this to derive a recursive update to <em>smooth</em> our estimates</p></li>
-<li><p>We will also derive an appropriate conditional expectation which we can use in Gibbs sampling</p></li>
-</ul>
+\]</span> We use this to derive a recursive update to <em>smooth</em> our estimates. We will also derive an appropriate conditional expectation which we can use in Gibbs sampling.</p>
 </section>
 </section>
 <section id="smoothing" class="level2" data-number="5.5">
 <h2 data-number="5.5" class="anchored" data-anchor-id="smoothing"><span class="header-section-number">5.5</span> Smoothing</h2>
+<p>The Kalman filter estimates <span class="math inline">\(\beta_t\)</span> recursively: it only uses information available up until time <span class="math inline">\(t\)</span></p>
 <ul>
-<li><p>The Kalman filter estimates <span class="math inline">\(\beta_t\)</span> recursively: it only uses information available up until time <span class="math inline">\(t\)</span></p></li>
 <li><p>This means that the estimate of <span class="math inline">\(\beta_{T|T}\)</span> uses all available information, but any previous estimate doesn’t</p></li>
 <li><p>Indeed there must be some values of <span class="math inline">\(\eta_{i|t-1}\)</span></p></li>
 </ul>
