@@ -37,13 +37,9 @@ plot(qr2020, col=c("white", "grey55"))
 plot(qr2021, col=c("white", "salmon2"))
 ```
 
-------------------------------------------------------------------------
-
 ## HOW TO ENSURE RSTUDIO FINDS THE CODE
 
 To use the code, in particular so that R Studio finds the data files etc, create a directory for each topic, (e.g. Trees, ANN etc) and copy the contents from the zip file or GitHub. Then create a new project in R Studio that uses that directory as its home directory, using "File/New Project" in the drop down menu. Opening files within a project sets the home directory to that directory, so everything (including the sub-directories) can be found.
-
-------------------------------------------------------------------------
 
 ## Typical program structure
 
@@ -51,20 +47,20 @@ To use the code, in particular so that R Studio finds the data files etc, create
 
 #### Trees
 
--   Classification and regression trees
--   Econometrics strikes back: Bootstrap/bagging and Boosting/Model selection
--   Random forests
--   Visualising decision trees
--   Use example: House prices
+- Classification and regression trees
+- Econometrics strikes back: Bootstrap/bagging and Boosting/Model selection
+- Random forests
+- Visualising decision trees
+- Use example: House prices
 
 The presentations for this are `Trees.html` and `LondonHP.html`; The two programs `TreeCancer.R` and `TreeNW.R` are the use examples.
 
 #### Maps
 
--   How to draw a map in R
--   A guide to some resources
--   Choropleths
--   Use examples: Climate change, regional data, postcode wrangling
+- How to draw a map in R
+- A guide to some resources
+- Choropleths
+- Use examples: Climate change, regional data, postcode wrangling
 
 The presentation for this is `MapAER.html` (see also `Weatherpretty.html`); The program `MapAERcode.R` is the main map drawing code, I've included `ZAF.R` as as short simple way and source for two countries, and the directory `Trendz` contains the program (`app.R`) and data for the weather example.
 
@@ -76,49 +72,49 @@ I've included an additional video (red QR code) for more about Shiny. This uses 
 
 A comprehensive treatment of maps is @Geocomputation *Geocomputation in R*, but it is quite a lot to assimilate all at once.
 
-<br>
-
-------------------------------------------------------------------------
-
 ### Day 2: Networks
 
 #### Neural networks
 
--   What is an ANN? Deep learning?
--   Function approximation via a network
--   Data: fit, validate, test
--   Network architecture
--   Use examples: House prices revisited
+- What is an ANN? Deep learning?
+- Function approximation via a network
+- Data: fit, validate, test
+- Network architecture
+- Use examples: House prices revisited
 
 The presentation for this is `IntroANN.html`; The program `ANN.R` replicates the ANN estimation. The data used is the same as for Day 1.
 
 #### Networks (real ones)
 
--   DAGs and ANNs as network graphs
--   Incidence matrices
--   Measuring connectivity: Degree and betweenness
--   Plotting with `igraph`
--   Use examples: Industry inter-relationships
+- DAGs and ANNs as network graphs
+- Incidence matrices
+- Measuring connectivity: Degree and betweenness
+- Plotting with `igraph`
+- Use examples: Industry inter-relationships
 
-```{r echo=FALSE, fig.align='right', out.width="25%", out.extra='style="float:right"'}
+```{r}
+#| echo: FALSE
+#| fig-cap: "Network examples"
+#| fig-subcap: 
+#|   - "Coding club"
+#|   - "R-Bloggers article"
+#| layout: [[-5,40,-10,40,-5]]
 plot(qr_code("https://codingclubuc3m.rbind.io/talk/2020-01-21/"), col=c("white", "blue"))
 plot(qr_code("https://www.r-bloggers.com/2020/01/graph-theory-101-with-corruption-cases-in-spain/"), col=c("white", "purple"))
 ```
 
 The presentation used for the first part of this is `DAG.html` and the program `Draw_DAG_ANN.R` draws the ANN examples from Day 2 Session 1 as well as some of the DAG examples. The example is modified from @Mixtape *Causal Inference: The Mixtape*, which is a great read with R code. The pdf `HandShake3.pdf` is the source of the director network graphs, and `Graph101a.R` is a subset of the analytical work on the corruption data set as described in the post [*Graph Theory 101*](https://www.r-bloggers.com/2020/01/graph-theory-101-with-corruption-cases-in-spain/) (purple QR code), which is the work of [Marina Medina](https://codingclubuc3m.rbind.io/talk/2020-01-21/) (blue QR code link to presentation site).
 
-------------------------------------------------------------------------
-
 ### Day 3: Text
 
 #### Text modelling, a 'tidytext' approach (Session 1)
 
--   Data cleaning
--   Sentiment
--   Topic modelling
+- Data cleaning
+- Sentiment
+- Topic modelling
 
 #### Text modelling, a 'tidytext' approach (Session 2)
 
--   Parts-of-speech tagging
--   Text regression
--   Use examples: Central bank minutes, reports
+- Parts-of-speech tagging
+- Text regression
+- Use examples: Central bank minutes, reports
