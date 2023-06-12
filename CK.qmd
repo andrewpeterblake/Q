@@ -36,7 +36,13 @@ $$
 
 ### Poisson example
 
-Th Poisson distribution is a nice one to consider as the maximum likelihood estimate can be calculated easily -- essentially in your head.[^For example @Green1997 constructs a Poisson distribution example where the chosen observations yield an exact estimate of the underlying parameter of the distribution.]
+Th Poisson distribution is a nice one to consider as the maximum likelihood estimate can be calculated easily -- essentially in your head.[^1]
+
+[^1]: For example @Green1997 constructs a Poisson distribution example where the chosen observations yield an exact estimate of the underlying parameter of the distribution. The example is to find the most likely value of $\theta$ given observations
+$$
+5,\ 0,\ 1,\ 1,\ 0,\ 3,\ 2,\ 3,\ 4,\ 1
+$$ 
+ten observations which sum to 20.
 
 The Poisson distribution is
 $$
@@ -69,7 +75,6 @@ ggplot(df) +
   labs(title="Poisson density example", x="", y="") +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 ```
-
 We can also find this by calculus. As ever, because the log function is monotonic it is convenient to take logs
 $$
    \ln L(\theta) = -10\theta + 20\ln\theta -\ln(207,360)
@@ -85,6 +90,7 @@ $$
 $$
 
 ## Poisson example
+
 The Poisson density for each observation is
 $$
    p(y_i, \theta) = \frac{e^{-\theta} \theta^{y_i}}{y_i!}
@@ -137,12 +143,16 @@ t <- as_tibble(factorial(d), .name_repair = ~paste0("Rep",1:reps)) %>%
   summarise(dd = prod(value)) %>%
   mutate(sum  = colSums(d),
          ests = sum/n)
+```
+
+```{r ests}
+#| code-fold: true
+#| out-width: 85%
+#| fig-align: center
 
 ggplot(t) + 
-  geom_histogram(aes(x=ests), 
-                 fill = "blue", alpha=.33, color=NA, bins=20)
-
-#####################
+  geom_histogram(aes(x=ests), fill="blue", alpha=.33, color=NA, bins=20) +
+  theme_minimal()
 
 theta  <- seq(0, 8, 1)
 y      <- (exp(-lambda)*lambda^(theta))/(factorial(theta))
@@ -161,11 +171,13 @@ df %>%
   labs(title="Poisson density example", x="", y="",
        color=expression(lambda)) +
   theme(plot.title = element_text(hjust = 0.5),
-        plot.subtitle = element_text(hjust = 0.5)) +
+        plot.subtitle = element_text(hjust = 0.5),
+        legend.position = c(.8,.8)) +
   scale_colour_discrete(labels = parse_format())
+```
 
-######
-
+```{r}
+#| code-fold: true
 e <- c(5,0,1,1,0,3,2,3,4,1)
 l <- seq(0,5,0.05)
 y <- (exp(-n*l)*l^(sum(e)))/(prod(factorial(e)))
@@ -178,9 +190,10 @@ tibble(l=l, y=y) %>%
        x=expression(paste("Value of ", lambda)),
        y="Joint density") +
   theme(plot.title = element_text(hjust = 0.5))
-
-######
-
+```
+Maintain the value of $\lambda$ of `r lambda`. Now generate $reps=20$ replications of $n=10$ observations and plot the empirical density of each and the maximum likelihood estimate for each replication.
+```{r}
+#| code-fold: true
 t2 <- t %>%
   group_by(name) %>%
   mutate(r = list((exp(-n*l)*l^sum)/dd))
@@ -188,15 +201,13 @@ t2 <- t %>%
 nms <- paste0("Rep_", str_pad(1:reps, 2, pad="0"))
 
 tt <- bind_cols(t2$r, .name_repair = ~ nms) %>%
-  mutate(lambda = l)
+  mutate(l = l)
 
-lam <- lambda
 tt %>%
-  pivot_longer(cols = -lambda) %>%
+  pivot_longer(cols = -l) %>%
   ggplot() +
-  geom_line(aes(x=lambda, y=value, color=name),
-            show.legend = FALSE) +
-  geom_vline(aes(xintercept=lam), color="red", linetype=3, linewidth=0.75) +
+  geom_line(aes(x=l, y=value, color=name), show.legend = FALSE) +
+  geom_vline(aes(xintercept=lambda), color="red", linetype=3, linewidth=0.75) +
   facet_wrap(~ name, scales = "free_y") +
   theme_minimal() +
   labs(title    = paste("Poisson density, sample size", n),
@@ -206,7 +217,6 @@ tt %>%
   theme(plot.title = element_text(hjust = 0.5),
         plot.subtitle = element_text(hjust = 0.5))
 ```
-
 
 
 ### ML and regression
