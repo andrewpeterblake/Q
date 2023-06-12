@@ -121,10 +121,9 @@ $$
 $$
 
 ```{r}
-#| echo: false
+#| code-fold: true
 #| warning: false
 #| message: false
-
 library(tidyverse)
 library(scales)
 
@@ -149,18 +148,16 @@ t <- as_tibble(factorial(d), .name_repair = ~paste0("Rep",1:reps)) %>%
 #| code-fold: true
 #| out-width: 85%
 #| fig-align: center
-
 ggplot(t) + 
   geom_histogram(aes(x=ests), fill="blue", alpha=.33, color=NA, bins=20) +
   theme_minimal()
 
-theta  <- seq(0, 8, 1)
-y      <- (exp(-lambda)*lambda^(theta))/(factorial(theta))
-df     <- tibble(theta = theta) %>%
-  mutate(
-    `lambda == 1` = (exp(-1)*1^(theta))/(factorial(theta)),
-    `lambda == 2` = (exp(-2)*2^(theta))/(factorial(theta)),
-    `lambda == 3` = (exp(-3)*3^(theta))/(factorial(theta)))
+theta <- seq(0, 8, 1)
+y     <- (exp(-lambda)*lambda^(theta))/(factorial(theta))
+df    <- tibble(theta = theta) %>%
+  mutate(`lambda == 1` = (exp(-1)*1^(theta))/(factorial(theta)),
+         `lambda == 2` = (exp(-2)*2^(theta))/(factorial(theta)),
+         `lambda == 3` = (exp(-3)*3^(theta))/(factorial(theta)))
 
 df %>%
   pivot_longer(cols = -theta, names_to = "lambda") %>%
@@ -200,10 +197,9 @@ t2 <- t %>%
 
 nms <- paste0("Rep_", str_pad(1:reps, 2, pad="0"))
 
-tt <- bind_cols(t2$r, .name_repair = ~ nms) %>%
-  mutate(l = l)
-
-tt %>%
+t2$r %>% 
+  bind_cols(.name_repair = ~ nms) %>%
+  mutate(l = l) %>%
   pivot_longer(cols = -l) %>%
   ggplot() +
   geom_line(aes(x=l, y=value, color=name), show.legend = FALSE) +
@@ -217,7 +213,6 @@ tt %>%
   theme(plot.title = element_text(hjust = 0.5),
         plot.subtitle = element_text(hjust = 0.5))
 ```
-
 
 ### ML and regression
 
