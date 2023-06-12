@@ -551,10 +551,10 @@ L(\theta | y) = P(y,\theta)
 <section id="ml-and-regression" class="level3" data-number="5.3.1">
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="ml-and-regression"><span class="header-section-number">5.3.1</span> ML and regression</h3>
 <p>Linear regression problem is <span class="math display">\[
-L(y) = \frac{1}{(2\pi \sigma^2)^{n/2}}\exp \left[ -\frac{1}{2\sigma^2}(y-X\beta)'(y-X\beta)\right]
-\]</span> Log-likelihood <span class="math display">\[
+L(\beta|y,X) = \frac{1}{(2\pi \sigma^2)^{n/2}}\exp \left[ -\frac{1}{2\sigma^2}(y-X\beta)'(y-X\beta)\right]
+\]</span> The log-likelihood is <span class="math display">\[
    \ln L = -\frac{n}{2}\ln (2\pi)-\frac{n}{2}\ln (\sigma^2) - \frac{1}{2\sigma^2}(y-X\beta)'(y-X\beta)
-\]</span> Find the extremum by calculus; yields <em>likelihood equations</em> <span class="math display">\[
+\]</span> As before, find the extremum by calculus; yields <em>likelihood equations</em> <span class="math display">\[
 \begin{align}
 \frac{\partial \ln L}{\partial \beta} &amp; = - \frac{2}{2\sigma^2} (X'y-X'X\beta) = 0 \\
 &amp; \Rightarrow \hat{\beta}_{ml} = (X'X)^{-1}X'y

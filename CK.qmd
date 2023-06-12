@@ -221,16 +221,23 @@ tt %>%
 
 ### ML and regression
 
-Linear regression problem is $$
-L(y) = \frac{1}{(2\pi \sigma^2)^{n/2}}\exp \left[ -\frac{1}{2\sigma^2}(y-X\beta)'(y-X\beta)\right]
-$$ Log-likelihood $$
+Linear regression problem is 
+$$
+L(\beta|y,X) = \frac{1}{(2\pi \sigma^2)^{n/2}}\exp \left[ -\frac{1}{2\sigma^2}(y-X\beta)'(y-X\beta)\right]
+$$ 
+The log-likelihood is
+$$
    \ln L = -\frac{n}{2}\ln (2\pi)-\frac{n}{2}\ln (\sigma^2) - \frac{1}{2\sigma^2}(y-X\beta)'(y-X\beta)
-$$ Find the extremum by calculus; yields *likelihood equations* $$
+$$ 
+As before, find the extremum by calculus; yields *likelihood equations* 
+$$
 \begin{align}
 \frac{\partial \ln L}{\partial \beta} & = - \frac{2}{2\sigma^2} (X'y-X'X\beta) = 0 \\
 & \Rightarrow \hat{\beta}_{ml} = (X'X)^{-1}X'y
 \end{align}
-$$ and $$
+$$ 
+and 
+$$
 \begin{align}
 \frac{\partial \ln L}{\partial \sigma^2} &=
    - \frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}   
@@ -238,7 +245,8 @@ $$ and $$
 & \Rightarrow -n + \sigma^{-2} (\epsilon'\epsilon) = 0 \\
 & \Rightarrow \hat{\sigma}_{ml}^2 = \frac{\hat{\epsilon}'\hat{\epsilon}}{n}
 \end{align}
-$$ ML estimate of $\sigma^2$ divided by $n$ (not $n-k$) so biased in small samples but not asymptotically
+$$
+ML estimate of $\sigma^2$ divided by $n$ (not $n-k$) so biased in small samples but not asymptotically
 
 ## Kalman filter tricks
 
