@@ -77,20 +77,19 @@ If $\psi_{t-1}$ includes $\beta_{t-1}$ we can straightforwardly forecast next pe
 
 ### Uncertainty
 
-How can we assess the associated forecast uncertainty? The forecast covariance $P_{t|t-1} = var(\beta_t|\psi_{t-1})$ is given by $$
+How can we assess the associated forecast uncertainty? The forecast covariance $P_{t|t-1} = var(\beta_t|\psi_{t-1})$ is given by 
+$$
 \begin{align}
 P_{t|t-1} &= E\left[ (\beta_t - \beta_{t|t-1})(\beta_t-\beta_{t|t-1})'\right]   \\
   &= E\left[ (F\beta_{t-1}+v_t-F\beta_{t-1|t-1}) \left(\beta_{t-1}'F'+v_t'-\beta_{t-1|t-1}'F'\right) \right]  \notag \\
 &= E\left[ F\left( \beta _{t-1}-\beta _{t-1|t-1}\right) \left( \beta_{t-1}-\beta _{t-1|t-1}\mu_z \right) ' F' \right] + E[v_t v_t']  \notag \\
 &= FP_{t-1|t-1}F' + Q
 \end{align}
-$$ where $P_{t-1|t-1} = var(\beta_{t-1}|\psi_{t-1})$
+$$ 
+where $P_{t-1|t-1} = var(\beta_{t-1}|\psi_{t-1})$. The forecast error variance depends on the previous error variance; that value depends on the information set. 
 
--   The forecast error variance depends on the previous error variance; that value depends on the information set
-
-### Uncertainty
-
-If $\beta_{t-1}$ forms part of the information set $\psi_{t-1}$ then $$
+If $\beta_{t-1}$ forms part of the information set $\psi_{t-1}$ then 
+$$
  P_{t-1|t-1} = var \left(\beta_{t-1}|\psi_{t-1}\right) = 0
 $$ and there is no uncertainty other than from the disturbance terms and $P_t=Q$.
 
@@ -98,25 +97,30 @@ If $\beta_{t-1}$ does not form part of the information set $\psi_{t-1}$ but $\be
 
 ### Prediction error
 
-We can turn this around, as it must be the *prediction errors* are given by $$
+We can turn this around, as it must be the *prediction errors* are given by 
+$$
 \begin{aligned}
 \eta_{t|t-1} &= y_t - E[y_t|\psi_{t-1}]  \\
              &= y_t - E[H_t\beta_t+e_t|\psi_{t-1}] \\
              &= y_t-H_t\beta_{t|t-1}
 \end{aligned}            
-$$ where $\eta_{t|t-1}$ is uncorrelated with $\psi_{t-1}$ . So the 'news' over that contained in $y_t$ above $\psi_{t-1}$ is captured by $\eta_{t|t-1}$. It will be that $\eta_{t|t-1}\sim N(0,\Sigma_{\eta\eta})$; we need to find an expression for the covariance.
+$$ 
+where $\eta_{t|t-1}$ is uncorrelated with $\psi_{t-1}$. So the 'news' over that contained in $y_t$ above $\psi_{t-1}$ is captured by $\eta_{t|t-1}$. It will be that $\eta_{t|t-1}\sim N(0,\Sigma_{\eta\eta})$; we need to find an expression for the covariance.
 
 ### Current-data predictions
 
-Now we find $E [\beta_t | \psi_t]$ -- the best prediction of the unknown coefficient vector given *current* information. Using the regression lemma we know that $$
+Now we find $E [\beta_t | \psi_t]$ -- the best prediction of the unknown coefficient vector given *current* information. Using the regression lemma we know that 
+$$
 \begin{align}
 E[\beta_t | \psi_t ] &= E[\beta_t | \psi_{t-1}, \eta_{t|t-1} ]  \\
 &= E[\beta_t | \psi_{t-1}] +\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1}  \\
 &= \beta_{t|t-1} + \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1} \eta_{t|t-1}
 \end{align}
-$$ because $\psi_{t-1}$ and $\eta_{t|t-1}$ are uncorrelated and $\eta_{t|t-1}$ is mean zero.
+$$ 
+because $\psi_{t-1}$ and $\eta_{t|t-1}$ are uncorrelated and $\eta_{t|t-1}$ is mean zero.
 
-Similarly, we can find $P_{t|t}$ as the best prediction of the variance of $\beta_t$ given $\psi_t$. Using the regression lemma we know that $$
+Similarly, we can find $P_{t|t}$ as the best prediction of the variance of $\beta_t$ given $\psi_t$. Using the regression lemma we know that 
+$$
 \begin{align}
 P_{t|t} &= E[(\beta_t-\beta_{t|t})(\beta_t - \beta_{t|t})'|\psi_{t-1}, \eta_{t|t-1}] \\
         &= E[(\beta_t - \beta_{t|t})(\beta_t-\beta_{t|t})'|\psi_{t-1}] - \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta\beta} \\
@@ -126,7 +130,8 @@ $$
 
 ### Estimated model covariances
 
-What is $\Sigma_{\beta\eta}$? $$
+All we need do is plug the relevant expressions into the regression lemma. So, what is $\Sigma_{\beta\eta}$? 
+$$
 \begin{align}
 \Sigma_{\beta\eta} &= E[(\beta_t-\beta_{t|t-1}) \eta_{t|t-1}'] \\
 &= E\left[(\beta_t-\beta_{t|t-1}) (y_t-H_t\beta_{t|t-1})'\right] \\
@@ -134,11 +139,11 @@ What is $\Sigma_{\beta\eta}$? $$
 &= E[(\beta_t-\beta_{t|t-1}) (\beta_t-\beta_{t|t-1})'H_t'] + E[(\beta_t - \beta_{t|t-1}) e_t'] \\
 &= P_{t|t-1} H_t' \tag{$\Sigma_{\beta\eta}$} 
 \end{align}
-$$ as $E[(\beta_t - \beta_{t|t-1})e_t']=0$.
+$$ 
+as $E[(\beta_t - \beta_{t|t-1})e_t']=0$.
 
-### Estimated model covariances
-
-What is $\Sigma_{\eta\eta}$? $$
+What is $\Sigma_{\eta\eta}$? 
+$$
 \begin{align}
 \Sigma_{\eta\eta} &= E[(y_t-H_t \beta_{t|t-1})(y_t-H_t\beta_{t|t-1})'] \\
                   &= E[(H_t\beta_t+e_t-H_t\beta_{t|t-1})(H_t\beta_t+e_t-H_t\beta_{t|t-1})'] \\
@@ -147,23 +152,27 @@ What is $\Sigma_{\eta\eta}$? $$
                   &= H_t P_{t|t-1} H_t' + R \\
                   &= f_{t|t-1} \tag{$\Sigma_{\eta\eta}$} \label{svv}
 \end{align}
-$$ where we define $f_{t|t-1}=E[\eta_{t|t-1}\eta_{t|t-1}']$
+$$ 
+where we define $f_{t|t-1}=E[\eta_{t|t-1}\eta_{t|t-1}']$. Now we're ready. 
 
 ## The Kalman filter
 
 The equations of the filter are
 
--   the conditional expectation depending on $\psi_{t-1}$
--   an update that uses $\eta_{t|t-1}$ to obtain the best $t$-period prediction
+-   the conditional expectation depending on $\psi_{t-1}$;
+-   an update that uses $\eta_{t|t-1}$ to obtain the best $t$-period prediction now based on $\psi_t$.
 
-These must be of the form $$
+These must be of the form 
+$$
 \begin{aligned}
 E[\beta_t | \psi_{t-1}] &= \mu + F E [\beta_t | \psi_{t-1}] \\
 E[P_t|\psi_{t-1}]       &= F E[P_{t-1}|\psi_{t-1}] F' + Q \\
 E[\beta_t | \psi_t]     &= E[\beta_t|\psi_{t-1}] + \Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1} \\
 E[P_t|\psi_t]           &= E[P_t|\psi_{t-1}] -\Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta \beta}
 \end{aligned}
-$$ These are specifically $$
+$$ 
+These are specifically 
+$$
 \begin{align}
 \beta_{t|t-1} &= \mu +F\beta_{t-1|t-1}                                  \tag{Predicted $\beta$}\\
 P_{t|t-1}     &= F P_{t-1|t-1}F' + Q                                    \tag{Predicted $P$}\\
@@ -172,18 +181,24 @@ f_{t|t-1}     &= H_t P_{t|t-1}H_t' + R                                  \tag{Pre
 \beta_{t|t}   &= \beta_{t|t-1}+P_{t|t-1}H_t' f_{t|t-1}^{-1}\eta_{t|t-1} \tag{Updated $\beta$}\\
 P_{t|t}       &= P_{t|t-1} - P_{t|t-1}H_t' f_{t|t-1}^{-1}H_tP_{t|t-1}   \tag{Updated $P$}
 \end{align}
-$$ The filter evaluates these recursively, beginning from $\beta_0$, $P_0$
+$$ 
+The filter evaluates these recursively, beginning from $\beta_0$, $P_0$.
 
-Treatment of these initial condition reflects knowledge/model - Stationary models can use steady-sate - Non-stationary models use something which is often (confusingly) called a *diffuse prior* (zero mean, large variance)
+Treatment of these initial condition reflects knowledge/model 
+
+- Stationary models can use the steady-state 
+- Non-stationary models use something which is often (confusingly) called a *diffuse prior* (zero mean, large variance)
 
 ### Kalman filter trick
 
-For ***known*** initial conditions -- say $\beta_{0}\sim N(\mu_0, P_0)$ -- the likelihood of a state-space model with $T$ observations of $m$ variables is $$
+For ***known*** initial conditions -- say $\beta_0 \sim N(\mu_0, P_0)$ -- the likelihood of a state-space model with $T$ observations of $m$ variables is 
+$$
 \begin{eqnarray*}
-\log L(y|\theta) &=&\sum_{t=1}^T \log p \left( y_t|\psi_{t-1}, \theta \right) \\
+\log L(\theta | y) &=& \sum_{t=1}^T \log \left(p \left( \theta | \psi_{t-1}, \theta \right)\right) \\
   &=& -\Phi
-  - \frac{1}{2}\sum_{t=1}^T \left( \log \det f_{t|t-1} + \eta_{t|t-1}' f_{t|t-1}^{-1} \eta_{t|t-1} \ | \ \theta \right)
+  - \frac{1}{2}\sum_{t=1}^T \left( \log(\det(f_{t|t-1})) + \eta_{t|t-1}' f_{t|t-1}^{-1} \eta_{t|t-1} \ | \ \theta \right)
 \end{eqnarray*}
-$$ where $\Phi =\frac{Tm}{2}\log \left( 2\pi \right)$ and $\theta$ are all the non-state parameters to be estimated. We can use the Kalman filter to obtain $\eta_{t|t-1}$ and $f_{t|t-1}$ as they are the *prediction error* and its *variance*. This is the ***prediction error decomposition*** of the log-likelihood.
+$$ 
+where $\Phi =\frac{Tm}{2}\log \left( 2\pi \right)$ and $\theta$ are all the non-state parameters to be estimated. We can use the Kalman filter to obtain $\eta_{t|t-1}$ and $f_{t|t-1}$ as they are the *prediction error* and its *variance*. This is the ***prediction error decomposition*** of the log-likelihood.
 
 A maximum likelihood estimate maximizes $\log L(y|\theta)$ by choice of $\theta$.
