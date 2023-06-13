@@ -16,23 +16,19 @@ Follow @KimNelson; also see @Harvey89, @Hamilton1994, @Durbin
 
 ### Classical Maximum Likelihood Estimation
 
-The principle of maximum likelihood is that the parameters should be chosen so that the probability of observing a given sample is maximized
+The principle of maximum likelihood is that the parameters should be chosen so that the probability of observing a given sample is maximized.
 
--   For time series models the joint density of $\psi_T = \{y_T, y_{T-1},\ldots ,y_1 \}$ and parameters $\theta$ in conditional form is $$
-     p(\psi_T|\theta) = \prod\nolimits_{t=1}^T p (y_t|\psi_{t-1},\theta)
-    $$ emphasizing the serial dependence of observations
+For time series models the joint density of $\psi_T = \{y_T, y_{T-1},\ldots ,y_1 \}$ and parameters $\theta$ in conditional form is 
+$$
+ p(\theta|\psi_T) = \prod\nolimits_{t=1}^T p (y_t|\psi_{t-1},\theta)
+$$ 
+emphasizing the serial dependence of observations. 
 
--   Interpret this as the likelihood for a particular sample
-
--   Assuming (conditional) normality, the likelihood of any particular $n$-vector of observations is
-
+Interpret this as the likelihood for a particular sample. Assuming (conditional) normality, the likelihood of any particular $n$-vector of observations is
 $$
 p(y_t) = (2\pi)^{-\frac{n}{2}}|var(y_t)|^{-\frac{1}{2}}e^{\left\{ -\frac{1}{2}(y_t-\mu )' var(y_t)^{-1}(y_t-\mu)\right\} }
 $$
-
--   Depends on the observations *and* the parameters
--   It can be multivariate and for any underlying density
--   A maximum likelihood (ML) estimate of $\theta$ maximizes the likelihood of the observed sample
+Notice this depends on the observed data *and* the values of the parameters. It can be multivariate and for any underlying density. A maximum likelihood (ML) estimate of $\theta$ maximizes the likelihood of the parameter given an observed sample.
 
 ### Poisson example
 

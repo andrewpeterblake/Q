@@ -384,22 +384,13 @@ div.csl-indent {
 <h2 data-number="5.2" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">5.2</span> Maximum likelihood</h2>
 <section id="classical-maximum-likelihood-estimation" class="level3" data-number="5.2.1">
 <h3 data-number="5.2.1" class="anchored" data-anchor-id="classical-maximum-likelihood-estimation"><span class="header-section-number">5.2.1</span> Classical Maximum Likelihood Estimation</h3>
-<p>The principle of maximum likelihood is that the parameters should be chosen so that the probability of observing a given sample is maximized</p>
-<ul>
-<li><p>For time series models the joint density of <span class="math inline">\(\psi_T = \{y_T, y_{T-1},\ldots ,y_1 \}\)</span> and parameters <span class="math inline">\(\theta\)</span> in conditional form is <span class="math display">\[
-p(\psi_T|\theta) = \prod\nolimits_{t=1}^T p (y_t|\psi_{t-1},\theta)
-\]</span> emphasizing the serial dependence of observations</p></li>
-<li><p>Interpret this as the likelihood for a particular sample</p></li>
-<li><p>Assuming (conditional) normality, the likelihood of any particular <span class="math inline">\(n\)</span>-vector of observations is</p></li>
-</ul>
-<p><span class="math display">\[
+<p>The principle of maximum likelihood is that the parameters should be chosen so that the probability of observing a given sample is maximized.</p>
+<p>For time series models the joint density of <span class="math inline">\(\psi_T = \{y_T, y_{T-1},\ldots ,y_1 \}\)</span> and parameters <span class="math inline">\(\theta\)</span> in conditional form is <span class="math display">\[
+p(\theta|\psi_T) = \prod\nolimits_{t=1}^T p (y_t|\psi_{t-1},\theta)
+\]</span> emphasizing the serial dependence of observations.</p>
+<p>Interpret this as the likelihood for a particular sample. Assuming (conditional) normality, the likelihood of any particular <span class="math inline">\(n\)</span>-vector of observations is <span class="math display">\[
 p(y_t) = (2\pi)^{-\frac{n}{2}}|var(y_t)|^{-\frac{1}{2}}e^{\left\{ -\frac{1}{2}(y_t-\mu )' var(y_t)^{-1}(y_t-\mu)\right\} }
-\]</span></p>
-<ul>
-<li>Depends on the observations <em>and</em> the parameters</li>
-<li>It can be multivariate and for any underlying density</li>
-<li>A maximum likelihood (ML) estimate of <span class="math inline">\(\theta\)</span> maximizes the likelihood of the observed sample</li>
-</ul>
+\]</span> Notice this depends on the observed data <em>and</em> the values of the parameters. It can be multivariate and for any underlying density. A maximum likelihood (ML) estimate of <span class="math inline">\(\theta\)</span> maximizes the likelihood of the parameter given an observed sample.</p>
 </section>
 <section id="poisson-example" class="level3" data-number="5.2.2">
 <h3 data-number="5.2.2" class="anchored" data-anchor-id="poisson-example"><span class="header-section-number">5.2.2</span> Poisson example</h3>
