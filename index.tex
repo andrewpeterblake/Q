@@ -7,7 +7,6 @@
 ]{book}
 
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -17,6 +16,10 @@
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -137,6 +140,22 @@
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
 \makeatother
 \makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
@@ -181,10 +200,12 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 \makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
 \makeatother
 \makeatletter
 \@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
 \makeatother
 \makeatletter
 \makeatother
@@ -202,12 +223,12 @@
 
 \title{Quantiles, Networks, Time}
 \author{andrew p blake}
-\date{1/1/24}
+\date{2024-01-01}
 
 \begin{document}
 \frontmatter
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, interior hidden, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, breakable, sharp corners, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, boxrule=0pt, enhanced, frame hidden, interior hidden, sharp corners, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -223,33 +244,130 @@
 
 \markboth{Genesis}{Genesis}
 
-This book is the result of an initiative the Bank of England began in
-the early 1990s, and a prescient one. This was at a major historical
-turning point, one that signalled a burgeoning new world order, as the
-Iron Curtain crumbled, the European experiment gathered momentum, and
-industrial might began an inexorable shift eastwards.
+This book is about economics and central banking. It is the product of
+an initiative taken by the Bank of England in the early 1990s. It was
+decided that the Bank should create a forum where the central bankers of
+the world could gather to commune, discuss, and above all, learn
+together. Central banking had long been associated with grey men in grey
+suits, pondering deeply the impenetrable decisions of high finance,
+fuelled by cigar smoke and mystique. In truth, this Capraesque view was
+substantially out of date. Central bankers were no longer monochrome, or
+exclusively male, and needed skills their forebears could have barely
+imagined -- and had most decidedly different priorities.
 
-\includegraphics[width=4.375in,height=\textheight]{./Specs.GIF}
+The timing, of course, was not incidental, and the initiative turned out
+to be a prescient one. This was at a major historical turning point, one
+that signalled a burgeoning new world order, as the Iron Curtain
+crumbled, the European experiment gathered momentum, and industrial
+might continued an inexorable shift eastwards. Economic policy had
+shifted too. Monetary policy was beginning a new and -- as it turned out
+-- lasting phase. There was indeed much to learn, and so the Centre for
+Central Banking Studies was instituted. More than thirty years later it
+remains a key forum for learning, discussion and networking, just as
+intended. Activities have evolved to include many more of the disparate
+areas of responsibility that now involve the central banking community,
+and with a truly global reach.
+
+Various histories of the CCBS exist,
+e.g.~\href{https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2006/the-centre-for-central-banking-studies.pdf}{Hammond
+(2006)}.
+
+\begin{figure}
+
+\begin{minipage}[t]{0.50\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{Yogyakarta.jpg}
+
+}
+
+\caption{Puppet, Yogyakarta}
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.50\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{AbuDhabi.jpg}
+
+}
+
+\caption{Abu Dhabi, United Arab Emirates}
+
+}
+
+\end{minipage}%
+\newline
+\begin{minipage}[t]{0.50\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{Specs.jpg}
+
+}
+
+\caption{Villa Sterne, Pretoria}
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.50\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{Korea.jpg}
+
+}
+
+\caption{Insadong, Seoul}
+
+}
+
+\end{minipage}%
+
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics{Montevideo.jpg}
+
+}
+
+\caption{Old Town, Montevideo}
+
+\end{figure}
 
 Placeholders abound.
 
-\hypertarget{sec-disclaimer}{%
-\section*{Disclaimer}\label{sec-disclaimer}}
-\addcontentsline{toc}{section}{Disclaimer}
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, toptitle=1mm, breakable, colframe=quarto-callout-note-color-frame, colback=white, arc=.35mm, bottomtitle=1mm, opacityback=0, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Disclaimer}, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, left=2mm]
 
-\markright{Disclaimer}
+The Bank of England does not accept any liability for misleading or
+inaccurate information or omissions in the information provided. The
+subject matter reflects the views of the author and not the wider Bank
+of England or its Policy Committees.
 
-\emph{The Bank of England does not accept any liability for misleading
-or inaccurate information or omissions in the information provided. The
-subject matter reflects the views of the individual presenter and not
-the wider Bank of England or its Policy Committees.}
+\end{tcolorbox}
 
-\part{Introduction}
+\part{Methods matter}
 
-\hypertarget{introduction-1}{%
-\chapter{Introduction}\label{introduction-1}}
+\hypertarget{introduction}{%
+\chapter{Introduction}\label{introduction}}
 
-This is a book created from markdown and executable code.
+This is a book created using \href{quarto.org}{Quarto} and includes all
+examples as executable code.
 
 See Andrew P. Blake and Mumtaz (2017).
 
@@ -350,25 +468,109 @@ below.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.33\textwidth,height=\textheight]{./R2021_files/figure-pdf/unnamed-chunk-1-1.pdf}
+\begin{minipage}[t]{0.05\linewidth}
+
+{\centering 
+
+~
 
 }
 
-\caption{GitHub: 2020 (grey, left), 2021 (pink, right)}
+\end{minipage}%
+%
+\begin{minipage}[t]{0.40\linewidth}
 
-\end{figure}
+{\centering 
 
-\begin{figure}
+\raisebox{-\height}{
 
-{\centering \includegraphics[width=0.33\textwidth,height=\textheight]{./R2021_files/figure-pdf/unnamed-chunk-1-2.pdf}
+\includegraphics{R2021_files/figure-pdf/unnamed-chunk-1-1.pdf}
 
 }
 
-\caption{GitHub: 2020 (grey, left), 2021 (pink, right)}
+\caption{2020}
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.10\linewidth}
+
+{\centering 
+
+~
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.40\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{R2021_files/figure-pdf/unnamed-chunk-1-2.pdf}
+
+}
+
+\caption{2021}
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.05\linewidth}
+
+{\centering 
+
+~
+
+}
+
+\end{minipage}%
+\newline
+\begin{minipage}[t]{0.05\linewidth}
+
+{\centering 
+
+~
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.40\linewidth}
+
+{\centering 
+
+GitHub repositories for historic CCBS courses
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.10\linewidth}
+
+{\centering 
+
+~
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.05\linewidth}
+
+{\centering 
+
+~
+
+}
+
+\end{minipage}%
 
 \end{figure}
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{how-to-ensure-rstudio-finds-the-code}{%
 \section{HOW TO ENSURE RSTUDIO FINDS THE
@@ -381,8 +583,6 @@ Studio that uses that directory as its home directory, using ``File/New
 Project'' in the drop down menu. Opening files within a project sets the
 home directory to that directory, so everything (including the
 sub-directories) can be found.
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{typical-program-structure}{%
 \section{Typical program structure}\label{typical-program-structure}}
@@ -435,9 +635,19 @@ contains the program (\texttt{app.R}) and data for the weather example.
 
 \begin{figure}
 
-\hfill{} \includegraphics[width=0.33\textwidth,height=\textheight]{./R2021_files/figure-pdf/unnamed-chunk-2-1.pdf}
+\begin{minipage}[t]{0.50\linewidth}
 
-\end{figure}
+{\centering 
+
+\includegraphics{R2021_files/figure-pdf/unnamed-chunk-2-1.pdf}
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.50\linewidth}
+
+{\centering 
 
 I've included an additional video (red QR code) for more about Shiny.
 This uses unemployment data from the
@@ -446,11 +656,15 @@ of Professional Forecasters}. The code we look at is for climate change
 data \href{https://climateknowledgeportal.worldbank.org/}{World Bank
 data}.
 
+}
+
+\end{minipage}%
+
+\end{figure}
+
 A comprehensive treatment of maps is Lovelace, Nowosad, and Muenchow
 (2019) \emph{Geocomputation in R}, but it is quite a lot to assimilate
 all at once.
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{day-2-networks}{%
 \subsection{Day 2: Networks}\label{day-2-networks}}
@@ -495,13 +709,107 @@ as for Day 1.
 
 \begin{figure}
 
-\hfill{} \includegraphics[width=0.25\textwidth,height=\textheight]{./R2021_files/figure-pdf/unnamed-chunk-3-1.pdf}
+\begin{minipage}[t]{0.05\linewidth}
 
-\end{figure}
+{\centering 
 
-\begin{figure}
+~
 
-\hfill{} \includegraphics[width=0.25\textwidth,height=\textheight]{./R2021_files/figure-pdf/unnamed-chunk-3-2.pdf}
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.40\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{R2021_files/figure-pdf/unnamed-chunk-3-1.pdf}
+
+}
+
+\caption{Coding club}
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.10\linewidth}
+
+{\centering 
+
+~
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.40\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{R2021_files/figure-pdf/unnamed-chunk-3-2.pdf}
+
+}
+
+\caption{R-Bloggers article}
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.05\linewidth}
+
+{\centering 
+
+~
+
+}
+
+\end{minipage}%
+\newline
+\begin{minipage}[t]{0.05\linewidth}
+
+{\centering 
+
+~
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.40\linewidth}
+
+{\centering 
+
+Network examples
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.10\linewidth}
+
+{\centering 
+
+~
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.05\linewidth}
+
+{\centering 
+
+~
+
+}
+
+\end{minipage}%
 
 \end{figure}
 
@@ -518,14 +826,19 @@ Theory 101}} (purple QR code), which is the work of
 \href{https://codingclubuc3m.rbind.io/talk/2020-01-21/}{Marina Medina}
 (blue QR code link to presentation site).
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
 \hypertarget{day-3-text}{%
 \subsection{Day 3: Text}\label{day-3-text}}
 
-\hypertarget{text-modelling-a-tidytext-approach-session-1}{%
-\subsubsection{Text modelling, a `tidytext' approach (Session
-1)}\label{text-modelling-a-tidytext-approach-session-1}}
+Text modelling, a `tidytext' approach.
+
+\begin{figure}
+
+\begin{minipage}[t]{0.50\linewidth}
+
+{\centering 
+
+\hypertarget{session-1}{%
+\subsubsection{Session 1}\label{session-1}}
 
 \begin{itemize}
 \tightlist
@@ -537,9 +850,16 @@ Theory 101}} (purple QR code), which is the work of
   Topic modelling
 \end{itemize}
 
-\hypertarget{text-modelling-a-tidytext-approach-session-2}{%
-\subsubsection{Text modelling, a `tidytext' approach (Session
-2)}\label{text-modelling-a-tidytext-approach-session-2}}
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.50\linewidth}
+
+{\centering 
+
+\hypertarget{session-2}{%
+\subsubsection{Session 2}\label{session-2}}
 
 \begin{itemize}
 \tightlist
@@ -550,6 +870,286 @@ Theory 101}} (purple QR code), which is the work of
 \item
   Use examples: Central bank minutes, reports
 \end{itemize}
+
+}
+
+\end{minipage}%
+
+\end{figure}
+
+\hypertarget{kalman-filtering}{%
+\chapter{Kalman filtering}\label{kalman-filtering}}
+
+Estimating unobserved components
+
+\hfill\break
+
+\hypertarget{literature}{%
+\section{Literature}\label{literature}}
+
+Alternatives to what follows can be found in Harvey (1989), Hamilton
+(1994), Kim and Nelson (1999), Durbin and Koopman (2001) or
+Triantafyllopoulos (2021). There are many books devoted to the Kalman
+filter
+\href{https://www.amazon.co.uk/s?k=kalman+filtering\&i=stripbooks}{as a
+casual Amazon search} mostly from an engineering perspective. However
+econometricians since Harvey and Pierse (1984) have used it in a way
+somewhat different from standard engineering applications. We will cover
+the filter and then look at a simple example if filtering, then develop
+a maximum likelihood estimation approach.
+
+\hypertarget{reminder-of-a-state-space-model}{%
+\section{Reminder of a state-space
+model}\label{reminder-of-a-state-space-model}}
+
+Consider the trend-cycle model \begin{equation}
+  y_t = \chi_t + \tau_t + \varepsilon_t
+\end{equation} where the cycle equation is \begin{equation}
+  \chi_t = c+\rho_1 \chi_{t-1} + \rho_2 \chi_{t-2}+v_{1t}
+\end{equation} and the trend equation is \begin{equation}
+  \tau_t = \tau_{t-1} + v_{2t}
+\end{equation}
+
+In state space this can be written \begin{align}
+y_t &=
+\begin{bmatrix} 1 & 0 & 1 \end{bmatrix}
+ \begin{bmatrix} \chi_t \\ \chi_{t-1} \\ \tau_t \end{bmatrix} + [1] \varepsilon_t\\
+ \begin{bmatrix} \chi_t \\ \chi_{t-1} \\ \tau_t \end{bmatrix} &=
+\begin{bmatrix} c \\ 0 \\ 0 \end{bmatrix} +
+ \begin{bmatrix} \rho_1 & \rho_2 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+\begin{bmatrix} \chi_{t-1} \\ \chi_{t-2} \\ \tau_{t-1} \end{bmatrix} +
+ \begin{bmatrix} 1 & 0 \\ 0 & 0 \\ 0 & 1 \end{bmatrix}
+\begin{bmatrix} v_{1t} \\ v_{2t} \end{bmatrix}
+\end{align}
+
+\hypertarget{a-useful-class-of-models}{%
+\subsection{A useful class of models}\label{a-useful-class-of-models}}
+
+We need a framework that nests this type of model (and many more).
+State-space models are one such framework, amenable to classical (and
+Bayesian) estimation. Quite a lot of apparatus required before we can
+apply maximum likelihood.
+
+\textbf{Key points}:
+
+\begin{itemize}
+\tightlist
+\item
+  Many quantities routinely used to build models and analyse policy are
+  \emph{unobservable}.
+\item
+  Econometricians face a major problem estimating such models:
+  everything unobserved needs estimating simultaneously (states and
+  parameters).
+\item
+  Fortunately there is a method we can use: the \textbf{\emph{Kalman
+  filter}} (Kalman (1960)).
+\item
+  Has the useful spin-off that we can also use it to calculate the value
+  of the likelihood function.
+\end{itemize}
+
+\hypertarget{what-is-a-filter}{%
+\section{What is a filter?}\label{what-is-a-filter}}
+
+Imagine we had a time-varying parameter model where we estimate
+\(\beta_t\); this becomes a time series so we have a lot of parameters
+to estimate: we outline an estimation method here, which we will then
+characterise as the \emph{Kalman Filter}.
+
+Simple observation and transition equations \begin{align}
+y_t     &= H_t\beta_t + e_t, &var(e_t) = R \\
+\beta_t &= \mu + F \beta_{t-1} + v_t, &var(v_t)=Q
+\end{align} where \(\beta_t\) is a vector of stochastic variables,
+\(y_t\) a vector of measurements and the data forms an information set
+such that \(\psi_T = \{y_T,y_{T-1},...,y_1\}\).
+
+Jazwinski (1970) defines three type of estimation problem
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Smoothing} is the problem of estimating \(\beta_k\) for any
+  \(k<T\)
+\item
+  \textbf{Filtering} is the problem of estimating \(\beta_k\) for
+  \(k=T\)
+\item
+  \textbf{Prediction} is the problem of estimating \(\beta_k\) for any
+  \(k>T\)
+\end{itemize}
+
+\begin{quote}
+``The object of filtering is to update our knowledge of the system each
+time a new observation \(y_t\) is brought in.'' (Durbin and Koopman
+(2001))
+\end{quote}
+
+Filtering is specifically this: perhaps we have some estimates already
+of \(\beta_t\) for \(t=1...t-1\), then given the new period-\(t\)
+observation of \(y_t\) how should we estimate a new value of
+\(\beta_t\)? This immediately implies a recursive structure to
+estimation problems, consistent with on-line (or real-time) estimation.
+The Kalman filter uses the period \(t\) news available from observed
+\(y_t\) to update our estimates of \(\beta_t\) using the regression
+lemma.
+
+\hypertarget{forecasting}{%
+\subsection{Forecasting}\label{forecasting}}
+
+Consider the simple first-order VAR model \begin{equation}
+  \beta_t = F\beta_{t-1}+v_{t},\quad v_t\sim N(0,Q)
+\end{equation} We can use to make the \emph{conditional} forecast
+\begin{equation}
+  \beta_{t|t-1} = F\beta_{t-1}
+\end{equation} where \(\beta_{t|t-1}=E[\beta_t|\psi_{t-1}]\) and
+\(\psi_{t-1}\) is the information set available at time \(t-1\).
+
+If \(\psi_{t-1}\) includes \(\beta_{t-1}\) we can straightforwardly
+forecast next period (and the next-but-one period etc) using the model.
+This is a standard forecasting exercise given any estimated (or even
+calibrated) economic model.
+
+\hypertarget{uncertainty}{%
+\subsection{Uncertainty}\label{uncertainty}}
+
+How can we assess the associated forecast uncertainty? The forecast
+covariance \(P_{t|t-1} = var(\beta_t|\psi_{t-1})\) is given by
+\begin{align}
+P_{t|t-1} &= E\left[ (\beta_t - \beta_{t|t-1})(\beta_t-\beta_{t|t-1})'\right]   \\
+  &= E\left[ (F\beta_{t-1}+v_t-F\beta_{t-1|t-1}) \left(\beta_{t-1}'F'+v_t'-\beta_{t-1|t-1}'F'\right) \right] \\
+&= E\left[ F\left( \beta _{t-1}-\beta _{t-1|t-1}\right) \left( \beta_{t-1}-\beta _{t-1|t-1}\mu_z \right) ' F' \right] + E[v_t v_t']  \notag \\
+&= FP_{t-1|t-1}F' + Q
+\end{align} where \(P_{t-1|t-1} = var(\beta_{t-1}|\psi_{t-1})\). The
+forecast error variance depends on the previous error variance; that
+value depends on the information set.
+
+If \(\beta_{t-1}\) forms part of the information set \(\psi_{t-1}\) then
+\begin{equation}
+ P_{t-1|t-1} = var \left(\beta_{t-1}|\psi_{t-1}\right) = 0
+\end{equation} and there is no uncertainty other than from the
+disturbance terms and \(P_t=Q\).
+
+If \(\beta_{t-1}\) does not form part of the information set
+\(\psi_{t-1}\) but \(\beta _{t-2}\) does then \(P_{t-1|t-1}=Q\) and
+\(P_{t|t-1}=FQF'+Q\). This can be continued backwards; the unconditional
+(steady-state) covariance of \(\beta_t\) is the limit \(P=FPF'+Q\). We
+can easily calculate error bands for \(\beta_t\) using the appropriate
+information set.
+
+\hypertarget{prediction-error}{%
+\subsection{Prediction error}\label{prediction-error}}
+
+We can turn this around, as it must be the \emph{prediction errors} are
+given by \begin{align}
+\eta_{t|t-1} &= y_t - E[y_t|\psi_{t-1}]  \\
+             &= y_t - E[H_t\beta_t+e_t|\psi_{t-1}] \\
+             &= y_t-H_t\beta_{t|t-1}
+\end{align} where \(\eta_{t|t-1}\) is uncorrelated with \(\psi_{t-1}\).
+So the `news' over that contained in \(y_t\) above \(\psi_{t-1}\) is
+captured by \(\eta_{t|t-1}\). It will be that
+\(\eta_{t|t-1}\sim N(0,\Sigma_{\eta\eta})\); we need to find an
+expression for the covariance.
+
+\hypertarget{current-data-predictions}{%
+\subsection{Current-data predictions}\label{current-data-predictions}}
+
+Now we find \(E [\beta_t | \psi_t]\) -- the best prediction of the
+unknown coefficient vector given \emph{current} information. Using the
+regression lemma we know that \begin{align}
+E[\beta_t | \psi_t ] &= E[\beta_t | \psi_{t-1}, \eta_{t|t-1} ]  \\
+&= E[\beta_t | \psi_{t-1}] +\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1}  \\
+&= \beta_{t|t-1} + \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1} \eta_{t|t-1}
+\end{align} because \(\psi_{t-1}\) and \(\eta_{t|t-1}\) are uncorrelated
+and \(\eta_{t|t-1}\) is mean zero.
+
+Similarly, we can find \(P_{t|t}\) as the best prediction of the
+variance of \(\beta_t\) given \(\psi_t\). Using the regression lemma we
+know that \begin{align}
+P_{t|t} &= E[(\beta_t-\beta_{t|t})(\beta_t - \beta_{t|t})'|\psi_{t-1}, \eta_{t|t-1}] \\
+        &= E[(\beta_t - \beta_{t|t})(\beta_t-\beta_{t|t})'|\psi_{t-1}] - \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta\beta} \\
+        &=P_{t|t-1}-\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1} \Sigma_{\eta\beta} 
+\end{align}
+
+\hypertarget{estimated-model-covariances}{%
+\subsection{Estimated model
+covariances}\label{estimated-model-covariances}}
+
+All we need do is plug the relevant expressions into the regression
+lemma. So, what is \(\Sigma_{\beta\eta}\)? \begin{align}
+\Sigma_{\beta\eta} &= E[(\beta_t-\beta_{t|t-1}) \eta_{t|t-1}'] \\
+&= E\left[(\beta_t-\beta_{t|t-1}) (y_t-H_t\beta_{t|t-1})'\right] \\
+&= E\left[(\beta_t-\beta_{t|t-1}) (H_t\beta_t+e_t-H_t\beta_{t|t-1})'\right] \\
+&= E[(\beta_t-\beta_{t|t-1}) (\beta_t-\beta_{t|t-1})'H_t'] + E[(\beta_t - \beta_{t|t-1}) e_t'] \\
+&= P_{t|t-1} H_t' \tag{$\Sigma_{\beta\eta}$} 
+\end{align} as \(E[(\beta_t - \beta_{t|t-1})e_t']=0\).
+
+What is \(\Sigma_{\eta\eta}\)? \begin{align}
+\Sigma_{\eta\eta} &= E[(y_t-H_t \beta_{t|t-1})(y_t-H_t\beta_{t|t-1})'] \\
+                  &= E[(H_t\beta_t+e_t-H_t\beta_{t|t-1})(H_t\beta_t+e_t-H_t\beta_{t|t-1})'] \\
+                  &= E[(H_t\beta_t-H_t \beta_{t|t-1})(H_t\beta_t-H_t\beta_{t|t-1})'] + E[e_t e_t'] \\
+                  &= E[H_t(\beta_t-\beta_{t|t-1})(\beta_t-\beta_{t|t-1})'H_t'] + R \\
+                  &= H_t P_{t|t-1} H_t' + R \\
+                  &= f_{t|t-1} \tag{$\Sigma_{\eta\eta}$} \label{svv}
+\end{align} where we define \(f_{t|t-1}=E[\eta_{t|t-1}\eta_{t|t-1}']\).
+Now we're ready.
+
+\hypertarget{the-kalman-filter}{%
+\section{The Kalman filter}\label{the-kalman-filter}}
+
+The equations of the filter are
+
+\begin{itemize}
+\tightlist
+\item
+  the conditional expectation depending on \(\psi_{t-1}\);
+\item
+  an update that uses \(\eta_{t|t-1}\) to obtain the best \(t\)-period
+  prediction now based on \(\psi_t\).
+\end{itemize}
+
+These must be of the form \begin{align}
+E[\beta_t | \psi_{t-1}] &= \mu + F E [\beta_t | \psi_{t-1}] \\
+E[P_t|\psi_{t-1}]       &= F E[P_{t-1}|\psi_{t-1}] F' + Q \\
+E[\beta_t | \psi_t]     &= E[\beta_t|\psi_{t-1}] + \Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1} \\
+E[P_t|\psi_t]           &= E[P_t|\psi_{t-1}] -\Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta \beta}
+\end{align} These are specifically \begin{align}
+\beta_{t|t-1} &= \mu +F\beta_{t-1|t-1}                                  \tag{Predicted $\beta$}\\
+P_{t|t-1}     &= F P_{t-1|t-1}F' + Q                                    \tag{Predicted $P$}\\
+\eta_{t|t-1}  &= y_t-H_t\beta_{t|t-1}                                   \tag{Prediction error}\\
+f_{t|t-1}     &= H_t P_{t|t-1}H_t' + R                                  \tag{Pred. err. variance}\\
+\beta_{t|t}   &= \beta_{t|t-1}+P_{t|t-1}H_t' f_{t|t-1}^{-1}\eta_{t|t-1} \tag{Updated $\beta$}\\
+P_{t|t}       &= P_{t|t-1} - P_{t|t-1}H_t' f_{t|t-1}^{-1}H_tP_{t|t-1}   \tag{Updated $P$}
+\end{align} The filter evaluates these recursively, beginning from
+\(\beta_0\), \(P_0\).
+
+Treatment of these initial condition reflects knowledge/model
+
+\begin{itemize}
+\tightlist
+\item
+  Stationary models can use the steady-state
+\item
+  Non-stationary models use something which is often (confusingly)
+  called a \emph{diffuse prior} (zero mean, large variance)
+\end{itemize}
+
+\hypertarget{kalman-filter-trick}{%
+\subsection{Kalman filter trick}\label{kalman-filter-trick}}
+
+For \textbf{\emph{known}} initial conditions -- say
+\(\beta_0 \sim N(\mu_0, P_0)\) -- the likelihood of a state-space model
+with \(T\) observations of \(m\) variables is \begin{align}
+\log L(\theta | y) &= \sum_{t=1}^T \log \left(p \left( \theta | \psi_{t-1}, \theta \right)\right) \\
+  &= - \Phi - \frac{1}{2}\sum_{t=1}^T \left( \log(\det(f_{t|t-1})) + \eta_{t|t-1}' f_{t|t-1}^{-1} \eta_{t|t-1} | \theta \right)
+\end{align} where \(\Phi = \frac{Tm}{2}\log \left( 2\pi \right)\) and
+\(\theta\) are all the non-state parameters to be estimated. We can use
+the Kalman filter to obtain \(\eta_{t|t-1}\) and \(f_{t|t-1}\) as they
+are the \emph{prediction error} and its \emph{variance}. This is the
+\textbf{\emph{prediction error decomposition}} of the log-likelihood.
+
+A maximum likelihood estimate maximizes \(\log L(y|\theta)\) by choice
+of \(\theta\).
 
 \part{Quantiles}
 
@@ -621,11 +1221,667 @@ Retrieve the unemployment data for the average unemployment forecast.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./QR_files/figure-pdf/unnamed-chunk-2-1.pdf}
+{\centering \includegraphics{QR_files/figure-pdf/unnamed-chunk-2-1.pdf}
 
 }
 
 \end{figure}
+
+\hypertarget{carter-kohn}{%
+\chapter{Carter-Kohn}\label{carter-kohn}}
+
+\hypertarget{using-the-kalman-filter}{%
+\section{Using the Kalman Filter}\label{using-the-kalman-filter}}
+
+Establish the usefulness of the Kalman Filter (and not just for state
+estimation). Refresh idea of maximum likelihood estimation in the
+context of state space models.
+
+\begin{itemize}
+\tightlist
+\item
+  Introduce \emph{smoothing}
+\item
+  Develop Gibbs sampling by the Carter-Kohn method
+\item
+  All of these use the Kalman Filter to develop conceptually different
+  tools
+\end{itemize}
+
+Follow Kim and Nelson (1999); also see Harvey (1989), Hamilton (1994),
+Durbin and Koopman (2001)
+
+\hypertarget{maximum-likelihood}{%
+\section{Maximum likelihood}\label{maximum-likelihood}}
+
+\hypertarget{classical-maximum-likelihood-estimation}{%
+\subsection{Classical Maximum Likelihood
+Estimation}\label{classical-maximum-likelihood-estimation}}
+
+The principle of maximum likelihood is that the parameters should be
+chosen so that the probability of observing a given sample is maximized.
+
+For time series models the joint density of
+\(\psi_T = \{y_T, y_{T-1},\ldots ,y_1 \}\) and parameters \(\theta\) in
+conditional form is \begin{equation}
+ p(\theta|\psi_T) = \prod\nolimits_{t=1}^T p (y_t|\psi_{t-1},\theta)
+\end{equation} emphasizing the serial dependence of observations.
+
+Interpret this as the likelihood for a particular sample. Assuming
+(conditional) normality, the likelihood of any particular \(n\)-vector
+of observations is \begin{equation}
+p(y_t) = (2\pi)^{-\frac{n}{2}}|var(y_t)|^{-\frac{1}{2}}e^{\left\{ -\frac{1}{2}(y_t-\mu )' var(y_t)^{-1}(y_t-\mu)\right\} }
+\end{equation} Notice this depends on the observed data \emph{and} the
+values of the parameters. It can be multivariate and for any underlying
+density. A maximum likelihood (ML) estimate of \(\theta\) maximizes the
+likelihood of the parameter given an observed sample.
+
+\hypertarget{poisson-example}{%
+\subsection{Poisson example}\label{poisson-example}}
+
+Th Poisson distribution is a nice one to consider as the maximum
+likelihood estimate can be calculated easily -- essentially in your
+head.\footnote{For example Greene (1997) constructs a Poisson
+  distribution example where the chosen observations yield an exact
+  estimate of the underlying parameter of the distribution. The example
+  is to find the most likely value of \(\theta\) given observations
+  \begin{equation}
+  5,\ 0,\ 1,\ 1,\ 0,\ 3,\ 2,\ 3,\ 4,\ 1
+  \end{equation} ten observations which sum to 20.}
+
+The Poisson distribution is \begin{equation}
+ p(y_i,\ \theta )=\frac{e^{-\theta }\theta ^{y_i}}{y_i!}
+\end{equation} for \(y>0\), zero otherwise with the property
+\(E[Y]=var(Y)=\theta\).
+
+Count variables often modelled as a random Poisson process: numbers of
+road traffic accidents, sales, telephone calls, electron emissions.
+Greene's example is to find the most likely value of \(\theta\) given
+observations. \begin{equation}
+5,\ 0,\ 1,\ 1,\ 0,\ 3,\ 2,\ 3,\ 4,\ 1
+\end{equation} For independent observations the joint density is
+\begin{equation}
+p(y,\ \theta) =\prod_{i=1}^{10}p(y_i,\ \theta )
+  = \frac{e^{-10\theta}\theta^{\sum_i y_i}}{\prod_i (y_i!)}
+  = \frac{e^{-10\theta}\theta^{20}}{207,360}
+\end{equation} We can plot this function to see if it has a maximum
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\textwidth,height=\textheight]{CK_files/figure-pdf/dens-1.pdf}
+
+}
+
+\end{figure}
+
+We can also find this by calculus. As ever, because the log function is
+monotonic it is convenient to take logs \begin{equation}
+   \ln L(\theta) = -10\theta + 20\ln\theta -\ln(207,360)
+\end{equation} First order conditions are \begin{equation}
+  \frac{\partial \ln L(\theta )}{\partial\theta} = -10+\frac{20}{\theta}
+\Rightarrow \theta =\frac{20}{10}=2
+\end{equation} Check for maximum \begin{equation}
+   \frac{\partial^2\ln L(\theta )}{\partial\theta^2} = -\frac{20}{\theta^2} < 0
+\end{equation}
+
+\hypertarget{poisson-example-1}{%
+\section{Poisson example}\label{poisson-example-1}}
+
+The Poisson density for each observation is \begin{equation}
+   p(y_i, \theta) = \frac{e^{-\theta} \theta^{y_i}}{y_i!}
+\end{equation} for \(y>0\), zero otherwise, with \(E[Y]=var(Y)=\theta\).
+For \(n\) independent observations, joint density is \begin{equation}
+P(y, \theta) = \prod_{i=1}^n p(y_i, \theta)
+  = \frac{e^{-n\theta}\theta^{\sum_i y_i}}{\prod_i (y_i!)}
+\end{equation} Interpret this as a likelihood function, i.e.~a
+probability measure for \(\theta\) given some observed \(y\)
+\begin{equation}
+ L(\theta | y) = P(y,\theta)
+\end{equation} As log function is monotonic \begin{equation}
+\ln L(\theta | y) = -n\theta + {\textstyle{\sum_i} y_i} \ln\theta  - \ln\left(\textstyle{\prod_i} y_i! \right)
+\end{equation} First order conditions are \begin{equation}
+  \frac{\partial \ln L(\theta|y)}{\partial\theta}
+     = -n + \frac{\sum_i y_i}{\theta}
+     \Rightarrow
+        \theta =\frac{\sum_i y_i}{n}
+\end{equation} Finally, check for maximum \begin{equation}
+ \frac{\partial^2\ln L(\theta)}{(\partial\theta)^2} = -\frac{\sum_i y_i}{\theta^2} < 0
+\end{equation}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(scales)}
+
+\NormalTok{reps   }\OtherTok{\textless{}{-}} \DecValTok{20}
+\NormalTok{lambda }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{n      }\OtherTok{\textless{}{-}} \DecValTok{10}
+
+\NormalTok{a }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{x=}\FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\SpecialCharTok{*}\NormalTok{lambda),}
+            \AttributeTok{p=}\NormalTok{(}\FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{lambda}\SpecialCharTok{*}\NormalTok{x)}\SpecialCharTok{*}\NormalTok{(lambda}\SpecialCharTok{\^{}}\NormalTok{x))}\SpecialCharTok{/}\FunctionTok{prod}\NormalTok{(}\FunctionTok{factorial}\NormalTok{(lambda)))}
+
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{rpois}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{reps,lambda), n, reps)}
+
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{as\_tibble}\NormalTok{(}\FunctionTok{factorial}\NormalTok{(d), }\AttributeTok{.name\_repair =} \SpecialCharTok{\textasciitilde{}}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Rep"}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\NormalTok{reps)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{everything}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{dd =} \FunctionTok{prod}\NormalTok{(value)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sum  =} \FunctionTok{colSums}\NormalTok{(d),}
+         \AttributeTok{ests =}\NormalTok{ sum}\SpecialCharTok{/}\NormalTok{n)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(t) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{ests), }\AttributeTok{fill=}\StringTok{"blue"}\NormalTok{, }\AttributeTok{alpha=}\NormalTok{.}\DecValTok{33}\NormalTok{, }\AttributeTok{color=}\ConstantTok{NA}\NormalTok{, }\AttributeTok{bins=}\DecValTok{20}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.85\textwidth,height=\textheight]{CK_files/figure-pdf/ests-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{theta }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{y     }\OtherTok{\textless{}{-}}\NormalTok{ (}\FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{lambda)}\SpecialCharTok{*}\NormalTok{lambda}\SpecialCharTok{\^{}}\NormalTok{(theta))}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{factorial}\NormalTok{(theta))}
+\NormalTok{df    }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{theta =}\NormalTok{ theta) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{lambda == 1}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ (}\FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}\SpecialCharTok{*}\DecValTok{1}\SpecialCharTok{\^{}}\NormalTok{(theta))}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{factorial}\NormalTok{(theta)),}
+         \StringTok{\textasciigrave{}}\AttributeTok{lambda == 2}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ (}\FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{*}\DecValTok{2}\SpecialCharTok{\^{}}\NormalTok{(theta))}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{factorial}\NormalTok{(theta)),}
+         \StringTok{\textasciigrave{}}\AttributeTok{lambda == 3}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ (}\FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{)}\SpecialCharTok{*}\DecValTok{3}\SpecialCharTok{\^{}}\NormalTok{(theta))}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{factorial}\NormalTok{(theta)))}
+
+\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \SpecialCharTok{{-}}\NormalTok{theta, }\AttributeTok{names\_to =} \StringTok{"lambda"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{theta, }\AttributeTok{y=}\NormalTok{value, }\AttributeTok{color=}\NormalTok{lambda), }\AttributeTok{size=}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{theta, }\AttributeTok{y=}\NormalTok{value, }\AttributeTok{color=}\NormalTok{lambda)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Poisson density example"}\NormalTok{, }\AttributeTok{x=}\StringTok{""}\NormalTok{, }\AttributeTok{y=}\StringTok{""}\NormalTok{,}
+       \AttributeTok{color=}\FunctionTok{expression}\NormalTok{(lambda)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{),}
+        \AttributeTok{legend.position =} \FunctionTok{c}\NormalTok{(.}\DecValTok{8}\NormalTok{,.}\DecValTok{8}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_colour\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{parse\_format}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.85\textwidth,height=\textheight]{CK_files/figure-pdf/ests-2.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{e }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{l }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{,}\FloatTok{0.05}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ (}\FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{n}\SpecialCharTok{*}\NormalTok{l)}\SpecialCharTok{*}\NormalTok{l}\SpecialCharTok{\^{}}\NormalTok{(}\FunctionTok{sum}\NormalTok{(e)))}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{prod}\NormalTok{(}\FunctionTok{factorial}\NormalTok{(e)))}
+
+\FunctionTok{tibble}\NormalTok{(}\AttributeTok{l=}\NormalTok{l, }\AttributeTok{y=}\NormalTok{y) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{l, }\AttributeTok{y=}\NormalTok{y), }\AttributeTok{color=}\StringTok{"red"}\NormalTok{, }\AttributeTok{linewidth=}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Poisson density example"}\NormalTok{,}
+       \AttributeTok{x=}\FunctionTok{expression}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Value of "}\NormalTok{, lambda)),}
+       \AttributeTok{y=}\StringTok{"Joint density"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{CK_files/figure-pdf/unnamed-chunk-2-1.pdf}
+
+}
+
+\end{figure}
+
+Maintain the value of \(\lambda\) of 2. Now generate \(reps=20\)
+replications of \(n=10\) observations and plot the empirical density of
+each and the maximum likelihood estimate for each replication.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t2 }\OtherTok{\textless{}{-}}\NormalTok{ t }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{r =} \FunctionTok{list}\NormalTok{((}\FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{n}\SpecialCharTok{*}\NormalTok{l)}\SpecialCharTok{*}\NormalTok{l}\SpecialCharTok{\^{}}\NormalTok{sum)}\SpecialCharTok{/}\NormalTok{dd))}
+
+\NormalTok{nms }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Rep\_"}\NormalTok{, }\FunctionTok{str\_pad}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{reps, }\DecValTok{2}\NormalTok{, }\AttributeTok{pad=}\StringTok{"0"}\NormalTok{))}
+
+\NormalTok{t2}\SpecialCharTok{$}\NormalTok{r }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{bind\_cols}\NormalTok{(}\AttributeTok{.name\_repair =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ nms) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{l =}\NormalTok{ l) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \SpecialCharTok{{-}}\NormalTok{l) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{l, }\AttributeTok{y=}\NormalTok{value, }\AttributeTok{color=}\NormalTok{name), }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xintercept=}\NormalTok{lambda), }\AttributeTok{color=}\StringTok{"red"}\NormalTok{, }\AttributeTok{linetype=}\DecValTok{3}\NormalTok{, }\AttributeTok{linewidth=}\FloatTok{0.75}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ name, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title    =} \FunctionTok{paste}\NormalTok{(}\StringTok{"Poisson density, sample size"}\NormalTok{, n),}
+       \AttributeTok{subtitle =} \FunctionTok{expression}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Dotted line: true value of "}\NormalTok{, lambda)),}
+       \AttributeTok{x        =} \FunctionTok{expression}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Estimated value of "}\NormalTok{, lambda)),}
+       \AttributeTok{y        =} \StringTok{"Joint density"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{),}
+        \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{CK_files/figure-pdf/unnamed-chunk-3-1.pdf}
+
+}
+
+\end{figure}
+
+\hypertarget{ml-and-regression}{%
+\subsection{ML and regression}\label{ml-and-regression}}
+
+Linear regression problem is \begin{equation}
+L(\beta|y,X) = \frac{1}{(2\pi \sigma^2)^{n/2}}\exp \left[ - \frac{1}{2\sigma^2} (y-X\beta)'(y-X\beta) \right]
+\end{equation} The log-likelihood is \begin{equation}
+   \ln L = -\frac{n}{2}\ln (2\pi)-\frac{n}{2}\ln (\sigma^2) - \frac{1}{2\sigma^2}(y-X\beta)'(y-X\beta)
+\end{equation} As before, find the extremum by calculus; yields
+\emph{likelihood equations} \begin{align}
+\frac{\partial \ln L}{\partial \beta} & = - \frac{2}{2\sigma^2} (X'y-X'X\beta) = 0 \\
+& \Rightarrow \hat{\beta}_{ml} = (X'X)^{-1}X'y
+\end{align} and \begin{align}
+\frac{\partial \ln L}{\partial \sigma^2} &=
+   - \frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}   
+     (y - X\beta)'(y - X\beta) = 0 \\
+& \Rightarrow -n + \sigma^{-2} (\epsilon'\epsilon) = 0 \\
+& \Rightarrow \hat{\sigma}_{ml}^2 = \frac{\hat{\epsilon}'\hat{\epsilon}}{n}
+\end{align} ML estimate of \(\sigma^2\) divided by \(n\) (not \(n-k\))
+so biased in small samples but not asymptotically
+
+\hypertarget{kalman-filter-tricks}{%
+\section{Kalman filter tricks}\label{kalman-filter-tricks}}
+
+For some initial condition -- say \(\beta_0 \sim N(\mu_0,P_0))\) -- the
+conditional log-likelihood for sample \(1\) to \(T\) \begin{align}
+\log L(\psi_t|\theta) &= \sum\nolimits_{t=1}^T\log p(y_t|\psi_{t-1},\theta) \\
+&\propto -\sum\nolimits_{t=1}^T\left( \log \left\vert f_{t|t-1}\right\vert +\eta_{t|t-1}' f_{t|t-1}^{-1}\eta_{t|t-1} |\ \theta \right)
+\end{align} Note we could obtain \(\eta_{t|t-1}\) and \(f_{t|t-1}\) from
+the Kalman filter, i.e.~ \begin{equation}
+  f_{t|t-1} = (H_tP_{t|t-1}H_t' + Q) = \Sigma_{\eta\eta}
+\end{equation} This is the \emph{prediction error decomposition} of the
+log-likelihood. For a classical approach we estimate \(\theta\) by
+numerically maximizing \(\log L(\psi_T|\theta)\).This gives a point
+estimate for the value of \(\theta\) and we typically apply classical
+inference using the estimated standard errors. Note to do this we need
+to evaluate the best estimate of the state as well as maximize the
+likelihood: the Kalman Filter is a key ingredient in both.
+
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, toptitle=1mm, breakable, colframe=quarto-callout-note-color-frame, colback=white, arc=.35mm, bottomtitle=1mm, opacityback=0, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Maximisation}, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, left=2mm]
+
+A suitable numerical maximization routine will (in principle) maximize
+the likelihood straightforwardly. Often use
+\href{http://www.princeton.edu/~sims/}{Chris Sims'}
+\href{http://sims.princeton.edu/yftp/optimize/rfiles/csminwel.R}{\textbf{csminwel}}
+in Matlab or R as well-suited to this type of problem.
+
+\end{tcolorbox}
+
+Can show (via Cramer-Rao) that \begin{equation}
+\widehat{\theta}\sim N\left(\theta, -\frac{\partial^2 \log L(\psi_T|\theta)} {\partial\theta\partial\theta'} \right)
+\end{equation}
+
+\hypertarget{full-sample-estimates-of-beta_t}{%
+\section{\texorpdfstring{Full sample estimates of
+\(\beta_t\)}{Full sample estimates of \textbackslash beta\_t}}\label{full-sample-estimates-of-beta_t}}
+
+\hypertarget{the-regression-lemma-again}{%
+\subsection{The regression lemma
+again}\label{the-regression-lemma-again}}
+
+You may recall that for any \begin{equation}
+\begin{bmatrix} z \\ y \\ \varepsilon \end{bmatrix}
+\sim N\left(\begin{bmatrix} \mu_z \\ \mu_y \\ 0 \end{bmatrix},
+\begin{bmatrix}
+\Sigma_{zz} & \Sigma_{zy} & \Sigma_{z\varepsilon } \\
+\Sigma_{yz} & \Sigma_{yy} & 0 \\
+\Sigma_{\varepsilon z} & 0 & \Sigma_{\varepsilon\varepsilon}
+\end{bmatrix}\right)
+\end{equation} then it must be that \begin{align}
+E[z|y,\varepsilon] &= \mu_z + \Sigma_{zy}\Sigma_{yy}^{-1}(y-\mu_y) + \Sigma_{z\varepsilon}\Sigma_{\varepsilon\varepsilon}^{-1}\varepsilon \\
+&= E[z|y] + \Sigma_{z\varepsilon}\Sigma_{\varepsilon\varepsilon }^{-1}\varepsilon
+\end{align} We use this to derive a recursive update to \emph{smooth}
+our estimates. We will also derive an appropriate conditional
+expectation which we can use in Gibbs sampling.
+
+\hypertarget{smoothing}{%
+\section{Smoothing}\label{smoothing}}
+
+The Kalman filter estimates \(\beta_t\) recursively: it only uses
+information available up until time \(t\). This means that the estimate
+of \(\beta_{T|T}\) uses all available information, but any previous
+estimate doesn't. Indeed there must be some values of \(\eta_{i|t-1}\)
+\begin{equation}
+   \beta_{t|T} = E(\beta_t | \psi_{t-1}, \eta_{t|t-1}, \eta_{t+1|t-1},...,\eta_{T|t-1})
+\end{equation} where the `news' is relative to period \(t\).
+
+We could update \(\beta_{t|t-1}\) using the (uncorrelated) future
+innovations \begin{equation}
+  \beta_{t|T}=\beta_{t|t}+\sum_{j=t}^T\Sigma_{\beta_t\eta_j}\Sigma_{\eta_j\eta_j}^{-1}\eta_{j|t-1}
+\end{equation} and recalling
+\(\beta_{t|t}=E(\beta_t|\psi_{t-1},\eta_{t|t-1})\).
+
+This is a \emph{fixed interval smoother}; often used for full sample
+estimates of \(\beta_t\). Remember we already have an estimate of
+\(\beta_{T|T}\) from the Kalman filter so \emph{smoothers work
+backwards}; we sketch a derivation here.
+
+In the last but one period we have a different prediction error
+\begin{equation}
+   \varsigma_{T|T-1} = \beta_{T|T} - F\beta_{T-1|T-1} - \mu
+\end{equation} which is the error in predicting \(\beta_T\) using
+\(\psi_{T-1}\).
+
+An `update' has to be of the form \begin{equation}
+\beta_{T-1|T}=\beta_{T-1|T-1} + \Sigma_{\beta\varsigma}\Sigma_{\varsigma\varsigma}^{-1}\varsigma_{T|T-1}
+\end{equation} where
+\(\Sigma_{\varsigma\varsigma} = var\left[ \varsigma_T|\psi_{T-1}\right]\)
+and
+\(\Sigma_{\beta \varsigma}=cov\left[\beta_{T-1},\varsigma_T|\psi_{T-1}\right]\).
+
+These are \begin{align}
+\Sigma_{\varsigma\varsigma} &= var(\beta_T - F\beta_{T-1|T-1}-\mu) \\
+  &= var\left(F(\beta_{T-1}-\beta_{T-1|T-1}) + e_t \right) \\
+  &= F P_{T-1|T-1}F' + Q
+\end{align} and \begin{align}
+\Sigma_{\beta\varsigma} &= E\left[ (\beta_{T-1}-\beta_{T-1|T-1}) \left( \beta_T - F\beta_{T-1|T-1}-\mu \right)'
+\right] \\
+&= E\left[ (\beta_{T-1}-\beta_{T-1|T-1}) (\beta_T-\beta_{T-1|T-1})'\right] F' \\
+&= P_{T-1|T-1}F'
+\end{align} Plugging these definitions in gives us \begin{equation}
+\beta_{T-1|T} = \beta_{T-1|T-1} + P_{T-1|T-1}F' P_{T|T-1}^{-1} (\beta_{T|T}-F\beta_{T-1|T-1}-\mu)
+\end{equation} Applying the argument backward in time gives the
+recursion \begin{align}
+\beta_{t|T} &= \beta_{t|t}+P_{t|t} F'P_{t+1|t}^{-1} (\beta_{t+1|T}-F\beta_{t|t}-\mu) \\
+&= \beta_{t|t} - K_{t|T} (\beta_{t+1|T}-F\beta_{t|t}-\mu) \tag{smooth}
+\end{align} All these quantities are outputs of the Kalman filter so
+smoothing is easy to implement.
+
+The smoothed variance of \(\beta_{t|T}\) found by multiplying out
+(smooth). To do this use \(\beta_{t+1|t} = \mu + F\beta_{t|t}\) so
+rearranging gives \begin{equation}
+  \widetilde{\beta}_{t|T} + K_{t|T}\beta_{t+1|T} = \widetilde{\beta}_{t|t}+K_{t|T}\beta_{t+1|t}
+\end{equation} where \(\widetilde{\beta}_{t|t}=\beta_t-\beta_{t|t}\).
+Now square both sides and take expectations \begin{equation}
+  P_{t|T} + K_{t|T} E\left[\beta_{t+1|T}\beta_{t+1|T}' \right] K_{t|T}' = P_{t|t} + K_{t|T} E\left[ \beta_{t+1|t} \beta_{t+1|t}' \right] K_{t|T}'
+\end{equation} Adding and subtracting \(E[\beta_{t+1}\beta_{t+1}']\) we
+can show that \begin{equation}
+-E\left[\beta_{t+1|T}\beta_{t+1|T}'\right] + E\left[\beta_{t+1|t}\beta_{t+1|t}'\right] = P_{t+1|T}-P_{t+1|t}
+\end{equation} to obtain \begin{equation}
+  P_{t|T} = P_{t|t} + K_{t|T} (P_{t+1|T}-P_{t+1|t}) K_{t|T}'.
+\end{equation}
+
+\hypertarget{kalman-filter-in-econometrics}{%
+\section{Kalman filter in
+econometrics}\label{kalman-filter-in-econometrics}}
+
+\hypertarget{classical-approach}{%
+\subsection{Classical approach}\label{classical-approach}}
+
+The typical procedure is some variation on:
+
+\begin{itemize}
+\tightlist
+\item
+  Formulate state-space model
+\item
+  Estimate the model by maximum likelihood
+\item
+  Condition on the parameters to retrieve the (usually smoothed) state
+  estimates and standard errors
+\item
+  Use Cramer-Rao to calculate the standard errors of any other parameter
+  estimates
+\end{itemize}
+
+For this the Kalman filter is a useful tool, as it allows a great deal
+of flexibility in the estimation of a variety of models, as is is an
+appropriate tool for models with unobserved components. However, it must
+be used with care: it is easy to try to estimate models that are
+essentially unidentified.
+
+Further useful tools
+
+\begin{itemize}
+\tightlist
+\item
+  The \emph{Extended Kalman filter} linearises the filter at every step
+  and can be used for nonlinear models (such as ones where you need to
+  estimate \(B_T\) and \(\theta\) simultaneously)
+\item
+  Increasingly non-Gaussian non-linear models are estimated using the
+  \emph{particle filter}
+\end{itemize}
+
+\hypertarget{bayesian-approach}{%
+\subsection{Bayesian approach}\label{bayesian-approach}}
+
+Bayesian approach is to generate the entire distribution of the model
+parameters.
+
+\begin{itemize}
+\tightlist
+\item
+  Now no longer just look for the point estimate obtained by maximum
+  likelihood
+\item
+  Use Gibbs sampling or some other appropriate method applied to the
+  state space model
+\item
+  In particular we treat the states and the parameters as jointly
+  determined by the data
+\item
+  As the state is estimated we need a way to draw the states conditional
+  on the other estimates to do Gibbs sampling
+\item
+  Seek a conditional updating algorithm that replicates the Gibbs
+  sampling approach we have used before
+\end{itemize}
+
+We require a procedure such that:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Step 1} Conditional on \(\theta\) and the data, generate the
+  sequence \(B_T = (\beta_1, \beta_2, \ldots, \beta_T)\)
+\item
+  \textbf{Step 2} Conditional on \(B_T\) and the data, generate values
+  of \(\theta\)
+\item
+  \textbf{Step 3} Iterate previous two steps until convergence
+\end{itemize}
+
+In this way the joint distribution of the two can be obtained from the
+resulting simulation.
+
+\hypertarget{carter-kohn-algorithm}{%
+\section{Carter-Kohn algorithm}\label{carter-kohn-algorithm}}
+
+\begin{itemize}
+\item
+  \textbf{Step 2} above relatively easy but how do we generate a
+  sequence of states?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The state estimates depend on the parameter value through the Kalman
+    filter
+  \end{itemize}
+\item
+  Appropriate algorithm designed by Carter and Kohn (1994)
+\item
+  Takes the form of a modified Kalman smoother
+\item
+  Known as \emph{multimove Gibbs sampling}
+\item
+  Similar to above, define
+\end{itemize}
+
+\begin{equation}
+  B_t = \begin{bmatrix} \beta_1 & \beta_2 & \ldots & \beta_t \end{bmatrix}
+\end{equation} so in particular \begin{equation}
+B_{T-1} = \begin{bmatrix} \beta_1 & \beta_2 & \ldots & \beta_{T-1} \end{bmatrix}
+\end{equation} consistent with out earlier definition of \(\psi_t\).
+
+\begin{itemize}
+\tightlist
+\item
+  Multimove Gibbs sampling generates the whole vector of states
+  (\(B_T\)) at once
+\item
+  We therefore need to generate a realization of \(B_T\) given the
+  probability distribution \(p( B_T|\psi_T)\)
+\item
+  We want to generate an appropriate conditional probability
+  distribution \(p(\beta_t|B_{j\neq t}, \psi_T)\) to sample from for our
+  Gibbs sampler
+\item
+  Just as for the Kalman smoother we use the outputs of the Kalman
+  filter and a separate backward recursion to obtain the conditional
+  distribution
+\end{itemize}
+
+\hypertarget{joint-distribution}{%
+\section{Joint distribution}\label{joint-distribution}}
+
+Deriving the appropriate distributions is easy if we know what to
+condition on. The joint probability density function can be split into a
+sequence of conditional distributions: \(p(B_T|\psi_T)\) can be written
+recursively \begin{align}
+p(B_T|\psi_T) &= p(\beta_T|\psi_T) \times p(B_{T-1}|\beta_T,\psi_T) \\
+&= p(\beta_T|\psi_T) \times p(\beta_{T-1}|\beta_T,\psi_T) \times p(B_{T-2}|\beta_{T-1},\beta_T,\psi_T) \\
+&= p(\beta_T|\psi_T) \times p(\beta_{T-1}|\beta_T,\psi_T) \times p(B_{T-2}|\beta_{T-1},\psi_T)
+\end{align} Final simplification follows as the state vector is a Markov
+chain so there is no information in \(\beta_T\) not contained in
+\(\beta_{T-1}\) and \(\psi_T\). Further as soon as we know
+\(\beta_{T-1}\) there is no information contained in \(\psi_T\) so we
+can drop that, so \begin{align}
+p(B_T|\psi_T) &= p(\beta_T|\psi_T)\times p(\beta_{T-1}|\beta_T, \psi_T) \times  p(B_{T-2}|\beta_{T-1},\psi_T) \\
+&= p(\beta_T|\psi_T)\times p(\beta_{T-1}|\beta_T, \psi_{T-1}) \times p(B_{T-2}|\beta_{T-1},\psi_{T-2}) \\
+&= p(\beta_T|\psi_T) \times \prod_{t=1}^{T-1} p(\beta_t|\beta_{t+1}, \psi_t)
+\end{align}
+
+\hypertarget{the-carter-kohn-equations}{%
+\section{The Carter-Kohn equations}\label{the-carter-kohn-equations}}
+
+The estimated \(\beta\) variables are distributed \begin{align}
+\beta_{T|\psi_T} &\sim N(\beta_{T|T}, P_{T|T}) \\
+\beta_{t|\psi_t, \beta_{t+1}} &\sim N(\beta_{t|t,\beta_{t+1}},P_{t|t,\beta_{t+1}})
+\end{align} where \begin{align}
+\beta_{t|t,\beta_{t+1}} &= E\left[\beta_t|\psi_t,\beta_{t+1}\right]
+= E\left[\beta_t|\beta_{t|t},\beta_{t+1}\right] \\
+P_{t|t,\beta_{t+1}} &= cov\left[\beta_t|\psi_t,\beta_{t+1}\right] = cov\left[\beta_t |{\beta_{t|t},\beta_{t+1}}\right]
+\end{align} Carter-Kohn derive appropriate recursions so that, for
+example, we update the state estimate conditioning on some known value
+of \(\beta_{t+1}\) \begin{equation}
+  \beta_{t|t,\beta_{t+1}} = \beta_{t|t}-K_{t|t+1} (\beta_{t+1}-F\beta_{t|t}-\mu)
+\end{equation} Define \begin{equation}
+   \varsigma_{t+1|t} = \beta_{t+1}-F\beta_{t|t}-\mu
+\end{equation} as the `innovation' in predicted \(\beta_{t+1|t}\) where
+we have some realized \(\beta_{t+1}\) drawn from its probability
+distribution. The Carter-Kohn smoother comprises updates to the
+conditional expectations that use this news. \begin{align}
+E[\beta_t|\psi_t,\beta_{t+1}] &= E[\beta_t|\psi_t] + \Sigma_{\beta\varsigma} \Sigma_{\varsigma\varsigma}^{-1}\varsigma_{t+1|t} \\
+&= \beta_{t|t} + \Sigma_{\beta\varsigma}\Sigma_{\varsigma\varsigma}^{-1}\varsigma_{t+1|t} \\
+var[\beta_t|\psi_t,\beta_{t+1}] &= var[\beta_t|\psi_t] -\Sigma_{\beta\varsigma} \Sigma_{\varsigma\varsigma}^{-1} \Sigma_{\varsigma\beta} \\
+&= P_{t|t} - \Sigma_{\beta\varsigma} \Sigma_{\varsigma\varsigma}^{-1} \Sigma_{\varsigma\beta} \\
+&= P_{t|t,\beta_{t+1}}
+\end{align} Both \(\beta_{t|t}\) and \(P_{t|t}\) are outputs of the
+Kalman filter.
+
+\hypertarget{deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma}{%
+\subsection{\texorpdfstring{Deriving \(\Sigma_{\beta\varsigma}\) and
+\(\Sigma_{\varsigma\varsigma}\)}{Deriving \textbackslash Sigma\_\{\textbackslash beta\textbackslash varsigma\} and \textbackslash Sigma\_\{\textbackslash varsigma\textbackslash varsigma\}}}\label{deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma}}
+
+As before we just plug in the definitions so \begin{align}
+\Sigma_{\varsigma\varsigma} &= var[\beta_{t+1}-F\beta_{t|t}-\mu] \\
+&= var\left[ F\beta_t+\mu +v_{t+1}-F\beta_{t|t}-\mu \right] \\
+&= var\left[ F(\beta_t-\beta_{t|t})+v_{t+1}\right] \\
+&= F P_{t|t}F' + Q
+\end{align} and \begin{align}
+\Sigma_{\beta\varsigma} &= E\left[ (\beta_t - \beta_{t|t}) (\beta_{t+1}-F\beta_{t|t}-\mu)'\right] \\
+&= E\left[ (\beta_t-\beta_{t|t})\left( F(\beta_t-\beta_{t|t})+v_{t+1}\right)'\right] \\
+&= P_{t|t}F'
+\end{align}
+
+\hypertarget{kalman-gain-again}{%
+\section{`Kalman gain' again}\label{kalman-gain-again}}
+
+So using the definitions of the covariances and the regression lemma we
+get \begin{align}
+\beta_{t|t,\beta_{t+1}} &= \beta_{t|t} + \Sigma_{s\eta} \Sigma_{\eta\eta}^{-1}\varsigma_t \\
+&= \beta_{t|t} + P_{t|t}F' \left( FP_{t|t}F' + Q\right)^{-1} (\beta_{t+1}-F\beta_{t|t}-\mu) \\
+&= \beta_{t|t} - K_{t|t}(\beta_{t+1}-F\beta_{t|t}-\mu)
+\end{align} where \begin{equation}
+   K_{t|t+1} = - P_{t|t}F' (FP_{t|t}F' + Q)^{-1}
+\end{equation} Like the Kalman smoother, this uses the filter's estimate
+of \(P_{t|t}\) and updates \(\beta_t\) using the error in predicting
+\(\beta_{t+1}\) not \(y_t\).
+
+\hypertarget{conditional-mean-and-variance-of-the-state}{%
+\subsection{Conditional mean and variance of the
+state}\label{conditional-mean-and-variance-of-the-state}}
+
+Updating equations for the state and variance obtained directly from the
+regression lemma \begin{align}
+\beta_{t|t,\beta_{t+1}} &= \beta_{t|t} - K_{t|t+1}\varsigma_{t+1|t} \\
+    P_{t|t,\beta_{t+1}} &= P_{t|t}-P_{t|t}F'(FP_{t|t}F' + Q)^{-1}F P_{t|t}
+\end{align} CK equations recursively evaluate these quantities
+\emph{backwards} beginning from \(s_T\), \(P_T\) obtained from the
+Kalman filter.
+
+Generate appropriate conditional samples using \begin{equation}
+  \beta_{t|t,\beta_{t+1}} \sim N\left(\beta_{t|t,\beta_{t+1}}, P_{t|t,\beta_{t+1}} \right)
+\end{equation} to give \(B_T|\psi_T\). This is a conditional sample that
+depends on a given parameter vector to use in a Gibbs sampling scheme
+that draws those parameters in turn from distributions conditioned on
+the states.
+
+\hypertarget{state-space-gibbs-sampling-in-practice}{%
+\section{State-space Gibbs sampling in
+practice}\label{state-space-gibbs-sampling-in-practice}}
+
+Above approach cannot be used explicitly if
+\(\Sigma_{\varsigma\varsigma}\) is singular, for example if we have more
+states than shocks (which is not uncommon). A simple modification given
+in KN can deal with this; we treat only those states that are shocked as
+observed.
+
+In general we need conditional distributions for all the other
+parameters to be estimated. Need to store the complete sequence of
+states and covariances to implement the Gibbs sampler. We will
+investigate the exact implementation of Gibbs sampling for state-space
+models in the exercises.
+
+\hypertarget{comparing-the-filters-and-smoothers}{%
+\section{Comparing the filters and
+smoothers}\label{comparing-the-filters-and-smoothers}}
+
+\begin{alignat*}{3}
+&\text{Filter} & &\text{Innovation} & & \text{Gain and state covariance}  \\
+& && &&\\
+&KF &\qquad\ &\eta_t = y_t-H_t\beta_{t|t-1} && K_{t|t} =-P_{t|t-1}H_t' (H_t P_{t|t-1} H_t' + R)^{-1} \\
+& &&  && P_{t|t} = P_{t|t-1}-P_{t|t-1} H_t'(H_t P_{t|t-1} H_t' +R)^{-1} H_t P_{t|t-1} \\
+&KS && \varsigma_t = \beta_{t+1|T}-F\beta_{t|t}-\mu & \qquad\ & K_{t|T}=-P_{t|t}F' P_{t+1|t}^{-1} \\
+&   &&      && P_{t|T} = P_{t|t}+K_{t|T}(P_{t+1|T}-P_{t+1|t}) K_{t|T}' \\
+&CK && \varsigma_t = \beta_{t+1}-F\beta_{t|t}-\mu && K_{t|t,\beta_{t+1}} = -P_{t|t}F' P_{t+1|t}^{-1} \\ 
+&   &&   && P_{t|t,\beta_{t+1}} = P_{t|t}-P_{t|t}F'(FP_{t|t}F' + Q)^{-1}FP_{t|t}
+\end{alignat*}
 
 \part{Networks}
 
@@ -660,10 +1916,12 @@ which we tabulate as
 \end{Shaded}
 
 \begin{longtable}[]{@{}llrr@{}}
-\toprule()
+\toprule\noalign{}
 Gender & eLevel & num & total \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 M & U & 112 & 2440 \\
 M & H & 231 & 2440 \\
 M & C & 595 & 2440 \\
@@ -672,7 +1930,6 @@ F & U & 136 & 2440 \\
 F & H & 189 & 2440 \\
 F & C & 763 & 2440 \\
 F & G & 172 & 2440 \\
-\bottomrule()
 \end{longtable}
 
 \hypertarget{exercises-and-answers}{%
@@ -692,13 +1949,14 @@ F & G & 172 & 2440 \\
 \end{Shaded}
 
 \begin{longtable}[]{@{}llrrr@{}}
-\toprule()
+\toprule\noalign{}
 Gender & eLevel & num & total & p\_H \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 M & H & 231 & 2440 & 0.1721311 \\
 F & H & 189 & 2440 & 0.1721311 \\
-\bottomrule()
 \end{longtable}
 
 \hypertarget{find-pelevel-h-vee-gender-f}{%
@@ -715,16 +1973,17 @@ F & H & 189 & 2440 & 0.1721311 \\
 \end{Shaded}
 
 \begin{longtable}[]{@{}llrrr@{}}
-\toprule()
+\toprule\noalign{}
 Gender & eLevel & num & total & p\_HorF \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 M & H & 231 & 2440 & 0.6110656 \\
 F & U & 136 & 2440 & 0.6110656 \\
 F & H & 189 & 2440 & 0.6110656 \\
 F & C & 763 & 2440 & 0.6110656 \\
 F & G & 172 & 2440 & 0.6110656 \\
-\bottomrule()
 \end{longtable}
 
 \hypertarget{find-pelevel-h-gender-f}{%
@@ -743,12 +2002,13 @@ F & G & 172 & 2440 & 0.6110656 \\
 \end{Shaded}
 
 \begin{longtable}[]{@{}llrrrr@{}}
-\toprule()
+\toprule\noalign{}
 Gender & eLevel & num & total & tcond & p\_HgivenF \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 F & H & 189 & 2440 & 1260 & 0.15 \\
-\bottomrule()
 \end{longtable}
 
 \hypertarget{find-pgender-f-elevel-h}{%
@@ -767,12 +2027,13 @@ F & H & 189 & 2440 & 1260 & 0.15 \\
 \end{Shaded}
 
 \begin{longtable}[]{@{}llrrrr@{}}
-\toprule()
+\toprule\noalign{}
 Gender & eLevel & num & total & tcond & p\_FgivenH \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 F & H & 189 & 2440 & 420 & 0.45 \\
-\bottomrule()
 \end{longtable}
 
 \hypertarget{mapping-regional-house-price-inflation}{%
@@ -870,7 +2131,7 @@ This can be plotted straightforwardly using \texttt{ggplot}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./Maps_files/figure-pdf/map0a-1.pdf}
+{\centering \includegraphics{Maps_files/figure-pdf/map0a-1.pdf}
 
 }
 
@@ -899,8 +2160,8 @@ Nonetheless I'll do exactly the same by filtering out the polygons
 associated with \texttt{Orkney\ Islands} and \texttt{Shetland\ Islands}.
 
 Fewer Scottish Islands makes the graphs a lot clearer with little loss
-of information, given the tiny number of transactions in the Orkneys and
-the Shetlands, very far to the north.
+of information, paticularly given the tiny number of transactions in the
+Orkneys and the Shetlands, very far to the north.
 
 In what follows we filter out the islands using
 
@@ -915,7 +2176,7 @@ In what follows we filter out the islands using
 where we also create an indicator of country using the first letter of
 the code string.
 
-So the country map is
+So the final country map is
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -930,14 +2191,18 @@ So the country map is
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./Maps_files/figure-pdf/map0d-1.pdf}
+{\centering \includegraphics{Maps_files/figure-pdf/map0d-1.pdf}
 
 }
 
 \end{figure}
 
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, toptitle=1mm, breakable, colframe=quarto-callout-tip-color-frame, colback=white, arc=.35mm, bottomtitle=1mm, opacityback=0, leftrule=.75mm, toprule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{\texttt{group} and \texttt{summarise} can join geographical areas}, opacitybacktitle=0.6, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, left=2mm]
+
 Note the really nice feature -- if we group by something, in this case
 country, we can summarise to amalgamate the geometries!
+
+\end{tcolorbox}
 
 You may have noticed, one thing that that's missing on the LA graphs is
 the boundaries. They aren't, they're just invisible. That's because I
@@ -1049,7 +2314,7 @@ them something better.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./Maps_files/figure-pdf/unnamed-chunk-4-1.pdf}
+{\centering \includegraphics{Maps_files/figure-pdf/unnamed-chunk-4-1.pdf}
 
 }
 
@@ -1083,7 +2348,7 @@ Joining with `by = join_by(land_reg_region)`
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./Maps_files/figure-pdf/unnamed-chunk-5-1.pdf}
+{\centering \includegraphics{Maps_files/figure-pdf/unnamed-chunk-5-1.pdf}
 
 }
 
@@ -1095,29 +2360,27 @@ Joining with `by = join_by(land_reg_region)`
 \chapter{Linear rational expectations
 models}\label{linear-rational-expectations-models}}
 
-\hypertarget{introduction-2}{%
-\section{Introduction}\label{introduction-2}}
+\hypertarget{introduction-1}{%
+\section{Introduction}\label{introduction-1}}
 
-How do we solve rational expectations models? Here I show how to
-implement versions of the Blanchard and Kahn (1980) and Klein (2000)
-solutions to linear rational expectations models in R. The
-implementation is fairly general, and copes with singular models. It is
-a very transparent implementation, with all the necessary code, and also
-shows how to calculate and plot impulse responses.
+How do we solve rational expectations models? What does that even mean?
+Here I show how to implement versions of the Blanchard and Kahn (1980)
+and Klein (2000) solutions to linear rational expectations models in R.
+The implementation is fairly general, and copes with singular models. It
+is a very transparent implementation, with all the necessary code, and
+also shows how to calculate and plot impulse responses.
 
 \hypertarget{model}{%
 \section{Model}\label{model}}
 
-We take a simple New Keynesian model \[
-\begin{align}
+We take a simple New Keynesian model \begin{align}
 y_t    &= y_{t+1}^e-\frac{1}{\sigma} (i_t - \pi_{t+1}^e) + e_t^1 \\
 \pi_t  &= \beta \pi_{t+1}^e + \kappa y_t + e_t^2 \\
 i_t    &= \gamma i_{t-1} + (1-\gamma) \delta \pi_t + \varepsilon_t^3 \\ 
 e_t^1  &= \rho_1 e_{t-1}^1 + \varepsilon_t^1 \\ 
 e_t^2  &= \rho_2 e_{t-1}^2 + \varepsilon_t^2 
-\end{align}
-\] The model comprises a dynamic IS curve, a Phillips Curve and a policy
-rule with smoothing. There are three shocks, two of which are
+\end{align} The model comprises a dynamic IS curve, a Phillips Curve and
+a policy rule with smoothing. There are three shocks, two of which are
 persistent. This we need to write in the general algebraic linear
 state-space form: \[
 E\begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = A \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + B \varepsilon_t  
@@ -1151,8 +2414,8 @@ Then the model in state-space form but including the matrix \(E\) is \[
 \] Anyone wanting to code up solutions should familiarize themselves
 with this before continuing.
 
-\hypertarget{coding-up-the-model-in-r}{%
-\subsection{Coding up the model in R}\label{coding-up-the-model-in-r}}
+\hypertarget{coding-the-model}{%
+\subsection{Coding the model}\label{coding-the-model}}
 
 Before we begin coding this in R, load the \texttt{tidyverse} libraries
 so we can do impulse responses with our usual tool kit and then we can
@@ -1209,13 +2472,14 @@ we put in \texttt{labels}.
 \end{Highlighting}
 \end{Shaded}
 
-where for example, \(E\) and \(A\) are \[  
-E = \left[\begin{array}{r}1 &0 &0 &0 &0 \\0 &1 &0 &0 &0 \\0 &0 &1 &0 &0 \\1 &0 &-0.5 &1 &0.5 \\0 &1 &0 &0 &0.99 \\\end{array}\right] 
-\] \[  
-A = \left[\begin{array}{r}0.9 &0 &0 &0 &0 \\0 &0.8 &0 &0 &0 \\0 &0 &0.75 &0 &0.375 \\0 &0 &0 &1 &0 \\0 &0 &0 &-0.075 &1 \\\end{array}\right] 
-\] Calculate the reduced form state-space model \[
+where for example, \(E\) and \(A\) are \begin{equation}
+  E = \left[\begin{matrix}1 &0 &0 &0 &0 \\0 &1 &0 &0 &0 \\0 &0 &1 &0 &0 \\1 &0 &-0.5 &1 &0.5 \\0 &1 &0 &0 &0.99 \\\end{matrix}\right] 
+\end{equation} \begin{equation}  
+  A = \left[\begin{matrix}0.9 &0 &0 &0 &0 \\0 &0.8 &0 &0 &0 \\0 &0 &0.75 &0 &0.375 \\0 &0 &0 &1 &0 \\0 &0 &0 &-0.075 &1 \\\end{matrix}\right] 
+\end{equation} Calculate the reduced form state-space model
+\begin{equation}
 \begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = C \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + D \varepsilon_t  
-\] which is done in R very simply as
+\end{equation} which is done in R very simply as
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1289,7 +2553,7 @@ and plot
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./BK_files/figure-pdf/unnamed-chunk-4-1.pdf}
+{\centering \includegraphics{BK_files/figure-pdf/unnamed-chunk-4-1.pdf}
 
 }
 
@@ -1307,7 +2571,7 @@ Oh! That's not looking good. Let's try a few more periods.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./BK_files/figure-pdf/unnamed-chunk-5-1.pdf}
+{\centering \includegraphics{BK_files/figure-pdf/unnamed-chunk-5-1.pdf}
 
 }
 
@@ -1380,15 +2644,10 @@ saddle path if \[
 \]
 
 The rational solution implies that the jump variables are linearly
-related to the predetermined ones through \[
-\begin{aligned}
+related to the predetermined ones through \begin{align}
 x_t &= -M_{22}^{-1} M_{21}z_{t-1} \\
     &= N z_{t-1}
-\end{aligned}
-\] We'll deal with the shocks in a moment.
-
-\hypertarget{r-code}{%
-\subsection{R code}\label{r-code}}
+\end{align} We'll deal with the shocks in a moment.
 
 How do we do this in R? First, find the eigenvalue decomposition of
 \(C\) using
@@ -1461,9 +2720,6 @@ quadratic matrix equation \(C_{21} = NC_{11} - C_{22}N + N C_{12}N\) --
 that means we need to use the Blanchard and Kahn (1980) method in the
 first place.
 
-\hypertarget{r-code-1}{%
-\subsection{R code}\label{r-code-1}}
-
 All of this means that
 
 \begin{Shaded}
@@ -1474,29 +2730,11 @@ All of this means that
 
 so for our model and parameters \(N\) and \(G\) are
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{N}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-        [,1]      [,2]       [,3]
-[1,] 4.85680 -2.758647 -1.1894200
-[2,] 1.79286  1.962790 -0.2536635
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{G}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-         [,1]      [,2]      [,3]
-[1,] 5.396445 -3.448309 -1.585893
-[2,] 1.992067  2.453488 -0.338218
-\end{verbatim}
+\begin{equation}  
+  N = \left[\begin{matrix}4.8568 &-2.7586 \\-1.1894 &1.7929 \\1.9628 &-0.2537 \\\end{matrix}\right] 
+\end{equation} \begin{equation}
+  G = \left[\begin{matrix}5.3964 &-3.4483 \\-1.5859 &1.9921 \\2.4535 &-0.3382 \\\end{matrix}\right] 
+\end{equation}
 
 The `fixed point' check is that the following should be the same as
 \(N\)
@@ -1515,12 +2753,10 @@ The `fixed point' check is that the following should be the same as
 
 which it is.
 
-The solved model is finally \[
-\begin{align}
+The solved model is finally \begin{align}
 \begin{bmatrix} z_t \\ x_t \end{bmatrix} &= \begin{bmatrix} C_{11}+C_{12}N & 0 \\ N & 0 \end{bmatrix} \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + \begin{bmatrix} D_1+C_{12}G \\ G \end{bmatrix} \varepsilon_t \\
  &= P \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + Q \varepsilon_t
-\end{align}
-\] which can be coded as
+\end{align} which can be coded as
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1596,7 +2832,7 @@ Now plot these responses
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./BK_files/figure-pdf/unnamed-chunk-13-1.pdf}
+{\centering \includegraphics{BK_files/figure-pdf/unnamed-chunk-13-1.pdf}
 
 }
 
@@ -1653,16 +2889,14 @@ is 3.
 We then modify our solution function to calculate \texttt{Ns} and
 \texttt{Gs} using the matrix \texttt{Z} and a generalized version of the
 formula for \(G\) and calculate the reduced form model \texttt{Ps} and
-`Q which are \[
-\begin{align}
+`Q which are \begin{align}
     N_s &= Z_{21} Z_{11}^{-1} \\
     H   &= (E_{11} + E_{12} N_s)^{-1} \\
     W   &= (E_{21} + E_{22} N_s) H\\
     G_s &= (A_{22} - W A_{12})^{-1} (W B_1 - B_2) \\
     P_s &= H (A_{11} + A_{12} N_s) \\
     Q_s &= H (B_1 + A_{12} G_s)
-\end{align}
-\] Verify this yourself with a bit of matrix algebra!
+\end{align} Verify this yourself with a bit of matrix algebra!
 
 The R code for this is
 
@@ -1774,9 +3008,9 @@ the trick
 \end{Shaded}
 
 The new \(E\) and \(A\) system matrices are then \[  
-E = \left[\begin{array}{r}1 &0 &0 &0 &0 &0 \\0 &1 &0 &0 &0 &0 \\0 &0 &1 &0 &0 &0 \\0 &0 &1 &0 &0 &0 \\1 &0 &0 &-0.5 &1 &0.5 \\0 &1 &0 &0 &0 &0.99 \\\end{array}\right] 
+E = \left[\begin{matrix}1 &0 &0 &0 &0 &0 \\0 &1 &0 &0 &0 &0 \\0 &0 &1 &0 &0 &0 \\0 &0 &1 &0 &0 &0 \\1 &0 &0 &-0.5 &1 &0.5 \\0 &1 &0 &0 &0 &0.99 \\\end{matrix}\right] 
 \] \[  
-A = \left[\begin{array}{r}0.9 &0 &0 &0 &0 &0 \\0 &0.8 &0 &0 &0 &0 \\0 &0 &0 &0 &1 &0 \\0 &0 &1 &0 &0 &-1.333 \\0 &0 &0 &0 &1 &0 \\0 &0 &0 &0 &-0.075 &1 \\\end{array}\right] 
+A = \left[\begin{matrix}0.9 &0 &0 &0 &0 &0 \\0 &0.8 &0 &0 &0 &0 \\0 &0 &0 &0 &1 &0 \\0 &0 &1 &0 &0 &-1.333 \\0 &0 &0 &0 &1 &0 \\0 &0 &0 &0 &-0.075 &1 \\\end{matrix}\right] 
 \] Now we have a singular model. The matrix \(E\) is clearly singular as
 rows 3 and 4 are identical. But we have a problem using the code above.
 To use it we need the matrices \(H\) and \((A_{22} - W A_{21})\) to be
@@ -1801,39 +3035,13 @@ and the targeting rule (rows 4 and 5) using the following
 \end{Highlighting}
 \end{Shaded}
 
-then the model is unchanged but now we have
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{E[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-     [,1] [,2] [,3] [,4]
-[1,]    1    0    0  0.0
-[2,]    0    1    0  0.0
-[3,]    0    0    1  0.0
-[4,]    1    0    0 -0.5
-\end{verbatim}
-
-so \(E_{11} + E_{12}N\) is likely non-singular (it is). Also, note after
-the re-ordering \(A_{22}\) is
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{A[}\DecValTok{5}\SpecialCharTok{:}\DecValTok{6}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{6}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-       [,1]      [,2]
-[1,]  0.000 -1.333333
-[2,] -0.075  1.000000
-\end{verbatim}
-
-which is guaranteed non-singular for zero \(W\). We can now proceed as
-before. First, check for saddle path stability
+then the model is unchanged but now we have \[  
+E_{11} = \left[\begin{matrix}1 &0 &0 &0 \\0 &1 &0 &0 \\0 &0 &1 &0 \\1 &0 &0 &-0.5 \\\end{matrix}\right] 
+\] so \(E_{11} + E_{12}N\) is likely non-singular (it is). Also, note
+after the re-ordering \(A_{22}\) is \[  
+A_{22} = \left[\begin{matrix}0 &-1.33 \\-0.07 &1 \\\end{matrix}\right] 
+\] which is guaranteed non-singular for zero \(W\). We can now proceed
+as before. First, check for saddle path stability
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1914,7 +3122,7 @@ We can now simulate the model under optimal policy and plot using
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./BK_files/figure-pdf/unnamed-chunk-26-1.pdf}
+{\centering \includegraphics{BK_files/figure-pdf/unnamed-chunk-24-1.pdf}
 
 }
 
@@ -1963,25 +3171,9 @@ not the left as before.
 \end{Highlighting}
 \end{Shaded}
 
-This is still a singular model, as we can see from
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{E}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-     [,1] [,2] [,3] [,4] [,5] [,6]
-[1,]    1    0    0    0    0 0.00
-[2,]    0    1    0    0    0 0.00
-[3,]    0    0    1    0    0 0.00
-[4,]    0    0    1    0    0 0.00
-[5,]    1    0    0    0    1 0.50
-[6,]    0    1    0    0    0 0.99
-\end{verbatim}
-
-with column 4 all zeros. Is \emph{this} model saddle path stable?
+This is still a singular model, as we can see from \[  
+E = \left[\begin{matrix}1 &0 &0 &0 &0 &0 \\0 &1 &0 &0 &0 &0 \\0 &0 &1 &0 &0 &0 \\0 &0 &1 &0 &0 &0 \\1 &0 &0 &0 &1 &0.5 \\0 &1 &0 &0 &0 &0.99 \\\end{matrix}\right] 
+\] with column 4 all zeros. Is \emph{this} model saddle path stable?
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2071,15 +3263,13 @@ y_t = y_t - \frac{1}{\mu}\pi^e_{t+1} - \frac{1}{\sigma} \left (i_t - \pi_{t+1}^e
 i_t =  \left (1 - \frac{\sigma}{\mu} \right )\pi_{t+1}^e + \sigma e_t^1
 \] This is the required interest rate consistent with the targeting rule
 holding. Now the only jump variable is the inflation rate as we have
-eliminated the expected output gap. \[
-\begin{aligned}
+eliminated the expected output gap. \begin{align}
 y_t    &= y_{t-1} -\frac{1}{\mu} \pi_t  + \frac{1}{\mu} \varepsilon^3_t \\
 \pi_t  &= \beta \pi_{t+1}^e + \kappa y_t + e_t^2 \\
 i_t    &= \left (1 - \frac{\sigma}{\mu} \right ) \pi_{t+1}^e + \sigma e_t^1 \\
 e_t^1  &= \rho_1 e_{t-1}^1 + \varepsilon_t^1 \\ 
 e_t^2  &= \rho_2 e_{t-1}^2 + \varepsilon_t^2 
-\end{aligned}
-\]
+\end{align}
 
 We can code this
 
@@ -2160,7 +3350,7 @@ this version gives
 
 \begin{figure}[H]
 
-{\centering \includegraphics{./BK_files/figure-pdf/unnamed-chunk-35-1.pdf}
+{\centering \includegraphics{BK_files/figure-pdf/unnamed-chunk-32-1.pdf}
 
 }
 
@@ -2178,11 +3368,11 @@ variant. Try it!
 data}\label{estimating-bvars-using-us-data}}
 
 We will the Fed Funds rate, annual GDP growth and annual CPI inflation
-data from FRED, retrieved 2023-05-25. These are:
+data from FRED, retrieved 2023-05-27. These are:
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/unnamed-chunk-2-1.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/unnamed-chunk-2-1.pdf}
 
 }
 
@@ -2414,10 +3604,12 @@ expressed as the annual inflation rate from 1961-01-01 to 2023-01-01 in
 a bi-variate BVAR. The last ten observations are:
 
 \begin{longtable}[]{@{}lrr@{}}
-\toprule()
+\toprule\noalign{}
 Date & Growth & Inflation \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 2020-10-01 & -1.5 & 1.224176 \\
 2021-01-01 & 1.2 & 1.905310 \\
 2021-04-01 & 12.5 & 4.776278 \\
@@ -2428,7 +3620,6 @@ Date & Growth & Inflation \\
 2022-07-01 & 1.9 & 8.284860 \\
 2022-10-01 & 0.9 & 7.110821 \\
 2023-01-01 & 1.6 & 5.769521 \\
-\bottomrule()
 \end{longtable}
 
 We specify a VAR with two lags, and use it to forecast 12 periods ahead.
@@ -2509,7 +3700,7 @@ plots for later use.
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/estim-1.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/estim-1.pdf}
 
 }
 
@@ -2521,7 +3712,7 @@ plots for later use.
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/estim-1.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/estim-1.pdf}
 
 }
 
@@ -2533,7 +3724,7 @@ plots for later use.
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/estim-1.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/estim-1.pdf}
 
 }
 
@@ -2545,7 +3736,7 @@ plots for later use.
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/estim-1.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/estim-1.pdf}
 
 }
 
@@ -2559,7 +3750,7 @@ densities are:
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/unnamed-chunk-9-1.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/unnamed-chunk-9-1.pdf}
 
 }
 
@@ -2567,7 +3758,7 @@ densities are:
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/unnamed-chunk-9-2.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/unnamed-chunk-9-2.pdf}
 
 }
 
@@ -2575,7 +3766,7 @@ densities are:
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/unnamed-chunk-9-3.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/unnamed-chunk-9-3.pdf}
 
 }
 
@@ -2583,7 +3774,7 @@ densities are:
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/unnamed-chunk-9-4.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/unnamed-chunk-9-4.pdf}
 
 }
 
@@ -2597,10 +3788,12 @@ Now we add the FedFunds rate (FRED series
 last ten periods of the data set is now:
 
 \begin{longtable}[]{@{}lrrr@{}}
-\toprule()
+\toprule\noalign{}
 Date & Growth & Inflation & FedFunds \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 2020-10-01 & -1.5 & 1.224176 & 0.09 \\
 2021-01-01 & 1.2 & 1.905310 & 0.09 \\
 2021-04-01 & 12.5 & 4.776278 & 0.07 \\
@@ -2611,7 +3804,6 @@ Date & Growth & Inflation & FedFunds \\
 2022-07-01 & 1.9 & 8.284860 & 1.68 \\
 2022-10-01 & 0.9 & 7.110821 & 3.08 \\
 2023-01-01 & 1.6 & 5.769521 & 4.33 \\
-\bottomrule()
 \end{longtable}
 
 Two more examples follow.
@@ -2622,7 +3814,7 @@ variables}{Example 5: BVAR(4) with \textbackslash tau=.1, 3 variables}}\label{ex
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/estim-1.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/estim-1.pdf}
 
 }
 
@@ -2630,7 +3822,7 @@ variables}{Example 5: BVAR(4) with \textbackslash tau=.1, 3 variables}}\label{ex
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/unnamed-chunk-12-1.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/unnamed-chunk-12-1.pdf}
 
 }
 
@@ -2642,7 +3834,7 @@ variables}{Example 6: BVAR(6) with \textbackslash tau=1, 3 variables}}\label{exa
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/estim-1.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/estim-1.pdf}
 
 }
 
@@ -2650,7 +3842,7 @@ variables}{Example 6: BVAR(6) with \textbackslash tau=1, 3 variables}}\label{exa
 
 \begin{figure}
 
-{\centering \includegraphics{./BVAR_files/figure-pdf/unnamed-chunk-14-1.pdf}
+{\centering \includegraphics{BVAR_files/figure-pdf/unnamed-chunk-14-1.pdf}
 
 }
 
@@ -2714,9 +3906,18 @@ Boehmke, Brad, and Brandon M. Greenwell. 2019. \emph{Hands-on Machine
 Learning with {R}}. The {R} Series. Boca Raton: Chapman \& Hall/CRC.
 \url{https://bradleyboehmke.github.io/HOML/}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-CARTER01091994}{}}%
+Carter, C. K., and R. Kohn. 1994. {``{On {G}ibbs sampling for state
+space models}.''} \emph{Biometrika} 81 (3): 541--53.
+\url{https://doi.org/10.1093/biomet/81.3.541}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-Mixtape}{}}%
 Cunningham, Scott. 2021. \emph{Causal Inference: The Mixtape}. New Haven
 \& London: Yale University Press. \url{https://mixtape.scunning.com/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Durbin}{}}%
+Durbin, J., and S. J. Koopman. 2001. \emph{Time Series Analysis by State
+Space Methods}. Oxford: Oxford University Press.
 
 \leavevmode\vadjust pre{\hypertarget{ref-GHV}{}}%
 Gelman, Andrew, Jennifer Hill, and Aki Vehtari. 2019. \emph{Regression
@@ -2727,6 +3928,28 @@ and Other Stories}. Cambridge: Cambridge University Press.
 Giannone, Domenico, Michele Lenza, and Giorgio E. Primiceri. 2015.
 {``{Prior Selection for Vector Autoregressions}.''} \emph{The Review of
 Economics and Statistics} 97 (2): 436--51.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Green1997}{}}%
+Greene, William H. 1997. \emph{Econometric Analysis}. Third. McGraw
+Hill.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Hamilton1994}{}}%
+Hamilton, J. D. 1994. \emph{Time Series Analysis}. Princeton, NJ:
+Princeton University Press.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Hammond2006}{}}%
+Hammond, Gill. 2006. {``The Centre for Central Banking Studies.''}
+\emph{Quarterly Bulletin} Q2: 191--95.
+\url{https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2006/the-centre-for-central-banking-studies.pdf}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Harvey89}{}}%
+Harvey, Andrew C. 1989. \emph{Forecasting, Structural Time Series Models
+and the Kalman Filter}. Cambridge: Cambridge University Press.
+
+\leavevmode\vadjust pre{\hypertarget{ref-HarveyPierse}{}}%
+Harvey, Andrew C., and Richard G. Pierse. 1984. {``Estimating Missing
+Observations in Economic Time Series.''} \emph{Journal of the American
+Statistical Association} 79 (385): 125--31.
 
 \leavevmode\vadjust pre{\hypertarget{ref-ESL}{}}%
 Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. \emph{The
@@ -2744,6 +3967,20 @@ James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani.
 2021. \emph{An Introduction to Statistical Learning: With Applications
 in {R}}. 2nd ed. Springer Texts in Statistics. New York, NY: Springer.
 \url{https://www.statlearning.com/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Jazwinski}{}}%
+Jazwinski, Andrew H. 1970. \emph{Stochastic Processes and Filtering
+Theory}. Mineola, N.Y.: Dover Publications Inc.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Kalman}{}}%
+Kalman, R. E. 1960. {``A New Approach to Linear Filtering and Prediction
+Problems.''} \emph{Transactions of the ASME Journal of Basic
+Engineering} 82 (Series D): 35--45.
+
+\leavevmode\vadjust pre{\hypertarget{ref-KimNelson}{}}%
+Kim, Chang-Jin, and Charles R. Nelson. 1999. \emph{State-Space Models
+with Regime Switching: Classical and Gibbs-Sampling Approaches with
+Applications}. MIT Press.
 
 \leavevmode\vadjust pre{\hypertarget{ref-KW2002}{}}%
 King, Robert G., and Mark W. Watson. 2002. {``System Reduction and
@@ -2791,12 +4028,1023 @@ Theil, Henri, and Arthur S. Goldberger. 1961. {``On Pure and Mixed
 Statistical Estimation in Economics.''} \emph{International Economic
 Review} 2: 317--32.
 
+\leavevmode\vadjust pre{\hypertarget{ref-BISSM}{}}%
+Triantafyllopoulos, Kostas. 2021. \emph{Bayesian Inference of State
+Space Models: Kalman Filtering and Beyond}. Springer Texts in
+Statistics. Cham, Switzerland: Springer.
+
 \leavevmode\vadjust pre{\hypertarget{ref-Vaughan}{}}%
 Vaughan, D. R. 1970. {``A Non Recursive Algorithm Solution for the
 Discrete Riccati Equation.''} \emph{IEEE Transactions on Automatic
 Control} AC-15.5: 597--99.
 
+\leavevmode\vadjust pre{\hypertarget{ref-Approval}{}}%
+Yong, Laurel Harbridge, Jon A. Krosnick, and Jeffrey M. Wooldridge.
+2016. {``Presidential Approval and Gas Prices: Sociotropic or Pocketbook
+Influence?''} In \emph{Political Psychology}, edited by Jon A. Krosnick,
+I-Chant A. Chiang, and Tobias H. Stark, 246--75. Taylor; Francis Inc.
+
 \end{CSLReferences}
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{part}{Appendices}
+\appendix
+
+\hypertarget{appendix-ggplot2}{%
+\chapter{\texorpdfstring{Appendix:
+\texttt{ggplot2}}{Appendix: ggplot2}}\label{appendix-ggplot2}}
+
+\hypertarget{ggplot2}{%
+\section{ggplot2}\label{ggplot2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Key part of the \href{https://www.tidyverse.org/}{\texttt{tidyverse}}
+  -- for many \href{https://en.wikipedia.org/wiki/ggplot2}{the only
+  part}
+\item
+  Builds a \textbf{g}rammar of \textbf{g}raphics
+\item
+  Simple rules that drive you mad until you get it
+\item
+  Process
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Initiate a plot using \texttt{ggplot}
+  \item
+    Specify \textbf{aesthetics} which indicate \emph{what} you want to
+    plot
+  \item
+    Call a \texttt{geom} to say \emph{how} you want to plot it
+  \item
+    Add modifiers to change how it \emph{looks}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{example}{%
+\section{Example}\label{example}}
+
+\begin{itemize}
+\tightlist
+\item
+  Take the Wooldridge data set \texttt{approval} from Yong, Krosnick,
+  and Wooldridge (2016)
+\item
+  Do a little wrangling\\
+\item
+  Produce some quite nice plots
+\end{itemize}
+
+Start with libraries and retrieve data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(wooldridge)}
+\FunctionTok{data}\NormalTok{(}\StringTok{"approval"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This looks like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(approval) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   id month year   sp500   cpi cpifood approve gasprice unemploy katrina
+1 302     2 2001 1239.94 184.4   171.8   59.24    148.4      4.6       0
+2 303     3 2001 1160.33 185.3   172.2   57.01    144.7      4.5       0
+3 304     4 2001 1249.46 185.6   172.4   60.31    156.4      4.2       0
+4 305     5 2001 1255.82 185.5   172.9   55.82    172.9      4.1       0
+5 306     6 2001 1224.42 185.9   173.4   54.93    164.0      4.7       0
+6 307     7 2001 1211.23 186.2   174.0   56.36    148.2      4.7       0
+  rgasprice lrgasprice X11.Sep iraqinvade   lsp500 lcpifood
+1  80.47723   4.387974       0          0 7.122818 5.146331
+2  78.08958   4.357857       0          0 7.056460 5.148656
+3  84.26724   4.433993       0          0 7.130467 5.149817
+4  93.20755   4.534829       0          0 7.135544 5.152713
+5  88.21947   4.479828       0          0 7.110222 5.155601
+6  79.59184   4.376912       0          0 7.099391 5.159055
+\end{verbatim}
+
+\hypertarget{scatter-plot}{%
+\subsection{Scatter plot}\label{scatter-plot}}
+
+A first scatter plot, using \texttt{geom\_point} of food against gas
+(petrol) prices
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(approval, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{lcpifood, }\AttributeTok{y=}\NormalTok{lrgasprice)) }\SpecialCharTok{+}    \CommentTok{\# Initiate, set aesthetics}
+  \FunctionTok{geom\_point}\NormalTok{()                                       }\CommentTok{\# Display as points}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/p1-1.pdf}
+
+}
+
+\end{figure}
+
+OK, I guess, a bit dull -- so I add some colour. This time I specify
+\texttt{aes} in the \texttt{geom} - either is fine, some advantages
+either way.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(approval) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{lcpifood, }\AttributeTok{y=}\NormalTok{lrgasprice, }\AttributeTok{color=}\NormalTok{month))  }\CommentTok{\# Colours by month}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/p2-1.pdf}
+
+}
+
+\end{figure}
+
+Better, but how about\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(approval) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{lcpifood, }\AttributeTok{y=}\NormalTok{lrgasprice, }\AttributeTok{color=}\NormalTok{approve), }\AttributeTok{size=}\DecValTok{2}\NormalTok{, }\AttributeTok{shape=}\DecValTok{17}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Colours by popularity!}
+  \FunctionTok{scale\_color\_gradient}\NormalTok{(}\AttributeTok{low=}\StringTok{"red"}\NormalTok{, }\AttributeTok{high=}\StringTok{"green"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/p2a-1.pdf}
+
+}
+
+\end{figure}
+
+A categorical variable (a \emph{factor}) is needed to get different
+actual colours, otherwise for a continuous variable I get shades of one
+color or a continuous change.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(approval) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{lcpifood, }\AttributeTok{y=}\NormalTok{lrgasprice, }\AttributeTok{color=}\FunctionTok{as.factor}\NormalTok{(month), }\AttributeTok{size=}\FunctionTok{as.factor}\NormalTok{(year)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning: Using size for a discrete variable is not advised.
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/p3-1.pdf}
+
+}
+
+\end{figure}
+
+\hypertarget{time-series-plots}{%
+\subsection{Time series plots}\label{time-series-plots}}
+
+Our time index is a bit odd as the data set has year and month
+separately. Create a proper date series using:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{approval }\SpecialCharTok{\%\textless{}\textgreater{}\%} 
+  \FunctionTok{unite}\NormalTok{(date, year, month, }\AttributeTok{sep=}\StringTok{"/"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{date =} \FunctionTok{as.Date}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(date,}\StringTok{"/01"}\NormalTok{), }\StringTok{"\%Y/\%m/\%d"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+I've used the \texttt{\%\textless{}\textgreater{}\%} pipe operator to
+send and get back \texttt{approval} so this is now
+
+\begin{verbatim}
+   id       date   sp500   cpi cpifood approve gasprice unemploy katrina
+1 302 2001-02-01 1239.94 184.4   171.8   59.24    148.4      4.6       0
+2 303 2001-03-01 1160.33 185.3   172.2   57.01    144.7      4.5       0
+3 304 2001-04-01 1249.46 185.6   172.4   60.31    156.4      4.2       0
+4 305 2001-05-01 1255.82 185.5   172.9   55.82    172.9      4.1       0
+5 306 2001-06-01 1224.42 185.9   173.4   54.93    164.0      4.7       0
+6 307 2001-07-01 1211.23 186.2   174.0   56.36    148.2      4.7       0
+  rgasprice lrgasprice X11.Sep iraqinvade   lsp500 lcpifood
+1  80.47723   4.387974       0          0 7.122818 5.146331
+2  78.08958   4.357857       0          0 7.056460 5.148656
+3  84.26724   4.433993       0          0 7.130467 5.149817
+4  93.20755   4.534829       0          0 7.135544 5.152713
+5  88.21947   4.479828       0          0 7.110222 5.155601
+6  79.59184   4.376912       0          0 7.099391 5.159055
+\end{verbatim}
+
+Then I can plot a couple of series using two calls to
+\texttt{geom\_line}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(approval) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{date, }\AttributeTok{y=}\NormalTok{unemploy), }\AttributeTok{colour=}\StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{date, }\AttributeTok{y=}\NormalTok{cpi), }\AttributeTok{colour=}\StringTok{"blue"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/unnamed-chunk-4-1.pdf}
+
+}
+
+\end{figure}
+
+But this is pretty inefficient, as I would need a call to
+\texttt{geom\_line} for every series I wanted to plot and even then
+scales are unsuitable. Plus the labels are not right.
+
+This is where things really get interesting. I \texttt{pivot\_longer}
+all the variables into a single column.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{pivot\_longer}\NormalTok{(approval, }\AttributeTok{cols=}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(date, id), }\AttributeTok{names\_to=} \StringTok{"Var"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"Val"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 6 x 4
+     id date       Var         Val
+  <int> <date>     <chr>     <dbl>
+1   302 2001-02-01 sp500    1240. 
+2   302 2001-02-01 cpi       184. 
+3   302 2001-02-01 cpifood   172. 
+4   302 2001-02-01 approve    59.2
+5   302 2001-02-01 gasprice  148. 
+6   302 2001-02-01 unemploy    4.6
+\end{verbatim}
+
+Great! Now I can plot \texttt{Val} using one call to
+\texttt{geom\_line}. This time, put the graph object into \texttt{p} and
+then explicitly plot it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p  }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{date, }\AttributeTok{y=}\NormalTok{Val))}
+\FunctionTok{plot}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/unnamed-chunk-6-1.pdf}
+
+}
+
+\end{figure}
+
+Oops! I need to tell \texttt{ggplot2} to separate out the variables
+which are stored in \texttt{Var}. For this, use \texttt{group}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p  }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{date, }\AttributeTok{y=}\NormalTok{Val, }\AttributeTok{group=}\NormalTok{Var))}
+\FunctionTok{plot}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/unnamed-chunk-7-1.pdf}
+
+}
+
+\end{figure}
+
+But this could better be done by using an aesthetic like colour which
+implies group
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p  }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{date, }\AttributeTok{y=}\NormalTok{Val, }\AttributeTok{colour=}\NormalTok{Var))}
+\FunctionTok{plot}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/unnamed-chunk-8-1.pdf}
+
+}
+
+\end{figure}
+
+OK, but can I plot them so we can see what's going on, like in a grid?
+This is where \texttt{facet} comes in.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p  }\OtherTok{\textless{}{-}}\NormalTok{ p }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Var, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/unnamed-chunk-9-1.pdf}
+
+}
+
+\end{figure}
+
+A bit more formatting\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p  }\OtherTok{\textless{}{-}}\NormalTok{ p }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Facet plots"}\NormalTok{, }\AttributeTok{x=}\StringTok{""}\NormalTok{, }\AttributeTok{y=}\StringTok{""}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/unnamed-chunk-10-1.pdf}
+
+}
+
+\end{figure}
+
+Finally all in one go, dropping the dummies, don't store as an object.
+Also no legend, as series labelled in the facets. And I call a rather
+handy little function \texttt{geom\_smooth} which fits (by default) a
+Loess smoothing line.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{approval }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{iraqinvade, }\SpecialCharTok{{-}}\NormalTok{katrina, }\SpecialCharTok{{-}}\NormalTok{X11.Sep) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols=}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(date, id), }\AttributeTok{names\_to=}\StringTok{"Var"}\NormalTok{, }\AttributeTok{values\_to=}\StringTok{"Val"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{date, }\AttributeTok{y=}\NormalTok{Val, }\AttributeTok{group=}\NormalTok{Var, }\AttributeTok{colour=}\NormalTok{Var)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{() }\SpecialCharTok{+} \CommentTok{\# Smoother}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Var, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Facet plots"}\NormalTok{, }\AttributeTok{x=}\StringTok{""}\NormalTok{, }\AttributeTok{y=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Appendix1_files/figure-pdf/unnamed-chunk-11-1.pdf}
+
+}
+
+\end{figure}
+
+Cool, huh?
+
+\hypertarget{linear-algebra}{%
+\chapter{Linear algebra}\label{linear-algebra}}
+
+\hypertarget{modelling-in-economics-is-linear-algebra}{%
+\section{\texorpdfstring{Modelling in economics \textbf{is} linear
+algebra}{Modelling in economics is linear algebra}}\label{modelling-in-economics-is-linear-algebra}}
+
+That's a bit extreme, but you mostly need to do linear algebra to
+program up many of the estimators we need, or to solve a rational
+expectations models.
+
+\hypertarget{beginning-to-program}{%
+\section{Beginning to program}\label{beginning-to-program}}
+
+A few non-linear algebra things we will need are summarized in the
+following table.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2698}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2222}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1746}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3333}}@{}}
+\caption{Useful things}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Example
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Notes
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Example
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Notes
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Assign a value & \texttt{\textless{}-} & \texttt{a\ \textless{}-\ 4} &
+Also legal is \texttt{a\ =\ 4}. But I hate it. \\
+Create a list of values & \texttt{c(.)} &
+\texttt{v\ \textless{}-\ c(1,\ -2,\ 22)} & Defining `on the fly' \\
+Sequence & \texttt{seq(i,\ k,\ l)} & \(5\), \(7\), \ldots{} ,\(21\) &
+Create a sequence \\
+& \texttt{i:k} & \(i\), \(i\pm 1\), \ldots{} ,\(k\) & Short cut for unit
+in/de-crements \\
+Loop commands & \texttt{for\ (var\ in\ seq)\ expr} &
+\texttt{for\ (i\ in\ 5:1)\ print(i)} & Loops. We need loops. \\
+Draw a random number & \texttt{rnorm(k,a,b)} &
+\texttt{rnorm(60,\ 0,\ 5)} & Example draws 60 values \textasciitilde{}
+\(N(0,5)\) \\
+Create a matrix & \texttt{matrix(v,i,j)} & \texttt{matrix(5,\ 2,\ 2)} &
+Create a \(2\times 2\) matrix of 5s \\
+\end{longtable}
+
+\hypertarget{functions}{%
+\subsection{Functions}\label{functions}}
+
+Everything in R is a function (although it doesn't look like it).
+Defining a function is simple:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{name\_of\_function }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(function\_arguments)\{}
+  \CommentTok{\# Body of function where stuff is done  }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Here's one that actually does something:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{addaddadd }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x,y)\{}
+\NormalTok{  z }\OtherTok{\textless{}{-}} \DecValTok{3}\SpecialCharTok{*}\NormalTok{(x}\SpecialCharTok{+}\NormalTok{y)}
+  \FunctionTok{return}\NormalTok{(z)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+and if we run it:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{addaddadd}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 30
+\end{verbatim}
+
+\hypertarget{linear-algebra-1}{%
+\section{Linear algebra}\label{linear-algebra-1}}
+
+Assume the following: \(A\) and \(B\) are real matrices of dimension
+\(n\times n\), \(b\) and \(c\) are real \(n-\)vectors, \(X\) is a real
+\(T\times k\) matrix, and \(S\) is a symmetric real matrix.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2698}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2222}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1746}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3333}}@{}}
+\caption{Maths commands essential to linear algebra}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Maths
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Notes
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Maths
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Notes
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Hadamard product & \(A\bigodot B\) & \texttt{A\ *\ B} &
+Element-by-element, \(A\), \(B\) same size \\
+Matrix/vector product & \(A\times B\), \(A \times b\) &
+\texttt{A\ \%*\%\ B}, \texttt{A\ \%*\%\ b} & Normal product rule \\
+Inner product & \(X'X\) & \texttt{t(X)\ \%*\%\ X} & Also uses transpose
+operator, \texttt{t()} \\
+& & \texttt{crossprod(X)} & More efficient, but less mathy \\
+& \(A'B\) & \texttt{t(A)\ \%*\%\ B} & \\
+& & \texttt{crossprod(A,B)} & \\
+Outer product & \(A\times B'\) & \texttt{tcrossprod(A,B)} & \\
+Inverse & \(A^{-1}\) & \texttt{solve(A)} & Matrix inverse is a special
+case of\ldots{} \\
+Solve for \(d\) & \(Ad = b \Rightarrow d = A^{-1}b\) &
+\texttt{d\ \textless{}-\ solve(A,\ b)} & \ldots linear solution! \\
+Cholesky decomp & \(S = R'R\) & \texttt{R\ \textless{}-\ chol(S)} &
+\(S\) is a symmetric, positive definite matrix \\
+Cholesky inverse & \(S^{-1}\) & \texttt{chol2inv(chol(S))} & Fast! \\
+Determinant & \(\vert A \vert\) & \texttt{det(A)} & \\
+Diagonal & & & \\
+\(\quad\) of a matrix & & \texttt{diag(A)} & Retrieve the elements
+\(a_{ii}\), \(i=1,..,n\) \\
+\(\quad\) in a matrix & & \texttt{A\ \textless{}-\ diag(b)} & Set the
+diagonal of \(A\) to \(b\), zero elsewhere \\
+\(\quad\) Identity matrix & \(I_n\) & \texttt{diag(n)} & \\
+Eigenvalues/vectors & & \texttt{E\ \textless{}-\ eigen(A)} & Returns a
+\emph{list}: \texttt{E\$values}, \texttt{E\$vectors} \\
+\end{longtable}
+
+\hypertarget{starting-to-do-linear-algebra}{%
+\section{Starting to do linear
+algebra}\label{starting-to-do-linear-algebra}}
+
+\hypertarget{problem}{%
+\subsection{Problem}\label{problem}}
+
+Consider the following simultaneous system of equations: \[
+\begin{align}
+x_1 + 2x_2 &= 6 \\
+x_1 - 3x_2 +2 x_3 &= 0 \\
+-2 x_1 + 3 x_3 &= 2
+\end{align}
+\] Find the values of \(x\) that solve this using R.
+
+\textbf{Hint} -- write the problem in matrix form \[
+ Ax = b
+\] where \[
+A = \left [ \begin{array}{r}
+             1 &  2 & 0 \cr
+             1 & -3 & 2\cr
+            -2 &  0 & 3
+            \end{array} \right ], \qquad 
+  b = \left[ \matrix{6 \\ 0 \\ 2} \right ]
+\] and then use \texttt{solve}.
+
+\hypertarget{solution}{%
+\subsection{Solution}\label{solution}}
+
+R code to create these matrices is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{) }\CommentTok{\# Matrices are populated by column by default}
+\NormalTok{b }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The solution is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(A,b)}
+\end{Highlighting}
+\end{Shaded}
+
+where \texttt{x} is:
+
+\begin{verbatim}
+     [,1]
+[1,]    2
+[2,]    2
+[3,]    2
+\end{verbatim}
+
+\hypertarget{eigenvalue-decomposition}{%
+\section{Eigenvalue decomposition}\label{eigenvalue-decomposition}}
+
+Any square matrix can be decomposed into a non-singular matrix \(V\) of
+eigenvectors and a diagonal matrix of eigenvalues \(\Lambda\) such that:
+\[
+A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
+\]
+
+Call \texttt{eigen} to decompose our previously defined matrix \(A\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{e }\OtherTok{\textless{}{-}} \FunctionTok{eigen}\NormalTok{(A)}
+\NormalTok{L }\OtherTok{\textless{}{-}}\NormalTok{ e}\SpecialCharTok{$}\NormalTok{values    }\CommentTok{\# Recall a list is returned so assign vectors/values}
+\NormalTok{V }\OtherTok{\textless{}{-}}\NormalTok{ e}\SpecialCharTok{$}\NormalTok{vectors}
+\end{Highlighting}
+\end{Shaded}
+
+Note \(A\) is \textbf{not} symmetric so it may have complex roots, which
+is does
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{L}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] -3.682744+0.000000i  2.341372+0.873683i  2.341372-0.873683i
+\end{verbatim}
+
+If we calculate \(A = V\Lambda V^{-1}\) we get
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s }\OtherTok{\textless{}{-}}\NormalTok{ V }\SpecialCharTok{\%*\%} \FunctionTok{diag}\NormalTok{(L) }\SpecialCharTok{\%*\%} \FunctionTok{solve}\NormalTok{(V)}
+\NormalTok{s}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      [,1]             [,2]             [,3]
+[1,]  1+0i  2.000000e+00+0i -2.220446e-16+0i
+[2,]  1+0i -3.000000e+00+0i  2.000000e+00+0i
+[3,] -2+0i -1.054712e-15+0i  3.000000e+00+0i
+\end{verbatim}
+
+and when we drop the zero imaginary parts
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{Re}\NormalTok{(s)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1]          [,2]          [,3]
+[1,]    1  2.000000e+00 -2.220446e-16
+[2,]    1 -3.000000e+00  2.000000e+00
+[3,]   -2 -1.054712e-15  3.000000e+00
+\end{verbatim}
+
+and then round we get
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{round}\NormalTok{(}\FunctionTok{Re}\NormalTok{(s), }\AttributeTok{digits=}\DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    1    2    0
+[2,]    1   -3    2
+[3,]   -2    0    3
+\end{verbatim}
+
+\hypertarget{precision}{%
+\section{Precision}\label{precision}}
+
+Take a real matrix \(A_{mn}\) with \(n \le m\) and pre-multiply by its
+own transpose, i.e.~\(S = A'A\). \(AA\) is symmetric, positive
+semi-definite. If \(rank(A) = n\), then \(rank(S) = n\) and positive
+definite, and its inverse exists.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A  }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, .}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{S }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(A) }\SpecialCharTok{\%*\%}\NormalTok{ A}
+\NormalTok{S}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2]
+[1,] 1.04  0.2
+[2,] 0.20  1.0
+\end{verbatim}
+
+Let's invert \(S\) three different ways.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i1 }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(S) }
+\NormalTok{i2 }\OtherTok{\textless{}{-}} \FunctionTok{chol2inv}\NormalTok{(}\FunctionTok{chol}\NormalTok{(S))}
+\NormalTok{i3 }\OtherTok{\textless{}{-}} \FunctionTok{qr.solve}\NormalTok{(S) }
+\end{Highlighting}
+\end{Shaded}
+
+Pre-multiplying \(S\) by its inverse gives \[
+I_k = \left[\begin{array}{r}1 &0 \\0 &1 \\\end{array}\right]
+\] Looking at the results of doing this for each method gives
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i1 }\SpecialCharTok{\%*\%}\NormalTok{ S}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+             [,1] [,2]
+[1,] 1.000000e+00    0
+[2,] 2.775558e-17    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i2 }\SpecialCharTok{\%*\%}\NormalTok{ S}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1]         [,2]
+[1,]    1 5.551115e-17
+[2,]    0 1.000000e+00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i3 }\SpecialCharTok{\%*\%}\NormalTok{ S}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1]          [,2]
+[1,]    1 -2.775558e-17
+[2,]    0  1.000000e+00
+\end{verbatim}
+
+which are all slightly different but by tiny -- and insignificant --
+amounts.
+
+\hypertarget{programming-the-regression-problem}{%
+\section{Programming the regression
+problem}\label{programming-the-regression-problem}}
+
+Let's look at the familiar regression problem for some generated data.
+\[
+  y = XB + \epsilon
+\] where \(\epsilon \sim N(0,.2)\), \(X\) is a \((k+1)\times n\) matrix
+of regressors including a constant and \(B\) a \(k+1\) vector of
+coefficients. Let's generate some random data of an arbitrary sized
+problem:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{180}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DecValTok{60}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(X, }\DecValTok{6}\NormalTok{) }\CommentTok{\# Print first six rows}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+           [,1]      [,2]     [,3]
+[1,]  1.3031868 0.8277154 1.594982
+[2,]  3.4443315 1.6208031 2.838469
+[3,]  3.0779485 2.0974502 3.109428
+[4,]  0.8572917 1.9403468 2.044287
+[5,] -0.4793252 2.5514304 2.364514
+[6,]  1.9674922 1.3057579 5.403159
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{, X) }\CommentTok{\# Add a constant}
+\FunctionTok{tail}\NormalTok{(X,}\DecValTok{6}\NormalTok{) }\CommentTok{\# Print last six rows}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      [,1]     [,2]      [,3]       [,4]
+[55,]    1 2.423132 1.3848862  2.1619739
+[56,]    1 3.869953 2.0853766 -0.1953832
+[57,]    1 1.010310 1.7751476  1.9473252
+[58,]    1 1.503084 0.9376243  0.3568036
+[59,]    1 1.031450 2.5558023  0.8517558
+[60,]    1 1.758723 3.6572574  0.6030801
+\end{verbatim}
+
+Now create a dependent variable that is a linear combination of these
+variables plus some noise. Create the linear relationship first so we
+know what it is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{,}\DecValTok{1}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,.}\DecValTok{2}\NormalTok{), }\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+and then the dependent variable:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ X }\SpecialCharTok{\%*\%}\NormalTok{ B }\SpecialCharTok{+} \FloatTok{0.2}\SpecialCharTok{*}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{60}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We could now do a regression -- i.e.~calculate \[
+  \hat B = (X'X)^{-1}X'y
+\] which can be written:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Bhat }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(}\FunctionTok{t}\NormalTok{(X)}\SpecialCharTok{\%*\%}\NormalTok{X)}\SpecialCharTok{\%*\%}\FunctionTok{t}\NormalTok{(X)}\SpecialCharTok{\%*\%}\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+which gives
+
+\begin{verbatim}
+           [,1]
+[1,]  0.5610028
+[2,]  0.9529672
+[3,] -0.9588846
+[4,]  0.1846133
+\end{verbatim}
+
+But I wouldn't do it like this (we'll see why in a minute). A better way
+would be
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Bhat2 }\OtherTok{\textless{}{-}} \FunctionTok{chol2inv}\NormalTok{(}\FunctionTok{chol}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(X))) }\SpecialCharTok{\%*\%} \FunctionTok{crossprod}\NormalTok{(X,y)}
+\end{Highlighting}
+\end{Shaded}
+
+or even
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Bhat3 }\OtherTok{\textless{}{-}} \FunctionTok{qr.solve}\NormalTok{(X,y)}
+\end{Highlighting}
+\end{Shaded}
+
+which both evaluate to the same \(\hat B\) values.
+
+\hypertarget{test-timings}{%
+\subsection{Test timings}\label{test-timings}}
+
+Why does it matter how you do things? It should be obvious that it
+might, but it turns out some fairly trivial things can make a lot of
+difference. We set some parameters so we can create a bigger problem.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{400}
+\NormalTok{k }\OtherTok{\textless{}{-}} \DecValTok{12}
+\end{Highlighting}
+\end{Shaded}
+
+We will use seven different methods to calculate an estimate of \(B\).
+These are two variations on the three calculations below (where the
+brackets matter!): \[
+\hat B_1 = ((X'X)^{-1}) X' y 
+\] \[
+\hat B_2 = ((X'X)^{-1}) (X' y) 
+\] \[
+\hat B_3 = ((X'X)^{-1} (X' y))
+\] where we do it either `by hand' or using \texttt{crossprob}, plus
+using \texttt{qr.solve}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tictoc)}
+
+\NormalTok{reps }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{t    }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\FunctionTok{tic}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{reps) \{ }
+\NormalTok{  B }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{runif}\NormalTok{(k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{), k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  X }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(1L, }\FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{k, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{), n, k))}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ X }\SpecialCharTok{\%*\%}\NormalTok{ B }\SpecialCharTok{+} \FloatTok{0.2} \SpecialCharTok{*} \FunctionTok{rnorm}\NormalTok{(n) }
+\NormalTok{  Bhat }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(}\FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ X) }\SpecialCharTok{\%*\%} \FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ y }
+\NormalTok{  \}}
+\NormalTok{t[[}\DecValTok{1}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{toc}\NormalTok{(}\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\FunctionTok{tic}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{reps) \{ }
+\NormalTok{  B }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{runif}\NormalTok{(k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{), k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  X }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(1L, }\FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{k, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{), n, k))}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ X }\SpecialCharTok{\%*\%}\NormalTok{ B }\SpecialCharTok{+} \FloatTok{0.2} \SpecialCharTok{*} \FunctionTok{rnorm}\NormalTok{(n) }
+\NormalTok{  Bhata }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(}\FunctionTok{t}\NormalTok{(X)}\SpecialCharTok{\%*\%}\NormalTok{X) }\SpecialCharTok{\%*\%}\NormalTok{ (}\FunctionTok{t}\NormalTok{(X)}\SpecialCharTok{\%*\%}\NormalTok{y) }
+\NormalTok{\}}
+\NormalTok{t[[}\DecValTok{2}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{toc}\NormalTok{(}\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\FunctionTok{tic}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{reps) \{ }
+\NormalTok{  B }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{runif}\NormalTok{(k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{), k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  X }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(1L, }\FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{k, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{), n, k))}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ X }\SpecialCharTok{\%*\%}\NormalTok{ B }\SpecialCharTok{+} \FloatTok{0.2} \SpecialCharTok{*} \FunctionTok{rnorm}\NormalTok{(n) }
+\NormalTok{  Bhatb }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{((}\FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ X), (}\FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ y)) }
+\NormalTok{  \}}
+\NormalTok{t[[}\DecValTok{3}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{toc}\NormalTok{(}\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\FunctionTok{tic}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{reps) \{ }
+\NormalTok{  B }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{runif}\NormalTok{(k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{), k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  X }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(1L, }\FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{k, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{), n, k))}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ X }\SpecialCharTok{\%*\%}\NormalTok{ B }\SpecialCharTok{+} \FloatTok{0.2} \SpecialCharTok{*} \FunctionTok{rnorm}\NormalTok{(n) }
+\NormalTok{  Bhat2 }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(X)) }\SpecialCharTok{\%*\%} \FunctionTok{crossprod}\NormalTok{(X,y) }
+\NormalTok{  \}}
+\NormalTok{t[[}\DecValTok{4}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{toc}\NormalTok{(}\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\FunctionTok{tic}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{reps) \{ }
+\NormalTok{  B }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{runif}\NormalTok{(k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{), k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  X }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(1L, }\FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{k, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{), n, k))}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ X }\SpecialCharTok{\%*\%}\NormalTok{ B }\SpecialCharTok{+} \FloatTok{0.2} \SpecialCharTok{*} \FunctionTok{rnorm}\NormalTok{(n) }
+\NormalTok{  Bhat2a }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(X), }\FunctionTok{crossprod}\NormalTok{(X,y)) }
+\NormalTok{  \}}
+\NormalTok{t[[}\DecValTok{5}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{toc}\NormalTok{(}\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\FunctionTok{tic}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{reps) \{ }
+\NormalTok{  B }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{runif}\NormalTok{(k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{), k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  X }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(1L, }\FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{k, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{), n, k))}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ X }\SpecialCharTok{\%*\%}\NormalTok{ B }\SpecialCharTok{+} \FloatTok{0.2} \SpecialCharTok{*} \FunctionTok{rnorm}\NormalTok{(n)}
+\NormalTok{  Bhat2b }\OtherTok{\textless{}{-}} \FunctionTok{chol2inv}\NormalTok{(}\FunctionTok{chol}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(X))) }\SpecialCharTok{\%*\%} \FunctionTok{crossprod}\NormalTok{(X,y) }
+\NormalTok{  \}}
+\NormalTok{t[[}\DecValTok{6}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{toc}\NormalTok{(}\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\FunctionTok{tic}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{reps) \{ }
+\NormalTok{  B }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{runif}\NormalTok{(k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{), k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  X }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(1L, }\FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{k, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{), n, k))}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ X }\SpecialCharTok{\%*\%}\NormalTok{ B }\SpecialCharTok{+} \FloatTok{0.2} \SpecialCharTok{*} \FunctionTok{rnorm}\NormalTok{(n) }
+\NormalTok{  Bhat3 }\OtherTok{\textless{}{-}} \FunctionTok{qr.solve}\NormalTok{(X,y) }
+\NormalTok{  \}}
+\NormalTok{t[[}\DecValTok{7}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{toc}\NormalTok{(}\AttributeTok{quiet =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+How do we display the timings we saved in \texttt{t}? We could do a
+simple (but dull) table, or something a but nicer.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\NormalTok{FF }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"solve(t(X)\%*\%X) \%*\% t(X) \%*\% y"}\NormalTok{,}
+        \StringTok{"solve(t(X)\%*\%X) \%*\% (t(X)\%*\%y)"}\NormalTok{,}
+        \StringTok{"solve(t(X)\%*\%X, (t(X)\%*\%y))"}\NormalTok{,}
+        \StringTok{"solve(crossprod(X)) \%*\% crossprod(X,y)"}\NormalTok{,}
+        \StringTok{"solve(crossprod(X), crossprod(X,y))"}\NormalTok{,}
+        \StringTok{"chol2inv(chol(crossprod(X))) \%*\% crossprod(X,y)"}\NormalTok{,}
+        \StringTok{"qr.solve(X,y)"}\NormalTok{)}
+
+\NormalTok{v }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{Method =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{, }
+            \AttributeTok{Times =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{" sec elapsed"}\NormalTok{, }\StringTok{""}\NormalTok{, }\FunctionTok{unlist}\NormalTok{(t)[}\FunctionTok{seq}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{21}\NormalTok{,}\DecValTok{3}\NormalTok{)])), }
+            \AttributeTok{Formula =}\NormalTok{ FF) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Col =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Times }\SpecialCharTok{==} \FunctionTok{min}\NormalTok{(Times) }\SpecialCharTok{\textasciitilde{}} \StringTok{"red"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"blue"}
+\NormalTok{  ))}
+
+\FunctionTok{ggplot}\NormalTok{(v) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_col}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Method, }\AttributeTok{y=}\NormalTok{Times, }\AttributeTok{fill=}\FunctionTok{as.factor}\NormalTok{(Method)), }\AttributeTok{alpha=}\NormalTok{.}\DecValTok{6}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Method, }\AttributeTok{y=}\NormalTok{.}\DecValTok{1}\NormalTok{, }\AttributeTok{label=}\NormalTok{Formula, }\AttributeTok{color=}\NormalTok{Col), }\AttributeTok{size=}\FloatTok{5.5}\NormalTok{, }\AttributeTok{hjust=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{scale\_color\_identity}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.y =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+} 
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y=}\FunctionTok{paste}\NormalTok{(}\StringTok{"Seconds taken to do"}\NormalTok{,reps,}\StringTok{"replications"}\NormalTok{), }\AttributeTok{x=}\StringTok{""}\NormalTok{, }
+       \AttributeTok{title=}\StringTok{"Timings of different numerical regression methods"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{LinAlg_files/figure-pdf/unnamed-chunk-17-1.pdf}
+
+}
+
+\end{figure}
 
 
 \backmatter

@@ -4,11 +4,11 @@
 knitr::opts_chunk$set(echo = TRUE)
 options(signif=5)
 mat_print <- function(x) {
-  paste(c("\\left[\\begin{array}{r}",
+  paste(c("\\left[\\begin{matrix}",
           paste(c(t(x)),
                 rep(c(rep("&", nrow(x)-1), '\\\\'), ncol(x)),
                 collapse=""),
-          "\\end{array}\\right]"), collapse="")
+          "\\end{matrix}\\right]"), collapse="")
 }
 ```
 
@@ -19,7 +19,6 @@ How do we solve rational expectations models? What does that even mean? Here I s
 ## Model
 
 We take a simple New Keynesian model
-$$
 \begin{align}
 y_t    &= y_{t+1}^e-\frac{1}{\sigma} (i_t - \pi_{t+1}^e) + e_t^1 \\
 \pi_t  &= \beta \pi_{t+1}^e + \kappa y_t + e_t^2 \\
@@ -27,7 +26,6 @@ i_t    &= \gamma i_{t-1} + (1-\gamma) \delta \pi_t + \varepsilon_t^3 \\
 e_t^1  &= \rho_1 e_{t-1}^1 + \varepsilon_t^1 \\ 
 e_t^2  &= \rho_2 e_{t-1}^2 + \varepsilon_t^2 
 \end{align}
-$$
 The model comprises a dynamic IS curve, a Phillips Curve and a policy rule with smoothing. There are three shocks, two of which are persistent. This we need to write in the general algebraic linear state-space form:
 $$
 E\begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = A \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + B \varepsilon_t  
@@ -61,7 +59,7 @@ $$
 $$
 Anyone wanting to code up solutions should familiarize themselves with this before continuing.
 
-### Coding up the model in R
+### Coding the model
 
 Before we begin coding this in R, load the `tidyverse` libraries so we can do impulse responses with our usual tool kit and then we can forget about it. 
 ```{r libs, message=FALSE, warning=FALSE}
@@ -104,16 +102,16 @@ A[4,4]             <- 1
 A[5,c(4,5)]        <- c(-kappa, 1)
 ```
 where for example, $E$ and $A$ are
-$$  
-E = `r mat_print(round(E,2))` 
-$$
-$$  
-A = `r mat_print(round(A,3))` 
-$$
+\begin{equation}
+  E = `r mat_print(round(E,2))` 
+\end{equation}
+\begin{equation}  
+  A = `r mat_print(round(A,3))` 
+\end{equation}
 Calculate the reduced form state-space model
-$$
+\begin{equation}
 \begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = C \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + D \varepsilon_t  
-$$
+\end{equation}
 which is done in R very simply as
 ```{r}
 C <- solve(E,A)
@@ -222,15 +220,11 @@ $$
 $$
 
 The rational solution implies that the jump variables are linearly related to the predetermined ones through
-$$
-\begin{aligned}
+\begin{align}
 x_t &= -M_{22}^{-1} M_{21}z_{t-1} \\
     &= N z_{t-1}
-\end{aligned}
-$$
+\end{align}
 We'll deal with the shocks in a moment.
-
-### R code
 
 How do we do this in R? First, find the eigenvalue decomposition of $C$ using
 ```{r}
@@ -274,17 +268,24 @@ $$
 Notice it also implies $N = (C_{22} - N C_{12})^{-1}(NC_{11} - C_{21})$.
 It is this fixed point nature of the solution for $N$ -- which in turn implies the quadratic matrix equation $C_{21} = NC_{11} - C_{22}N + N C_{12}N$ -- that means we need to use the @BK80 method in the first place.
 
-### R code
-
 All of this means that
 ```{r}
 G <- solve((C[ix,ix] - N %*% C[iz,ix]), (N %*% D[iz,]- D[ix,]))
 ```
 so for our model and parameters $N$ and $G$ are
 ```{r}
-N
-G
+#| echo: false
+Nff <- N
+Gff <- G
 ```
+
+\begin{equation}  
+  N = `r mat_print(round(as.matrix(N),4))` 
+\end{equation}
+\begin{equation}
+  G = `r mat_print(round(Gff,4))` 
+\end{equation}
+
 The 'fixed point' check is that the following should be the same as $N$
 ```{r}
 solve((C[ix,ix] - N %*% C[iz,ix]), (N %*% C[iz,iz]- C[ix,iz]))
@@ -292,12 +293,10 @@ solve((C[ix,ix] - N %*% C[iz,ix]), (N %*% C[iz,iz]- C[ix,iz]))
 which it is.
 
 The solved model is finally
-$$
 \begin{align}
 \begin{bmatrix} z_t \\ x_t \end{bmatrix} &= \begin{bmatrix} C_{11}+C_{12}N & 0 \\ N & 0 \end{bmatrix} \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + \begin{bmatrix} D_1+C_{12}G \\ G \end{bmatrix} \varepsilon_t \\
  &= P \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + Q \varepsilon_t
 \end{align}
-$$
 which can be coded as
 ```{r}
 P  <- cbind(rbind((C[iz,iz] + C[iz,ix] %*% N), N), matrix(0,ns,nf))
@@ -376,7 +375,6 @@ e[abs(e) > 1]
 The number of _stable_ roots is returned in `d$sdim` which is `r d$sdim`.
 
 We then modify our solution function to calculate `Ns` and `Gs` using the matrix `Z` and a generalized version of the formula for $G$ and calculate the reduced form model `Ps` and `Q which are
-$$
 \begin{align}
     N_s &= Z_{21} Z_{11}^{-1} \\
     H   &= (E_{11} + E_{12} N_s)^{-1} \\
@@ -385,7 +383,6 @@ $$
     P_s &= H (A_{11} + A_{12} N_s) \\
     Q_s &= H (B_1 + A_{12} G_s)
 \end{align}
-$$
 Verify this yourself with a bit of matrix algebra!
 
 The R code for this is 
@@ -580,15 +577,13 @@ $$
 i_t =  \left (1 - \frac{\sigma}{\mu} \right )\pi_{t+1}^e + \sigma e_t^1
 $$
 This is the required interest rate consistent with the targeting rule holding. Now the only jump variable is the inflation rate as we have eliminated the expected output gap. 
-$$
-\begin{aligned}
+\begin{align}
 y_t    &= y_{t-1} -\frac{1}{\mu} \pi_t  + \frac{1}{\mu} \varepsilon^3_t \\
 \pi_t  &= \beta \pi_{t+1}^e + \kappa y_t + e_t^2 \\
 i_t    &= \left (1 - \frac{\sigma}{\mu} \right ) \pi_{t+1}^e + \sigma e_t^1 \\
 e_t^1  &= \rho_1 e_{t-1}^1 + \varepsilon_t^1 \\ 
 e_t^2  &= \rho_2 e_{t-1}^2 + \varepsilon_t^2 
-\end{aligned}
-$$
+\end{align}
 
 We can code this
 ```{r}
