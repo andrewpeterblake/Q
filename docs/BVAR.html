@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Quantiles, Networks, Time - 9&nbsp; BVAR with dummies</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./summary.html" rel="next">
+<link href="./BK.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./BK.html">Time</a></li><li class="breadcrumb-item"><a href="./BVAR.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Quantiles, Networks, Time</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genesis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Methods matter</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R2021.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Non-econometric methods for econometricians</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Kalman.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Quantiles</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./QR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CK.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Networks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Stemp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Time</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BK.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BVAR.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">End matter</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Appendix1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Basic <code>ggplot2</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./LinAlg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Linear algebra</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#estimating-bvars-using-us-data" id="toc-estimating-bvars-using-us-data" class="nav-link active" data-scroll-target="#estimating-bvars-using-us-data"><span class="header-section-number">9.1</span> Estimating BVARs using US data</a></li>
+  <li><a href="#bvars-with-dummy-variable-priors" id="toc-bvars-with-dummy-variable-priors" class="nav-link" data-scroll-target="#bvars-with-dummy-variable-priors"><span class="header-section-number">9.2</span> BVARs with dummy variable priors</a>
+  <ul class="collapse">
+  <li><a href="#var-model" id="toc-var-model" class="nav-link" data-scroll-target="#var-model"><span class="header-section-number">9.2.1</span> VAR model</a></li>
+  </ul></li>
+  <li><a href="#bvar-hyperparameters" id="toc-bvar-hyperparameters" class="nav-link" data-scroll-target="#bvar-hyperparameters"><span class="header-section-number">9.3</span> BVAR hyperparameters</a>
+  <ul class="collapse">
+  <li><a href="#further-priors" id="toc-further-priors" class="nav-link" data-scroll-target="#further-priors"><span class="header-section-number">9.3.1</span> Further priors</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="header-section-number">9.3.2</span> Implementation</a></li>
+  </ul></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">9.4</span> Examples</a>
+  <ul class="collapse">
+  <li><a href="#example-1-bvar2-with-tau0.1" id="toc-example-1-bvar2-with-tau0.1" class="nav-link" data-scroll-target="#example-1-bvar2-with-tau0.1"><span class="header-section-number">9.4.1</span> Example 1: BVAR(2) with <span class="math inline">\(\tau=0.1\)</span></a></li>
+  <li><a href="#example-2-bvar2-with-tau1" id="toc-example-2-bvar2-with-tau1" class="nav-link" data-scroll-target="#example-2-bvar2-with-tau1"><span class="header-section-number">9.4.2</span> Example 2: BVAR(2) with <span class="math inline">\(\tau=1\)</span></a></li>
+  <li><a href="#example-3-bvar6-with-tau0.1" id="toc-example-3-bvar6-with-tau0.1" class="nav-link" data-scroll-target="#example-3-bvar6-with-tau0.1"><span class="header-section-number">9.4.3</span> Example 3: BVAR(6) with <span class="math inline">\(\tau=0.1\)</span></a></li>
+  <li><a href="#example-4-bvar6-with-tau1" id="toc-example-4-bvar6-with-tau1" class="nav-link" data-scroll-target="#example-4-bvar6-with-tau1"><span class="header-section-number">9.4.4</span> Example 4: BVAR(6) with <span class="math inline">\(\tau=1\)</span></a></li>
+  <li><a href="#coefficient-estimates" id="toc-coefficient-estimates" class="nav-link" data-scroll-target="#coefficient-estimates"><span class="header-section-number">9.4.5</span> Coefficient estimates</a></li>
+  </ul></li>
+  <li><a href="#tri-variate-bvar" id="toc-tri-variate-bvar" class="nav-link" data-scroll-target="#tri-variate-bvar"><span class="header-section-number">9.5</span> Tri-variate BVAR</a>
+  <ul class="collapse">
+  <li><a href="#example-5-bvar4-with-tau.1-3-variables" id="toc-example-5-bvar4-with-tau.1-3-variables" class="nav-link" data-scroll-target="#example-5-bvar4-with-tau.1-3-variables"><span class="header-section-number">9.5.1</span> Example 5: BVAR(4) with <span class="math inline">\(\tau=.1\)</span>, 3 variables</a></li>
+  <li><a href="#example-6-bvar6-with-tau1-3-variables" id="toc-example-6-bvar6-with-tau1-3-variables" class="nav-link" data-scroll-target="#example-6-bvar6-with-tau1-3-variables"><span class="header-section-number">9.5.2</span> Example 6: BVAR(6) with <span class="math inline">\(\tau=1\)</span>, 3 variables</a></li>
+  </ul></li>
+  <li><a href="#code-appendix" id="toc-code-appendix" class="nav-link" data-scroll-target="#code-appendix"><span class="header-section-number">9.6</span> Code appendix</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="estimating-bvars-using-us-data" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="estimating-bvars-using-us-data"><span class="header-section-number">9.1</span> Estimating BVARs using US data</h2>
+<p>We will the Fed Funds rate, annual GDP growth and annual CPI inflation data from FRED, retrieved 2023-07-02. These are:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We will build a variety and two and three variable BVARs. More details on the data are given below.</p>
+</section>
+<section id="bvars-with-dummy-variable-priors" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="bvars-with-dummy-variable-priors"><span class="header-section-number">9.2</span> BVARs with dummy variable priors</h2>
+<p>Rather than combine a prior distribution with a likelihood and draw from the resulting joint posterior distribution there is another convenient way of parameterizing the problem. We can instead add some ‘dummy variables’ that have the same properties of the prior so we have a single modified likelihood that incorporates the prior information. This approach was most obviously adopted by <span class="citation" data-cites="Banbura">Banbura, Giannone, and Reichlin (<a href="references.html#ref-Banbura" role="doc-biblioref">2010</a>)</span>. Further discussion of this can be found in <span class="citation" data-cites="PriorsVAR">Giannone, Lenza, and Primiceri (<a href="references.html#ref-PriorsVAR" role="doc-biblioref">2015</a>)</span>. In general this is a version of the <span class="citation" data-cites="Theil">Theil and Goldberger (<a href="references.html#ref-Theil" role="doc-biblioref">1961</a>)</span> <strong><em>mixed estimator</em></strong> given a Bayesian interpretation.</p>
+<section id="var-model" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="var-model"><span class="header-section-number">9.2.1</span> VAR model</h3>
+<p>Simple bi-variate two-lag VAR model:</p>
+<span class="math display">\[\begin{align}
+  \left[\begin{matrix}g_t \cr \pi_t\end{matrix}\right] &amp;=
+  \left[\begin{matrix}c_1 \cr c_2\end{matrix}\right] +
+  \left[\begin{matrix}b_{11} &amp; b_{12} \cr
+    b_{21} &amp; b_{22}\end{matrix}\right]
+\left[\begin{matrix}g_{t-1} \cr \pi_{t-1} \end{matrix}\right] +
+   \left[\begin{matrix}d_{11} &amp; d_{12} \cr
+    d_{21} &amp; d_{22}\end{matrix}\right]
+\left[\begin{matrix}g_{t-2} \cr \pi_{t-2} \end{matrix}\right] +
+  \left[\begin{matrix}\nu_{g,t} \cr \nu_{\pi,t}\end{matrix}\right] \\
+  \left[\begin{matrix}\nu_{g,t} \cr \nu_{\pi,t}\end{matrix}\right] &amp;\sim N(0, \Sigma)
+\end{align}\]</span>
+</section>
+</section>
+<section id="bvar-hyperparameters" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="bvar-hyperparameters"><span class="header-section-number">9.3</span> BVAR hyperparameters</h2>
+<p>We will (similarly to the straightforward Minnesota prior) need some control parameters:</p>
+<ul>
+<li><span class="math inline">\(\tau\)</span> controls the overall tightness of the prior for the AR coefficients</li>
+<li><span class="math inline">\(d\)</span> controls the prior on higher lags;</li>
+<li><span class="math inline">\(\lambda\)</span> controls the prior on constants;</li>
+<li><span class="math inline">\(\gamma\)</span> controls the prior on the sum of coefficients;</li>
+<li><span class="math inline">\(\delta\)</span> controls the cointegration prior;</li>
+</ul>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\sigma_i\)</span> standard deviation of error terms from individual OLS regressions;</li>
+<li><span class="math inline">\(\mu_i\)</span> sample means of the data.</li>
+</ul>
+<section id="first-lag" class="level4" data-number="9.3.0.1">
+<h4 data-number="9.3.0.1" class="anchored" data-anchor-id="first-lag"><span class="header-section-number">9.3.0.1</span> First lag</h4>
+<p>Now consider the following artificial data for the <strong>first lag</strong>. We construct some dummy observations of the dependent and explanatory variables that look like: <span class="math display">\[\begin{equation}
+  Y_{D,1} = \left[\begin{matrix}\frac{1}{\tau}\sigma_1 &amp; 0 \cr
+    0 &amp; \frac{1}{\tau}\sigma_2\end{matrix}\right]
+\end{equation}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\begin{equation}
+  X_{D,1} = \left [ \begin{matrix}0 &amp; \frac{1}{\tau}\sigma_1 &amp; 0 &amp; 0 &amp; 0\cr
+    0 &amp; 0 &amp; \frac{1}{\tau}\sigma_2 &amp; 0 &amp; 0\end{matrix}\right]
+\end{equation}\]</span></p>
+<p>Intuition:</p>
+<p><span class="math display">\[\begin{equation}
+  \left[\begin{matrix} \frac{\sigma_1}{\tau} &amp; 0 \cr
+    0 &amp; \frac{\sigma_2}{\tau}\end{matrix}\right] =
+  \left[\begin{matrix} 0 &amp; \frac{\sigma_1}{\tau} &amp; 0 &amp; 0 &amp; 0\cr
+   0 &amp; 0 &amp; \frac{\sigma_2}{\tau} &amp; 0 &amp; 0\end{matrix} \right]
+\left[\begin{matrix}c_1 &amp; c_2 \cr
+  b_{11} &amp; b_{21} \cr
+  b_{12} &amp; b_{22} \cr
+  d_{11} &amp; d_{21} \cr
+  d_{12} &amp; d_{22}\end{matrix}\right]
++
+  \left[\begin{matrix}\xi_{11} &amp; \xi_{12} \cr \xi_{21} &amp; \xi_{22} \end{matrix}\right]
+\end{equation}\]</span></p>
+<p>Multiplying out we get:</p>
+<p><span class="math display">\[\begin{equation}
+  \left[\begin{matrix}\frac{\sigma_1}{\tau} &amp; 0 \cr
+    0 &amp; \frac{\sigma_2}{\tau}\end{matrix}\right]
+=
+  \left[\begin{matrix}\frac{\sigma_1}{\tau}b_{11} &amp; \frac{\sigma_1}{\tau}b_{21}\cr
+  \frac{\sigma_2}{\tau}b_{12} &amp;  \frac{\sigma_2}{\tau}b_{22}\end{matrix} \right]
++
+  \left[\begin{matrix}\xi_{11} &amp; \xi_{12} \cr \xi_{21} &amp; \xi_{22} \end{matrix}\right]
+\end{equation}\]</span></p>
+<p>Concentrating on the first row, notice:</p>
+<p><span class="math display">\[\begin{equation}
+  \frac{\sigma_1}{\tau} = \frac{\sigma_1}{\tau}b_{11} + \xi_{11}
+\end{equation}\]</span></p>
+<p>implying:</p>
+<p><span class="math display">\[\begin{equation}
+  b_{11} = 1 - \frac{\tau}{\sigma_1}\xi_{11}
+\end{equation}\]</span></p>
+<p>so we can write:</p>
+<p><span class="math display">\[\begin{equation}
+  b_{11} \sim N\left(1, \frac{\tau^2var(\xi_{11})}{\sigma^2_1}\right)
+\end{equation}\]</span></p>
+<p>as <span class="math inline">\(E[b_{11}] = 1 - \frac{\tau}{\sigma_1}E[\xi_{11}] = 1\)</span> and the variance is easily derived. Similarly: <span class="math display">\[\begin{equation}
+  b_{12} = - \frac{\tau}{\sigma_1}\xi_{12}
+\end{equation}\]</span> which is clearly zero in expectation.</p>
+</section>
+<section id="further-priors" class="level3" data-number="9.3.1">
+<h3 data-number="9.3.1" class="anchored" data-anchor-id="further-priors"><span class="header-section-number">9.3.1</span> Further priors</h3>
+<section id="higher-lags" class="level4" data-number="9.3.1.1">
+<h4 data-number="9.3.1.1" class="anchored" data-anchor-id="higher-lags"><span class="header-section-number">9.3.1.1</span> Higher lags</h4>
+<p>Rather than derive the implications we state the rest of the dummy priors. Consider the following artificial data for the <strong>second</strong> lag:</p>
+<p><span class="math display">\[\begin{align*}
+  Y_{D,2} &amp;= \left[\begin{matrix}0 &amp; 0 \cr 0 &amp; 0\end{matrix}\right] \\
+  X_{D,2} &amp;= \left[\begin{matrix}0 &amp; 0 &amp; 0 &amp; \frac{\sigma_1 2^d}{\tau} &amp; 0 \cr
+    0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{\sigma_2 2^d}{\tau} \end{matrix}\right]
+\end{align*}\]</span></p>
+<p>We can multiply these out and check the properties, in particular we can verify in the same way as for the first lag that:</p>
+<p><span class="math display">\[\begin{equation}
+  b_{ji} \sim N\left(0, \frac{1}{4}\frac{\tau^2var(\xi_{ji})} {2^d\sigma^2_j}\right)
+\end{equation}\]</span></p>
+<p>for <span class="math inline">\(j=1,...N\)</span>, <span class="math inline">\(i=1,...l\)</span>.</p>
+</section>
+<section id="constant" class="level4" data-number="9.3.1.2">
+<h4 data-number="9.3.1.2" class="anchored" data-anchor-id="constant"><span class="header-section-number">9.3.1.2</span> Constant</h4>
+<p>Consider the following artificial data for the <strong>constant</strong>:</p>
+<p><span class="math display">\[\begin{align*}
+  Y_{D,3} &amp;= \left[\begin{matrix}0 &amp; 0 \end{matrix}\right] \\
+  X_{D,3} &amp;= \left[\begin{matrix}\lambda &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{matrix}\right]
+\end{align*}\]</span></p>
+<p>so <span class="math inline">\(\lambda c_1 = \varepsilon_1\)</span> and <span class="math inline">\(\lambda c_2 = \varepsilon_2\)</span>. As <span class="math inline">\(\lambda \rightarrow \infty\)</span> the prior is implemented more tightly.</p>
+</section>
+<section id="covariances" class="level4" data-number="9.3.1.3">
+<h4 data-number="9.3.1.3" class="anchored" data-anchor-id="covariances"><span class="header-section-number">9.3.1.3</span> Covariances</h4>
+<p>Dummy observations to implement the prior on the error covariance matrix are: <span class="math display">\[\begin{align*}
+  Y_{D,4} &amp;= \left[\begin{matrix}\sigma_1 &amp; 0 \cr 0 &amp; \sigma_2\end{matrix}\right] \\
+  X_{D,4} &amp;= \left[\begin{matrix}0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \cr
+    0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{matrix}\right]
+\end{align*}\]</span></p>
+<p>with the magnitude of the diagonal elements of <span class="math inline">\(\Sigma\)</span> controlled by the scale of the diagonal elements of <span class="math inline">\(Y_{D,4}\)</span>, as larger diagonal elements implement the prior belief that the variance of <span class="math inline">\(\nu_1\)</span> and <span class="math inline">\(\nu_2\)</span> is larger.</p>
+<p><span class="citation" data-cites="Banbura">Banbura, Giannone, and Reichlin (<a href="references.html#ref-Banbura" role="doc-biblioref">2010</a>)</span> stop here, but there are additional priors that could be added.</p>
+</section>
+<section id="sum-of-coefficients" class="level4" data-number="9.3.1.4">
+<h4 data-number="9.3.1.4" class="anchored" data-anchor-id="sum-of-coefficients"><span class="header-section-number">9.3.1.4</span> Sum of coefficients</h4>
+<p>We could add a prior that reflects the belief that the <strong>sum of coefficients</strong> on ‘own’ lags add up to 1. This is an additional ‘unit root’-style prior. Consider:</p>
+<p><span class="math display">\[\begin{align*}
+  Y_{D,5} &amp;= \left[\begin{matrix} \gamma\mu_1 &amp; 0\cr 0 &amp; \gamma\mu_2\end{matrix}\right] \\
+  X_{D,5} &amp;= \left [ \begin{matrix} 0 &amp; \gamma\mu_1 &amp; 0 &amp; \gamma\mu_1 &amp; 0\cr
+    0 &amp; 0 &amp; \gamma\mu_2 &amp; 0 &amp; \gamma\mu_2\end{matrix}\right]
+\end{align*}\]</span></p>
+<p>where <span class="math inline">\(\mu_1\)</span> is the sample mean of <span class="math inline">\(y_t\)</span> and <span class="math inline">\(\mu_2\)</span> is the sample mean of <span class="math inline">\(x_t\)</span>. Note that these dummy observations imply prior means of the form <span class="math inline">\(b_{ii} + d_{ii} = 1\)</span> where <span class="math inline">\(i = 1, 2\)</span> and <span class="math inline">\(\gamma\)</span> controls the tightness of the prior. As <span class="math inline">\(\gamma \rightarrow \infty\)</span> the prior is implemented more tightly. Forecast growth rates eventually converge to their sample averages.</p>
+</section>
+<section id="trends" class="level4" data-number="9.3.1.5">
+<h4 data-number="9.3.1.5" class="anchored" data-anchor-id="trends"><span class="header-section-number">9.3.1.5</span> Trends</h4>
+<p>We can also specify <strong>common stochastic trend</strong> dummies:</p>
+<p><span class="math display">\[\begin{align*}
+  Y_{D,6} &amp;= \left[\begin{matrix}\delta\mu_1 &amp; \delta\mu_2 \end{matrix}\right] \\
+  X_{D,6} &amp;= \left [\begin{matrix}\delta &amp; \delta\mu_1 &amp; \delta\mu_2 &amp; \delta\mu_1 &amp; \delta\mu_2 \end{matrix}\right]
+\end{align*}\]</span></p>
+<p>where this imposes that the coefficients are consistent with limiting the amount of drift between the predictions at their average values.</p>
+</section>
+</section>
+<section id="implementation" class="level3" data-number="9.3.2">
+<h3 data-number="9.3.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">9.3.2</span> Implementation</h3>
+<p>The data and the artificial data are now stacked:</p>
+<p><span class="math display">\[\begin{equation}
+  Y^* = \left[\begin{matrix} g_3 &amp; \pi_3 \cr
+    \vdots &amp; \vdots \cr
+    g_T &amp; \pi_T \cr
+    \frac{1}{\tau}\sigma_1 &amp; 0 \cr
+    0 &amp; \frac{1}{\tau}\sigma_2\cr
+    0 &amp; 0 \cr
+    0 &amp; 0 \cr
+    0 &amp; 0 \cr
+    \sigma_1 &amp; 0 \cr
+    0 &amp; \sigma_2 \cr
+    \gamma\mu_1 &amp; 0 \cr
+    0 &amp; \gamma\mu_2 \cr
+    \delta\mu_1 &amp; \delta\mu_2 \end{matrix}\right], \quad
+X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
+  \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \cr
+  1 &amp; g_{T-1} &amp; \pi_{T-1} &amp; g_{T-2} &amp; \pi_{T-2} \cr
+  0 &amp; \frac{1}{\tau}\sigma_1 &amp; 0 &amp; 0 &amp; 0\cr
+  0 &amp; 0 &amp; \frac{1}{\tau}\sigma_2 &amp; 0 &amp; 0\cr
+  0 &amp; 0 &amp; 0 &amp; \frac{\sigma_1 2^d}{\tau} &amp; 0 \cr
+  0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{\sigma_2 2^d}{\tau} \cr
+  \lambda &amp; 0 &amp; 0 &amp; 0 &amp; 0 \cr
+  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \cr
+  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \cr
+  0 &amp; \gamma\mu_1 &amp; 0 &amp; \gamma\mu_1 &amp; 0 \cr
+  0 &amp; 0 &amp; \gamma\mu_2 &amp; 0 &amp; \gamma\mu_2 \cr
+  \delta &amp; \delta\mu_1 &amp; \delta\mu_2 &amp; \delta\mu_1 &amp; \delta\mu_2 \end{matrix}\right]
+\end{equation}\]</span></p>
+<p>Estimation via Gibbs sampling now proceeds in a very straightforward way. There is no need to draw for the prior separately.</p>
+</section>
+</section>
+<section id="examples" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="examples"><span class="header-section-number">9.4</span> Examples</h2>
+<p>First we use quarterly US Growth (FRED series <a href="https://fred.stlouisfed.org/series/A191RO1Q156NBEA">A191RO1Q156NBEA</a>) and CPI (FRED series <a href="https://fred.stlouisfed.org/series/CPALTT01USQ661S">CPALTT01USQ661S</a>) expressed as the annual inflation rate from 1961-01-01 to 2023-01-01 in a bi-variate BVAR. The last ten observations are:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Date</th>
+<th style="text-align: right;">Growth</th>
+<th style="text-align: right;">Inflation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2020-10-01</td>
+<td style="text-align: right;">-1.5</td>
+<td style="text-align: right;">1.224176</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-01-01</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">1.905310</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-04-01</td>
+<td style="text-align: right;">12.5</td>
+<td style="text-align: right;">4.776278</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-07-01</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">5.264633</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-10-01</td>
+<td style="text-align: right;">5.7</td>
+<td style="text-align: right;">6.765892</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2022-01-01</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">8.023109</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2022-04-01</td>
+<td style="text-align: right;">1.8</td>
+<td style="text-align: right;">8.556077</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2022-07-01</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">8.284860</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2022-10-01</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">7.110821</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-01-01</td>
+<td style="text-align: right;">1.8</td>
+<td style="text-align: right;">5.769521</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We specify a VAR with two lags, and use it to forecast 12 periods ahead. The BVAR are specified using the names above, with only <code>tau</code> particularly binding in this case. We set the total number of iterations in each case to 20000 and discard the first half. The parameter <code>nb</code> is used to set how much back data should appear in a fan chart.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">#########</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Options</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">#########</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>nf <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="co"># Max forecast horizon</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="dv">21</span> <span class="co"># No. back periods plotted in graphs</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>l  <span class="ot">&lt;-</span> <span class="dv">2</span>  <span class="co"># Number of lags in VAR</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># specify parameters of the Minnesota-type prior</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>tau    <span class="ot">&lt;-</span> .<span class="dv">1</span>   <span class="co"># controls prior on own 1st lags (1 makes wibbly)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>d      <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># decay for higher lags</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># prior for the constant</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>gamma  <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># sum of coefficients unit roots</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>delta  <span class="ot">&lt;-</span> <span class="dv">1</span>    <span class="co"># cointegration prior</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Gibbs control</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>reps <span class="ot">&lt;-</span> <span class="dv">20000</span> <span class="co"># total numbers of Gibbs iterations</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>burn <span class="ot">&lt;-</span> <span class="dv">10000</span> <span class="co"># number of burn-in iterations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In what follows we vary <code>tau</code> and the lag length to illustrate their effects. To do this we create the augmented data and then run the Gibbs sampler, using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create augmented data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Yplus <span class="ot">&lt;-</span> <span class="fu">augmentData</span>(Y, l, tau, d, lambda, gamma, delta)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Gibbs sampler</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>out   <span class="ot">&lt;-</span> <span class="fu">Gibbs_estimate</span>(Yplus[[<span class="dv">1</span>]], Yplus[[<span class="dv">2</span>]], reps, burn, <span class="dv">1</span>, nf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>where <code>Y</code> contains the data in a dataframe/tibble with the date in the first column as in the data example above. The code strips out the date and then uses the remaining <span class="math inline">\(N\)</span> columns in the BVAR. See the Code Appendix for the details of the functions.</p>
+<p>The output contains any <strong><em>forecast</em></strong> draws from the Gibbs sampler in the third list element from the <code>Gibbs_estimate()</code> function. The first two elements are coefficient draws. Two further functions plots the fan charts using the Gibbs draws:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># String to put in subtitle</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>controls <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Lag length "</span>, l, <span class="st">": tau="</span>, tau, <span class="st">", d="</span>, d,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">", lambda="</span>, lambda, <span class="st">", gamma="</span>, gamma, <span class="st">", delta="</span>, delta)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fan_chart</span>(Y, out[[<span class="dv">3</span>]], controls, nb)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>p           <span class="ot">&lt;-</span> <span class="fu">coeff_plot</span>(Y, l, out[[<span class="dv">1</span>]], out[[<span class="dv">2</span>]], <span class="dv">333</span>, controls)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>pnum        <span class="ot">&lt;-</span> pnum<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>pce[[pnum]] <span class="ot">&lt;-</span> p[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>where the string <code>controls</code> is put in the chart subtitle and the coefficient densities. It can be anything but is a good place to remind yourself of how you specified the model. Notice we save the coefficient plots for later use.</p>
+<section id="example-1-bvar2-with-tau0.1" class="level3" data-number="9.4.1">
+<h3 data-number="9.4.1" class="anchored" data-anchor-id="example-1-bvar2-with-tau0.1"><span class="header-section-number">9.4.1</span> Example 1: BVAR(2) with <span class="math inline">\(\tau=0.1\)</span></h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/estim-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="example-2-bvar2-with-tau1" class="level3" data-number="9.4.2">
+<h3 data-number="9.4.2" class="anchored" data-anchor-id="example-2-bvar2-with-tau1"><span class="header-section-number">9.4.2</span> Example 2: BVAR(2) with <span class="math inline">\(\tau=1\)</span></h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/estim-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="example-3-bvar6-with-tau0.1" class="level3" data-number="9.4.3">
+<h3 data-number="9.4.3" class="anchored" data-anchor-id="example-3-bvar6-with-tau0.1"><span class="header-section-number">9.4.3</span> Example 3: BVAR(6) with <span class="math inline">\(\tau=0.1\)</span></h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/estim-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="example-4-bvar6-with-tau1" class="level3" data-number="9.4.4">
+<h3 data-number="9.4.4" class="anchored" data-anchor-id="example-4-bvar6-with-tau1"><span class="header-section-number">9.4.4</span> Example 4: BVAR(6) with <span class="math inline">\(\tau=1\)</span></h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/estim-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="coefficient-estimates" class="level3" data-number="9.4.5">
+<h3 data-number="9.4.5" class="anchored" data-anchor-id="coefficient-estimates"><span class="header-section-number">9.4.5</span> Coefficient estimates</h3>
+<p>All of these have underlying parameters. Their estimated posterior densities are:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tri-variate-bvar" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="tri-variate-bvar"><span class="header-section-number">9.5</span> Tri-variate BVAR</h2>
+<p>Now we add the FedFunds rate (FRED series <a href="https://fred.stlouisfed.org/series/FEDFUNDS">FEDFUNDS</a>), so the last ten periods of the data set is now:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Date</th>
+<th style="text-align: right;">Growth</th>
+<th style="text-align: right;">Inflation</th>
+<th style="text-align: right;">FedFunds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2020-10-01</td>
+<td style="text-align: right;">-1.5</td>
+<td style="text-align: right;">1.224176</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-01-01</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">1.905310</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-04-01</td>
+<td style="text-align: right;">12.5</td>
+<td style="text-align: right;">4.776278</td>
+<td style="text-align: right;">0.07</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-07-01</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">5.264633</td>
+<td style="text-align: right;">0.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-10-01</td>
+<td style="text-align: right;">5.7</td>
+<td style="text-align: right;">6.765892</td>
+<td style="text-align: right;">0.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2022-01-01</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">8.023109</td>
+<td style="text-align: right;">0.08</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2022-04-01</td>
+<td style="text-align: right;">1.8</td>
+<td style="text-align: right;">8.556077</td>
+<td style="text-align: right;">0.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2022-07-01</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">8.284860</td>
+<td style="text-align: right;">1.68</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2022-10-01</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">7.110821</td>
+<td style="text-align: right;">3.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-01-01</td>
+<td style="text-align: right;">1.8</td>
+<td style="text-align: right;">5.769521</td>
+<td style="text-align: right;">4.33</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Two more examples follow.</p>
+<section id="example-5-bvar4-with-tau.1-3-variables" class="level3" data-number="9.5.1">
+<h3 data-number="9.5.1" class="anchored" data-anchor-id="example-5-bvar4-with-tau.1-3-variables"><span class="header-section-number">9.5.1</span> Example 5: BVAR(4) with <span class="math inline">\(\tau=.1\)</span>, 3 variables</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/estim-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="example-6-bvar6-with-tau1-3-variables" class="level3" data-number="9.5.2">
+<h3 data-number="9.5.2" class="anchored" data-anchor-id="example-6-bvar6-with-tau1-3-variables"><span class="header-section-number">9.5.2</span> Example 6: BVAR(6) with <span class="math inline">\(\tau=1\)</span>, 3 variables</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/estim-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BVAR_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="code-appendix" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="code-appendix"><span class="header-section-number">9.6</span> Code appendix</h2>
+<p>You can download the program and functions used for the estimates above from the links below. Put them in the same directory and they should recreate exactly (within sampling error) the same graphs as above. Ensure you have all the libraries available that are loaded at the top of <code>BVARdum.R</code>.</p>
+<p>Main program:</p>
+<div class="cell">
+<div class="cell-output-display">
+<a href="data:text/plain;base64,IyMgQlZBUjogZHVtbXkgcHJpb3JzDQojIyBhdXRob3I6IEFuZHJldyBCbGFrZQ0KIyMgZGF0ZTogMzEgTUFyY2ggMjAyMw0KDQojIyBEaXNjbGFpbWVyOiBUaGUgQmFuayBvZiBFbmdsYW5kIGRvZXMgbm90IGFjY2VwdCBhbnkgbGlhYmlsaXR5IGZvciBtaXNsZWFkaW5nIA0KIyMgb3IgaW5hY2N1cmF0ZSBpbmZvcm1hdGlvbiBvciBvbWlzc2lvbnMgaW4gdGhlIGluZm9ybWF0aW9uIHByb3ZpZGVkLiBUaGUgDQojIyBzdWJqZWN0IG1hdHRlciByZWZsZWN0cyB0aGUgdmlld3Mgb2YgdGhlIGluZGl2aWR1YWwgcHJlc2VudGVyIGFuZCBub3QgdGhlIA0KIyMgd2lkZXIgQmFuayBvZiBFbmdsYW5kIG9yIGl0cyBQb2xpY3kgQ29tbWl0dGVlcy4NCg0KIyMjIyMgTGlicmFyaWVzDQoNCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShsdWJyaWRhdGUpDQoNCmxpYnJhcnkocHJvZ3Jlc3MpDQpsaWJyYXJ5KHF1YW50bW9kKSAgICAgIyBGb3IgZGF0YSBhY2Nlc3MNCg0KbGlicmFyeShSQ29sb3JCcmV3ZXIpICMgQ29sb3JzDQoNCnNvdXJjZSgiQlZBUmR1bUZVTkNzLlIiKQ0KDQojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjDQojIERhdGENCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMNCg0KIyBDcmVhdGUgYSBkYXRhIGZyYW1lIG5hbWVkIFkgd2l0aDoNCiMgRGF0ZSBpbiBjb2x1bW4gMSAoaW4gZGF0ZSBmb3JtYXQpDQojIFJlc3Qgb2YgdmFyaWFibGVzIGluIG5leHQgTiBjb2x1bW5zDQoNCiMgQmVsb3cgcmV0cmlldmVzIGRhdGEgZnJvbSBGUkVEIGFuZCBwdXRzIGluIHJlcXVpcmVkIGZvcm1hdA0Kc2VyaWVzIDwtIGMoJ0ExOTFSTzFRMTU2TkJFQScsIA0KICAgICAgICAgICAgJ0NQQUxUVDAxVVNRNjYxUycsDQogICAgICAgICAgICAnRkVERlVORFMnKSAgICAgICAjIEZSRUQgY29kZXM6IFVTIEdEUCBncm93dGgsIENQSSwgUg0KDQpHcm93dGggIDwtIGJyb29tOjp0aWR5KGdldFN5bWJvbHMoc2VyaWVzWzFdLCBzcmM9J0ZSRUQnLCBhdXRvLmFzc2lnbj1GQUxTRSkpICU+JSANCiAgbXV0YXRlKHNlcmllcz0iR3Jvd3RoIikgDQpDUEkgICAgIDwtIGJyb29tOjp0aWR5KGdldFN5bWJvbHMoc2VyaWVzWzJdLCBzcmM9J0ZSRUQnLCBhdXRvLmFzc2lnbj1GQUxTRSkpICU+JSANCiAgbXV0YXRlKHNlcmllcz0iQ1BJIikgDQpGZWRGdW5kcyA8LSBicm9vbTo6dGlkeShnZXRTeW1ib2xzKHNlcmllc1szXSwgc3JjPSdGUkVEJywgYXV0by5hc3NpZ249RkFMU0UpKSAlPiUgDQogIG11dGF0ZShzZXJpZXM9IkZlZEZ1bmRzIikgDQoNClkwIDwtIGJpbmRfcm93cyhHcm93dGgsIENQSSwgRmVkRnVuZHMpICU+JQ0KICBwaXZvdF93aWRlcihuYW1lc19mcm9tPXNlcmllcywgdmFsdWVzX2Zyb209dmFsdWUpICU+JSANCiAgbXV0YXRlKEluZmxhdGlvbj0xMDAqKENQSS9sYWcoQ1BJLDQpLTEpKSAlPiUNCiAgc2VsZWN0KERhdGU9aW5kZXgsIEdyb3d0aCwgSW5mbGF0aW9uLCBGZWRGdW5kcykgJT4lIA0KICBkcm9wX25hKCkgIyBEcm9wIG1pc3Npbmcgb2JzIHRvIGJhbGFuY2UgZGF0YXNldA0KDQpZMCAlPiUgDQogIHBpdm90X2xvbmdlcihjb2xzID0gLURhdGUpICU+JSANCiAgZ2dwbG90KCkgKw0KICBnZW9tX2xpbmUoYWVzKHg9RGF0ZSwgeT12YWx1ZSwgY29sb3I9bmFtZSksIHNob3cubGVnZW5kID0gRkFMU0UpICsNCiAgZmFjZXRfd3JhcCh+IG5hbWUpICsNCiAgdGhlbWVfbWluaW1hbCgpICsNCiAgbGFicyh4PSIiLCB5PSIiKQ0KDQpZIDwtIFkwWywtNF0NCg0KIyMjIyMjIyMjDQojIE9wdGlvbnMNCiMjIyMjIyMjIw0KDQpuZiA8LSAxMiAjIE1heCBmb3JlY2FzdCBob3Jpem9uDQpuYiA8LSAyMSAjIE5vLiBiYWNrIHBlcmlvZHMgcGxvdHRlZCBpbiBncmFwaHMNCmwgIDwtIDIgICMgTnVtYmVyIG9mIGxhZ3MgaW4gVkFSDQoNCiMgc3BlY2lmeSBwYXJhbWV0ZXJzIG9mIHRoZSBNaW5uZXNvdGEtdHlwZSBwcmlvcg0KdGF1ICAgIDwtIC4xICAgIyBjb250cm9scyBwcmlvciBvbiBvd24gMXN0IGxhZ3MgKDEgbWFrZXMgd2liYmx5KQ0KZCAgICAgIDwtIDEgICAgIyBkZWNheSBmb3IgaGlnaGVyIGxhZ3MNCmxhbWJkYSA8LSAxICAgICMgcHJpb3IgZm9yIHRoZSBjb25zdGFudA0KZ2FtbWEgIDwtIDEgICAgIyBzdW0gb2YgY29lZmZpY2llbnRzIHVuaXQgcm9vdHMNCmRlbHRhICA8LSAxICAgICMgY29pbnRlZ3JhdGlvbiBwcmlvcg0KDQojIEdpYmJzIGNvbnRyb2wNCnJlcHMgPC0gMjAwMDAgIyB0b3RhbCBudW1iZXJzIG9mIEdpYmJzIGl0ZXJhdGlvbnMNCmJ1cm4gPC0gMTAwMDAgIyBudW1iZXIgb2YgYnVybi1pbiBpdGVyYXRpb25zDQoNCiMjIyMgRXhhbXBsZSAxOiBCVkFSKDIpIHdpdGggJFx0YXU9MC4xJA0KDQpwY2UgICA8LSBsaXN0KCkNCg0KWXBsdXMgPC0gYXVnbWVudERhdGEoWSwgbCwgdGF1LCBkLCBsYW1iZGEsIGdhbW1hLCBkZWx0YSkNCm91dCAgIDwtIEdpYmJzX2VzdGltYXRlKFlwbHVzW1sxXV0sIFlwbHVzW1syXV0sIHJlcHMsIGJ1cm4sIDEsIG5mKQ0KDQojIFN0cmluZyB3aXRoIGNvbnRyb2wgaW5mbw0KY29udHJvbHMgPC0gcGFzdGUwKCJMYWcgbGVuZ3RoICIsIGwsICI6IHRhdT0iLCB0YXUsICIsIGQ9IiwgZCwgDQogICAgICAgICAgICAgICAgICAgIiwgbGFtYmRhPSIsIGxhbWJkYSwgIiwgZ2FtbWE9IiwgZ2FtbWEsICIsIGRlbHRhPSIsIGRlbHRhKQ0KDQojIFBsb3RzDQpmYW5fY2hhcnQoWSwgb3V0W1szXV0sIGNvbnRyb2xzLCBuYikNCnAgPC0gY29lZmZfcGxvdChZLCBsLCBvdXRbWzFdXSwgb3V0W1syXV0sIDMzMywgY29udHJvbHMpDQpwY2VbWzFdXSA8LSBwW1sxXV0NCg0KIyMjIyBFeGFtcGxlIDI6IEJWQVIoMikgd2l0aCAkXHRhdT0xJA0KDQp0YXUgICA8LSAxDQpZcGx1cyA8LSBhdWdtZW50RGF0YShZLCBsLCB0YXUsIGQsIGxhbWJkYSwgZ2FtbWEsIGRlbHRhKQ0Kb3V0ICAgPC0gR2liYnNfZXN0aW1hdGUoWXBsdXNbWzFdXSwgWXBsdXNbWzJdXSwgcmVwcywgYnVybiwgMSwgbmYpDQoNCiMgU3RyaW5nIHdpdGggY29udHJvbCBpbmZvDQpjb250cm9scyA8LSBwYXN0ZTAoIkxhZyBsZW5ndGggIiwgbCwgIjogdGF1PSIsIHRhdSwgIiwgZD0iLCBkLCANCiAgICAgICAgICAgICAgICAgICAiLCBsYW1iZGE9IiwgbGFtYmRhLCAiLCBnYW1tYT0iLCBnYW1tYSwgIiwgZGVsdGE9IiwgZGVsdGEpDQoNCiMgUGxvdHMNCmZhbl9jaGFydChZLCBvdXRbWzNdXSwgY29udHJvbHMsIG5iKQ0KcCA8LSBjb2VmZl9wbG90KFksIGwsIG91dFtbMV1dLCBvdXRbWzJdXSwgMzMzLCBjb250cm9scykNCnBjZVtbMl1dIDwtIHBbWzFdXQ0KDQojIyMjIEV4YW1wbGUgMzogQlZBUig2KSB3aXRoICRcdGF1PTAuMSQNCg0KbCAgIDwtIDYNCnRhdSA8LSAwLjENCg0KWXBsdXMgPC0gYXVnbWVudERhdGEoWSwgbCwgdGF1LCBkLCBsYW1iZGEsIGdhbW1hLCBkZWx0YSkNCm91dCAgIDwtIEdpYmJzX2VzdGltYXRlKFlwbHVzW1sxXV0sIFlwbHVzW1syXV0sIHJlcHMsIGJ1cm4sIDEsIG5mKQ0KDQojIFN0cmluZyB3aXRoIGNvbnRyb2wgaW5mbw0KY29udHJvbHMgPC0gcGFzdGUwKCJMYWcgbGVuZ3RoICIsIGwsICI6IHRhdT0iLCB0YXUsICIsIGQ9IiwgZCwgDQogICAgICAgICAgICAgICAgICAgIiwgbGFtYmRhPSIsIGxhbWJkYSwgIiwgZ2FtbWE9IiwgZ2FtbWEsICIsIGRlbHRhPSIsIGRlbHRhKQ0KDQojIFBsb3RzDQpmYW5fY2hhcnQoWSwgb3V0W1szXV0sIGNvbnRyb2xzLCBuYikNCnAgPC0gY29lZmZfcGxvdChZLCBsLCBvdXRbWzFdXSwgb3V0W1syXV0sIDMzMywgY29udHJvbHMpDQpwY2VbWzNdXSA8LSBwW1sxXV0NCg0KIyMjIyBFeGFtcGxlIDQ6IEJWQVIoNikgd2l0aCAkXHRhdT0xJA0KDQpsICAgPC0gNg0KdGF1IDwtIDENCg0KWXBsdXMgPC0gYXVnbWVudERhdGEoWSwgbCwgdGF1LCBkLCBsYW1iZGEsIGdhbW1hLCBkZWx0YSkNCm91dCAgIDwtIEdpYmJzX2VzdGltYXRlKFlwbHVzW1sxXV0sIFlwbHVzW1syXV0sIHJlcHMsIGJ1cm4sIDEsIG5mKQ0KDQojIFN0cmluZyB3aXRoIGNvbnRyb2wgaW5mbw0KY29udHJvbHMgPC0gcGFzdGUwKCJMYWcgbGVuZ3RoICIsIGwsICI6IHRhdT0iLCB0YXUsICIsIGQ9IiwgZCwgDQogICAgICAgICAgICAgICAgICAgIiwgbGFtYmRhPSIsIGxhbWJkYSwgIiwgZ2FtbWE9IiwgZ2FtbWEsICIsIGRlbHRhPSIsIGRlbHRhKQ0KDQojIFBsb3RzDQpmYW5fY2hhcnQoWSwgb3V0W1szXV0sIGNvbnRyb2xzLCBuYikNCnAgPC0gY29lZmZfcGxvdChZLCBsLCBvdXRbWzFdXSwgb3V0W1syXV0sIDMzMywgY29udHJvbHMpDQpwY2VbWzRdXSA8LSBwW1sxXV0NCg0KIyMjIyBDb2VmZmljaWVudCBlc3RpbWF0ZXMNCiAgDQojIyMjIyMgUGxvdCBlc3RpbWF0ZWQgcGFyYW0gZGVuc2l0aWVzICMjIyMjDQpwY2VbWzFdXQ0KcGNlW1syXV0NCnBjZVtbM11dDQpwY2VbWzRdXQ0KDQojIyBUcmktdmFyaWF0ZSBCVkFSDQogIA0KWSAgIDwtIFkwDQoNCiMjIyMgRXhhbXBsZSA1OiBCVkFSKDQpIHdpdGggJFx0YXU9LjEkLCAzIHZhcmlhYmxlcw0KDQpsICAgPC0gNA0KdGF1IDwtIC4xDQpZcGx1cyA8LSBhdWdtZW50RGF0YShZLCBsLCB0YXUsIGQsIGxhbWJkYSwgZ2FtbWEsIGRlbHRhKQ0Kb3V0ICAgPC0gR2liYnNfZXN0aW1hdGUoWXBsdXNbWzFdXSwgWXBsdXNbWzJdXSwgcmVwcywgYnVybiwgMSwgbmYpDQoNCiMgU3RyaW5nIHdpdGggY29udHJvbCBpbmZvDQpjb250cm9scyA8LSBwYXN0ZTAoIkxhZyBsZW5ndGggIiwgbCwgIjogdGF1PSIsIHRhdSwgIiwgZD0iLCBkLCANCiAgICAgICAgICAgICAgICAgICAiLCBsYW1iZGE9IiwgbGFtYmRhLCAiLCBnYW1tYT0iLCBnYW1tYSwgIiwgZGVsdGE9IiwgZGVsdGEpDQoNCiMgQ29lZmZzDQpwIDwtIGNvZWZmX3Bsb3QoWSwgbCwgb3V0W1sxXV0sIG91dFtbMl1dLCAwLCBjb250cm9scykNCnBbWzFdXQ0KDQojIEZhbiBjaGFydA0KZmFuX2NoYXJ0KFksIG91dFtbM11dLCBjb250cm9scywgbmIpDQoNCiMjIyMgRXhhbXBsZSA2OiBCVkFSKDYpIHdpdGggJFx0YXU9MSQsIDMgdmFyaWFibGVzDQoNCmwgICA8LSA2DQp0YXUgPC0gMQ0KWXBsdXMgPC0gYXVnbWVudERhdGEoWSwgbCwgdGF1LCBkLCBsYW1iZGEsIGdhbW1hLCBkZWx0YSkNCm91dCAgIDwtIEdpYmJzX2VzdGltYXRlKFlwbHVzW1sxXV0sIFlwbHVzW1syXV0sIHJlcHMsIGJ1cm4sIDEsIG5mKQ0KDQojIFN0cmluZyB3aXRoIGNvbnRyb2wgaW5mbw0KY29udHJvbHMgPC0gcGFzdGUwKCJMYWcgbGVuZ3RoICIsIGwsICI6IHRhdT0iLCB0YXUsICIsIGQ9IiwgZCwgDQogICAgICAgICAgICAgICAgICAgIiwgbGFtYmRhPSIsIGxhbWJkYSwgIiwgZ2FtbWE9IiwgZ2FtbWEsICIsIGRlbHRhPSIsIGRlbHRhKQ0KDQojIENvZWZmcw0KcCA8LSBjb2VmZl9wbG90KFksIGwsIG91dFtbMV1dLCBvdXRbWzJdXSwgMCwgY29udHJvbHMpDQpwW1sxXV0NCiMgRmFuIGNoYXJ0DQpmYW5fY2hhcnQoWSwgb3V0W1szXV0sIGNvbnRyb2xzLCBuYikNCg==" download="BVARdum.R">Download BVARdum.R</a>
+</div>
+</div>
+<p>Functions:</p>
+<div class="cell">
+<div class="cell-output-display">
+<a href="data:text/plain;base64,IyMjIyMjIyBGdW5jdGlvbnMNCg0KaXdwUSA8LSBmdW5jdGlvbih2LHgpIHsNCiAgbiAgPC0gbnJvdyh4KQ0KICB6ICA8LSBtYXRyaXgocm5vcm0odipuKSx2LG4pICUqJSBjaG9sKHgpDQogIHJldHVybihjaG9sMmludihjaG9sKGNyb3NzcHJvZCh6KSkpKQ0KfQ0KDQojIyMjIyMgRGF0YSBhdWcNCg0KYXVnbWVudERhdGEgPC0gZnVuY3Rpb24oWSwgbCwgdGF1LCBkLCBsYW1iZGEsIGdhbW1hLCBkZWx0YSkgew0KICANCiAgIyBZICAgICAgIE4rMSBkaW0gZGF0YSBtYXRyaXggd2l0aCBEYXRlIGFzIGZpcnN0IGNvbHVtbg0KICAjIGwgICAgICAgbGFnIGxlbmd0aA0KICAjIHRhdSAgICAgY29udHJvbHMgcHJpb3Igb24gb3duIDFzdCBsYWdzDQogICMgZCAgICAgICBkZWNheSBmb3IgaGlnaGVyIGxhZ3MNCiAgIyBsYW1iZGEgIHByaW9yIGZvciB0aGUgY29uc3RhbnQNCiAgIyBnYW1tYSAgIHN1bSBvZiBjb2VmZmljaWVudHMgdW5pdCByb290cw0KICAjIGRlbHRhICAgY28taW50ZWdyYXRpb24gcHJpb3INCiAgDQogIE4gICA8LSBuY29sKFkpLTEgICMgTnVtYmVyIG9mIHZhcmlhYmxlcw0KICANCiAgIyBEYXRhIG1hdHJpeA0KICBYICA8LSBtYXRyaXgoMSwgbnJvdz1ucm93KFkpLCBuY29sPTEpDQogIGZvciAoaSBpbiAxOmwpIHsNCiAgICBYIDwtIGNiaW5kKFgsIGxhZyhZWywtMV0sIGkpKSANCiAgfQ0KICANCiAgWCAgICA8LSBhcy5tYXRyaXgoWFstKDE6bCksXSkNCiAgWSAgICA8LSBhcy5tYXRyaXgoWVstKDE6bCksLTFdKQ0KICBUICAgIDwtIGxlbmd0aChZWywxXSkNCiAgDQogICMgbWVhbiBvZiB0aGUgZGF0YQ0KICBtdSAgIDwtIGNvbE1lYW5zKFkpDQogIGRtdSAgPC0gZGlhZyhtdSkNCiAgDQogIHNkIDwtIG1hdHJpeCgwLDEsTikNCiAgIyBJbmRpdmlkdWFsIEFSKDIpIHJlZ3Jlc3Npb25zIHRvIGdldCBzMSwgczINCiAgZm9yIChqIGluIDE6Tikgew0KICAgIFhhIDwtIFhbLGMoMSwgc2VxKDEraiwxK04qbCxOKSldDQogICAgWFggPC0gY2hvbDJpbnYoY2hvbChjcm9zc3Byb2QoWGEpKSkNCiAgICBlICA8LSBZWyxqXSAtIFhhICUqJSBYWCAlKiUgY3Jvc3Nwcm9kKFhhLCBZWyxqXSkNCiAgICBzZFsxLGpdIDwtIHNxcnQoc3VtKGVeMikvKFQtMikpDQogIH0NCiAgZHMgPC0gZGlhZyhjKHNkKSkNCiAgDQogICMjIyMjIyMjIER1bW15IG9ic2VydmF0aW9uIHByaW9ycw0KICANCiAgIyBzcGVjaWZ5IGR1bW15IG9ic2VydmF0aW9ucyBmb3IgZmlyc3QgbGFnDQogIHlkMSA8LSBkcy90YXUNCiAgeGQxIDwtIGNiaW5kKDAsIGRzL3RhdSwgbWF0cml4KDAsIE4sIE4qKGwtMSkpKQ0KICANCiAgIyBzcGVjaWZ5IGR1bW1pZXMgZm9yIGhpZ2hlciBsYWdzDQogIHlkMiA8LSBtYXRyaXgoMCwgTioobC0xKSwgTikNCiAgeGQyIDwtIG1hdHJpeCgwLCBOKihsLTEpLCAxK04qbCkNCiAgZm9yIChqIGluIDE6KGwtMSkpDQogIHsNCiAgICB4ZDJbKChqLTEpKk4rMSk6KGoqTiksICgyK2oqTik6KDErKGorMSkqTildIDwtIGRzKigoaisxKV5kKS90YXUNCiAgfQ0KICANCiAgIyBzcGVjaWZ5IHByaW9ycyBmb3IgdGhlIGNvbnN0YW50cw0KICB5ZDMgPC0gbWF0cml4KDAsIDEsIE4pDQogIHhkMyA8LSBjYmluZChtYXRyaXgobGFtYmRhLCAxLCAxKSwgbWF0cml4KDAsIDEsIE4qbCkpDQogIA0KICAjIHNwZWNpZnkgZHVtbXkgdmFyaWFibGVzIGZvciBjb3ZhcmlhbmNlIG1hdHJpeA0KICB5ZDQgPC0gZHMNCiAgeGQ0IDwtIG1hdHJpeCgwLCBOLCBOKmwrMSkNCiAgDQogICMgc3BlY2lmeSBzdW0gb2YgY29lZmZpY2llbnQgZHVtbWllcw0KICB5ZDUgPC0gZ2FtbWEqZG11DQogIHhkNSA8LSBjYmluZCgwLCBtYXRyaXgocmVwKGRtdSxsKSwgTiwgTipsKSkNCiAgDQogICMgc3BlY2lmeSBjb21tb24gc3RvY2hhc3RpYyB0cmVuZCBkdW1taWVzDQogIHlkNiA8LSBtYXRyaXgoZGVsdGEqbXUsIDEsIE4pDQogIHhkNiA8LSBkZWx0YSpjYmluZCgxLCBtYXRyaXgobXUsIDEsIE4qbCkpDQogIA0KICAjIERhdGEgYW5kIGFsbCBkdW1teSBvYnNlcnZhdGlvbnMNCiAgWXN0YXIgPC0gcmJpbmQoWSwgeWQxLCB5ZDIsIHlkMywgeWQ0LCB5ZDUsIHlkNikNCiAgWHN0YXIgPC0gcmJpbmQoWCwgeGQxLCB4ZDIsIHhkMywgeGQ0LCB4ZDUsIHhkNikNCiAgDQogIHJldHVybihsaXN0KFlzdGFyLFhzdGFyKSkNCiAgDQp9DQoNCiMjIyMjIyMjIyMjIyMjIyMjIw0KDQpHaWJic19lc3RpbWF0ZSA8LSBmdW5jdGlvbihZLCBYLCByZXBzLCBidXJuLCBjZSwgbmYpew0KICANCiAgTiA8LSBuY29sKFkpDQogIFQgPC0gbnJvdyhZKQ0KICBsIDwtIChuY29sKFgpLTEpL04NCiAgbSA8LSBOKihsKzIpKzINCiAgDQogICMgY29tcHV0ZSBwb3N0ZXJpb3IgbWVhbg0KICBiaGF0ICAgPC0gY2hvbDJpbnYoY2hvbChjcm9zc3Byb2QoWCkpKSAlKiUgY3Jvc3Nwcm9kKFgsWSkNCiAgIyBjb21wdXRlIGluaXRpYWwgdmFsdWUgb2Ygc2lnbWENCiAgZSAgICAgIDwtIFkgLSBYICUqJSBiaGF0DQogIHNpZ21hICA8LSBjcm9zc3Byb2QoZSkvVA0KICANCiAgIyB2ZWN0b3Jpc2UgYmhhdCwgY2FsY3VsYXRlIChYJ1gpXi0xDQogIE0gICAgPC0gY2JpbmQoYyhiaGF0KSkNCiAgaVhzICA8LSBjaG9sMmludihjaG9sKGNyb3NzcHJvZChYKSkpDQogIA0KICAjIFN0b3JlIEdpYmJzIHNhbXBsZXMgb2YgZm9yZWNhc3RzDQogIGZzdG9yZSA8LSBtYXRyaXgoMCxyZXBzLWJ1cm4sbmYqTikNCiAgYnN0b3JlIDwtIG1hdHJpeCgwLHJlcHMtYnVybixOKihOKmwrMSkpDQogIHNzdG9yZSA8LSBtYXRyaXgoMCxyZXBzLWJ1cm4sTikNCiAgDQogICMgR2liYnMgbG9vcA0KICBwYiA8LSBwcm9ncmVzc19iYXIkbmV3KHRvdGFsPXJlcHMsIGNsZWFyPVRSVUUpDQogIA0KICBmb3IgKGkgaW4gMTpyZXBzKSB7IA0KICAgIA0KICAgIHBiJHRpY2soKQ0KICAgIA0KICAgICMgRHJhdyBWQVIgY29lZmZzDQogICAgViAgICAgPC0ga3JvbmVja2VyKHNpZ21hLCBpWHMpDQogICAgYiAgICAgPC0gTSArIHQoY2hvbChWKSkgJSolIHJub3JtKE4qKE4qbCsxKSkNCiAgICANCiAgICAjIERyYXcgc2lnbWENCiAgICBicyAgICA8LSBtYXRyaXgoYiwgbnJvdz1OKmwrMSwgbmNvbD1OLCBieXJvdz1GQUxTRSkNCiAgICBlICAgICA8LSBZIC0gWCUqJWJzDQogICAgc2NhICAgPC0gY2hvbDJpbnYoY2hvbChjcm9zc3Byb2QoZSkpKQ0KICAgIHNpZ21hIDwtIGl3cFEoVCwgc2NhKQ0KICAgIA0KICAgIGlmIChpPmJ1cm4pIHsgDQogICAgICBpZihjZSA+IDApIHsNCiAgICAgICAgYnN0b3JlW2ktYnVybixdIDwtIGMoYnMpDQogICAgICAgIHNzdG9yZVtpLWJ1cm4sXSA8LSBkaWFnKHNpZ21hKQ0KICAgICAgfQ0KICAgICAgaWYobmYgPiAwKSB7DQogICAgICAgICMgZm9yZWNhc3QgR0RQIGdyb3d0aCBhbmQgaW5mbGF0aW9uIGZvciBuZiBwZXJpb2RzDQogICAgICAgIHloYXQgICAgICAgPC0gbWF0cml4KDAsbmYrbCxOKQ0KICAgICAgICB5aGF0WzE6bCxdIDwtIFlbKFQtbCsxLW0pOihULW0pLF0NCiAgICAgICAgZm9yIChqIGluIChsKzEpOihuZitsKSkgew0KICAgICAgICAgIGxkYXRhICAgIDwtIGMoMSwgYyh0KHloYXRbKGotMSk6KGotbCksXSkpKQ0KICAgICAgICAgIHloYXRbaixdIDwtIGxkYXRhICUqJSBicyArIHQocm5vcm0oTikpJSolY2hvbChzaWdtYSkNCiAgICAgICAgfQ0KICAgICAgICBmc3RvcmVbaS1idXJuLF0gPC0gYyh5aGF0Wy0oMTpsKSxdKQ0KICAgICAgfQ0KICAgIH0NCiAgfQ0KICANCiAgcmV0dXJuKGxpc3QoYnN0b3JlLCBzc3RvcmUsIGZzdG9yZSkpDQogIA0KfQ0KDQojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjDQoNCmZhbl9jaGFydCA8LSBmdW5jdGlvbihZLCBvdXQsIGNvbnRyb2xzLCBuYil7DQogIA0KICAjIERpbWVuc2lvbnMNCiAgTiAgIDwtIG5jb2woWSktMSAjIE5vIHZhcmlhYmxlcw0KICBuZiAgPC0gbmNvbChvdXQpL04gIyBObyBmb3JlY2FzdCBwZXJpb2RzDQogIA0KICAjIFZhcmlhYmxlIG5hbWVzIA0KICBubXMgPC0gY29sbmFtZXMoWSlbLTFdDQogIA0KICAjIERhdGVzDQogIGZkdCA8LSBzZXEuRGF0ZSh0YWlsKFkkRGF0ZSwxKSwgYnk9InF1YXJ0ZXIiLCBsZW5ndGgub3V0PW5mKzEpDQogIA0KICAjIENvbG91cnMgZm9yIGxpbmVzL2NlbnRyZXMNCiAgY29sX3RhaWwgPC0gImdyZXk5NSINCiAgaWYgKE4gPD0gOCkgew0KICAgIGNlbnRyZSA8LSBicmV3ZXIucGFsKG4gPSBpZmVsc2UoTjwzLCAzLCBOKSwgbmFtZSA9ICJEYXJrMiIpICANCiAgfSBlbHNlIHtjZW50cmUgPC0gcmVwKGMoImdyZWVuIiwgInJlZCIsICJwdXJwbGUiKSwgcm91bmQoTi8zKSl9DQogIA0KICAjIFF1YW50aWxlcw0KICBxdiAgPC0gYyguMDUsLjIsLjM1LC42NSwuOCwuOTUpDQogIGxxICA8LSBsZW5ndGgocXYpDQogIA0KICAjIENvbG9ycyBmb3IgZmFucyBzZWN0aW9ucw0KICBjb2wgPC0gTlVMTA0KICBmb3IgKGsgaW4gMTpOKSB7DQogICAgQ1JQIDwtIGMoY29sX3RhaWwsY2VudHJlW2tdLGNvbF90YWlsKQ0KICAgIGNvbCA8LSBjKGNvbCwgY29sb3JSYW1wUGFsZXR0ZShDUlApKGxxKzEpWzI6bHFdKQ0KICB9DQogIA0KICAjIyMjIyBTdGFjay1iYW5kIHZlcnNpb24gIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMNCiAgDQogIG1tIDwtIG91dCAlPiUgDQogICAgYXBwbHkoMiwgcXVhbnRpbGUsIHByb2JzPXF2KSAlPiUgDQogICAgdCgpICU+JSANCiAgICBhc190aWJibGUoKSAlPiUgDQogICAgbXV0YXRlKFZhcmlhYmxlID0gcmVwKG5tcywgZWFjaD1uZiksIEYgPSByZXAoMTpuZiwgTikpICU+JSANCiAgICBwaXZvdF9sb25nZXIoY29scyA9IC1jKFZhcmlhYmxlLCBGKSkgJT4lIA0KICAgIHVuaXRlKG5hbWVzLCBjKFZhcmlhYmxlLCBuYW1lKSkgJT4lIA0KICAgIHBpdm90X3dpZGVyKG5hbWVzX2Zyb20gPSBuYW1lcywgdmFsdWVzX2Zyb20gPSB2YWx1ZSkgJT4lIA0KICAgIHNlbGVjdCgtRikgJT4lIA0KICAgIHJiaW5kKHJlcChjKGFzLm1hdHJpeCh0YWlsKFlbLC0xXSwxKSkpLCBlYWNoPWxxKSwgLikgJT4lDQogICAgbXV0YXRlKERhdGUgPSBmZHQpIA0KICANCiAgbW1hIDwtIG1tICU+JSANCiAgICBzZWxlY3QoLWVuZHNfd2l0aCgiXzk1JSIpKSAlPiUgDQogICAgcmVuYW1lX2FsbCh+IGMocGFzdGUocmVwKG5tcywgZWFjaD0obHEtMSkpLCBsZXR0ZXJzWzE6KGxxLTEpXSwgc2VwPSJfIiksICJEYXRlIikpICU+JQ0KICAgIHBpdm90X2xvbmdlcihjb2xzPS1EYXRlLCBuYW1lc190byA9ICJCYW5kIiwgdmFsdWVzX3RvID0gIkxWIikNCiAgDQogIG1tYiA8LSBtbSAlPiUgDQogICAgc2VsZWN0KC1lbmRzX3dpdGgoIl81JSIpKSAlPiUgDQogICAgcmVuYW1lX2FsbCh+IGMocGFzdGUocmVwKG5tcywgZWFjaD0obHEtMSkpLCBsZXR0ZXJzWzE6KGxxLTEpXSwgc2VwPSJfIiksICJEYXRlIikpICU+JQ0KICAgIHBpdm90X2xvbmdlcihjb2xzPS1EYXRlLCBuYW1lc190byA9ICJCYW5kIiwgdmFsdWVzX3RvID0gIlVWIikNCiAgDQogIGptbSA8LSBsZWZ0X2pvaW4obW1hLCBtbWIpICU+JSANCiAgICBtdXRhdGUobmFtZSA9IGdzdWIoIl8uKiIsICIiLCBCYW5kKSkNCiAgDQogIGhpc3QgPC0gdGFpbChZLCBuYikgJT4lIA0KICAgIHBpdm90X2xvbmdlcihjb2xzPS1EYXRlKQ0KICANCiAgYmluZF9yb3dzKGhpc3QsIGptbSkgJT4lIA0KICAgIGdncGxvdCgpICsgDQogICAgZ2VvbV9yZWN0KGFlcyh4bWluPW1heChEYXRlWyFpcy5uYSh2YWx1ZSldLCBuYS5ybT1UUlVFKSwNCiAgICAgICAgICAgICAgICAgIHhtYXg9bWF4KERhdGUsIG5hLnJtPVRSVUUpLCANCiAgICAgICAgICAgICAgICAgIHltaW49LUluZiwgeW1heD1JbmYpLCANCiAgICAgICAgICAgICAgZmlsbD1jb2xfdGFpbCwgYWxwaGE9LjEpICsNCiAgICBnZW9tX3JpYmJvbihhZXMoeD1EYXRlLCB5bWluPUxWLCB5bWF4PVVWLCBmaWxsPUJhbmQpLCBhbHBoYT0uOCkgKw0KICAgIGdlb21fbGluZShhZXMoeD1EYXRlLCB5PXZhbHVlLCBjb2xvcj1uYW1lKSkgKyANCiAgICBzY2FsZV9maWxsX21hbnVhbCh2YWx1ZXM9Y29sKSArDQogICAgc2NhbGVfY29sb3JfbWFudWFsKHZhbHVlcz1jZW50cmUpICsNCiAgICBzY2FsZV94X2RhdGUoZXhwYW5kID0gYygwLDApKSArDQogICAgdGhlbWVfbWluaW1hbCgpICsNCiAgICBmYWNldF9ncmlkKH4gbmFtZSkgKyANCiAgICB0aGVtZShsZWdlbmQucG9zaXRpb249Im5vbmUiKSArDQogICAgbGFicyh0aXRsZT0iRHVtbXkgdmFyaWFibGUgQlZBUiBtb2RlbCIsIA0KICAgICAgICAgc3VidGl0bGU9Y29udHJvbHMsIA0KICAgICAgICAgeT0iUGVyY2VudGFnZSBwb2ludHMiLCB4PSIiKQ0KICANCn0NCg0KIyMjIyMjIyMjIyMjIyMjDQoNCmNvZWZmX3Bsb3QgPC0gZnVuY3Rpb24oWSwgbCwgYiwgcywgc2ksIGNvbnRyb2xzKXsNCiAgIyMjIyMjIFBsb3QgZXN0aW1hdGVkIHBhcmFtIGRlbnNpdGllcyAjIyMjIw0KICAjIFJldHJpZXZlIGNvbnN0YW50cy9BUjEvQVIyL3NpZ21hDQogIA0KICBOICAgPC0gbmNvbChZKS0xDQogIG5tcyA8LSBjb2xuYW1lcyhZKVstMV0NCiAgDQogICNTaWdtYQ0KICBzYyA8LSBzICU+JQ0KICAgIGFzX3RpYmJsZSgubmFtZV9yZXBhaXIgPSB+IHBhc3RlMCgic2lnbWFeMiAtIiwgbm1zKSkgJT4lDQogICAgbXV0YXRlKGl0ZXIgPSAxOm5yb3cocyksIHcgPSAiVmFyaWFuY2UiICkgJT4lIA0KICAgIHBpdm90X2xvbmdlcihjb2xzPS1jKHcsaXRlcikpDQogICMgQ29uc3RhbnQNCiAgcGMgPC0gYlssKCgwOihOLTEpKSooTipsKzEpKzEpXSAlPiUgDQogICAgYXNfdGliYmxlKC5uYW1lX3JlcGFpciA9IH4gcGFzdGUwKCJhbHBoYSAtIiwgbm1zKSkgJT4lDQogICAgbXV0YXRlKGl0ZXIgPSAxOm5yb3coYiksIHcgPSAiQ29uc3RhbnQiICkgJT4lIA0KICAgIHBpdm90X2xvbmdlcihjb2xzPS1jKHcsaXRlcikpDQogICMgQVIxDQogIGFjIDwtIGJbLCgoMDooTi0xKSkqKE4qbCsxKSsxKSsoMTpOKV0gJT4lDQogICAgYXNfdGliYmxlKC5uYW1lX3JlcGFpciA9IH4gcGFzdGUoInJob1sxXSAtIiwgbm1zKSkgJT4lDQogICAgbXV0YXRlKGl0ZXIgPSAxOm5yb3coYiksIHcgPSAiQVIxIiApICU+JSANCiAgICBwaXZvdF9sb25nZXIoY29scz0tYyh3LGl0ZXIpKQ0KICANCiAgY3NlcXVlbmNlcyA8LSBiaW5kX3Jvd3Moc2MsIHBjLCBhYykNCiAgDQogIGlmIChsID4gMSkgew0KICAgICNBUjINCiAgICBkYyA8LSBiWywoKDA6KE4tMSkpKihOKmwrMSkrMSkrMiooMTpOKV0gJT4lDQogICAgICBhc190aWJibGUoLm5hbWVfcmVwYWlyID0gfiBwYXN0ZTAoInJob1syXSAtIiwgbm1zKSkgJT4lDQogICAgICBtdXRhdGUoaXRlciA9IDE6bnJvdyhiKSwgdyA9ICJBUjIiICkgJT4lIA0KICAgICAgcGl2b3RfbG9uZ2VyKGNvbHM9LWModyxpdGVyKSkNCiAgICBjc2VxdWVuY2VzIDwtIGJpbmRfcm93cyhjc2VxdWVuY2VzLCBkYykNCiAgfQ0KICANCiAgcCA8LSBsaXN0KCkNCiAgIyBBbGwgYXMgaGlzdG9ncmFtcy9kZW5zaXRpZXMNCiAgcFtbMV1dIDwtIGNzZXF1ZW5jZXMgJT4lDQogICAgZ2dwbG90KCkgKyANCiAgICBnZW9tX2hpc3RvZ3JhbShhZXMoeD12YWx1ZSwgeT1hZnRlcl9zdGF0KGRlbnNpdHkpLCBmaWxsPXcpLCBhbHBoYT0wLjMzLCBiaW5zPTE1MCkgKw0KICAgIGdlb21fZGVuc2l0eShhZXMoeD12YWx1ZSwgY29sb3VyPXcpKSArDQogICAgZmFjZXRfd3JhcCh+IG5hbWUsIGxhYmVsbGVyPWxhYmVsX3BhcnNlZCwgbmNvbD1OLCBzY2FsZXM9ImZyZWVfeSIpICsNCiAgICB0aGVtZV9taW5pbWFsKCkgKw0KICAgIHRoZW1lKGxlZ2VuZC5wb3NpdGlvbj0ibm9uZSIpICsgDQogICAgbGFicyh0aXRsZT0iQ29lZmZpY2llbnRzOiBIaXN0b2dyYW1zIGFuZCBrZXJuZWwtc21vb3RoZWQgZXN0aW1hdGVkIGRlbnNpdGllcyIsIA0KICAgICAgICAgc3VidGl0bGU9Y29udHJvbHMsIHg9IiIsIHk9IiIpDQogIA0KICAjIFBsb3Qgc2VsZWN0ZWQgc2VxdWVuY2VzDQogIGlmKHNpID4gMCkgew0KICAgIHBbWzJdXSA8LSBjc2VxdWVuY2VzICU+JQ0KICAgICAgZmlsdGVyKGl0ZXIgPCBzaSkgJT4lIA0KICAgICAgZ2dwbG90KCkgKyANCiAgICAgIGdlb21fbGluZShhZXMoeD1pdGVyLCB5PXZhbHVlLCBjb2xvdXI9bmFtZSksIHNob3cubGVnZW5kPUZBTFNFKSArDQogICAgICBmYWNldF93cmFwKH5uYW1lLCBsYWJlbGxlcj1sYWJlbF9wYXJzZWQsIG5jb2w9Tiwgc2NhbGVzPSJmcmVlIikgKw0KICAgICAgdGhlbWVfbWluaW1hbCgpICsgDQogICAgICBsYWJzKHRpdGxlPXBhc3RlKCJTZXF1ZW5jZXMgZnJvbSB0aGUgR2liYnMgU2FtcGxlciwgZmlyc3QiLHNpLCJpdGVyYXRpb25zIiksIA0KICAgICAgICAgICBzdWJ0aXRsZT1jb250cm9scywgeD0iIiwgeT0iIikNCiAgfQ0KICANCiAgcmV0dXJuKHApDQp9" download="BVARdumFUNCs.R">Download BVARdumFUNCs.R</a>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Banbura" class="csl-entry" role="listitem">
+Banbura, M., D. Giannone, and L. Reichlin. 2010. <span>“Large <span>B</span>ayesian Vector Auto Regressions.”</span> <em>Journal of Applied Econometrics</em> 25 (1): 71–92.
+</div>
+<div id="ref-PriorsVAR" class="csl-entry" role="listitem">
+Giannone, Domenico, Michele Lenza, and Giorgio E. Primiceri. 2015. <span>“<span class="nocase">Prior Selection for Vector Autoregressions</span>.”</span> <em>The Review of Economics and Statistics</em> 97 (2): 436–51.
+</div>
+<div id="ref-Theil" class="csl-entry" role="listitem">
+Theil, Henri, and Arthur S. Goldberger. 1961. <span>“On Pure and Mixed Statistical Estimation in Economics.”</span> <em>International Economic Review</em> 2: 317–32.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./BK.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
