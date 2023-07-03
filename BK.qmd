@@ -14,7 +14,7 @@ mat_print <- function(x) {
 
 ## Introduction
 
-How do we solve rational expectations models? What does that even mean? Here I show how to implement versions of the @BK80 and @Klein solutions to linear rational expectations models in R. The implementation is fairly general, and copes with singular models. It is a very transparent implementation, with all the necessary code, and also shows how to calculate and plot impulse responses. 
+How do we solve rational expectations models? What does that even mean? Here I show how to implement versions of the @BK80\index{Blanchard, O.}\index{Kahn, C.} and @Klein solutions to linear rational expectations models in R. The implementation is fairly general, and copes with singular models. It is a very transparent implementation, with all the necessary code, and also shows how to calculate and plot impulse responses. 
 
 ## Model
 
@@ -169,7 +169,7 @@ response_plot(z, "Impulse responses: Taylor rule")
 ```
 This is clearly exploding. But it's rational -- we're solving forward so expectations are always fulfilled. This is a key the insight of the early rational expectations modellers -- rational isn't enough, non-explosive is necessary too. Fortunately we know how to find this.
 
-## @BK80
+## @BK80\cite{Blanchard, O.}\cite{Kahn, C.}
 
 To solve this model to give a unique _stable_ rational expectations equilibrium, we appeal to the following. Consider the eigenvalue decomposition
 $$
@@ -427,7 +427,7 @@ However, this is an easy test. What we need is to use a model that can't be solv
 $$
   \pi_t = -\mu \Delta y_t - \varepsilon^3_t
 $$
-for some value of $\mu$ that reflects the optimal trade-off between output (gap) growth and inflation, and we've included a disturbance which we can loosely describe as a monetary policy shock. We modify the model above by dropping the Taylor rule in favour of the targeting rule. This requires a lagged value of $y$ to be created. The following does the trick
+for some value of $\mu$ that reflects the optimal trade-off between output (gap) growth and inflation, and we've included a disturbance which we can loosely describe as a monetary policy shock. We modify the model above by dropping the Taylor rule\index{Taylor!rule} in favour of the targeting rule. This requires a lagged value of $y$ to be created. The following does the trick
 ```{r}
 nf <- 2
 ne <- 3

@@ -47,8 +47,18 @@ format:
     theme: 
       light: sandstone
       dark: darkly
+    mainfont: cursive
   pdf:
     documentclass: book
-
+    toc: true
+    lof: true
+    include-in-header: 
+      text: |
+        \usepackage{makeidx}
+        \makeindex
+    include-after-body: 
+      text: |
+        \printindex
+    
 editor: visual
 

@@ -2,7 +2,7 @@
 
 ## How heterogenous is UK house price inflation?
 
-A simple enough question, and one that @BFP thought was best answered with a map -- actually a referee asked for one. As I know how to draw a map in R they asked me if I could do it. Well yes, but there are some particular difficulties.
+A simple enough question, and one that @BFP\index{Bahaj et al.|textbf} thought was best answered with a map -- actually a referee asked for one. As I know how to draw a map in R they asked me if I could do it. Well yes, but there are some particular difficulties.
 
 -   The UK (actually Great Britain) is an awkward (but not too awkward) shape.
 -   Population in the UK is heavily concentrated in a small number of centres, such as London or Manchester.
@@ -11,7 +11,7 @@ A simple enough question, and one that @BFP thought was best answered with a map
 
 Before all of this we need some data, with boundaries that correspond to areas that we have data for. The regional inflation data is available at the level of the [Land Registry](https://www.gov.uk/government/organisations/land-registry), which almost by local authority but amalgamates a number of the areas. So a map at Local Authority level would be fine as long as we can amalgamate some of the regions.
 
-The map data used here is available from the UK's [ONS geoportal](https://geoportal.statistics.gov.uk/), with a lot of administrative data available including local authority boundaries. The Local Authority data is specifically available from [here](https://geoportal.statistics.gov.uk/maps/lad-dec-2015-generalised-clipped-boundaries-gb), where I use the clipped full extent version. There are a number of possibilities, but in general high water mark, and enough but not too much detail is needed.
+The map data used here is available from the UK's [ONS geoportal](https://geoportal.statistics.gov.uk/)\index{ONS!geoportal}, with a lot of administrative data available including local authority boundaries. The Local Authority data is specifically available from [here](https://geoportal.statistics.gov.uk/maps/lad-dec-2015-generalised-clipped-boundaries-gb), where I use the clipped full extent version. There are a number of possibilities, but in general high water mark, and enough but not too much detail is needed.
 
 ```{r libs, message=FALSE, warning=FALSE}
 library(tidyverse)

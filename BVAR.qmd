@@ -21,7 +21,7 @@ source("BVARdumFUNCs.R")
 ## Estimating BVARs using US data
 
 We will the Fed Funds rate, annual GDP growth and annual CPI inflation
-data from FRED, retrieved `r Sys.Date()`. These are:
+data from FRED\index{FRED}, retrieved `r Sys.Date()`. These are:
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 ############################
@@ -77,19 +77,22 @@ this can be found in @PriorsVAR. In general this is a version of the
 
 ### VAR model
 
-Simple bi-variate two-lag VAR model: $$
-  \left[\matrix{g_t \cr \pi_t}\right] =
-  \left[\matrix{c_1 \cr c_2}\right] +
-  \left[\matrix{b_{11} & b_{12} \cr
-    b_{21} & b_{22}}\right]
-\left[\matrix{g_{t-1} \cr \pi_{t-1} }\right] +
-   \left[\matrix{d_{11} & d_{12} \cr
-    d_{21} & d_{22}}\right]
-\left[\matrix{g_{t-2} \cr \pi_{t-2} }\right] +
-  \left[\matrix{\nu_{g,t} \cr \nu_{\pi,t}}\right]
-$$ $$
-  \left[\matrix{\nu_{g,t} \cr \nu_{\pi,t}}\right] \sim N(0, \Sigma)
-$$
+Simple bi-variate two-lag VAR model:
+
+```{=tex}
+\begin{align}
+  \left[\begin{matrix}g_t \cr \pi_t\end{matrix}\right] &=
+  \left[\begin{matrix}c_1 \cr c_2\end{matrix}\right] +
+  \left[\begin{matrix}b_{11} & b_{12} \cr
+    b_{21} & b_{22}\end{matrix}\right]
+\left[\begin{matrix}g_{t-1} \cr \pi_{t-1} \end{matrix}\right] +
+   \left[\begin{matrix}d_{11} & d_{12} \cr
+    d_{21} & d_{22}\end{matrix}\right]
+\left[\begin{matrix}g_{t-2} \cr \pi_{t-2} \end{matrix}\right] +
+  \left[\begin{matrix}\nu_{g,t} \cr \nu_{\pi,t}\end{matrix}\right] \\
+  \left[\begin{matrix}\nu_{g,t} \cr \nu_{\pi,t}\end{matrix}\right] &\sim N(0, \Sigma)
+\end{align}
+```
 
 ## BVAR hyperparameters
 
@@ -113,42 +116,68 @@ where
 
 Now consider the following artificial data for the **first lag**. We
 construct some dummy observations of the dependent and explanatory
-variables that look like: $$
-  Y_{D,1} = \left[\matrix{\frac{1}{\tau}\sigma_1 & 0 \cr
-    0 & \frac{1}{\tau}\sigma_2}\right]
-$$ and $$
-  X_{D,1} = \left [ \matrix{0 & \frac{1}{\tau}\sigma_1 & 0 & 0 & 0\cr
-    0 & 0 & \frac{1}{\tau}\sigma_2 & 0 & 0}\right]
-$$ Intuition: $$
-  \left[\matrix{\frac{\sigma_1}{\tau} & 0 \cr
-    0 & \frac{\sigma_2}{\tau}}\right] =
-  \left[\matrix{0 & \frac{\sigma_1}{\tau} & 0 & 0 & 0\cr
-   0 & 0 & \frac{\sigma_2}{\tau} & 0 & 0} \right]
-\left[\matrix{c_1    & c_2 \cr
+variables that look like: \begin{equation}
+  Y_{D,1} = \left[\begin{matrix}\frac{1}{\tau}\sigma_1 & 0 \cr
+    0 & \frac{1}{\tau}\sigma_2\end{matrix}\right]
+\end{equation}
+
+and
+
+\begin{equation}
+  X_{D,1} = \left [ \begin{matrix}0 & \frac{1}{\tau}\sigma_1 & 0 & 0 & 0\cr
+    0 & 0 & \frac{1}{\tau}\sigma_2 & 0 & 0\end{matrix}\right]
+\end{equation}
+
+Intuition:
+
+\begin{equation}
+  \left[\begin{matrix} \frac{\sigma_1}{\tau} & 0 \cr
+    0 & \frac{\sigma_2}{\tau}\end{matrix}\right] =
+  \left[\begin{matrix} 0 & \frac{\sigma_1}{\tau} & 0 & 0 & 0\cr
+   0 & 0 & \frac{\sigma_2}{\tau} & 0 & 0\end{matrix} \right]
+\left[\begin{matrix}c_1 & c_2 \cr
   b_{11} & b_{21} \cr
   b_{12} & b_{22} \cr
   d_{11} & d_{21} \cr
-  d_{12} & d_{22}}\right]
+  d_{12} & d_{22}\end{matrix}\right]
 +
-  \left[\matrix{\xi_{11} & \xi_{12} \cr \xi_{21} & \xi_{22} }\right]
-$$ Multiplying out we get: $$
-  \left[\matrix{\frac{\sigma_1}{\tau} & 0 \cr
-    0 & \frac{\sigma_2}{\tau}}\right]
+  \left[\begin{matrix}\xi_{11} & \xi_{12} \cr \xi_{21} & \xi_{22} \end{matrix}\right]
+\end{equation}
+
+Multiplying out we get:
+
+\begin{equation}
+  \left[\begin{matrix}\frac{\sigma_1}{\tau} & 0 \cr
+    0 & \frac{\sigma_2}{\tau}\end{matrix}\right]
 =
-  \left[\matrix{\frac{\sigma_1}{\tau}b_{11} &   \frac{\sigma_1}{\tau}b_{21}\cr
-  \frac{\sigma_2}{\tau}b_{12} &  \frac{\sigma_2}{\tau}b_{22}} \right]
+  \left[\begin{matrix}\frac{\sigma_1}{\tau}b_{11} & \frac{\sigma_1}{\tau}b_{21}\cr
+  \frac{\sigma_2}{\tau}b_{12} &  \frac{\sigma_2}{\tau}b_{22}\end{matrix} \right]
 +
-  \left[\matrix{\xi_{11} & \xi_{12} \cr \xi_{21} & \xi_{22} }\right]
-$$ Concentrating on the first row, notice: $$
+  \left[\begin{matrix}\xi_{11} & \xi_{12} \cr \xi_{21} & \xi_{22} \end{matrix}\right]
+\end{equation}
+
+Concentrating on the first row, notice:
+
+\begin{equation}
   \frac{\sigma_1}{\tau} = \frac{\sigma_1}{\tau}b_{11} + \xi_{11}
-$$ implying: $$
+\end{equation}
+
+implying:
+
+\begin{equation}
   b_{11} = 1 - \frac{\tau}{\sigma_1}\xi_{11}
-$$ so we can write: $$
+\end{equation}
+
+so we can write:
+
+\begin{equation}
   b_{11} \sim N\left(1, \frac{\tau^2var(\xi_{11})}{\sigma^2_1}\right)
-$$ as $E[b_{11}] = 1 - \frac{\tau}{\sigma_1}E[\xi_{11}] = 1$ and the
-variance is easily derived. Similarly: $$
+\end{equation}
+
+as $E[b_{11}] = 1 - \frac{\tau}{\sigma_1}E[\xi_{11}] = 1$ and the
+variance is easily derived. Similarly: \begin{equation}
   b_{12} = - \frac{\tau}{\sigma_1}\xi_{12}
-$$ which is clearly zero in expectation.
+\end{equation} which is clearly zero in expectation.
 
 ### Further priors
 
@@ -156,34 +185,44 @@ $$ which is clearly zero in expectation.
 
 Rather than derive the implications we state the rest of the dummy
 priors. Consider the following artificial data for the **second** lag:
-$$
-Y_{D,2} = \left[\matrix{0 & 0 \cr 0 & 0}\right]
-$$ and: $$
-X_{D,2} = \left [ \matrix{0 & 0 & 0 & \frac{\sigma_1 2^d}{\tau} & 0 \cr
-    0 & 0 & 0 & 0 & \frac{\sigma_2 2^d}{\tau} }\right]
-$$ We can multiply these out and check the properties, in particular we
-can verify in the same way as for the first lag that: $$
+
+\begin{align*}
+  Y_{D,2} &= \left[\begin{matrix}0 & 0 \cr 0 & 0\end{matrix}\right] \\
+  X_{D,2} &= \left[\begin{matrix}0 & 0 & 0 & \frac{\sigma_1 2^d}{\tau} & 0 \cr
+    0 & 0 & 0 & 0 & \frac{\sigma_2 2^d}{\tau} \end{matrix}\right]
+\end{align*}
+
+We can multiply these out and check the properties, in particular we can
+verify in the same way as for the first lag that:
+
+\begin{equation}
   b_{ji} \sim N\left(0, \frac{1}{4}\frac{\tau^2var(\xi_{ji})} {2^d\sigma^2_j}\right)
-$$ for $j=1,...N$, $i=1,...l$.
+\end{equation}
+
+for $j=1,...N$, $i=1,...l$.
 
 #### Constant
 
-Consider the following artificial data for the **constant**: $$
-  Y_{D,3} = \left[\matrix{0 & 0 }\right]
-$$ $$
-  X_{D,3} = \left [ \matrix{\lambda & 0 & 0 & 0 & 0 }\right]
-$$ so $\lambda c_1 = \varepsilon_1$ and $\lambda c_2 = \varepsilon_2$.
-As $\lambda \rightarrow \infty$ the prior is implemented more tightly.
+Consider the following artificial data for the **constant**:
+
+\begin{align*}
+  Y_{D,3} &= \left[\begin{matrix}0 & 0 \end{matrix}\right] \\
+  X_{D,3} &= \left[\begin{matrix}\lambda & 0 & 0 & 0 & 0 \end{matrix}\right]
+\end{align*}
+
+so $\lambda c_1 = \varepsilon_1$ and $\lambda c_2 = \varepsilon_2$. As
+$\lambda \rightarrow \infty$ the prior is implemented more tightly.
 
 #### Covariances
 
 Dummy observations to implement the prior on the error covariance matrix
-are: $$
-  Y_{D,4} = \left[\matrix{\sigma_1 & 0 \cr 0 & \sigma_2}\right]
-$$ and $$
-  X_{D,4} = \left [ \matrix{0 & 0 & 0 & 0 & 0 \cr
-    0 & 0 & 0 & 0 & 0 }\right]
-$$ with the magnitude of the diagonal elements of $\Sigma$ controlled by
+are: \begin{align*}
+  Y_{D,4} &= \left[\begin{matrix}\sigma_1 & 0 \cr 0 & \sigma_2\end{matrix}\right] \\
+  X_{D,4} &= \left[\begin{matrix}0 & 0 & 0 & 0 & 0 \cr
+    0 & 0 & 0 & 0 & 0 \end{matrix}\right]
+\end{align*}
+
+with the magnitude of the diagonal elements of $\Sigma$ controlled by
 the scale of the diagonal elements of $Y_{D,4}$, as larger diagonal
 elements implement the prior belief that the variance of $\nu_1$ and
 $\nu_2$ is larger.
@@ -194,31 +233,39 @@ $\nu_2$ is larger.
 
 We could add a prior that reflects the belief that the **sum of
 coefficients** on 'own' lags add up to 1. This is an additional 'unit
-root'-style prior. Consider: $$
-  Y_{D,5} = \left[\matrix{\gamma\mu_1 & 0\cr 0 & \gamma\mu_2}\right]
-$$ and $$
-  X_{D,5} = \left [ \matrix{0 & \gamma\mu_1 & 0 & \gamma\mu_1 & 0\cr
-    0 & 0 & \gamma\mu_2 & 0 & \gamma\mu_2}\right]
-$$ where $\mu_1$ is the sample mean of $y_t$ and $\mu_2$ is the sample
-mean of $x_t$. Note that these dummy observations imply prior means of
-the form $b_{ii} + d_{ii} = 1$ where $i = 1, 2$ and $\gamma$ controls
-the tightness of the prior. As $\gamma \rightarrow \infty$ the prior is
+root'-style prior. Consider:
+
+\begin{align*}
+  Y_{D,5} &= \left[\begin{matrix} \gamma\mu_1 & 0\cr 0 & \gamma\mu_2\end{matrix}\right] \\
+  X_{D,5} &= \left [ \begin{matrix} 0 & \gamma\mu_1 & 0 & \gamma\mu_1 & 0\cr
+    0 & 0 & \gamma\mu_2 & 0 & \gamma\mu_2\end{matrix}\right]
+\end{align*}
+
+where $\mu_1$ is the sample mean of $y_t$ and $\mu_2$ is the sample mean
+of $x_t$. Note that these dummy observations imply prior means of the
+form $b_{ii} + d_{ii} = 1$ where $i = 1, 2$ and $\gamma$ controls the
+tightness of the prior. As $\gamma \rightarrow \infty$ the prior is
 implemented more tightly. Forecast growth rates eventually converge to
 their sample averages.
 
 #### Trends
 
-We can also specify **common stochastic trend** dummies: $$
-  Y_{D,6} = \left[\matrix{\delta\mu_1 & \delta\mu_2 }\right]
-$$ and $$
-  X_{D,6} = \left [ \matrix{\delta & \delta\mu_1 & \delta\mu_2 & \delta\mu_1 & \delta\mu_2 }\right]
-$$ where this imposes that the coefficients are consistent with limiting
+We can also specify **common stochastic trend** dummies:
+
+\begin{align*}
+  Y_{D,6} &= \left[\begin{matrix}\delta\mu_1 & \delta\mu_2 \end{matrix}\right] \\
+  X_{D,6} &= \left [\begin{matrix}\delta & \delta\mu_1 & \delta\mu_2 & \delta\mu_1 & \delta\mu_2 \end{matrix}\right]
+\end{align*}
+
+where this imposes that the coefficients are consistent with limiting
 the amount of drift between the predictions at their average values.
 
 ### Implementation
 
-The data and the artificial data are now stacked: $$
-  Y^* = \left[\matrix{ g_3 & \pi_3 \cr
+The data and the artificial data are now stacked: 
+
+\begin{equation}
+  Y^* = \left[\begin{matrix} g_3 & \pi_3 \cr
     \vdots & \vdots \cr
     g_T & \pi_T \cr
     \frac{1}{\tau}\sigma_1 & 0 \cr
@@ -230,8 +277,8 @@ The data and the artificial data are now stacked: $$
     0 & \sigma_2 \cr
     \gamma\mu_1 & 0 \cr
     0 & \gamma\mu_2 \cr
-    \delta\mu_1 & \delta\mu_2 }\right], \quad
-X^* = \left [ \matrix{1 & g_2 & \pi_2 & g_1 & \pi_1 \cr
+    \delta\mu_1 & \delta\mu_2 \end{matrix}\right], \quad
+X^* = \left [ \begin{matrix}1 & g_2 & \pi_2 & g_1 & \pi_1 \cr
   \vdots & \vdots & \vdots & \vdots & \vdots \cr
   1 & g_{T-1} & \pi_{T-1} & g_{T-2} & \pi_{T-2} \cr
   0 & \frac{1}{\tau}\sigma_1 & 0 & 0 & 0\cr
@@ -243,9 +290,11 @@ X^* = \left [ \matrix{1 & g_2 & \pi_2 & g_1 & \pi_1 \cr
   0 & 0 & 0 & 0 & 0 \cr
   0 & \gamma\mu_1 & 0 & \gamma\mu_1 & 0 \cr
   0 & 0 & \gamma\mu_2 & 0 & \gamma\mu_2 \cr
-  \delta & \delta\mu_1 & \delta\mu_2 & \delta\mu_1 & \delta\mu_2 }\right]
-$$ Estimation via Gibbs sampling now proceeds in a very straightforward
-way. There is no need to draw for the prior separately.
+  \delta & \delta\mu_1 & \delta\mu_2 & \delta\mu_1 & \delta\mu_2 \end{matrix}\right]
+\end{equation} 
+
+Estimation via Gibbs sampling now proceeds in a very
+straightforward way. There is no need to draw for the prior separately.
 
 ## Examples
 
@@ -330,12 +379,12 @@ coefficient densities. It can be anything but is a good place to remind
 yourself of how you specified the model. Notice we save the coefficient
 plots for later use.
 
-#### Example 1: BVAR(2) with $\tau=0.1$
+### Example 1: BVAR(2) with $\tau=0.1$
 
 ```{r estim, message=FALSE, warning=FALSE, fig.align='center', echo=FALSE, ref.label=c("Gibbs", "plots")}
 ```
 
-#### Example 2: BVAR(2) with $\tau=1$
+### Example 2: BVAR(2) with $\tau=1$
 
 ```{r echo=FALSE}
 # Tight spec, Bi-variate
@@ -345,7 +394,7 @@ tau   <- 1
 ```{r estim, message=FALSE, warning=FALSE, fig.align='center', echo=FALSE, ref.label=c("Gibbs", "plots")}
 ```
 
-#### Example 3: BVAR(6) with $\tau=0.1$
+### Example 3: BVAR(6) with $\tau=0.1$
 
 ```{r echo=FALSE}
 # looser spec, Bi-variate, longer lag
@@ -356,7 +405,7 @@ tau <- 0.1
 ```{r estim, message=FALSE, warning=FALSE, fig.align='center', echo=FALSE, ref.label=c("Gibbs", "plots")}
 ```
 
-#### Example 4: BVAR(6) with $\tau=1$
+### Example 4: BVAR(6) with $\tau=1$
 
 ```{r echo=FALSE}
 # looser spec, Bi-variate, longer lag
@@ -367,7 +416,7 @@ tau <- 1
 ```{r estim, message=FALSE, warning=FALSE, fig.align='center', echo=FALSE, ref.label=c("Gibbs", "plots")}
 ```
 
-#### Coefficient estimates
+### Coefficient estimates
 
 All of these have underlying parameters. Their estimated posterior
 densities are:
@@ -393,7 +442,7 @@ knitr::kable(tail(Y, 10))
 
 Two more examples follow.
 
-#### Example 5: BVAR(4) with $\tau=.1$, 3 variables
+### Example 5: BVAR(4) with $\tau=.1$, 3 variables
 
 ```{r echo=FALSE}
 # tighter spec, tri-variate, longer lag
@@ -408,7 +457,7 @@ tau <- .1
 pce[[5]]
 ```
 
-#### Example 6: BVAR(6) with $\tau=1$, 3 variables
+### Example 6: BVAR(6) with $\tau=1$, 3 variables
 
 ```{r echo=FALSE}
 # tighter spec, tri-variate, longer lag
