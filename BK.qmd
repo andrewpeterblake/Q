@@ -169,7 +169,7 @@ response_plot(z, "Impulse responses: Taylor rule")
 ```
 This is clearly exploding. But it's rational -- we're solving forward so expectations are always fulfilled. This is a key the insight of the early rational expectations modellers -- rational isn't enough, non-explosive is necessary too. Fortunately we know how to find this.
 
-## @BK80\cite{Blanchard, O.}\cite{Kahn, C.}
+## @BK80
 
 To solve this model to give a unique _stable_ rational expectations equilibrium, we appeal to the following. Consider the eigenvalue decomposition
 $$
@@ -181,7 +181,7 @@ We can _diagonalise_ $C$ and write it as $C=M^{-1}\Lambda M$. So pre-multiplying
 $$ 
 M \begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = \Lambda M \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + M D \varepsilon_t
 $$
-@BK80 (following @Vaughan) show uniqueness requires as many unstable eigenvalues as jump variables. To see this, define
+@BK80\cite{Blanchard-Kahn!conditions} (following @Vaughan) show uniqueness requires as many unstable eigenvalues as jump variables. To see this, define
 $$
 \begin{bmatrix} \xi_{t-1}^{s} \\  \xi_t^{u} \end{bmatrix}
   =  \begin{bmatrix} M_{11} & M_{12} \\  M_{21} & M_{22} \end{bmatrix}
@@ -234,7 +234,7 @@ which yields
 ```{r echo=FALSE}
 m
 ```
-However this calculates _right_ eigenvectors. We will need to invert it for left ones. Given the number of jump variables in the model satisfies the Blanchard-Kahn conditions of as many unstable roots (`r signif(m$values[abs(m$values) > 1], digits=4)`) as jump variables (`r nf`) we can calculate the reaction function from the eigenvectors
+However this calculates _right_ eigenvectors. We will need to invert it for left ones. Given the number of jump variables in the model satisfies the Blanchard-Kahn conditions\cite{Blanchard-Kahn!conditions} of as many unstable roots (`r signif(m$values[abs(m$values) > 1], digits=4)`) as jump variables (`r nf`) we can calculate the reaction function from the eigenvectors
 ```{r BK}
 iz <- 1:np
 ix <- (np+1):ns
@@ -266,7 +266,7 @@ $$
 G=(C_{22} - N C_{12})^{-1}(N D_1 - D_2) 
 $$
 Notice it also implies $N = (C_{22} - N C_{12})^{-1}(NC_{11} - C_{21})$.
-It is this fixed point nature of the solution for $N$ -- which in turn implies the quadratic matrix equation $C_{21} = NC_{11} - C_{22}N + N C_{12}N$ -- that means we need to use the @BK80 method in the first place.
+It is this fixed point nature of the solution for $N$ -- which in turn implies the quadratic matrix equation $C_{21} = NC_{11} - C_{22}N + N C_{12}N$ -- that means we need to use the @BK80\cite{Blanchard-Kahn!method} method in the first place.
 
 All of this means that
 ```{r}
@@ -415,7 +415,7 @@ S  <- solveGenBK(E,A,B,np)
 Ps <- S$P
 Qs <- S$Q
 ```
-and comparing `Ps` and `Qs` with `P` and `Q` obtained using Blanchard-Kahn we find
+and comparing `Ps` and `Qs` with `P` and `Q` obtained using Blanchard-Kahn\cite{Blanchard-Kahn!method} we find
 ```{r}
 round(max(abs(P-Ps), abs(Q-Qs)), 12)
 ```
@@ -423,7 +423,7 @@ They are, as expected, the same -- at least up to 12 decimal places, which shoul
 
 ## Singular models: optimal policy
 
-However, this is an easy test. What we need is to use a model that can't be solved using the BK method. Under optimal policy, the interest rate instrument rule is replaced with a targeting rule, so that
+However, this is an easy test. What we need is to use a model that can't be solved using the BK method.\cite{Blanchard-Kahn!method} Under optimal policy, the interest rate instrument rule is replaced with a targeting rule, so that
 $$
   \pi_t = -\mu \Delta y_t - \varepsilon^3_t
 $$
@@ -625,4 +625,4 @@ with `Po` above, say. This is the most 'efficient' way of programming the model,
 ```{r fig.align='center'}
 response_plot(impulse_responses(Ps,Qs,Omega,labels,T), "Optimal, substituted out")
 ```
-which are identical results to those above. But of course $E$ is now invertible so we could solve this using the simplest Blanchard-Kahn variant. Try it!
+which are identical results to those above. But of course $E$ is now invertible so we could solve this using the simplest Blanchard-Kahn\cite{Blanchard-Kahn!method} variant. Try it!
