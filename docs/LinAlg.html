@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quantiles, Networks, Time - Appendix B — Appendix: Linear algebra</title>
+<title>Quantiles, Networks, Time - Appendix B — Linear algebra</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Appendix1.html">Appendices</a></li><li class="breadcrumb-item"><a href="./LinAlg.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Appendix: Linear algebra</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Appendix1.html">Appendices</a></li><li class="breadcrumb-item"><a href="./LinAlg.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Linear algebra</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -277,13 +277,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Appendix1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix: <code>ggplot2</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Basic <code>ggplot2</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./LinAlg.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Appendix: Linear algebra</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Linear algebra</span></span></a>
   </div>
 </li>
       </ul>
@@ -323,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Appendix B — Appendix: Linear algebra</h1>
+<h1 class="title">Appendix B — Linear algebra</h1>
 </div>
 
 
@@ -711,24 +711,24 @@ A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">180</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="dv">60</span>, <span class="dv">3</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X, <span class="dv">6</span>) <span class="co"># Print first six rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          [,1]     [,2]     [,3]
-[1,] 0.2667567 3.668760 2.279597
-[2,] 0.8549671 2.345338 2.059401
-[3,] 1.7036264 2.789780 2.228293
-[4,] 2.5530111 2.999303 1.735756
-[5,] 0.9976997 2.503377 1.180865
-[6,] 1.4298814 1.784277 1.830303</code></pre>
+<pre><code>          [,1]        [,2]      [,3]
+[1,] 0.7382772 2.042084016 0.8870172
+[2,] 2.5787555 2.097979516 1.9755846
+[3,] 2.4328020 2.376778154 2.3941076
+[4,] 1.9533861 2.421875546 1.8101746
+[5,] 3.5877802 1.681843910 2.5699795
+[6,] 0.1485128 0.001861005 2.9993104</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, X) <span class="co"># Add a constant</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(X,<span class="dv">6</span>) <span class="co"># Print last six rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      [,1]     [,2]     [,3]      [,4]
-[55,]    1 1.604986 1.055223 2.7682749
-[56,]    1 3.469857 2.537455 0.6400865
-[57,]    1 3.064638 3.015423 3.2765112
-[58,]    1 2.115965 1.096077 1.2129540
-[59,]    1 1.245500 2.442558 2.7644540
-[60,]    1 2.507833 1.650547 2.1796208</code></pre>
+[55,]    1 2.396457 1.476884 1.9132274
+[56,]    1 2.560518 2.315926 3.3259362
+[57,]    1 2.238377 3.871749 0.9013807
+[58,]    1 2.053469 1.196864 1.8970272
+[59,]    1 3.062813 2.317442 3.8368963
+[60,]    1 1.873740 1.024805 1.6566974</code></pre>
 </div>
 </div>
 <p>Now create a dependent variable that is a linear combination of these variables plus some noise. Create the linear relationship first so we know what it is:</p>
@@ -751,10 +751,10 @@ A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>           [,1]
-[1,]  0.6049745
-[2,]  0.9288609
-[3,] -0.9767362
-[4,]  0.1951309</code></pre>
+[1,]  0.5701107
+[2,]  0.9549338
+[3,] -0.9655320
+[4,]  0.1982504</code></pre>
 </div>
 </div>
 <p>But I wouldn’t do it like this (we’ll see why in a minute). A better way would be</p>
@@ -1252,7 +1252,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./Appendix1.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix: <code>ggplot2</code></span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Basic <code>ggplot2</code></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

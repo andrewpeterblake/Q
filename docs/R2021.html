@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
 
-<meta charset="utf-8" />
-<meta name="generator" content="quarto-1.3.353" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quantiles, Networks, Time – 2  Non-econometric methods for econometricians</title>
+<title>Quantiles, Networks, Time - 2&nbsp; Non-econometric methods for econometricians</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -43,7 +41,27 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
-<!-- htmldependencies:E3FAD763 -->
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Kalman.html" rel="next">
+<link href="./intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -67,22 +85,17 @@ div.csl-indent {
 
 </head>
 
-<body>
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn"
-      data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
-      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
-      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <h1 class="quarto-secondary-nav-title"></h1>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
-      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
-      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Methods matter</a></li><li class="breadcrumb-item"><a href="./R2021.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Non-econometric methods for econometricians</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -96,9 +109,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="/">
-      Quantiles, Networks, Time
-      </a> 
+      <a href="./">Quantiles, Networks, Time</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -113,7 +124,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/index.html" class="sidebar-item-text sidebar-link">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Genesis</span></a>
   </div>
 </li>
@@ -128,20 +139,20 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span></span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/R2021.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class='chapter-number'>2</span>  <span class='chapter-title'>Non-econometric methods for econometricians</span></span></a>
+  <a href="./R2021.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Non-econometric methods for econometricians</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/Kalman.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>3</span>  <span class='chapter-title'>Kalman filtering</span></span></a>
+  <a href="./Kalman.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span></a>
   </div>
 </li>
       </ul>
@@ -157,14 +168,14 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/QR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>4</span>  <span class='chapter-title'>Quantile regression</span></span></a>
+  <a href="./QR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/CK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>5</span>  <span class='chapter-title'>Carter-Kohn</span></span></a>
+  <a href="./CK.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span></a>
   </div>
 </li>
       </ul>
@@ -180,14 +191,14 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/Stemp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>6</span>  <span class='chapter-title'>Causal Inference</span></span></a>
+  <a href="./Stemp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/Maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>7</span>  <span class='chapter-title'>Mapping regional house price inflation</span></span></a>
+  <a href="./Maps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></span></a>
   </div>
 </li>
       </ul>
@@ -203,14 +214,14 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/BK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>8</span>  <span class='chapter-title'>Linear rational expectations models</span></span></a>
+  <a href="./BK.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/BVAR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>9</span>  <span class='chapter-title'>BVAR with dummies</span></span></a>
+  <a href="./BVAR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span></a>
   </div>
 </li>
       </ul>
@@ -226,13 +237,13 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>10</span>  <span class='chapter-title'>Summary</span></span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/references.html" class="sidebar-item-text sidebar-link">
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -249,14 +260,14 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/Appendix1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix: `ggplot2`</span></span></a>
+  <a href="./Appendix1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Basic <code>ggplot2</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="/LinAlg.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class='chapter-number'>B</span>  <span class='chapter-title'>Linear algebra</span></span></a>
+  <a href="./LinAlg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Linear algebra</span></span></a>
   </div>
 </li>
       </ul>
@@ -264,17 +275,33 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" ></div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <div id="quarto-toc-target"></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#selected-ml-and-dataviz-techniques-in-r" id="toc-selected-ml-and-dataviz-techniques-in-r" class="nav-link active" data-scroll-target="#selected-ml-and-dataviz-techniques-in-r"><span class="header-section-number">2.1</span> Selected ML and Dataviz techniques in R</a>
+  <ul class="collapse">
+  <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code"><span class="header-section-number">2.1.1</span> The code</a></li>
+  </ul></li>
+  <li><a href="#how-to-ensure-rstudio-finds-the-code" id="toc-how-to-ensure-rstudio-finds-the-code" class="nav-link" data-scroll-target="#how-to-ensure-rstudio-finds-the-code"><span class="header-section-number">2.2</span> HOW TO ENSURE RSTUDIO FINDS THE CODE</a></li>
+  <li><a href="#typical-program-structure" id="toc-typical-program-structure" class="nav-link" data-scroll-target="#typical-program-structure"><span class="header-section-number">2.3</span> Typical program structure</a>
+  <ul class="collapse">
+  <li><a href="#day-1-trees-and-maps" id="toc-day-1-trees-and-maps" class="nav-link" data-scroll-target="#day-1-trees-and-maps"><span class="header-section-number">2.3.1</span> Day 1: Trees and maps</a></li>
+  <li><a href="#day-2-networks" id="toc-day-2-networks" class="nav-link" data-scroll-target="#day-2-networks"><span class="header-section-number">2.3.2</span> Day 2: Networks</a></li>
+  <li><a href="#day-3-text" id="toc-day-3-text" class="nav-link" data-scroll-target="#day-3-text"><span class="header-section-number">2.3.3</span> Day 3: Text</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>  <span class="chapter-title">Non-econometric methods for econometricians</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Non-econometric methods for econometricians</span></h1>
 </div>
 
 
@@ -288,25 +315,9 @@ div.csl-indent {
   
 
 </header>
-<nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#selected-ml-and-dataviz-techniques-in-r" id="toc-selected-ml-and-dataviz-techniques-in-r"><span class="header-section-number">2.1</span> Selected ML and Dataviz techniques in R</a>
-  <ul>
-  <li><a href="#the-code" id="toc-the-code"><span class="header-section-number">2.1.1</span> The code</a></li>
-  </ul></li>
-  <li><a href="#how-to-ensure-rstudio-finds-the-code" id="toc-how-to-ensure-rstudio-finds-the-code"><span class="header-section-number">2.2</span> HOW TO ENSURE RSTUDIO FINDS THE CODE</a></li>
-  <li><a href="#typical-program-structure" id="toc-typical-program-structure"><span class="header-section-number">2.3</span> Typical program structure</a>
-  <ul>
-  <li><a href="#day-1-trees-and-maps" id="toc-day-1-trees-and-maps"><span class="header-section-number">2.3.1</span> Day 1: Trees and maps</a></li>
-  <li><a href="#day-2-networks" id="toc-day-2-networks"><span class="header-section-number">2.3.2</span> Day 2: Networks</a></li>
-  <li><a href="#day-3-text" id="toc-day-3-text"><span class="header-section-number">2.3.3</span> Day 3: Text</a></li>
-  </ul></li>
-  </ul>
-</nav>
+
 <section id="selected-ml-and-dataviz-techniques-in-r" class="level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Selected ML and Dataviz techniques in R</h2>
+<h2 data-number="2.1" class="anchored" data-anchor-id="selected-ml-and-dataviz-techniques-in-r"><span class="header-section-number">2.1</span> Selected ML and Dataviz techniques in R</h2>
 <p>Econometricians are used to handling data, performing analysis and reporting results. But somewhere along the line data became big and unstructured, analysis was now machines learning about something and outputs became visualisations.</p>
 <p>This online seminar takes some big(ish) datasets, sets the machines on them and draws some great graphs. If you ever wondered what use a tree was for forecasting or why everything is a network (including neural ones), or wanted to draw a map with your house in it, or to understand a document without the bother of reading it (or a few other things besides) then you might find something to interest you. All done in R.</p>
 <p>Specifically, this seminar is designed to introduce some of the key methods used outside of econometrics that econometricians will find very useful in their work in a central bank. This includes some important machine learning techniques as a gateway to others, particularly tree-based methods and neural networks, as well as text processing and map making. All the way through there is an emphasis on the network properties of many of these techniques. We make extensive use of the <code>tidyverse</code>, including <code>ggplot2</code> and <code>tidytext</code>, and a number of statistics, machine learning, geographical data and other packages.</p>
@@ -318,64 +329,64 @@ div.csl-indent {
 </ul>
 <p>We may run polls during the event to prioritize the topics covered in the webinars as it is not expected that everyone will be able to try out everything.</p>
 <section id="the-code" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span> The code</h3>
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="the-code"><span class="header-section-number">2.1.1</span> The code</h3>
 <p>All code and some of the data will be made available through the Juno portal. For each presentation the .Rmd (R markdown) file is supplied that creates the presentation, an HTML file of the presentation for you to step through which can be re-created from the .Rmd file, and a further .R file of the code that we use. Some additional code and data is included, including links to a number of videos that cover some additional aspects both in this file and in the presentations.</p>
 <p>Some data will need to be downloaded from original other sites if all the examples are to be followed. All code is additionally available at <a href="https://github.com/andrewpeterblake/R2020" class="uri">https://github.com/andrewpeterblake/R2020</a> or <a href="https://github.com/andrewpeterblake/R2021" class="uri">https://github.com/andrewpeterblake/R2021</a> or through the QR codes below.</p>
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="R2021_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672" /></p>
-<figcaption>2020</figcaption>
+<figure class="figure">
+<p><img src="R2021_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">2020</figcaption>
 </figure>
 </div>
 </div>
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="R2021_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid" width="672" /></p>
-<figcaption>2021</figcaption>
+<figure class="figure">
+<p><img src="R2021_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">2021</figcaption>
 </figure>
 </div>
 </div>
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
 <p>GitHub repositories for historic CCBS courses</p>
 </div>
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 </div>
 </div>
 </section>
 </section>
 <section id="how-to-ensure-rstudio-finds-the-code" class="level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> HOW TO ENSURE RSTUDIO FINDS THE CODE</h2>
-<p>To use the code, in particular so that R Studio finds the data files etc, create a directory for each topic, (e.g. Trees, ANN etc) and copy the contents from the zip file or GitHub. Then create a new project in R Studio that uses that directory as its home directory, using “File/New Project” in the drop down menu. Opening files within a project sets the home directory to that directory, so everything (including the sub-directories) can be found.</p>
+<h2 data-number="2.2" class="anchored" data-anchor-id="how-to-ensure-rstudio-finds-the-code"><span class="header-section-number">2.2</span> HOW TO ENSURE RSTUDIO FINDS THE CODE</h2>
+<p>To use the code, in particular so that R Studio finds the data files etc, create a directory for each topic, (e.g.&nbsp;Trees, ANN etc) and copy the contents from the zip file or GitHub. Then create a new project in R Studio that uses that directory as its home directory, using “File/New Project” in the drop down menu. Opening files within a project sets the home directory to that directory, so everything (including the sub-directories) can be found.</p>
 </section>
 <section id="typical-program-structure" class="level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span> Typical program structure</h2>
+<h2 data-number="2.3" class="anchored" data-anchor-id="typical-program-structure"><span class="header-section-number">2.3</span> Typical program structure</h2>
 <section id="day-1-trees-and-maps" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Day 1: Trees and maps</h3>
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="day-1-trees-and-maps"><span class="header-section-number">2.3.1</span> Day 1: Trees and maps</h3>
 <section id="trees" class="level4" data-number="2.3.1.1">
-<h4 data-number="2.3.1.1"><span class="header-section-number">2.3.1.1</span> Trees</h4>
+<h4 data-number="2.3.1.1" class="anchored" data-anchor-id="trees"><span class="header-section-number">2.3.1.1</span> Trees</h4>
 <ul>
 <li>Classification and regression trees</li>
 <li>Econometrics strikes back: Bootstrap/bagging and Boosting/Model selection</li>
@@ -386,7 +397,7 @@ div.csl-indent {
 <p>The presentations for this are <code>Trees.html</code> and <code>LondonHP.html</code>; The two programs <code>TreeCancer.R</code> and <code>TreeNW.R</code> are the use examples.</p>
 </section>
 <section id="maps" class="level4" data-number="2.3.1.2">
-<h4 data-number="2.3.1.2"><span class="header-section-number">2.3.1.2</span> Maps</h4>
+<h4 data-number="2.3.1.2" class="anchored" data-anchor-id="maps"><span class="header-section-number">2.3.1.2</span> Maps</h4>
 <ul>
 <li>How to draw a map in R</li>
 <li>A guide to some resources</li>
@@ -398,7 +409,7 @@ div.csl-indent {
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="cell-output-display">
-<p><img src="R2021_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672" /></p>
+<p><img src="R2021_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -406,13 +417,13 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>A comprehensive treatment of maps is <span class="citation" data-cites="Geocomputation">Lovelace, Nowosad, and Muenchow (<a href="#ref-Geocomputation" role="doc-biblioref">2019</a>)</span> <em>Geocomputation in R</em>, but it is quite a lot to assimilate all at once.</p>
+<p>A comprehensive treatment of maps is <span class="citation" data-cites="Geocomputation">Lovelace, Nowosad, and Muenchow (<a href="references.html#ref-Geocomputation" role="doc-biblioref">2019</a>)</span> <em>Geocomputation in R</em>, but it is quite a lot to assimilate all at once.</p>
 </section>
 </section>
 <section id="day-2-networks" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> Day 2: Networks</h3>
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="day-2-networks"><span class="header-section-number">2.3.2</span> Day 2: Networks</h3>
 <section id="neural-networks" class="level4" data-number="2.3.2.1">
-<h4 data-number="2.3.2.1"><span class="header-section-number">2.3.2.1</span> Neural networks</h4>
+<h4 data-number="2.3.2.1" class="anchored" data-anchor-id="neural-networks"><span class="header-section-number">2.3.2.1</span> Neural networks</h4>
 <ul>
 <li>What is an ANN? Deep learning?</li>
 <li>Function approximation via a network</li>
@@ -423,7 +434,7 @@ div.csl-indent {
 <p>The presentation for this is <code>IntroANN.html</code>; The program <code>ANN.R</code> replicates the ANN estimation. The data used is the same as for Day 1.</p>
 </section>
 <section id="networks-real-ones" class="level4" data-number="2.3.2.2">
-<h4 data-number="2.3.2.2"><span class="header-section-number">2.3.2.2</span> Networks (real ones)</h4>
+<h4 data-number="2.3.2.2" class="anchored" data-anchor-id="networks-real-ones"><span class="header-section-number">2.3.2.2</span> Networks (real ones)</h4>
 <ul>
 <li>DAGs and ANNs as network graphs</li>
 <li>Incidence matrices</li>
@@ -434,56 +445,56 @@ div.csl-indent {
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="R2021_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672" /></p>
-<figcaption>Coding club</figcaption>
+<figure class="figure">
+<p><img src="R2021_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Coding club</figcaption>
 </figure>
 </div>
 </div>
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="R2021_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672" /></p>
-<figcaption>R-Bloggers article</figcaption>
+<figure class="figure">
+<p><img src="R2021_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">R-Bloggers article</figcaption>
 </figure>
 </div>
 </div>
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
 <p>Network examples</p>
 </div>
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 <div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 5.0%;justify-content: center;">
-<p> </p>
+<p>&nbsp;</p>
 </div>
 </div>
 </div>
-<p>The presentation used for the first part of this is <code>DAG.html</code> and the program <code>Draw_DAG_ANN.R</code> draws the ANN examples from Day 2 Session 1 as well as some of the DAG examples. The example is modified from <span class="citation" data-cites="Mixtape">Cunningham (<a href="#ref-Mixtape" role="doc-biblioref">2021</a>)</span> <em>Causal Inference: The Mixtape</em>, which is a great read with R code. The pdf <code>HandShake3.pdf</code> is the source of the director network graphs, and <code>Graph101a.R</code> is a subset of the analytical work on the corruption data set as described in the post <a href="https://www.r-bloggers.com/2020/01/graph-theory-101-with-corruption-cases-in-spain/"><em>Graph Theory 101</em></a> (purple QR code), which is the work of <a href="https://codingclubuc3m.rbind.io/talk/2020-01-21/">Marina Medina</a> (blue QR code link to presentation site).</p>
+<p>The presentation used for the first part of this is <code>DAG.html</code> and the program <code>Draw_DAG_ANN.R</code> draws the ANN examples from Day 2 Session 1 as well as some of the DAG examples. The example is modified from <span class="citation" data-cites="Mixtape">Cunningham (<a href="references.html#ref-Mixtape" role="doc-biblioref">2021</a>)</span> <em>Causal Inference: The Mixtape</em>, which is a great read with R code. The pdf <code>HandShake3.pdf</code> is the source of the director network graphs, and <code>Graph101a.R</code> is a subset of the analytical work on the corruption data set as described in the post <a href="https://www.r-bloggers.com/2020/01/graph-theory-101-with-corruption-cases-in-spain/"><em>Graph Theory 101</em></a> (purple QR code), which is the work of <a href="https://codingclubuc3m.rbind.io/talk/2020-01-21/">Marina Medina</a> (blue QR code link to presentation site).</p>
 </section>
 </section>
 <section id="day-3-text" class="level3" data-number="2.3.3">
-<h3 data-number="2.3.3"><span class="header-section-number">2.3.3</span> Day 3: Text</h3>
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="day-3-text"><span class="header-section-number">2.3.3</span> Day 3: Text</h3>
 <p>Text modelling, a ‘tidytext’ approach.</p>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <section id="session-1" class="level4 quarto-layout-cell" data-number="2.3.3.1" style="flex-basis: 50.0%;justify-content: center;">
-<h4 data-number="2.3.3.1"><span class="header-section-number">2.3.3.1</span> Session 1</h4>
+<h4 data-number="2.3.3.1" class="anchored" data-anchor-id="session-1"><span class="header-section-number">2.3.3.1</span> Session 1</h4>
 <ul>
 <li>Data cleaning</li>
 <li>Sentiment</li>
@@ -491,7 +502,7 @@ div.csl-indent {
 </ul>
 </section>
 <section id="session-2" class="level4 quarto-layout-cell" data-number="2.3.3.2" style="flex-basis: 50.0%;justify-content: center;">
-<h4 data-number="2.3.3.2"><span class="header-section-number">2.3.3.2</span> Session 2</h4>
+<h4 data-number="2.3.3.2" class="anchored" data-anchor-id="session-2"><span class="header-section-number">2.3.3.2</span> Session 2</h4>
 <ul>
 <li>Parts-of-speech tagging</li>
 <li>Text regression</li>
@@ -500,13 +511,9 @@ div.csl-indent {
 </section>
 </div>
 </div>
-<div id="quarto-navigation-envelope" class="hidden">
-<p><span class="hidden" data-render-id="quarto-int-sidebar-title">Quantiles, Networks, Time</span> <span class="hidden" data-render-id="quarto-int-navbar-title">Quantiles, Networks, Time</span> <span class="hidden" data-render-id="quarto-int-next"><span class="chapter-number">3</span>  <span class="chapter-title">Kalman filtering</span></span> <span class="hidden" data-render-id="quarto-int-prev"><span class="chapter-number">1</span>  <span class="chapter-title">Introduction</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/index.html">Genesis</span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-1">Methods matter</span> <span class="hidden" data-render-id="quarto-int-sidebar:/intro.html"><span class="chapter-number">1</span>  <span class="chapter-title">Introduction</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/R2021.html"><span class="chapter-number">2</span>  <span class="chapter-title">Non-econometric methods for econometricians</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/Kalman.html"><span class="chapter-number">3</span>  <span class="chapter-title">Kalman filtering</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-2">Quantiles</span> <span class="hidden" data-render-id="quarto-int-sidebar:/QR.html"><span class="chapter-number">4</span>  <span class="chapter-title">Quantile regression</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/CK.html"><span class="chapter-number">5</span>  <span class="chapter-title">Carter-Kohn</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-3">Networks</span> <span class="hidden" data-render-id="quarto-int-sidebar:/Stemp.html"><span class="chapter-number">6</span>  <span class="chapter-title">Causal Inference</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/Maps.html"><span class="chapter-number">7</span>  <span class="chapter-title">Mapping regional house price inflation</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-4">Time</span> <span class="hidden" data-render-id="quarto-int-sidebar:/BK.html"><span class="chapter-number">8</span>  <span class="chapter-title">Linear rational expectations models</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/BVAR.html"><span class="chapter-number">9</span>  <span class="chapter-title">BVAR with dummies</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-5">End matter</span> <span class="hidden" data-render-id="quarto-int-sidebar:/summary.html"><span class="chapter-number">10</span>  <span class="chapter-title">Summary</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/references.html">References</span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-6">Appendices</span> <span class="hidden" data-render-id="quarto-int-sidebar:/Appendix1.html"><span class="chapter-number">A</span>  <span class="chapter-title">Appendix: <code>ggplot2</code></span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/LinAlg.html"><span class="chapter-number">B</span>  <span class="chapter-title">Linear algebra</span></span> <span class="hidden" data-render-id="quarto-breadcrumbs-484d698b18cba10b9b3d8381ea8ce6bc">Methods matter</span> <span class="hidden" data-render-id="quarto-breadcrumbs-b9805e7a2b5175e7acc4e0190348bc39"><span class="chapter-number">2</span>  <span class="chapter-title">Non-econometric methods for econometricians</span></span></p>
-</div>
-<div id="quarto-meta-markdown" class="hidden">
-<p><span class="hidden" data-render-id="quarto-metatitle">Quantiles, Networks, Time - <span class="chapter-number">2</span>  <span class="chapter-title">Non-econometric methods for econometricians</span></span> <span class="hidden" data-render-id="quarto-twittercardtitle">Quantiles, Networks, Time - <span class="chapter-number">2</span>  <span class="chapter-title">Non-econometric methods for econometricians</span></span> <span class="hidden" data-render-id="quarto-ogcardtitle">Quantiles, Networks, Time - <span class="chapter-number">2</span>  <span class="chapter-title">Non-econometric methods for econometricians</span></span> <span class="hidden" data-render-id="quarto-metasitename">Quantiles, Networks, Time</span> <span class="hidden" data-render-id="quarto-twittercarddesc"></span> <span class="hidden" data-render-id="quarto-ogcardddesc"></span></p>
-</div>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-Mixtape" class="csl-entry" role="listitem">
 Cunningham, Scott. 2021. <em>Causal Inference: The Mixtape</em>. New Haven &amp; London: Yale University Press. <a href="https://mixtape.scunning.com/">https://mixtape.scunning.com/</a>.
 </div>
@@ -518,7 +525,7 @@ Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation wi
 </section>
 
 </main> <!-- /main -->
-<script id = "quarto-html-after-body" type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -868,18 +875,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a  href="/intro.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span></span>
+      <a href="./intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a  href="/Kalman.html" class="pagination-link">
-        <span class="nav-page-text"><span class='chapter-number'>3</span>  <span class='chapter-title'>Kalman filtering</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Kalman.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 
-</body>
 
-</html>
+
+</body></html>

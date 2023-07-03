@@ -1,23 +1,19 @@
-# Appendix: `ggplot2`
+# Basic `ggplot2`
 
-## ggplot2
+## Plotting in the `tidyverse`
 
--   Key part of the [`tidyverse`](https://www.tidyverse.org/) -- for many [the only part](https://en.wikipedia.org/wiki/ggplot2)
--   Builds a **g**rammar of **g**raphics
--   Simple rules that drive you mad until you get it
--   Process
-    -   Initiate a plot using `ggplot`
-    -   Specify **aesthetics** which indicate *what* you want to plot
-    -   Call a `geom` to say *how* you want to plot it
-    -   Add modifiers to change how it *looks*
+`ggplot2` forms a key part of the [`tidyverse`](https://www.tidyverse.org/)\index{tidyverse} -- for many [the only part](https://en.wikipedia.org/wiki/ggplot2). It builds on the _**g**rammar of **g**raphics_ proposed by the late Leland Wilkinson, @Leland. In essence it provides rules for how graphics should be treated, simple rules that drive you mad until you get it.
+
+The process for building a graph is the following.
+
+- Initiate a plot using `ggplot`.
+- Specify **aesthetics** which indicate *what* you want to plot from some data set.
+- Call a `geom` (or an alternative) to say *how* you want to plot it.
+- Add modifiers to change how it *looks*.
 
 ## Example
 
--   Take the Wooldridge data set `approval` from @Approval
--   Do a little wrangling\
--   Produce some quite nice plots
-
-Start with libraries and retrieve data.
+We take the Wooldridge data set `approval` from @Approval, do a little wrangling and produce some quite nice plots. Start with libraries and retrieve data the data.
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)

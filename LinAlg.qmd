@@ -1,4 +1,4 @@
-# Appendix: Linear algebra
+# Linear algebra
 
 ```{r setup, include=FALSE}
 mat_print <- function(x) {
