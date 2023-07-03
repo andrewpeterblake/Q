@@ -51,6 +51,7 @@ format:
     documentclass: book
     toc: true
     lof: true
+    lot: true
     include-in-header: 
       text: |
         \usepackage{makeidx}

@@ -4,61 +4,60 @@
 
 `ggplot2` forms a key part of the [`tidyverse`](https://www.tidyverse.org/)\index{tidyverse} -- for many [the only part](https://en.wikipedia.org/wiki/ggplot2). It builds on the _**g**rammar of **g**raphics_ proposed by the late Leland Wilkinson, @Leland. In essence it provides rules for how graphics should be treated, simple rules that drive you mad until you get it.
 
-The process for building a graph is the following.
+The process for building a graph is something like the following.
 
 - Initiate a plot using `ggplot`.
 - Specify **aesthetics** which indicate *what* you want to plot from some data set.
 - Call a `geom` (or an alternative) to say *how* you want to plot it.
-- Add modifiers to change how it *looks*.
+- Add **modifiers** to change how it *looks*.
+
+The order of operations is essentially always this, although quite how the ordering is apllied differs subtly, which we will show here.
 
 ## Example
 
-We take the Wooldridge data set `approval` from @Approval, do a little wrangling and produce some quite nice plots. Start with libraries and retrieve data the data.
-
+To illustrate, we take the `wooldridge` data set `approval` from @Approval, do a little wrangling and (eventually) produce some quite nice plots. Start with the libraries and retrieve data the data.
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(wooldridge)
 data("approval")
 ```
-
-This looks like:
-
-```{r app}
-head(approval) 
+The first few columns and rows of this looks like:
+```{r app, echo=FALSE}
+head(approval[1:7]) 
 ```
+and all the available variables are
+```{r}
+names(approval)
+```
+Typically we want to investigate trends and correlations and graphing pairs or more of series is a good way to begin.
 
 ### Scatter plot
 
 A first scatter plot, using `geom_point` of food against gas (petrol) prices
-
 ```{r p1}
 ggplot(approval, aes(x=lcpifood, y=lrgasprice)) +    # Initiate, set aesthetics
   geom_point()                                       # Display as points
 ```
-
-OK, I guess, a bit dull -- so I add some colour. This time I specify `aes` in the `geom` - either is fine, some advantages either way.
-
+OK, I guess, but a bit dull -- so add some colour. This time, `aes` is specified in the `geom` -- either is fine, but there are some advantages either way which we will see shortly.
 ```{r p2}
-
 ggplot(approval) +
   geom_point(aes(x=lcpifood, y=lrgasprice, color=month))  # Colours by month
 ```
-
 Better, but how about...
-
 ```{r p2a}
 ggplot(approval) +
   geom_point(aes(x=lcpifood, y=lrgasprice, color=approve), size=2, shape=17) + # Colours by popularity!
   scale_color_gradient(low="red", high="green") 
 
 ```
+where the colours are a gradient we specify. But months can only be one of twelve categories, so a categorical variable (a *factor*) is needed to get different actual colours, otherwise for a continuous variable I get shades of one colour or a continuous change we need to specify.
 
-A categorical variable (a *factor*) is needed to get different actual colours, otherwise for a continuous variable I get shades of one color or a continuous change.
-
+Lets do this -- and add a different aesthetic, size, for year.
 ```{r p3}
 ggplot(approval) +
   geom_point(aes(x=lcpifood, y=lrgasprice, color=as.factor(month), size=as.factor(year)))
 ```
+Note there is now a lot going n, and maybe too much. `ggplot` thinks so! 
 
 ### Time series plots
 

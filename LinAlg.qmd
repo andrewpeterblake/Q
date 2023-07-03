@@ -67,7 +67,7 @@ Assume the following: $A$ and $B$ are real matrices of dimension $n\times n$, $b
 |Inverse          | $A^{-1}$     | `solve(A)` | Matrix inverse is a special case of... |
 |Solve for $d$    | $Ad = b \Rightarrow d = A^{-1}b$     | `d <- solve(A, b)` | ...linear solution! |
 |Cholesky decomp  | $S = R'R$    | `R <- chol(S)` | $S$ is a symmetric, positive definite matrix |
-|Cholesky inverse | $S^{-1}$     | `chol2inv(chol(S))` | Fast! |
+|Cholesky inverse | $S^{-1}$     | `chol2inv(R)` | Fast! |
 |Determinant | $\vert A \vert$ | `det(A)` | |
 |Diagonal         |              |             |   | 
 | $\quad$ of a matrix |   | `diag(A)`   | Retrieve the elements $a_{ii}$, $i=1,..,n$ |
@@ -83,30 +83,30 @@ Table: Maths commands essential to linear algebra
 
 Consider the following simultaneous system of equations:
 
-\begin{align}
+\begin{align*}
 x_1 + 2x_2 &= 6 \\
 x_1 - 3x_2 +2 x_3 &= 0 \\
 -2 x_1 + 3 x_3 &= 2
-\end{align}
+\end{align*}
 
 Find the values of $x$ that solve this using R.
 
 **Hint** -- write the problem in matrix form 
 
-\begin{equation}
+\begin{equation*}
  Ax = b
-\end{equation}
+\end{equation*}
 
 where
 
-\begin{equation}
+\begin{equation*}
 A = \left [ \begin{array}{rrr}
              1 &  2 & 0 \\
              1 & -3 & 2 \\
             -2 &  0 & 3
             \end{array} \right ], \qquad 
   b = \left[ \begin{matrix}6 \\ 0 \\ 2\end{matrix} \right ]
-\end{equation}
+\end{equation*}
 
 and then use `solve`.
 
@@ -114,7 +114,8 @@ and then use `solve`.
 
 R code to create these matrices is:
 ```{r}
-A <- matrix(c(1,1,-2,2,-3,0,0,2,3),3,3) # Matrices are populated by column by default
+# Matrices are populated by column by default
+A <- matrix(c(1,1,-2,2,-3,0,0,2,3),3,3)
 b <- matrix(c(6,0,2),3,1)
 ```
 The solution is:
@@ -129,15 +130,13 @@ x
 ## Eigenvalue decomposition
 
 Any square matrix can be decomposed into a non-singular matrix $V$ of eigenvectors and a diagonal matrix of eigenvalues $\Lambda$ such that:
-
 \begin{equation}
-A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
+  A V = V \Lambda \Rightarrow A = V\Lambda V^{-1}
 \end{equation}
-
 Call `eigen` to decompose our previously defined matrix $A$
 ```{r}
 e <- eigen(A)
-L <- e$values    # Recall a list is returned so assign vectors/values
+L <- e$values    # Returns a list, assign vectors/values
 V <- e$vectors
 ```
 Note $A$ is **not** symmetric so it may have complex roots, which is does
@@ -153,15 +152,14 @@ and when we drop the zero imaginary parts
 ```{r}
 Re(s)
 ```
-and then round we get
+Round to eliminate numerical error, to get
 ```{r}
 round(Re(s), digits=12)
 ```
 
 ## Precision
 
-Take a real matrix $A_{mn}$ with $n \le m$ and pre-multiply by its own transpose, i.e.\ $S = A'A$. $AA$ is symmetric, positive semi-definite. If $rank(A) = n$, then $rank(S) = n$ and positive definite, and its inverse exists.
-
+Why do we round? Take a real matrix $A_{mn}$ with $n \le m$ and pre-multiply by its own transpose, i.e.\ $S = A'A$. $AA$ is symmetric, positive semi-definite. If $rank(A) = n$, then $rank(S) = n$ and positive definite, and its inverse exists.
 ```{r}
 A  <- matrix(c(1, .2, 0, 1), 2, 2)
 S <- t(A) %*% A
@@ -185,16 +183,14 @@ i1 %*% S
 i2 %*% S
 i3 %*% S
 ```
-which are all slightly different but by tiny -- and insignificant -- amounts.
+which are all slightly different but by tiny -- and insignificant -- amounts. Don't be fooled by this, they are all numerically the same.
 
 ## Programming the regression problem
 
 Let's look at the familiar regression problem for some generated data.
-
 \begin{equation}
   y = XB + \epsilon
 \end{equation}
-
 where $\epsilon \sim N(0,.2)$, $X$ is a $(k+1)\times n$ matrix of regressors including a constant and $B$ a $k+1$ vector of coefficients. Let's generate some random data of an arbitrary sized problem:
 ```{r manip}
 X <- matrix(rnorm(180, 2, 1), 60, 3)
@@ -232,7 +228,7 @@ or even
 ```{r betteryet}
 Bhat3 <- qr.solve(X,y)
 ```
-which both evaluate to the same $\hat B$ values.
+which both evaluate to the same $\hat B$ values. Each is better in different circumstances.
 
 ### Test timings
 
@@ -242,14 +238,12 @@ n <- 400
 k <- 12
 ```
 We will use seven different methods to calculate an estimate of $B$. These are two variations on the three calculations below (where the brackets matter!):
-
 \begin{align}
-\hat B_1 &= ((X'X)^{-1}) X' y \\
-\hat B_2 &= ((X'X)^{-1}) (X' y) \\
-\hat B_3 = ((X'X)^{-1} (X' y))
+\hat B_1 &= ((X'X)^{-1}) X'y \\
+\hat B_2 &= ((X'X)^{-1}) (X'y) \\
+\hat B_3 &= ((X'X)^{-1} (X'y))
 \end{align}
-
-where we do it either 'by hand' or using `crossprob`, plus using `qr.solve`.
+where we do each of these either 'by hand' or using `crossprod`, with a final solution using `qr.solve`.
 ```{r}
 library(tictoc)
 
@@ -326,7 +320,7 @@ for (i in 1:reps) {
   }
 t[[7]] <- toc(quiet = TRUE)
 ```
-How do we display the timings we saved in `t`? We could do a simple (but dull) table, or something a but nicer.
+How do we display the timings we saved in `t`? We could do a simple (but dull) table, or something a bit nicer.
 ```{r warning=FALSE, message=FALSE, fig.align="center"}
 library(tidyverse)
 
@@ -338,13 +332,12 @@ FF <- c("solve(t(X)%*%X) %*% t(X) %*% y",
         "chol2inv(chol(crossprod(X))) %*% crossprod(X,y)",
         "qr.solve(X,y)")
 
-v <- tibble(Method = 1:7, 
-            Times = as.numeric(gsub(" sec elapsed", "", unlist(t)[seq(3,21,3)])), 
-            Formula = FF) %>% 
-  mutate(
-    Col = case_when(
-      Times == min(Times) ~ "red",
-      TRUE ~ "blue"
+tms <- as.numeric(gsub(" sec elapsed", "", unlist(t)[seq(3,21,3)]))
+v   <- tibble(Method  = 1:7, 
+              Times   = tms,
+              Formula = FF) %>% 
+  mutate(Col = case_when(Times == min(Times) ~ "red",
+                         TRUE ~ "blue"
   ))
 
 ggplot(v) + 
