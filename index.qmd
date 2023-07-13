@@ -1,5 +1,6 @@
 ---
-title-block-banner: TRUE
+title-block-banner: "#12273f"
+title-block-banner-color: "#3DC7D9"
 ---
 
 ## Genesis {#sec-genesis .unnumbered}
