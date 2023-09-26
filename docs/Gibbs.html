@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="andrew p blake">
-<meta name="dcterms.date" content="2024-01-01">
 
-<title>Quantiles, Networks, Time</title>
+<title>Quantiles, Networks, Time - 6&nbsp; Gibbs Sampling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,26 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -51,7 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./CK.html" rel="next">
+<link href="./QR.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -82,24 +62,12 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script>
-<style>
 
-      .quarto-title-block .quarto-title-banner h1,
-      .quarto-title-block .quarto-title-banner h2,
-      .quarto-title-block .quarto-title-banner h3,
-      .quarto-title-block .quarto-title-banner h4,
-      .quarto-title-block .quarto-title-banner h5,
-      .quarto-title-block .quarto-title-banner h6
-      {
-        color: #3DC7D9;
-      }
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
-      .quarto-title-block .quarto-title-banner {
-        color: #3DC7D9;
-background: #12273f;
-      }
-</style>
-
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -112,7 +80,7 @@ background: #12273f;
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Genesis</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./QR.html">Quantiles</a></li><li class="breadcrumb-item"><a href="./Gibbs.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -122,42 +90,7 @@ background: #12273f;
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Quantiles, Networks, Time</h1>
-                      </div>
-  </div>
-    
-  <div class="quarto-title-meta-author">
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-heading">Affiliation</div>
-    
-      <div class="quarto-title-meta-contents">
-      <p class="author">andrew p blake </p>
-    </div>
-      <div class="quarto-title-meta-contents">
-          <p class="affiliation">
-              ccbs
-            </p>
-        </div>
-      </div>
-
-  <div class="quarto-title-meta">
-
-        
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">January 1, 2024</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
@@ -177,7 +110,7 @@ background: #12273f;
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Genesis</span></a>
   </div>
 </li>
@@ -233,7 +166,7 @@ background: #12273f;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Gibbs.html" class="sidebar-item-text sidebar-link">
+  <a href="./Gibbs.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></span></a>
   </div>
 </li>
@@ -353,89 +286,561 @@ background: #12273f;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-genesis" id="toc-sec-genesis" class="nav-link active" data-scroll-target="#sec-genesis">Genesis</a></li>
+  <li><a href="#gibbs-sampling-in-a-table" id="toc-gibbs-sampling-in-a-table" class="nav-link active" data-scroll-target="#gibbs-sampling-in-a-table"><span class="header-section-number">6.1</span> Gibbs sampling in a table</a></li>
+  <li><a href="#gibbs-sampling" id="toc-gibbs-sampling" class="nav-link" data-scroll-target="#gibbs-sampling"><span class="header-section-number">7</span> Gibbs Sampling</a>
+  <ul class="collapse">
+  <li><a href="#gibbs-sampling-is-the-following-steps" id="toc-gibbs-sampling-is-the-following-steps" class="nav-link" data-scroll-target="#gibbs-sampling-is-the-following-steps"><span class="header-section-number">7.1</span> Gibbs sampling is the following steps</a></li>
+  </ul></li>
+  <li><a href="#example-linear-regression-model" id="toc-example-linear-regression-model" class="nav-link" data-scroll-target="#example-linear-regression-model"><span class="header-section-number">8</span> Example: linear regression model</a>
+  <ul class="collapse">
+  <li><a href="#estimating-a-model-for-us-inflation" id="toc-estimating-a-model-for-us-inflation" class="nav-link" data-scroll-target="#estimating-a-model-for-us-inflation"><span class="header-section-number">8.1</span> Estimating a model for US inflation</a>
+  <ul class="collapse">
+  <li><a href="#gibbs-samples" id="toc-gibbs-samples" class="nav-link" data-scroll-target="#gibbs-samples"><span class="header-section-number">8.1.1</span> Gibbs samples</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="sec-genesis" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="sec-genesis">Genesis</h2>
-<p>Central banks have been around quite a while. They began as a useful institution that mostly benefited banks, and were not universally seen as something that particularly benefited society. Central banking was long associated with grey men in grey suits, pondering deeply the impenetrable machinations of high finance, fuelled by cigar smoke and mystique. In truth, this – at best – Capraesque view of central bankers is substantially out of date, and has been for decades. They are no longer monochrome, or exclusively male, and need skills their forebears could have barely imagined – and they have most decidedly different priorities.</p>
-<p>In particular, they exist in an environment where the substantial expertise embodied in their staff members for the very particular – and evolving – challenges of central banking could usefully be shared. Global challenges need often need global solutions, and local challenges are faced everywhere and someone, somewhere has probably faced the same one as you. Recognising this led to a particular initiative taken by the Bank of England in the early 1990s. It was decided that the Bank should create a forum where the central bankers of the world could gather to commune, discuss, and above all, learn together.</p>
-<p>The timing, of course, was not incidental, and the initiative turned out to be a prescient one. This was at a major historical turning point, one that signalled a burgeoning new world order, as the Iron Curtain crumbled, the European experiment gathered momentum, and industrial might continued an inexorable shift eastwards. Economic policy had shifted too. Monetary policy was beginning a new and – as it turned out – lasting phase. There was indeed much to learn, and new monetary policy needed new approaches better suited to those policies. (Post-Great Financial Crisis, the necessary tool kit would expand again.)</p>
-<p>And so the Centre for Central Banking Studies was founded. <a href="https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2006/the-centre-for-central-banking-studies.pdf"><span class="citation" data-cites="Hammond2006">Hammond (<span>2006</span>)</span></a> provides a history of the early years of the CCBS, charting an ambitious project that had an immediate impact on international central banking practices. More than thirty years later it remains a key forum for learning, discussion and networking, just as intended. Literally thousands of central bankers have taken part in CCBS events, and many alumni now occupy senior policymaking positions around the world. Activities have evolved to include many more of the disparate areas of responsibility that now involve the central banking community, and with a truly global reach.</p>
-<p>This book is about a small part of that output. It is (mostly) about applied economics and central banking. It is born of the experience of the many who have participated in events over the years, with literally thousands of suggestions that have improved and expanded the content delivered to properly reflect the daily concerns of the central bank economist.</p>
-<p>Mostly, but not entirely. Mostly, because the tool kit continues to expand and the techniques of data analysis evolve. We are all data scientists of some sort now, with a domain specialisation of central banking. And that domain is somewhat different to economists in academia or industry, with more of a focus on what we might dub causal forecasting. Underlying much of central bank analysis are a number of useful statistical methods and machine learning models that complement the default econometric approach. Taken together these constitute a language that central bankers need to understand. Some of this book is about how to build, interpret, and use models that used to be anathema to the econometrician but are increasingly part of the predictive landscape.</p>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="gibbs-sampling-in-a-table" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="gibbs-sampling-in-a-table"><span class="header-section-number">6.1</span> Gibbs sampling in a table</h2>
+<p>Think about a the joint density of some parameters of interest for a discrete distribution:</p>
+<div class="cell" data-layout-align="center" data-fig-cap-location="margin">
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+σ₁
+</th>
+<th style="text-align:center;">
+σ₂
+</th>
+<th style="text-align:center;">
+σ₃
+</th>
+<th style="text-align:center;">
+Marginal β
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: white !important;">
+β₁
+</td>
+<td style="text-align:center;background-color: pink !important;">
+0.10
+</td>
+<td style="text-align:center;background-color: pink !important;">
+0.20
+</td>
+<td style="text-align:center;background-color: pink !important;">
+0.30
+</td>
+<td style="text-align:center;background-color: wheat !important;">
+0.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: white !important;">
+β₂
+</td>
+<td style="text-align:center;background-color: pink !important;">
+0.10
+</td>
+<td style="text-align:center;background-color: pink !important;">
+0.05
+</td>
+<td style="text-align:center;background-color: pink !important;">
+0.05
+</td>
+<td style="text-align:center;background-color: wheat !important;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: white !important;">
+β₃
+</td>
+<td style="text-align:center;background-color: pink !important;">
+0.05
+</td>
+<td style="text-align:center;background-color: pink !important;">
+0.10
+</td>
+<td style="text-align:center;background-color: pink !important;">
+0.05
+</td>
+<td style="text-align:center;background-color: wheat !important;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: wheat !important;background-color: white !important;">
+Marginal σ
+</td>
+<td style="text-align:center;background-color: pink !important;background-color: wheat !important;">
+0.25
+</td>
+<td style="text-align:center;background-color: pink !important;background-color: wheat !important;">
+0.35
+</td>
+<td style="text-align:center;background-color: pink !important;background-color: wheat !important;">
+0.40
+</td>
+<td style="text-align:center;background-color: wheat !important;background-color: wheat !important;">
+1.0
+</td>
+</tr>
+</tbody>
+
+</table>
+<p>Table 1 Joint probabilities</p>
+</div>
+</div>
+<p>For this discrete example, the sums across the columns and rows are the <strong>marginal</strong> densities for the parameters: they don’t depend on the other parameter. Gibbs sampling estimates these sums by constructing sequences from the <strong>conditional</strong> densities that have the right joint density.</p>
+</section>
+<section id="gibbs-sampling" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Gibbs Sampling</h1>
+<p>Suppose there are <span class="math inline">\(k\)</span> variables <span class="math inline">\(\phi_i\)</span> jointly distributed <span class="math display">\[
+   J(\phi_1,\phi_2,...,\phi_k)
+\]</span> For inferential purposes we are interested in the marginal distributions denoted <span class="math display">\[
+    G(\phi_i),\quad i=1,...,k
+\]</span> Gibbs sampling is a technique that generates a sequence of values that have the same distribution as the underlying marginals. It doesn’t use the joint density but instead a sequence of conditionals densities <span class="math display">\[
+    H(\phi_i|\Phi_{j\ne i}),\quad i=1,...,k
+\]</span> where <span class="math inline">\(\Phi_{j\ne i}\)</span> are all other parameters. We will look at the procedure first and then at how it works in an example.</p>
+<section id="gibbs-sampling-is-the-following-steps" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="gibbs-sampling-is-the-following-steps"><span class="header-section-number">7.1</span> Gibbs sampling is the following steps</h2>
+<ul>
+<li><p><strong>Step 0</strong> Set starting values for <span class="math inline">\(\phi_1,...,\phi_k\)</span> <span class="math display">\[
+  \phi_1^0,\ \phi_2^0,\ ...,\ \phi_k^0
+\]</span></p></li>
+<li><p><strong>Step 1</strong> Sample <span class="math inline">\(\phi_1^1\)</span> from <span class="math display">\[
+   H(\phi_1^1\ |\ \phi_2^0,\ \phi_3^0,\ ...,\ \phi_k^0)
+\]</span></p></li>
+<li><p><strong>Step 2</strong> Sample <span class="math inline">\(\phi_2^1\)</span> from <span class="math display">\[    
+  \begin{gather*}
+  H(\phi_2^1\ |\ \phi_1^1,\ \phi_3^0,\ ...,\ \phi_k^0)  \\
+  \vdots
+  \end{gather*}
+\]</span></p></li>
+<li><p><strong>Step <span class="math inline">\(k\)</span></strong> Sample <span class="math inline">\(\phi_k^1\)</span> from <span class="math display">\[
+  H(\phi_k^1\ |\ \phi_1^1,\ \phi_2^1,\ ...,\ \phi_{k-1}^1)
+\]</span> to complete one iteration.</p></li>
+</ul>
+<p>Repeat for <span class="math inline">\(n\)</span> iterations and save the last <span class="math inline">\(n-p\)</span> values of <span class="math inline">\(\phi_i^j\)</span> for every <span class="math inline">\(i=1,...,k\)</span>. As <span class="math inline">\(n \rightarrow \infty\)</span> the joint and marginal distributions of the simulated <span class="math inline">\(\phi_1^j,\ ...,\ \phi_k^j\)</span> converge at an exponential rate to the joint and marginal distributions of <span class="math inline">\(\phi_1,\ ...,\ \phi_k\)</span>. Then the joint and marginal distributions can be approximated by the empirical distribution.</p>
+<p>For example, the estimated mean of the marginal distribution of <span class="math inline">\(\phi_i\)</span> is <span class="math display">\[
+   \bar \phi_i = \frac{\sum_{j=p+1}^n \phi_i^j}{n-p}
+\]</span> where we discard the first <span class="math inline">\(p\)</span> draws.</p>
+</section>
+</section>
+<section id="example-linear-regression-model" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Example: linear regression model</h1>
+<p>For the specific linear model <span class="math display">\[
+   y_t = \alpha + \beta_1 X_{1t} + \beta_2 X_{2t}+v_t\text{, }v_t\sim N(0,\sigma^2)
+\]</span></p>
+<ul>
+<li><p><strong>Step 1</strong> Set priors for <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\beta=\{\alpha, \beta_1, \beta_2\}\)</span> <span class="math display">\[
+P(\beta) \sim N\left( \underset{\beta_{0}}{\left[
+\begin{array}{c}
+\alpha^0 \\
+\beta_1^0 \\
+\beta_2^0
+\end{array}
+\right],}\underset{\Sigma_0} {\left[
+\begin{array}{ccc}
+\Sigma_{\alpha} &amp; 0 &amp; 0 \\
+0 &amp; \Sigma_{\beta_1} &amp; 0 \\
+0 &amp; 0 &amp; \Sigma_{\beta_2}
+\end{array}
+\right] }\right)
+\]</span> <span class="math display">\[
+P(\sigma^2) \sim \Gamma^{-1}\left( \frac{T_{0}}{2},\frac{\theta_0}{2}\right)
+\]</span> and set starting values for e.g.&nbsp;<span class="math inline">\(\alpha=\beta_1=\beta_2=0\)</span>, <span class="math inline">\(\sigma^2=1\)</span></p></li>
+<li><p><strong>Step 2</strong> Given <span class="math inline">\(\sigma^2\)</span> sample <span class="math inline">\(\beta\)</span> from its conditional posterior distribution <span class="math display">\[
+H(\beta|\sigma^2) \sim N(M^*, V^*)
+\]</span> where <span class="math display">\[
+\begin{align}
+M^* &amp;= \left(\Sigma_0^{-1} + \frac{1}{\sigma^2} X'X\right)^{-1} \left(\Sigma_0^{-1} \beta_0+\frac{1}{\sigma^2}X'y\right)\\
+V^* &amp;= \left(\Sigma_0^{-1}+\frac{1}{\sigma^2} X'X\right)^{-1}
+\end{align}
+\]</span> and <span class="math inline">\(X_t = \{\alpha, X_{1t}, X_{2t}\}\)</span></p>
+<ul>
+<li>To sample a <span class="math inline">\(k\times 1\)</span> vector <span class="math inline">\(b \sim N(M^*,V^*)\)</span>, generate <span class="math inline">\(k\)</span> numbers <span class="math inline">\(z \sim N(0,1)\)</span>, scale by the square root of <span class="math inline">\(V^*\)</span> and add in the mean <span class="math display">\[
+b = M^* + \mbox{chol}(V^*) \times z
+\]</span> where <span class="math inline">\(E[(b-M^*)(b-M^*)'] = V^*\)</span></li>
+</ul></li>
+<li><p><strong>Step 3</strong> Given a draw of <span class="math inline">\(\beta\)</span> (and call it <span class="math inline">\(\beta^1\)</span>) draw <span class="math inline">\(\sigma^2\)</span> from its conditional distribution: <span class="math display">\[
+H(\sigma^2 | \beta) \sim \Gamma^{-1}\left( \frac{T_0+T}{2}, \frac{\theta_0 + (y-X\beta^1)'(y-X\beta^1)}{2}\right)
+\]</span></p>
+<ul>
+<li>Sample some value <span class="math inline">\(s\)</span> from an Inverse Gamma distribution <span class="math inline">\(\Gamma^{-1}(\frac{\tau}{2},\frac{\delta}{2})\)</span>, either from a suitable <span class="math inline">\(\Gamma^{-1}\)</span>-distributed random number generator or generate <span class="math inline">\(\tau\)</span> standard Normal-distributed numbers <span class="math inline">\(\varepsilon \sim N(0,1)\)</span> and calculate <span class="math display">\[
+s = \frac{\delta}{\varepsilon'\varepsilon}
+\]</span></li>
+<li>Setting <span class="math inline">\(\tau = T_0+T\)</span> and <span class="math inline">\(\delta = \theta_0 + e'e\)</span> is directly the exact conditional posterior</li>
+</ul></li>
+<li><p><strong>Step 4</strong> Repeat Steps 2 and 3 <span class="math inline">\(n\)</span> times and compute the posterior means using the last <span class="math inline">\(m\)</span> draws (e.g.&nbsp;repeat 5000 times and save the last 1000 draws)</p></li>
+</ul>
+<section id="estimating-a-model-for-us-inflation" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="estimating-a-model-for-us-inflation"><span class="header-section-number">8.1</span> Estimating a model for US inflation</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Yogyakarta.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Puppet, Yogyakarta</figcaption>
+<p><img src="Gibbs_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+</div>
+<ul>
+<li>Choose an <span class="math inline">\(AR(4)\)</span> <span class="math display">\[
+\pi_t = \alpha + \beta_1 \pi_{t-1} + \beta_2 \pi_{t-2} + \beta_3 \pi_{t-3} + \beta_4 \pi_{t-4} + v_t\text{, }v_t\sim N(0,\sigma^2)
+\]</span> and write <span class="math inline">\(\beta' = [\alpha\ \beta_1\ \beta_2\ \beta_3\ \beta_4]'\)</span></li>
+<li>Priors are <span class="math display">\[
+P(\beta) \sim N\left( \underset{\beta_0} {\left[
+\begin{array}{c}
+0 \\
+1 \\
+0 \\
+0 \\
+0
+\end{array}
+\right],}\ \underset{\Sigma} {\eta\left[
+\begin{array}{ccc}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
+\end{array}
+\right] }\right), \qquad
+P(\sigma^2) \sim \Gamma^{-1}\left( \frac{1}{2},\frac{1}{2}\right)
+\]</span> where <span class="math inline">\(\eta\)</span> is a scalar we will use to adjust prior tightness</li>
+<li>Prior model consistent with a random walk for inflation</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Regression results
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Coefficient
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+SE
+</th>
+<th style="text-align:right;">
+t-stat
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+INF_1
+</td>
+<td style="text-align:right;">
+1.313
+</td>
+<td style="text-align:right;">
+0.064
+</td>
+<td style="text-align:right;">
+20.530
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+INF_2
+</td>
+<td style="text-align:right;">
+-0.337
+</td>
+<td style="text-align:right;">
+0.106
+</td>
+<td style="text-align:right;">
+-3.191
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+INF_3
+</td>
+<td style="text-align:right;">
+0.100
+</td>
+<td style="text-align:right;">
+0.105
+</td>
+<td style="text-align:right;">
+0.952
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+INF_4
+</td>
+<td style="text-align:right;">
+-0.140
+</td>
+<td style="text-align:right;">
+0.064
+</td>
+<td style="text-align:right;">
+-2.171
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+constant
+</td>
+<td style="text-align:right;">
+0.247
+</td>
+<td style="text-align:right;">
+0.076
+</td>
+<td style="text-align:right;">
+3.265
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+0.684
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+
+</table>
+<p>Linear regression table (n.b.&nbsp;no priors)</p>
+</div>
+</div>
+<section id="gibbs-samples" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="gibbs-samples"><span class="header-section-number">8.1.1</span> Gibbs samples</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="AbuDhabi.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abu Dhabi, United Arab Emirates</figcaption>
+<p><img src="Gibbs_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Sample output for 2000 replications, long burn in</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Bayesian estimates
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:right;">
+Expected
+</th>
+<th style="text-align:right;">
+SE
+</th>
+<th style="text-align:right;">
+lower_5
+</th>
+<th style="text-align:right;">
+upper_95
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+alpha
+</td>
+<td style="text-align:right;">
+0.266
+</td>
+<td style="text-align:right;">
+0.044
+</td>
+<td style="text-align:right;">
+0.203
+</td>
+<td style="text-align:right;">
+0.339
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+beta[1]
+</td>
+<td style="text-align:right;">
+1.261
+</td>
+<td style="text-align:right;">
+0.130
+</td>
+<td style="text-align:right;">
+1.044
+</td>
+<td style="text-align:right;">
+1.455
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+beta[2]
+</td>
+<td style="text-align:right;">
+-0.327
+</td>
+<td style="text-align:right;">
+0.144
+</td>
+<td style="text-align:right;">
+-0.542
+</td>
+<td style="text-align:right;">
+-0.093
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+beta[3]
+</td>
+<td style="text-align:right;">
+0.090
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+-0.081
+</td>
+<td style="text-align:right;">
+0.265
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+beta[4]
+</td>
+<td style="text-align:right;">
+-0.165
+</td>
+<td style="text-align:right;">
+0.063
+</td>
+<td style="text-align:right;">
+-0.265
+</td>
+<td style="text-align:right;">
+-0.069
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma
+</td>
+<td style="text-align:right;">
+0.838
+</td>
+<td style="text-align:right;">
+0.889
+</td>
+<td style="text-align:right;">
+0.435
+</td>
+<td style="text-align:right;">
+2.083
+</td>
+</tr>
+</tbody>
+
+</table>
+<p>Calculate descriptive statistics from Gibbs Samples</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Specs.gif" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Villa Sterne, Pretoria</figcaption>
+<p><img src="Gibbs_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Gibbs sampling generates estimates of the full marginal distributions of the parameters</figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+</div>
+<p>We can look at the impact of tighter priors and more samples. What should we expect?</p>
+<ul>
+<li>More samples will generate smoother-looking density plots, increase precison (maybe not by as much as you think)</li>
+<li>Tighter priors will move estimates towards the prior: we can, say, reduce <span class="math inline">\(\eta\)</span> or increase degrees of freedom for <span class="math inline">\(\sigma\)</span></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Korea.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Insadong, Seoul</figcaption>
+<p><img src="Gibbs_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Histograms/density estimates for 7000 replications, long burn in</figcaption>
 </figure>
 </div>
 </div>
 </div>
-</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Montevideo.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Old Town, Montevideo</figcaption>
+<p><img src="Gibbs_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Histograms/density estimates for 7000 samples, <span class="math inline">\(\eta=.025\)</span>, long burn in</figcaption>
 </figure>
 </div>
-<p>Placeholders abound.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Disclaimer
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The Bank of England does not accept any liability for misleading or inaccurate information or omissions in the information provided. The subject matter reflects the views of the author and not the wider Bank of England or its Policy Committees.</p>
 </div>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-Hammond2006" class="csl-entry" role="listitem">
-Hammond, Gill. 2006. <span>“The Centre for Central Banking Studies.”</span> <em>Quarterly Bulletin</em> Q2: 191–95. <a href="https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2006/the-centre-for-central-banking-studies.pdf">https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2006/the-centre-for-central-banking-studies.pdf</a>.
-</div>
-</div>
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -789,10 +1194,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./QR.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quantile regression</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./CK.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

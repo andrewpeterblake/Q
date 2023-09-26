@@ -1,43 +1,10 @@
----
-title: "Gibbs Sampling"
-subtitle: "Economic Modelling & Forecasting"
-author: 
-  - name: "Andrew P Blake"
-    email: andrew.blake@bankofengland.co.uk
-    affiliation:
-      - name: CCBS, Bank of England
-author-title: "Presenter"
-published-title: "Date"
-date: 2023 09 19
-date-format: iso
-format: 
-  html:
-    theme: flatly
-    toc: true
-    linkcolor: "#21a4a6"
-    code-fold: true
-    code-block-bg: "#21a4a626"
-    code-block-border-left: "#12273f"
-    embed-resources: true
-highlight-style: pygments
-title-block-banner: "#12273f"
-title-block-banner-color: "white"
-citation-location: margin
-editor: source
-abstract-title: "Disclaimer"
-abstract: |
-  _The Bank of England does not accept any liability for misleading or inaccurate information
-  or omissions in the information provided. The subject matter reflects the views of the
-  individual presenter and not the wider Bank of England or its Policy Committees._
-css: logo.css
-bibliography: refsBayes.bib
----
+# Gibbs Sampling
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, fig.align='center')
 ```
 
-# Gibbs sampling in a table
+## Gibbs sampling in a table
 
 Think about a the joint density of some parameters of interest for a discrete distribution:
 ```{r}
@@ -171,7 +138,7 @@ $$
 
 - **Step 4** Repeat Steps 2 and 3 $n$ times and compute the posterior means using the last $m$ draws (e.g. repeat 5000 times and save the last 1000 draws)
 
-# Estimating a model for US inflation
+## Estimating a model for US inflation
 
 ```{r} 
 #| echo: false
