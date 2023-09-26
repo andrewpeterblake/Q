@@ -1,0 +1,534 @@
+---
+title: "Bayesian linear regression"
+subtitle: "Economic Modelling & Forecasting"
+author: 
+  - name: "Andrew P Blake"
+    email: andrew.blake@bankofengland.co.uk
+    affiliation:
+      - name: CCBS, Bank of England
+author-title: "Presenter"
+published-title: "Date"
+date: 2023 09 19
+date-format: iso
+format: 
+  html:
+    theme: flatly
+    toc: true
+    linkcolor: "#21a4a6"
+    code-fold: false
+    code-block-bg: "#21a4a626"
+    code-block-border-left: "#12273f"
+    embed-resources: true
+highlight-style: pygments
+title-block-banner: "#12273f"
+title-block-banner-color: "white"
+citation-location: margin
+editor: source
+abstract-title: "Disclaimer"
+abstract: |
+  _The Bank of England does not accept any liability for misleading or inaccurate information
+  or omissions in the information provided. The subject matter reflects the views of the
+  individual presenter and not the wider Bank of England or its Policy Committees._
+css: logo.css
+bibliography: refsBayes.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# A linear regression model
+
+Consider the following linear regression and the task of estimating $\beta$ 
+$$
+  y_t = X_t \beta + v_t\text{  with  }v_t\sim N(0,\sigma^2)
+$$
+In the classical/frequentest approach we could write down the likelihood function, which is $$
+   L(y|\beta)=\left(2\pi\sigma^2\right)^{-T/2}\exp \left( -\frac{(y-X\beta)'(y-X\beta)}{2\sigma^2}\right)
+$$ where $y$ is a vector of the dependent variable and $X$ similarly a matrix of the explanatory ones. Then having obtained suitable data and the econometrician maximizes $L(y|\beta)$ by choice of $\beta$ to give the standard least squares estimator $\hat{\beta} = (X'X)^{-1}X'y$.
+
+This incorporates information from the data only, other than through the choice of model specification
+
+# Bayesian regression
+
+By contrast Bayesian analysis allows the researcher to combine beliefs about $\beta$ (and $\sigma$) with information from the data - this is done in a formal way. The Bayesian approach works in three steps, stylized as:
+
+- **Step 1** The researcher starts with a prior belief about the coefficient $\beta$; this **prior belief** is in the form of a distribution of $P(\beta)$, say $$
+     \beta\sim N(\beta_0, \Sigma_0)
+    $$ where here we assume a Normal, but other ones are available
+- **Step 2** Collect data on $y$ and $X$ and write down the likelihood function as before $L(y|\beta)$: this information is from the **data**
+- **Step 3** Update the prior belief (formed in Step 1) on the basis of the information in the data: combine the prior distribution $P(\beta)$ and the likelihood function $L(y|\beta)$ to obtain the posterior distribution $H(\beta|y)$
+
+## Bayes' theorem
+
+These three steps are the result of applying **Bayes' Theorem** 
+$$
+    H(\beta|y)=\frac{L(y|\beta)\times P(\beta)}{F(y)}
+$$ 
+The derivation of this formula is straightforward as the **joint density** implies 
+$$
+\begin{align}
+    J(y,\beta) &= F(y)\times H(\beta|y) = L(y|\beta)\times P(\beta) \\
+ \Longrightarrow \quad H(\beta|y) &= \frac{L(y|\beta)\times P(\beta)}{F(y)}
+ \end{align}
+$$ 
+Note that $F(y)$ is the marginal likelihood or the marginal data density and is a scalar constant.
+
+The **posterior** is proportional to the likelihood times the prior 
+$$
+  H(\beta|y)\propto L(y|\beta)\times P(\beta)
+$$
+
+This allows us to make clearer the distinction between the two approaches:
+
+-   The *classical* approach is based only on sample information
+-   The *Bayesian* approach combines sample information with researchers beliefs
+
+The goal of Bayesian analysis is to derive the ***posterior density for the parameters of interest***.
+
+# Probability table
+
+The table shows a joint density of some parameters of interest, $J(B,A)$, for a *discrete* distribution:
+
+```{r table1, warning=FALSE, echo=FALSE}
+#| warning: false
+#| echo: false
+#| fig-cap: Probability table
+
+library(knitr)
+library(kableExtra)
+
+p <- matrix(c(0.1, 0.2, 0.3, 0.1, 0.05, 0.05, 0.05, 0.1, 0.05), 3, 3, byrow=TRUE)
+p <- cbind(p, rowSums(p))
+p <- as.data.frame(rbind(p, colSums(p)))
+colnames(p) <- c("\U1D434\U2081","\U1D434\U2082","\U1D434\U2083","Marginal \U1D435")
+rownames(p) <- c("\U1D435\U2081","\U1D435\U2082","\U1D435\U2083","Marginal \U1D434")
+kable(p, align="c") %>%
+  kable_styling(full_width=F) %>%
+  column_spec(1,   background="white", width="1.35in", bold=T) %>%
+  column_spec(2:4, background="pink",  width="1.1in") %>%
+  column_spec(5,   background="wheat", width="1.35in") %>%
+  row_spec(4,      background="wheat") 
+```
+- The *joint* probabilities reflect the identity above that underlies Bayes' Theorem 
+$$
+  P(B|A)P(A) = P(A|B)P(B)
+$$
+- The *marginal* probabilities 'integrate out' the other parameters, i.e.\
+$$
+      P(B) = \textstyle{\sum_A} P(B|A)P(A)
+$$
+- The *conditional* probability is 
+$$
+  P(B|A) = J(B,A)/P(A)
+$$
+
+# Bayesian analysis -- known $\sigma$
+
+We follow the approach in @KN99. The object is to estimate $\beta$ in the model $y_t = X_t\beta + v_t$ assuming that $\sigma^2$ **is known** (we relax this assumption later)
+
+- **Step 1** Set prior distribution for $\beta$, $P(\beta)\sim N(\beta_0,\Sigma_0)$ 
+$$
+  \begin{align}
+         P(\beta) &= (2\pi) ^{-k/2}\left\vert \Sigma_0 \right\vert^{-\frac{1}{2}}\exp \left( -\frac{1}{2} (\beta-\beta_0)' \Sigma_0^{-1} (\beta-\beta_0) \right) \\
+        &\propto \exp\left( -\frac{1}{2}(\beta-\beta_0)'\Sigma_0^{-1} (\beta-\beta_0) \right)
+\end{align}
+$$
+- **Step 2** Obtain data and form the likelihood function 
+$$
+\begin{align}
+    L(y|\beta) &= (2\pi\sigma^2)^{-\frac{T}{2}}\exp \left( -\frac{1}{2\sigma^2} (y-X\beta)'(y-X\beta) \right) \\
+     &\propto \exp \left( -\frac{1}{2\sigma^2} (y-X\beta)'(y-X\beta) \right)
+     \end{align}
+$$ 
+as $\sigma^2$ is known (recall $H(\beta|y)\propto L(y|\beta)\times P(\beta)$).
+
+- **Step 3** Obtain the *conditional posterior distribution*, where we condition on $\sigma^2$, of 
+$$
+   \begin{align}
+   H(\beta|y,\sigma^2) & \propto \exp \left( -\frac{1}{2\sigma^2} (y-X\beta)'(y-X\beta) \right) \times \exp \left( -\frac{1}{2} (\beta-\beta_0)'\Sigma_0^{-1}(\beta-\beta_0) \right) \\
+   &= \exp \left( -\frac{1}{2\sigma^2} (y-X\beta)'(y-X\beta) -\frac{1}{2} (\beta-\beta_0)'\Sigma_0^{-1}(\beta-\beta_0) \right)
+   \end{align}
+$$
+Posterior is a normal distribution. Note a prior is *conjugate* when the prior combined with the likelihood results in a distribution *of the same family as the prior*.
+
+With known $\sigma$ a Normal prior for $\beta$ generates a Normal posterior, so the marginal density for $\beta$ is Normal 
+$$
+    \beta_{\sigma^2,y} \sim N(M^*, V^*)
+    $$ where $$
+    \begin{align}
+    M^* &= \left(\Sigma_0^{-1} + \frac{1}{\sigma^2}X'X\right)^{-1} \left(\Sigma_0^{-1} \beta_0 + \frac{1}{\sigma ^2}X'y\right)  \\
+    V^* &=\left(\Sigma_0^{-1}+\frac{1}{\sigma^2} X'X\right)^{-1}
+    \end{align}
+$$
+
+Implies the *conditionally* expected value of $\beta$ can be obtained from this formula, but more generally we know the distribution. Only conditionally though, because we assumed $\sigma$ known.
+
+Notice that 
+$$
+    M^* = \left( \Sigma_0^{-1} + \frac{1}{\sigma^2}X'X\right)^{-1}\left( \Sigma_0^{-1} \beta_0 + \frac{1}{\sigma^2}X'X \beta_{OLS}\right)
+$$ 
+where $\beta_{OLS} = (X'X)^{-1}X'y$. The mean is a weighted average of the prior and OLS estimate; weights proportional to inverse variance. Without priors everything the same as obtained by OLS.
+
+# Example
+
+#### Regression poblem
+
+Generate 32 observations from the following dgp ($\sigma^2_e=1$) 
+$$
+     y = 5X + e
+$$
+
+### Prior
+
+Suppose we set the prior $P(\beta)\sim N(1,10)$. What does this prior look like?
+
+Evaluate the prior density proportionate to 
+$$
+  \exp \left(-\frac{1}{10}(\beta-1)^2\right)
+$$ 
+for values of $\beta$ from $-10$ to $+10$. Then normalize the plot so the highest point is unity as only the shape will matter.
+
+```{r prior1, warning=FALSE, message=FALSE, fig.height=4.5, fig.align='center'}
+library(tidyverse)
+n  <- 32
+B  <- seq(-10,10,.05)
+xo <- runif(n)
+yo <- 5*xo + rnorm(n,0,1)
+eo <- tcrossprod(matrix(yo,n,1),matrix(1,length(B),1)) - tcrossprod(matrix(xo,n,1),matrix(B,length(B),1))
+l  <- exp(-colSums(eo*eo/2))
+
+df <- data.frame(x  = B, 
+                 y  = dnorm(B, 1, 10), 
+                 y2 = dnorm(B, 1, .5), 
+                 y3 = dnorm(B, 1, 1000), 
+                 y4 = dnorm(B, 1, 0.01), 
+                 l  = l)
+ggplot(df) + 
+  geom_line(aes(x=x,y=y/max(y)), color="blue") + 
+  theme_minimal() + 
+  ylim(0, NA) +
+  labs(title="Prior density: P(B) ~ N(1,10)", x="", y="Normalized density") 
+```
+
+Alternate tighter prior of $P(\beta)\sim N(1,2)$ plotted on top normalized to unity:
+```{r prior3, warning=FALSE, fig.height=4.5, fig.align='center'}
+ggplot(df) + 
+  geom_line(aes(x=B,y=y/max(y)), color="blue") + 
+  geom_line(aes(x=B,y=y2/max(y2)), color="red") + 
+  theme_minimal() + 
+  labs(title="Prior densities: P(B) ~ N(1,10) and N(1,2)", x="", y="Normalized density") 
+```
+
+-------------------------
+
+So much as we might expect: a looser prior -- i.e. with a bigger variance -- still has the same maximum but the penalty in terms of loss of probability is considerably less for a given distance close enough to the assumed mean. The tighter prior puts negligible probability on the parameter being 5.
+
+### Likelihood
+
+What does the **likelihood** look like? Evaluate likelihood for some data $y$ and $X$ proportional to:
+$$ 
+    L(y,X) \propto \exp\left(-\frac{1}{2\sigma^2} (y-X\beta)'(y-X\beta)\right)
+$$ 
+over the interval $\beta =-10$ to $+10$
+```{r like1, warning=FALSE, fig.height=4.5, fig.align='center'}
+ggplot(df) + 
+  geom_line(aes(x=B,y=l/max(l)), color="green") + 
+  theme_minimal() + 
+  labs(title="Likelihood: y = B*x + e, e ~ N(0,1), x known", x="", y="Normalized density") 
+```
+
+### Posterior
+
+We now need to combine the prior and likelihood information to give us the **posterior likelihood**. What should we expect the posterior to look like? It depends on the prior.
+Assume a tight-ish prior (given our earlier graphs) of $P(\beta)\sim N(1,1/2)$:
+```{r post1, warning=FALSE, fig.height=4.5, fig.align='center'}
+ggplot(df) + 
+  geom_line(aes(x=B,y=(l*y2)/max(l*y2)), color="purple") + 
+  theme_minimal() + 
+  labs(title="Posterior, P(B) ~ N(1,1/2)", x="", y="Normalized density") 
+```
+
+Instead assume prior is $P(\beta)\sim N(1,0.01)$:
+
+```{r post2, warning=FALSE, fig.height=4.5, fig.align='center'}
+ggplot(df) + 
+  geom_line(aes(x=B,y=(l*y2)/max(l*y2)), color="purple") + 
+  geom_line(aes(x=B,y=(l*y4)/max(l*y4)), color="cyan") + 
+  theme_minimal() + 
+  labs(title="Posterior, P(B) ~ N(1,0.01)", x="", y="Normalized density") 
+```
+
+Now assume prior is $P(\beta)\sim N(1,1000)$
+```{r post3, warning=FALSE, fig.height=4.5, fig.align='center'}
+ggplot(df) + 
+  geom_line(aes(x=B,y=(l*y2)/max(l*y2)), color="purple") + 
+  geom_line(aes(x=B,y=(l*y4)/max(l*y4)), color="cyan") + 
+  geom_line(aes(x=B,y=(l*y3)/max(l*y3)), color="yellow4") + 
+  theme_minimal() + 
+  labs(title="Posterior, P(B) ~ N(1,1000)", x="", y="Normalized density") 
+```
+
+## Are these intuitive?
+
+[Richard McElreath](https://t.co/McYvmIVY7p) (who wrote the absurdly excellent @McElreath) recently posted a [Xeet/tweet](https://twitter.com/rlmcelreath/status/1701165075493470644) in which he showed four cases where the priors and likelihoods look pretty similar:
+
+<center>
+![What will the posterior look like?](rm1.png){width=77%}
+</center>
+
+and asked what do people think the posteriors will look like.
+
+These are specially selected edge cases but there is still a surprising amount of variation.
+
+<center>
+![What the posterior look like](RM2.jpg){width=77%}
+</center>
+
+# Bayesian analysis -- known $\beta$
+
+What if the objective is to estimate $\sigma^2$ for the model $y=X\beta+v$ and when $\beta$ **is known**. We would need to set a prior distribution for $\sigma^2$; this cannot be the normal distribution as the normal distribution allows negative numbers. A conjugate prior for the variance $\sigma^2$ is the **Inverse Gamma** or **Wald** distribution. Equivalently the Gamma distribution is a conjugate prior for the precision $\frac{1}{\sigma^2}$; we do the analysis for this case.
+
+## Gamma distribution
+
+Draw $T$ i.i.d. numbers from a zero-mean normal distribution with variance $\frac{1}{\theta}$ 
+$$
+     v_t \sim N(0, \theta^{-1})
+$$
+Then the sum of squares of $v$ has a *Gamma* distribution 
+$$
+  \omega =\sum\nolimits_{t=1}^{T}v_{t}^{2}\sim \Gamma \left( \frac{T}{2}, \frac{\theta}{2}\right)
+$$
+The density is 
+$$
+\begin{align}
+    \Gamma(\omega) &= \frac{(\theta/2)^{T/2}}{\gamma(T/2)} \omega^{\frac{T}{2}-1}\exp \left( -\frac{ \theta}{2} \omega \right) \\
+    &\propto \omega^{\frac{T}{2}-1}\exp \left( -\frac{\theta }{2}\omega \right)
+    \end{align}
+$$ 
+where $\gamma(\cdot)$ is the *Gamma function* (not distribution).
+
+Expected value (mean): $E(\omega) = \frac{T}{\theta}$ and variance $var(\omega) = 2\frac{T}{\theta^2}$.
+
+## Draws from the Gamma distribution
+
+```{r fig.align='center'}
+T      <- 6
+theta  <- 1
+reps   <- 5000
+omega  <- rowSums(matrix(rnorm(reps*T, 0, 1/theta), reps, T)^2)
+dfg1   <- tibble(omega = omega)
+
+xax    <- seq(0, max(omega), 0.01)
+vgamma <- dgamma(xax, T/2, scale = 2/theta)
+dfg2   <- tibble(x = xax, gamma = vgamma)
+
+ggplot(dfg1) + 
+  geom_histogram(aes(x=omega, y=after_stat(density)), bins=75, fill="pink") +
+  geom_line(data = dfg2, aes(x=xax,y=vgamma)) + 
+  theme_minimal() + 
+  labs(title = "Histograms of sums of squares and analytic density",
+       subtitle = "Degrees of freedom = T/2 = 3; Scale = 2/theta = 2")
+```
+
+## Gamma distribution: degrees of freedom
+
+```{r eval=TRUE, warning=FALSE, fig.align='center'}
+library(tidyr)
+xax     <- seq(0, 20, 0.01)
+vgamma2 <- dgamma(xax, 2/2, scale = 2/theta)
+vgamma4 <- dgamma(xax, 4/2, scale = 2/theta)
+vgamma6 <- dgamma(xax, 6/2, scale = 2/theta)
+vgamma8 <- dgamma(xax, 8/2, scale = 2/theta)
+dfg <- data.frame(x = xax, 
+                  `T equals 2` = vgamma2,
+                  `T equals 4` = vgamma4,
+                  `T equals 6` = vgamma6,
+                  `T equals 8` = vgamma8)
+
+dfg2 <- gather(dfg, Var, Value, -x)
+
+ggplot(dfg2) + 
+  geom_line(data = dfg2, aes(x=x,y=Value, group=Var, color = Var)) + 
+  theme_minimal() + 
+  labs(title = "Gamma density",
+       subtitle = "Scale = 2/theta = 2",
+       y="Density", x="")
+```
+
+## Gamma distribution: scale parameter
+
+```{r eval=TRUE, warning=FALSE, fig.align='center'}
+xax     <- seq(0, 20, 0.01)
+vgamma2 <- dgamma(xax, 2, scale = 2/1)
+vgamma4 <- dgamma(xax, 2, scale = 2/.5)
+vgamma6 <- dgamma(xax, 2, scale = 2/.25)
+vgamma8 <- dgamma(xax, 2, scale = 2/.125)
+dfg <- data.frame(x = xax, 
+                  `Scale equals 2` = vgamma2,
+                  `Scale equals 4` = vgamma4,
+                  `Scale equals 8` = vgamma6,
+                  `Scale equals 16` = vgamma8)
+
+dfg2 <- gather(dfg, Var, Value, -x)
+
+ggplot(dfg2) + 
+  geom_line(data = dfg2, aes(x=x,y=Value, group=Var, color = Var)) + 
+  theme_minimal() + 
+  labs(title = "Gamma density",
+       subtitle = "Degrees of freedom = T/2 = 2",
+       y="Density", x="")
+```
+
+## Inverse Gamma distribution: degrees of freedom
+
+```{r eval=TRUE, warning=FALSE, message=FALSE, fig.align='center'}
+library(actuar)
+xax     <- seq(0, 5, 0.01)
+vigamma2 <- dinvgamma(xax, 2/2, scale = 2/theta)
+vigamma4 <- dinvgamma(xax, 4/2, scale = 2/theta)
+vigamma6 <- dinvgamma(xax, 6/2, scale = 2/theta)
+vigamma8 <- dinvgamma(xax, 8/2, scale = 2/theta)
+dfg <- data.frame(x = xax, 
+                  `T equals 2` = vigamma2,
+                  `T equals 4` = vigamma4,
+                  `T equals 6` = vigamma6,
+                  `T equals 8` = vigamma8)
+
+dfg2 <- gather(dfg, Var, Value, -x)
+
+ggplot(dfg2) + 
+  geom_line(data = dfg2, aes(x=x,y=Value, group=Var, color = Var)) + 
+  theme_minimal() + 
+  labs(title = "Inverse Gamma density",
+       subtitle = "Scale = 2/theta = 2",
+       y="Density", x="")
+```
+
+## Inverse Gamma distribution: scale parameter
+
+```{r eval=TRUE, warning=FALSE, fig.align='center'}
+xax     <- seq(0, 20, 0.01)
+vigamma2 <- dgamma(xax, 2, scale = 2/1)
+vigamma4 <- dgamma(xax, 2, scale = 2/.5)
+vigamma6 <- dgamma(xax, 2, scale = 2/.25)
+vigamma8 <- dgamma(xax, 2, scale = 2/.125)
+dfg <- data.frame(x = xax, 
+                  `Scale equals 2` = vigamma2,
+                  `Scale equals 4` = vigamma4,
+                  `Scale equals 8` = vigamma6,
+                  `Scale equals 16` = vigamma8)
+
+dfg2 <- gather(dfg, Var, Value, -x)
+
+ggplot(dfg2) + 
+  geom_line(data = dfg2, aes(x=x,y=Value, group=Var, color = Var)) + 
+  theme_minimal() + 
+  labs(title = "Inverse Gamma density",
+       subtitle = "Degrees of freedom = T/2 = 2",
+       y="Density", x="")
+```
+
+# Bayesian analysis -- known $\beta$
+
+Objective now to estimate $\sigma^2$ in the model $y = X\beta + v$ where $\beta$ is known.
+
+- **Step 1** Set prior distribution for $\sigma^{-2}$, $P(\sigma^{-2}) \sim \Gamma(T_0/2, \theta_0/2)$ so 
+$$
+   P\left( \frac{1}{\sigma^2}\right) \propto \frac{1}{\sigma^2}^{\frac{T_0}{2}-1}\exp \left( -\frac{\theta_0}{2\sigma^2}\right)
+$$
+- **Step 2** Obtain data with $T$ observations and form the likelihood function 
+$$
+\begin{align}
+     L(y|\sigma^2) &= (2\pi\sigma^2) ^{-\frac{T}{2}}\exp \left( -\frac{1}{2\sigma^2} (y-X\beta)'(y-X\beta) \right) \\
+     &\propto \sigma^{2-\frac{T}{2}} \exp\left( -\frac{1}{2\sigma^2} (y-X\beta)'(y-X\beta) \right)
+   \end{align}
+$$
+- **Step 3** Obtain the conditional posterior distribution, where we have conditioned on $\beta$ 
+$$
+    \begin{align}
+    \frac{1}{\sigma^2_{\beta,y}} &\propto \left(\frac{1}{\sigma^2}\right)^{\frac{T_0}{2}-1}\exp \left(\frac{-\theta_0}{2\sigma^2}\right) 
+        \times \left(\frac{1}{\sigma^2}\right)^{\frac{T}{2}}\exp \left( -\frac{1}{2\sigma^2} (y-X\beta)'(y-X\beta) \right) \\
+     &= \left(\frac{1}{\sigma^2}\right)^{\frac{T_0}{2}-1+\frac{T}{2}}\exp \left( -\frac{1}{2\sigma^2}\left[ \theta_0 + (y-X\beta)'(y-X\beta) \right] \right) \\
+     &= \left[\frac{1}{\sigma^2}\right]^{\frac{T_1}{2}-1}\exp \left(-\frac{\theta_1}{2\sigma^2}\right)
+    \end{align}
+$$
+
+The conditional posterior for $\sigma^{-2}$ is $H(\sigma^{-2}|y,\beta) \sim \Gamma \left( \frac{T_1}{2},\frac{\theta_1}{2}\right)$ where 
+$$
+  T_1 = T_0 + T, \qquad \theta_1 = \theta_0 + (y-X\beta)'(y-X\beta)
+$$
+
+Note that the posterior for $\sigma^2$ is $\Gamma^{-1}\left(\frac{T_1}{2},\frac{2}{\theta_1}\right)$.
+
+## Estimate of $\sigma$
+
+Consider the mean of $H(\sigma^{-2}|y,\beta)$ and recall that $E(\omega) = \frac{T}{\theta}$ for Gamma-distributed $\omega$ so 
+$$
+    \hat\sigma^{-2} = \frac{T_0 + T}{\theta_0 + (y-X\beta)'(y-X\beta) }
+$$
+Without the prior this is the reciprocal of the maximum likelihood estimate of $\sigma^2$ 
+$$
+    \hat\sigma^{-2} = \frac{T}{(y-X\beta)'(y-X\beta)}
+$$
+
+# Bayesian analysis -- nothing known
+
+Recall the likelihood function of the model is 
+$$
+ L(y|\beta,\sigma^2) = \left( 2\pi \sigma^2\right)^{-\frac{T}{2}}\exp \left(-\frac{1}{2\sigma^2}(y-X\beta)'(y-X\beta)\right)
+$$
+We need to rewrite this in a manner amenable to the inclusion of priors. As $y = X\hat{\beta} + (y-X\hat{\beta})$ it must be that 
+$$
+    \begin{align}
+     (y-X\beta)'(y-X\beta) &= (\beta-\hat{\beta})'X'X(\beta-\hat{\beta}) +
+     (y-X\hat{\beta})'(y-X\hat{\beta}) \\
+       &= (\beta-\hat{\beta})'X'X(\beta-\hat{\beta}) + (T-k)s^2
+    \end{align}
+    $$ where $$
+     s^2 = \frac{(y-X\hat{\beta})'(y-X\hat{\beta})}{T-k} = \frac{e'e}{T-k}
+$$
+
+This implies 
+$$
+    L(y|\beta,\sigma^2) =
+    \underbrace{\exp \left( -\frac{1}{2\sigma^2}(\beta-\hat{\beta})'X'X(\beta-\hat{\beta}) \right) }_{Normal}
+    \times
+    \underbrace{(2\pi\sigma^2)^{-\frac{v}{2}} \exp\left( -\frac{vs^2}{2\sigma^2}\right)  (\sigma^2)^{-(T-v)/2}}_{Gamma} 
+$$
+
+We require a joint prior for $\sigma^{-2}$ and $\beta$. Recall the prior we formulated before for $\sigma^{-2}$, $P(\sigma^{-2}) \sim \Gamma\left(\frac{T_0}{2},\frac{2}{\theta_0}\right)$ so 
+$$
+    P(\sigma^{-2}) =\frac{1}{\sigma^2}^{\frac{T_0}{2}-1}\exp \left( -\frac{\theta_0}{2\sigma^2}\right)
+$$
+Conditional on $\sigma^{-2}$ the prior for $\beta$ is 
+$$
+    P(\beta|\sigma^{-2}) = (2\pi)^{-K/2}\left\vert \sigma^2\Sigma_0 \right\vert^{-\frac{1}{2}} \exp \left[ -\frac{1}{2\sigma^2} (\beta-\beta_0)'A(\beta-\beta_0) \right]
+$$ 
+where $A = (\sigma^2\Sigma_0)^{-1}$ so the joint prior density is 
+$$
+     P(\beta,\sigma^{-2}) = P(\beta | \sigma^{-2}) \times P(\sigma^{-2})
+$$
+Combining the likelihood with prior, the joint posterior density is 
+$$
+    H(\beta,\sigma^2) = \underbrace{ \sigma^{-k} \exp \left( -\frac{1}{2\sigma^2} \widetilde{\beta}'(X'X+A) \widetilde{\beta}\right)}_{Normal} \times
+    \underbrace{(\sigma^2)^{-((T+T_0)/2+1)} \exp \left( \frac{-\theta_1} {2\sigma^2}\right) }_{Inverse\ Gamma}
+    $$ 
+where $\widetilde{\beta} = (\beta-\bar{\beta})$ and $\bar{\beta} = (X'X+A)^{-1}(X'y+A\beta_0)$. This implies that 
+$$
+    H(\beta|\sigma^2) \sim N (\bar{\beta},\ \sigma^2(X'X+A)^{-1}) 
+$$ 
+and 
+$$
+    H(\sigma^2,y) \sim IG(S,V)
+$$
+
+For inference we require **marginal** distributions $G(\beta)$ and $G(\sigma^{-2})$, say 
+$$
+    G(\beta) = \int_0^{\infty} H(\beta,\sigma^{-2}) d\sigma^2
+$$ 
+which can be shown to be a multivariate $t$-distribution (see for example @koop03 for details). Analytical results are available for the **natural conjugate prior** which has the same functional form as the likelihood. 
+
+Obtaining marginal posterior distributions requires integration: evaluating the integral difficult or even impossible in some cases (for e.g when the prior is not natural conjugate). This used to be the main stumbling block of Bayesian analysis. By contrast obtaining conditional distributions is much easier, although still sometimes tricky.
+
+**Gibbs sampling** is a numerical method that uses such conditional distributions to approximate the marginal distribution.

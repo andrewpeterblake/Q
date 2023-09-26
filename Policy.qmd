@@ -1,0 +1,237 @@
+---
+title: "Optimal policy in New Keynesian models"
+subtitle: "Economic Modelling & Forecasting"
+author: 
+  - name: "Andrew P Blake"
+    email: andrew.blake@bankofengland.co.uk
+    affiliation:
+      - name: CCBS, Bank of England
+author-title: "Presenter"
+published-title: "Date"
+date: 2023 09 18
+date-format: iso
+format: 
+  html:
+    theme: flatly
+    toc: true
+    linkcolor: "#21a4a6"
+    code-fold: true
+    code-block-bg: "#21a4a626"
+    code-block-border-left: "#12273f"
+    embed-resources: true
+highlight-style: pygments
+title-block-banner: "#12273f"
+title-block-banner-color: "white"
+citation-location: margin
+editor: source
+abstract-title: "Disclaimer"
+abstract: |
+  _The Bank of England does not accept any liability for misleading or inaccurate information
+  or omissions in the information provided. The subject matter reflects the views of the
+  individual presenter and not the wider Bank of England or its Policy Committees._
+css: logo.css
+bibliography: "feedbrules.bib"
+---
+
+# A selective history of feedback control and optimal policy
+
+A.W.H. Phillips (better known for the Phillips Curve, more of which later) trained as a control engineer, and when he switched to economics investigated the use of formal control methods in the design of economic policy (@Phillips54, @Phillips57). He wasn't alone: Arnold Tustin, a distinguished electrical engineer, wrote a whole book on the subject, @Tustin.^[And Phillips wrote a review of it, @PhillipsTustin.]
+
+Because economists then knew relatively little about the quantitative impact of policy (such as we now find with macro-prudential instruments or QE), [Jeremy Bray](https://en.wikipedia.org/wiki/Jeremy_Bray) in the 1970s proposed we should build models and simulate the effects. Not only that, we should assign weights to objectives and costs to instruments and optimize. Origins of this optimization approach go back to Frank Ramsay who laid the foundations in 1928. Ray Fair was similarly evangelical in the US and (together with co-authors including a certain John Taylor) developed system estimation and control methods for large empirical macro-models.^[See @BBY for how this impacted on policy analysis.]
+
+An optimal, welfare maximizing monetary policy is an attractive idea. But there were soon two major but related stumbling blocks. The _Lucas Critique_ (1976) and Kydland and Prescott's (1977) elaboration of _time inconsistency_. The first of these was addressed by the proper identification of models. The second questioned whether optimal policy could _ever_ be designed using models; this has proved rather more problematic. Optimality in a dynamic model leads to inherent self-contradictions. The idea of _time inconsistency_ was a variation on the 'rules versus discretion' debate. This had origins in the idea of adopting a fixed money supply (Friedman) rather than acting counter-cyclically. 
+
+The short-term response to this was effectively an emphasis on simplicity (from Phillips and very much pro-rule but not fixed money) and robustness. This culminated in the ***Taylor rule***, something that works well in many circumstances using simple principles. At the same time the complete study of what constitutes optimality was undertaken by Calvo, Driffill, Miller, Salmon, Levine, Currie, and Sachs leading to later contributions by Svensson and Woodford. See @CurrieLevine for a contemporary account, and @Miao for a nice discussion of the underlying issues. 
+
+In what follows, we take Jeremy Bray seriously. We can only learn how policy works by trying them out somehow, and an informative exercise is to analyze a model with different monetary policies. We often take macro models of increasing complexity and simulate them closed by an appropriate interest rate rule. Many more complex models have have markedly similar behavior to a very simple one, so we learn from the simplest.
+
+# Simple New Keynesian policy model
+
+Model:
+\begin{eqnarray}
+\pi_t &=& \beta \pi_{t+1}^e + \kappa y_t + s_t \\
+  y_t &=& y_{t+1}^e-\frac{1}{\sigma} (i_t-\pi_{t+1}^e) + d_t  \end{eqnarray}
+where $\pi_t$ is the inflation rate, $y_t$ the output gap and $i_t$
+the nominal interest rate.
+
+Comprised of:
+
+- the simplest New Keynesian Phillips curve;
+- an inter-temporal optimizing IS curve;
+- $s_t$ a representative supply shock, $d_t$ is a demand shock.
+
+All of the coefficients can be microfounded: such an approach is a major part of the response to the Lucas Critique.
+
+By contrast, models often closed using a Taylor rule:
+\begin{equation}
+  i_t = \gamma i_{t-1}+ (1-\gamma) (\theta_\pi\pi_t + \theta_y y_t) + m_t 
+\end{equation}
+The original @Taylor1993 _empirical_ proposal was for $\theta_\pi=1.5$, $\theta_y=0.5$, $\gamma=0$ (no smoothing). We interpret $m_t$ as a monetary policy shock. Note that although the model is microfounded, the policy rule is not.
+
+Taylor rules have become a cornerstone of modern monetary policy analysis: 
+
+- Simple to understand;
+- Reflects a move to 'models without money': interest rate becomes the policy instrument;
+- Restriction $\theta_\pi>1$ should hold has become enshrined as the 'Taylor Principle';
+- Variations often used to explain monetary policy across regimes.
+
+Smoothing introduced to make dynamics more realistic. Influential empirical papers such as @CGGEER or those in @Taylor1999 _Monetary Policy Rules_.
+
+Taylor remains very prescriptive, and continues to [Xeet/tweet](https://twitter.com/EconomicsOne/status/1568108319444975616) and blog on the topic. He used to suggest the following policy rule table:
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-cap: Taylor's Business Card
+#| fig-width: 3
+library(tidyverse) 
+library(kableExtra)
+t1 <- tibble(
+  "π"   = c("0", "2", "4", "6", "8"),
+  "–2"  = c("0.5",  "3",  "6",   "9",  "12"),
+  "0"   = c( 1,  4,  7,  10,  13),
+  "2"   = c( 2,  5,  8,  11,  14))
+
+knitr::kable(t1, align = "lccc")  %>% 
+  kable_styling(full_width = F) %>% 
+  add_header_above(c(" ", "y"=3))  %>%
+  column_spec(1,   background="white", width="1.35in", bold=T) %>% 
+  column_spec(2:4, background="#21a4a626",  width="1.1in")
+```
+
+# A proper objective for policy
+
+The universality of Taylor rules doesn't mean that they have desirable properties. @Wrong (amongst many others) argues that a lot of effort has gone into microfounding models and none at all into microfounding Taylor rules. It may be that some variant of a Taylor rule is (nearly) optimal. It may be that there are many better simple alternatives.
+
+Before we consider optimal policy -- policy that reflects microfounded preferences -- we need to be sure that we have a reasonable objective for policy. We turn to Woodford (2003) _Interest and Prices_ or @WOODFORDOMSP.
+
+Write aggregate one-period utility:
+$$
+  U(C_t,L_t) = u(Y_t;\xi_t)-\int_0^1 v(Y_t^{j};\xi_t)dj
+$$
+where $u(Y_t;\xi_t)$ is the utility of aggregate output $Y_t \equiv \left[ \int_0^1 \left(Y_t^j\right)^{\frac{\mu-1}{\mu}}dj\right] ^{\frac{\mu}{\mu-1}}$ and $v(Y_t^j;\xi_t)$ the disutility of supplying $Y_t^j$ given some shocks $\xi_t$. We think of some solution for output 
+\begin{equation}
+  Y_t = Y^0 + B\xi_t
+\end{equation}
+Note $Y^0$, $B$ are coefficients potentially affected by policy. A key parameter will turn out to be $\mu$, the elasticity of substitution between goods, with $\mu>1$.
+
+Turns out we can derive a quadratic approximation to welfare, and after much algebra Woodford shows that:
+$$
+  U(C_t,L_t)\simeq -\frac{1}{2} u_c \overline{Y}\left( \nu_1 y_t^2 + \nu_2 \text{var}_j \left[ \log P_t^j\right] \right)
+$$
+with $\nu_1$, $\nu_2$ functions of the structural coefficients and 
+$\text{var}_j \left[\log P_t^j\right]$ the variance of log prices across all differentiated goods; this reflects _price dispersion_. Pricing frictions will determine $\hbox{var}_j\left[\log P_t^j\right]$. With no frictions $\Rightarrow$ no variation $\Rightarrow$ no price dispersion and the term disappears.
+
+We now look to approximate welfare with a quadratic function of macro variables. Woodford shows:
+\begin{eqnarray}
+  W_0 &=& E_0 \left[ \sum_{t=0}^\infty \beta^t U(C_t, L_t)\right] \\
+      &\simeq & E_0 \left[ -\Phi\sum_{t=0}^\infty \beta^t(\pi_t^2+\omega y_t^2) \right] 
+\end{eqnarray}
+where $\omega =\frac{\kappa}{\mu}$ and we omit a lot more algebra. 
+
+Notice the objective function reduces down to an 'old-fashioned' _ad hoc_ concern for output and inflation stabilization. Now policy can set by considering (approximate) welfare and not using a Taylor rule using the Ramsay approach.
+
+We have derived an objective function that reflects welfare: both policymakers and economic agents can act optimally. Two important problems:
+
+- Approximation depends on the form of pricing and the rest of the model. More complicated models make it much more difficult to derive even approximate welfare so an inflation/output trade-off is often used.
+- Optimal policy remains inherently time inconsistent, which we will show.
+
+The first of these means that we may not know what we should be trying to optimize; the second means that we cannot implement the policy anyway. However although time inconsistency is pervasive, it need not be fatal.
+
+# Characterising the optimal policy
+
+## Commitment
+
+What does optimal policy actually look like? Form the _Hamiltonian_:
+$$
+  H_t = \frac{1}{2} (\pi_t^2 + \omega y_t^2) + \lambda_t (\beta \pi^e_{t+1}+\kappa y_t+z_t-\pi_t)
+$$
+where $\lambda_t$ is a Lagrange multiplier.
+
+We only need constrain the objective function using the Phillips Curve as we can always find a value of $i_t$ to satisfy the IS curve. Using this we can write the constrained objective function as:
+$$
+  V_0 = \min E_0 \sum_{t=0}^\infty \beta^t H_t.
+$$
+
+Write this explicitly as:
+\begin{eqnarray*}
+  \sum_{t=0}^\infty \beta^t H_t &=& \frac{1}{2} (\pi_0^2+\omega y_0^2) + \lambda_0 (\beta \pi_1+\kappa y_0+z_0-\pi_0) \\
+  &&\quad+\ \beta^1 \left[ \frac{1}{2}(\pi_1^2+\omega y_1^2) + \lambda_1 ( \beta \pi_2 + \kappa y_1-\pi_1) \right] \\ 
+  &&\quad +\ \beta^2 \left[ \frac{1}{2}(\pi_2^2 + \omega y_2^2) + \lambda_2 (\beta \pi_3 + \kappa y_2 - \pi_2) \right] \\
+  &&\quad +\ \beta^3 \left[ \frac{1}{2}(\pi_3^2 + \omega y_3^2) + \lambda_3 (\beta \pi_4 + \kappa y_3 - \pi_3) \right] +\ \ldots
+\end{eqnarray*}
+
+Notice:
+
+- $\pi_1$ appears in two different constraints, on two different lines above
+- $\pi_2$ appears in two different constraints, on two different lines above
+- and so on for all $\pi_t$, $t>0$.
+- $\pi_0$ only appears in one constraint on one line.
+
+First order conditions
+\begin{eqnarray*}
+  \frac{\partial V_0}{\partial y_t}           &=& 0 \Rightarrow E_0(\omega y_t + \kappa\lambda_t) = 0 \\
+  \frac{\partial V_0}{\partial \pi_{t>0}} &=& 0 \Rightarrow E_0(\pi_t - \lambda_t + \lambda_{t-1}) = 0 \\
+  \frac{\partial V_0}{\partial \pi_0}        &=& 0 \Rightarrow (\pi_0 -\lambda_0) = 0
+\end{eqnarray*}
+
+Solution for the Lagrange multiplier, $\lambda$:
+$$
+  \lambda_t = -\frac{\omega}{\kappa} y_t
+$$
+Eliminating $\lambda$ we get:
+\begin{eqnarray}
+   \pi_{t>0} &=&\Delta \lambda_t=-\frac{\omega}{\kappa}\Delta y_t \\
+   \pi_0 &=& \lambda_0=-\frac{\omega}{\kappa} y_0 
+\end{eqnarray}
+This yields 'two part' policy for the policymaker to implement which is often (misleadingly) represented as
+$$
+  \pi_t = -\frac{\omega}{\kappa}\Delta y_t
+$$
+or in terms of the fundamental parameters
+\begin{eqnarray}
+   \pi_t &=& -\omega\frac{1}{\kappa}\Delta y_t \\
+         &=& -\frac{\kappa}{\mu}\frac{1}{\kappa}\Delta y_t \\
+         &=& -\frac{1}{\mu}\Delta y_t.
+\end{eqnarray}
+The optimal inflation-growth trade-off is the inverse of the elasticity of substitution between goods, see  @WOODFORDOMSP, equation 101.
+
+The optimal policy relies on _commitment_. To sustain the optimal policy the monetary authority must have the reputation to stick to an announced plan. Optimal policy is treated as a rule even though it is predictably not the best policy in the future. 
+
+## Discretion
+
+What if the policymaker retains discretion? After all, policy is not an unbreakable rule and can change in any given period. Think of successive governments who are not responsible for their predecessors and successors actions. From the perspective of period 0 this means discretionary policy can be no better and may be substantially worse. 
+
+Find the _discretionary_ policy by setting $E_0 (\pi^e_{t+1}) = \overline{\pi} = 0$. Now write the constrained welfare function as: 
+\begin{eqnarray*}
+V_0 &=&\min \frac{1}{2} (\pi_0^2 + \omega y_0^2) + \lambda_0 (\kappa y_0 + z_0-\pi_0) \\
+&& + E_0 \beta \left[ \frac{1}{2}(\pi_1^2 + \omega y_1^2) + \lambda_1 (\kappa y_1 - \pi_1) \right] \\
+&& + E_0 \beta^2 \left[ \frac{1}{2} (\pi_2^2 + \omega y_2^2) +\lambda_2 (\kappa y_2 - \pi_2) \right] \\
+&& + E_0 \beta^3\left[ \frac{1}{2}(\pi_3^2+\omega y_3^2) + \lambda_2 (\kappa y_3 - \pi_3) \right]
++ \ldots
+\end{eqnarray*}
+$\pi_t$ for any $t$ now appears in only one 'row'. First order conditions are now:
+\begin{eqnarray*}
+\frac{\partial V_0}{\partial y_t}   &=& 0 \Rightarrow E_0 (\omega y_t + \kappa \lambda_t) = 0 \\
+\frac{\partial V_0}{\partial \pi_t} &=& 0 \Rightarrow E_0 (\pi_t-\lambda_t) = 0
+\end{eqnarray*}
+and the optimal discretionary policy is:
+\begin{equation*}
+   \pi_t = \lambda_t = -\frac{\omega}{\kappa} y_t = -\frac{1}{\mu} y_t
+\end{equation*}
+
+This ***cannot be time inconsistent***.
+
+# Notes
+
+#### Implications of time inconsistency
+
+If policymakers are forced to adopt time consistent policies then they may be substantially inferior. In static models easy to show that there is an ***inflation bias***. In dynamic models there is a ***stabilization bias*** --- it takes longer to deal with shocks. Both can be reduced by having a policymaker who is more conservative than socially optimal but acts under discretion ($\omega_m<\omega$). We can show that a policymaker who 'smooths' policy under discretion can also do better in welfare terms @WoodfordRES. 
+
+#### Instrument rules and targeting rules
+
+The Taylor rule is an obvious example of an **instrument** rule. It indicates how much the policy instrument should be moved to achieve a given target. Svensson called expressing policy as the first order condition of optimal policy a **targeting** rule. What policy achieves is expressed rather than an explicit rule about exactly how it is done.
+
+Ben McCallum (and others) have often argued that operationally some _de facto_ rule would need to be used.

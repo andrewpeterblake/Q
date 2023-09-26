@@ -1,0 +1,371 @@
+---
+title: "State-Space Models: time series models with structure"
+subtitle: "Economic Modelling & Forecasting"
+author: 
+  - name: "Andrew P Blake"
+    email: andrew.blake@bankofengland.co.uk
+    affiliation:
+      - name: CCBS, Bank of England
+author-title: "Presenter"
+published-title: "Date"
+date: 2023 09 22
+date-format: iso
+format: 
+  html:
+    theme: flatly
+    toc: true
+    linkcolor: "#21a4a6"
+    code-fold: false
+    code-block-bg: "#21a4a626"
+    code-block-border-left: "#12273f"
+    embed-resources: true
+highlight-style: pygments
+title-block-banner: "#12273f"
+title-block-banner-color: "white"
+citation-location: margin
+editor: source
+abstract-title: "Disclaimer"
+abstract: |
+  _The Bank of England does not accept any liability for misleading or inaccurate information
+  or omissions in the information provided. The subject matter reflects the views of the
+  individual presenter and not the wider Bank of England or its Policy Committees._
+css: logo.css
+bibliography: refsBayes.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introduction
+
+What is (a) state space (model) and why do we use it? Here we
+
+- explain the model form (and explain what state space is);
+- discuss the reasons for using them.
+
+This is best illustrated by discussing a number of example models and applications. We will also explore what this implies for estimation.
+
+The standard textbook for this is @Harvey89 (which understandably feels a little dated both in terms of content and notation) as well as @Hamilton1994, @Durbin and @KimNelson. Each of these have numerous classical and Bayesian applications and extensions.
+
+# A useful class of models
+
+State-space models are a useful framework amenable to both classical and Bayesian estimation. Their set-up encompasses a number of common economic models with interesting features such as time variation or unobserved components. In either case this implies we need to estimate unknown values of a time series.
+
+Model form is quite general but has multiple interpretations and is _often not unique_. There is also quite a lot of additional apparatus required before we can apply either maximum likelihood estimation or Gibbs sampling.
+
+## Unobserved variables and coefficients
+
+A lot of ***quantities*** that we routinely use to build models and analyse policy are ***unobservable***: often correspond to concepts with economic meaning rather than being inherently measurable, e.g.:
+
+-   Business cycle or output gap, natural rate of interest, persistent exogenous shocks such as productivity or preferences
+-   Other models have latent variables with no clear interpretation: popular procedure to reduce large data sets to dynamic factors
+
+Alternatively we might be interested in models with ***time-varying parameters***:
+
+-   Contrasting examples are models with slowly evolving parameters or with regime switches;
+-   The coefficients of these models are both unobserved and (potentially) time-varying;
+
+Econometricians face major problems estimating such models: the set up is complicated and data requirements may be excessive. Fortunately there is a method we can use to estimate where we are ('the state' of state space) given available observable data. 
+
+The estimation method we usually use is the ***Kalman filter***, see @Kalman. As an estimation process, this has the useful spin-off that we can also use it to calculate the value of the likelihood function at the same time.
+
+# Dynamic economic models
+
+Consider a first order VAR (we'll show how this isn't restrictive) 
+$$
+     x_t = \mu + A x_{t-1} + v_t
+$$ 
+with $v_t\sim N(0,Q)$. Estimation of this model is easy -- actually very easy as the unrestricted $A$ matrix means we can use OLS (the proof of this is left as an exercise...). Instead we augment this with a second set of equations to turn it into a system where we map the data to the state 
+$$
+    \overbrace{y_t}^{Data} = \overbrace{x_t}^{State}
+$$
+This reflects an important characteristic of state space models: all data needs to be fed into the model through ***observation equations***. This seems an odd way to go about estimating a VAR: but we now generalize this to allow that for variables we ***can't*** see.
+
+## General state space model
+
+State space models consist of two sets of equations: (1) ***Observation*** equations and (2) ***State*** or ***Transition*** equations. The classical Kalman filter set up might be:
+
+- Observation equations 
+$$
+  \overbrace{y_t}^{Data} = \underbrace{H}_{Coefficients}  \overbrace{\beta_t}^{State} +\ e_t
+$$
+- State/Transition equations 
+$$
+   \beta_t = \mu + F\beta_{t-1} + v_t
+$$
+
+We assume $v_t\sim N(0,Q)$, $e_t\sim N(0,R)$ and $cov(e_t,v_t)=0$. Set up like this, coefficients of $H$ are akin to linear regression parameters. Even more generally there could be further coefficients i.e. $y_t = H \beta_t + B e_t$. 
+
+Now consider the following variation 
+$$
+    \begin{align*}
+    y_t    &= \underbrace{H_t}_{Data} \beta_t + e_t \\
+     \beta_t &= \mu + F \beta_{t-1} + v_t
+    \end{align*}
+$$
+This allows $H_t$ to _potentially_ vary through time; written like this we can think of $H_t$ as data and $\beta_t$ as the regression parameters. For the time being consider $F$ and $\mu$ to be time-invariant and the disturbances to have constant variances, although we can easily generalize this.
+
+Written one way the measurement equation is familiar from our understanding of regression models; written another it looks like a time-varying parameter model. The state equation is familiar from our analysis of dynamic macromodels but here looks more like a potential dynamic process for the regression coefficients to vary through time. One big difference is the combination of the two. In particular, this formalizes the role of 'signal' -- $v_t$ -- and 'noise' -- $e_t$. 
+
+Model allows for the possibility that we neither directly observe the 'driving' variables of the system nor do we measure them accurately. To make sense of state space it is convenient to look at a variety of example models.
+
+# Examples
+
+## Structural time series models (STSMs)
+
+Alternative time series decomposition associated with @Harvey89. Suggests instead that economic time series might be split into 
+$$
+    \begin{align}
+    y_t &=\mu_t + e_t     &e_t\sim N\left(0,\sigma_v^2\right) \\
+    \mu_t &=\mu_{t-1}+\lambda_{t-1}+\xi_t   &\xi_t\sim N\left(0,\sigma_\xi^2\right) \\
+    \lambda_t &=\lambda_{t-1}+\zeta_t   &\zeta_t\sim N\left(0,\sigma_\zeta^2 \right)
+    \end{align}
+$$
+This is known as the ***local linear trend*** model. Both the trend level and slope can vary over time.
+
+In state space this is:
+$$
+    \begin{align}
+    y_t &= \overset{H}{\begin{bmatrix} 1 & 0 \end{bmatrix}}
+    \overset{\beta_t}{\begin{bmatrix}\mu_t \\ \lambda_t \end{bmatrix} } + e_{t} \\
+    \overset{\beta_t}{\begin{bmatrix}\mu_t \\ \lambda_t \end{bmatrix}} &=
+    \overset{F}{\begin{bmatrix} 1 & 1 \\  0 & 1 \end{bmatrix}}
+    \overset{\beta_{t-1}}{\begin{bmatrix}\mu_{t-1} \\ \lambda_{t-1} \end{bmatrix}} + 
+    \begin{bmatrix} \xi_t \\ \zeta_t\end{bmatrix} 
+    \end{align}
+$$
+The only parameters of this model that we need to estimate are the variances.
+
+## Trend-cycle model
+
+What if we wanted to decompose GDP into a trend and a cycle. Let observed GDP be modeled as:
+$$
+    y_t = \chi_t + \tau_t
+    $$ where the cycle $\chi_t$ is an $AR(2)$ process and the trend $\tau_t$ a random walk $$
+    \begin{align}
+    \chi_t &= c + \rho_1 \chi_{t-1} + \rho_2 \chi_{t-2} + v_{1t} \\
+    \tau_t &= \tau_{t-1} + v_{2t}
+    \end{align}
+$$
+In state space form this is:
+$$
+    \begin{align}
+    y_{t}& =\overset{H}{\left[\begin{array}{ccc} 1 & 0 & 1 \end{array} \right] }
+    \overset{\beta_t} {\left[ \begin{array}{c} \chi_t \\  \chi_{t-1} \\ \tau_t  \end{array} \right] } \\
+    \overset{\beta_t} {\left[\begin{array}{c} \chi_t \\  \chi_{t-1} \\ \tau_t \end{array}\right] }
+    & =\overset{\mu }{\left[\begin{array}{c} c \\  0 \\  0 \end{array} \right] } + 
+        \overset{F} {\left[\begin{array}{ccc} \rho_1 & \rho_2 & 0 \\ 
+    1 & 0 & 0 \\ 
+    0 & 0 & 1
+    \end{array}
+    \right] }\overset{\beta_{t-1}}{\left[ 
+    \begin{array}{c}
+    \chi_{t-1} \\ 
+    \chi_{t-2} \\
+    \tau_{t-1}  
+    \end{array}
+    \right] }+\left[ 
+    \begin{array}{c}
+    v_{1t} \\ 
+    0 \\
+    v_{2t} 
+    \end{array}
+    \right]
+    \end{align}
+$$ 
+where $R=0$ (there is no measurement error) and $H$ is time invariant
+
+## Time-varying parameters (TVP)
+
+Sometimes we wish to model structural change by incorporating time-varying parameters. From the equations above we could set this up as 
+    \begin{align*}
+    y_t     &= H_t \beta_t + e_t \\
+    \beta_t &= \beta_{t-1} + v_t
+    \end{align*}
+The time-varying coefficients ($\beta_t$) multiply a vector of time-varying regressors ($H_t$). As the data is fixed the distribution of $\beta_t$ will be conditionally normal if all the errors are normal. 
+
+We set $F=I$ so the parameters are assumed to follow a random walk and the steady-state variance of $\beta_t$ is infinite. The model becomes time-invariant with $\beta=\beta_0$ if $Q = (\sigma_{\nu}^2=)\ 0$. We now explicitly write the simplest TVP model 
+$$
+    y_t = c_t + X_t B_t + e_t
+$$
+where $c_t$ and $B_t$ both follow a random walk. In state space form 
+$$
+    \begin{align}
+    y_t &= \overset{H_t} {\begin{bmatrix} 1 & X_t \end{bmatrix} } 
+     \overset{\beta_t} {\begin{bmatrix} c_t \\ B_t \end{bmatrix} } + e_t & var(e) = R \\
+     \overset{\beta_t} {\begin{bmatrix} c_t \\ B_t \end{bmatrix} } &= 
+     \overset{\beta_{t-1}} {\begin{bmatrix} c_{t-1} \\  B_{t-1} \end{bmatrix}} 
+     + \begin{bmatrix} v_{1t} \\ v_{2t} \end{bmatrix} & var(v) = Q 
+    \end{align}
+$$ 
+where $F=I$ and $\mu=0$. As $\sigma_{\nu}^2 \neq 0$ the coefficients aren't fixed even though $F=I$.
+
+## Dynamic factor model
+
+Assume a panel of series $y_{it}$ has a common component $f_t$ 
+$$
+\begin{align}
+    y_{it} &= B_i f_t + e_{it}, \qquad &i=1,\ldots ,N \\
+    f_t    &= c+\rho_1 f_{t-1} + \rho_2 f_{t-2} + v_t
+\end{align}
+$$
+In state space form 
+$$
+    \begin{align*}
+    \left[ 
+    \begin{array}{c}y_{1t} \\ y_{2t} \\ \vdots \\ y_{Nt}\end{array}\right] &= 
+    \overset{H}{\left[ \begin{array}{cc}B_1 & 0 \\ B_2 & 0 \\ \vdots & \vdots \\ B_N & 0\end{array}\right] }
+    \overset{\beta_t}{\left[ \begin{array}{c}f_t \\ f_{t-1} \end{array}\right] } + \left[ \begin{array}{c} e_{1t} \\ e_{2t} \\ \vdots \\ e_{Nt} \end{array}\right] \\
+    \overset{\beta_t}{\left[ \begin{array}{c} f_t  \\ f_{t-1} \end{array}\right] } &=
+    \overset{\mu }{\left[  \begin{array}{c}c \\ 0 \end{array} \right] }+
+    \overset{F}{\left[ \begin{array}{cc}
+    \rho_1 & \rho_2 \\  1 & 0 \end{array} \right] }
+    \overset{\beta_{t-1}}{\left[  \begin{array}{c} f_{t-1} \\ f_{t-2} \end{array} \right] }+\left[ \begin{array}{c} v_t \\ 0\end{array}
+    \right]
+    \end{align*}
+$$
+-   The factors have dynamics but the observed variables do not
+
+## VAR
+
+At a more abstract level, a $k$-variable, $p$-lag VAR 
+$$
+  X_t = c + \sum_{i=1}^p A_i X_{t-i} + \varepsilon_t,\quad\hbox{where}\ Y_t = X_t
+$$
+This can always be written 
+$$
+    \begin{align*}
+    Y_t &= 
+    \overset{H}{\left[ I \ 0 \  ...\right] } 
+    \overset{\beta_t}{\left[ \begin{array}{c}X_t \\ X_{t-1} \\ \vdots\end{array}\right] } \\
+    \overset{\beta_t}{\left[ \begin{array}{c} X_t  \\ X_{t-1} \\ \vdots \end{array}\right] } &=
+    \overset{\mu}{\left[  \begin{array}{c}c \\ 0 \\ \vdots\end{array} \right] }+
+    \overset{F}{\left[ \begin{array}{ccc}
+    A_1 & A_2 & \ldots \\  I & 0 & \ldots \\ \vdots & \vdots & \ddots \end{array} \right] }
+    \overset{\beta_{t-1}}{\left[ \begin{array}{c}X_{t-1} \\ X_{t-2} \\ \vdots\end{array}\right] } + 
+    \left[ \begin{array}{c} \varepsilon_t \\ 0 \\ \vdots\end{array}
+    \right]
+    \end{align*}
+$$
+This is an important example: this model has entirely observed variables. The size of the resulting state is $p\times k$, potentially quite large: however written this way the model is easy to simulate. 
+
+We can ask the question: can we find ***unobserved*** variables that preserve the properties of $Y_t$? What if:
+$$
+     Y_t = X_t = P \tilde X_t
+$$ 
+then 
+$$
+    \tilde X_t = P^{-1}A P \tilde X_{t-1} + P^{-1} \varepsilon_t = \tilde A \tilde X_{t-1} + \tilde \varepsilon_t
+$$
+This shows that the state space representation is not unique.
+
+## Multiple representations: ARMA(1,1)
+
+This reflects the fact that model representations in general are not unique. For example, two representations of 
+$$
+    y_t = \phi y_{t-1} + \varepsilon_t + \theta \varepsilon_{t-1}  
+$$
+This can be written either as 
+$$
+    y_t = \left[ 1 \ 0\right]  \left[ \begin{array}{c}y_t \\ \varepsilon_t \end{array}\right], \qquad
+    \left[ \begin{array}{c} y_t  \\ \varepsilon_t \end{array}\right]  =
+    \left[ \begin{array}{ccc} \phi & \theta \\ 0 & 0 \end{array} \right] 
+    \left[ \begin{array}{c}y_{t-1} \\ \varepsilon_{t-1} \end{array}\right]   + 
+    \left[ \begin{array}{c} 1 \\ 1 \end{array} \right] \varepsilon_t 
+$$ 
+or 
+$$
+    y_t = \begin{bmatrix} 1 & 0 \end{bmatrix} \begin{bmatrix} y_t \\ \theta\varepsilon_t \end{bmatrix}, \qquad
+    \begin{bmatrix} y_t  \\ \theta\varepsilon_t \end{bmatrix} =
+    \begin{bmatrix} \phi & 1 \\ 0 & 0 \end{bmatrix}
+    \begin{bmatrix} y_{t-1} \\ \theta\varepsilon_{t-1} \end{bmatrix} + 
+    \begin{bmatrix} 1 \\ \theta \end{bmatrix} \varepsilon_t
+$$
+
+
+## DSGE model
+
+Take a simple New Keynesian model
+\begin{align}
+y_t    &= y_{t+1}^e-\frac{1}{\sigma} (i_t - \pi_{t+1}^e) + e_t^1 \\
+\pi_t  &= \beta \pi_{t+1}^e + \kappa y_t + e_t^2 \\
+i_t    &= \gamma i_{t-1} + (1-\gamma) \delta \pi_t + \varepsilon_t^3 \\ 
+e_t^1  &= \rho_1 e_{t-1}^1 + \varepsilon_t^1 \\ 
+e_t^2  &= \rho_2 e_{t-1}^2 + \varepsilon_t^2 
+\end{align}
+The model comprises a dynamic IS curve, a Phillips Curve and a policy rule with smoothing. There are three shocks, two of which are persistent. This we need to write in the general algebraic linear state-space form:
+$$
+E\begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = A \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + B \varepsilon_t  
+$$
+We map our variables to their algebraic equivalent as ($z_t$, $x_t$) $=$ (($e^1_t$, $e^2_t$, $i_t$), ($y_t$, $\pi_t$)). Then the model in state-space form but including the matrix $E$ is
+$$
+\begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ 
+                0 & 1 & 0 & 0 & 0 \\ 
+                0 & 0 & 1 & 0 & 0 \\ 
+                1 & 0 & -\frac{1}{\sigma} & 1 & \frac{1}{\sigma} \\ 
+                0 & 1 & 0 & 0 & \beta
+\end{bmatrix}
+\begin{bmatrix} e^1_t \\ e^2_t \\ i_t \\ y^e_{t+1} \\ \pi^e_{t+1} \end{bmatrix} 
+   = 
+   \begin{bmatrix} \rho_1 & 0 & 0 & 0 & 0 \\ 
+                0 & \rho_2 & 0 & 0 & 0 \\ 
+                0 & 0 & \gamma & 0 & (1-\gamma)\delta \\ 
+                0 & 0 & 0 & 1 & 0 \\ 
+                0 & 0 & 0 & -\kappa & 1
+   \end{bmatrix}
+\begin{bmatrix} e^1_{t-1} \\ e^2_{t-1} \\ i_{t-1} \\ y_t \\ \pi_t \end{bmatrix}    
+   + 
+      \begin{bmatrix} 
+                1 & 0 & 0  \\ 
+                0 & 1 & 0 \\ 
+                0 & 0 & 1 \\ 
+                0 & 0 & 0 \\ 
+                0 & 0 & 0 
+   \end{bmatrix}
+   \begin{bmatrix} \varepsilon^1_t \\ \varepsilon^2_t \\ \varepsilon^3_t \end{bmatrix}    
+$$
+As the left matrix is invertible we can write this in the form 
+$$
+\begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = C \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + D \varepsilon_t  
+$$
+where $C = E^{-1}A$, $D=E^{-1}B$. However, even in this form it doesn't quite conform to the standard state space model. This is because we retain the expectations in the model. Typically we need to solve the model for the expectations using the @BK1980 method or similar such that 
+$$
+ x_t = -N z_{t-1} - G \varepsilon_t
+$$
+Substituting this in we get a final state-space form
+\begin{align}
+\begin{bmatrix} z_t \\ x_t \end{bmatrix} &= \begin{bmatrix} C_{11} - C_{12}N & 0 \\ -N & 0 \end{bmatrix} \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + \begin{bmatrix} D_1-C_{12}G \\ -G \end{bmatrix} \varepsilon_t \\
+ &= P \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + Q \varepsilon_t
+\end{align}
+This needs to be augmented with an observation equation, perhaps
+$$
+\begin{bmatrix} i_t \\ y_t \\ \pi_t \end{bmatrix} 
+ = \begin{bmatrix} 0 & 0 & 1 & 0 & 0 \\ 
+                0 & 0 & 0 & 1 & 0 \\ 
+                0 & 0 & 0 & 0 & 1 
+\end{bmatrix}
+\begin{bmatrix} e^1_t \\ e^2_t \\ i_t \\ y_t \\ \pi_t \end{bmatrix} 
+$$
+where we don't observe the autoregressive shocks.
+
+# Estimation problem
+
+Recall the observation equation and transition equations 
+$$
+    \begin{align}
+    y_t       &= H\beta_t + e_t,         &var(e_t)=R \\
+    \beta_t   &= \mu + F\beta_{t-1}+v_t  &var(v_t)=Q
+    \end{align}
+$$ 
+where here we treat $H$ as time invariant.
+
+Notice that at least some parameters of the state space model ($H$, $\mu$, $F$, $R$ and $Q$) and the state variables ($\beta_t$) are both unknown. ***Simultaneous*** estimation of both sets of unknowns is usually required.   This is usually approached iteratively, with the unknown state estimated conditional on some initial estimate of the parameters (or in the Bayesian case *sampled*) using an appropriate method, usually the *Kalman Filter* and then then the parameters updated conditional on the state which is repeated until convergence. This can be done using Gibb's Sampling if we can derive the a conditional density for the unobserved components. 
+
+
+
+
+
+
+
+

@@ -230,7 +230,7 @@
 \begin{document}
 \frontmatter
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, interior hidden, enhanced, breakable, frame hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, sharp corners, interior hidden, breakable, boxrule=0pt, enhanced, frame hidden]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -249,15 +249,15 @@
 \markboth{Genesis}{Genesis}
 
 Central banks have been around quite a while. They began as a useful
-institution that mostly benefited banks, but were not universally seen
+institution that mostly benefited banks, and were not universally seen
 as something that particularly benefited society. Central banking was
 long associated with grey men in grey suits, pondering deeply the
 impenetrable machinations of high finance, fuelled by cigar smoke and
-mystique. In truth, this -- at best -- Capraesque view was substantially
-out of date. Central bankers have been for a long time no longer
-monochrome, or exclusively male, and need skills their forebears could
-have barely imagined -- and they have most decidedly different
-priorities.
+mystique. In truth, this -- at best -- Capraesque view of central
+bankers is substantially out of date, and has been for decades. They are
+no longer monochrome, or exclusively male, and need skills their
+forebears could have barely imagined -- and they have most decidedly
+different priorities.
 
 In particular, they exist in an environment where the substantial
 expertise embodied in their staff members for the very particular -- and
@@ -276,8 +276,9 @@ crumbled, the European experiment gathered momentum, and industrial
 might continued an inexorable shift eastwards. Economic policy had
 shifted too. Monetary policy was beginning a new and -- as it turned out
 -- lasting phase. There was indeed much to learn, and new monetary
-policy needed new approaches better suited to those policies. Post-Great
-Financial Crisis, the necessary tool kit would expand again.
+policy needed new approaches better suited to those policies.
+(Post-Great Financial Crisis, the necessary tool kit would expand
+again.)
 
 And so the Centre for Central Banking Studies was founded.
 \href{https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2006/the-centre-for-central-banking-studies.pdf}{Hammond
@@ -297,6 +298,19 @@ the many who have participated in events over the years, with literally
 thousands of suggestions that have improved and expanded the content
 delivered to properly reflect the daily concerns of the central bank
 economist.
+
+Mostly, but not entirely. Mostly, because the tool kit continues to
+expand and the techniques of data analysis evolve. We are all data
+scientists of some sort now, with a domain specialisation of central
+banking. And that domain is somewhat different to economists in academia
+or industry, with more of a focus on what we might dub causal
+forecasting. Underlying much of central bank analysis are a number of
+useful statistical methods and machine learning models that complement
+the default econometric approach. Taken together these constitute a
+language that central bankers need to understand. Some of this book is
+about how to build, interpret, and use models that used to be anathema
+to the econometrician but are increasingly part of the predictive
+landscape.
 
 \begin{figure}
 
@@ -378,7 +392,7 @@ economist.
 
 Placeholders abound.
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, colback=white, left=2mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, leftrule=.75mm, arc=.35mm, breakable, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Disclaimer}, rightrule=.15mm, bottomrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, breakable, arc=.35mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Disclaimer}, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, titlerule=0mm, left=2mm, bottomrule=.15mm, colback=white, leftrule=.75mm, coltitle=black]
 
 The Bank of England does not accept any liability for misleading or
 inaccurate information or omissions in the information provided. The
@@ -1546,7 +1560,7 @@ inference using the estimated standard errors. Note to do this we need
 to evaluate the best estimate of the state as well as maximize the
 likelihood: the Kalman Filter is a key ingredient in both.
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, colback=white, left=2mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, leftrule=.75mm, arc=.35mm, breakable, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Maximisation}, rightrule=.15mm, bottomrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, breakable, arc=.35mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Maximisation}, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, opacityback=0, colframe=quarto-callout-note-color-frame, toprule=.15mm, titlerule=0mm, left=2mm, bottomrule=.15mm, colback=white, leftrule=.75mm, coltitle=black]
 
 A suitable numerical maximization routine will (in principle) maximize
 the likelihood straightforwardly. Often use
@@ -2225,7 +2239,7 @@ So the final country map is
 
 \end{figure}
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, colback=white, left=2mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, leftrule=.75mm, arc=.35mm, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{\texttt{group} and \texttt{summarise} can join geographical areas}, rightrule=.15mm, bottomrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, breakable, arc=.35mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{\texttt{group} and \texttt{summarise} can join geographical areas}, colbacktitle=quarto-callout-tip-color!10!white, bottomtitle=1mm, opacityback=0, colframe=quarto-callout-tip-color-frame, toprule=.15mm, titlerule=0mm, left=2mm, bottomrule=.15mm, colback=white, leftrule=.75mm, coltitle=black]
 
 Note the really nice feature -- if we group by something, in this case
 country, we can summarise to amalgamate the geometries!

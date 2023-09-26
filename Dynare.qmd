@@ -1,0 +1,200 @@
+# Dynare basics
+
+## What is Dynare?
+
+Best answered by the authors themselves, from their website:
+
+> Dynare  ... handl[es] a wide class of economic models, in particular dynamic stochastic general equilibrium (DSGE) and overlapping generations (OLG) models. The models solved by Dynare include those relying on the rational expectations hypothesis ... [but also] models where expectations are formed differently [including] models where agents have limited rationality or imperfect knowledge of the state of the economy and, hence, form their expectations through a learning process.
+
+> Dynare offers a user-friendly and intuitive way of describing [...] models. It is able to perform simulations of the model given a calibration of the model parameters and is also able to estimate these parameters given a dataset. In practice, the user will write a text file containing the list of model variables, the dynamic equations linking these variables together, the computing tasks to be performed and the desired graphical or numerical outputs.
+
+## Software for solving models
+
+Why do we need it? Any serious model will usually require a computer package to, say, analyse policy options. Lots of Matlab code (and other languages) is available to do this but it is convenient to use one of a few packages that makes the tedious things easier to do. It is also nice to be able to code up a model very quickly; we may need to marry that up with data too. Dynare is one such 'user friendly' program to we can use to solve, simulate and estimate DSGE models, and other stuff besides. Dynare is a [Matlab](https://uk.mathworks.com/products/matlab.html) program, so you need a licenced product^[Actually [Octave](https://octave.org/) will do, but is much slower.]. It runs on a variety of OS/hardware platforms too, including Debian Linux. It is available free from [http://www.dynare.org/](http://www.dynare.org/) and there is [extensive documentation](http://www.dynare.org/wp-repo/dynarewp001.pdf).
+
+Although Dynare is frequently the tool of choice (particularly by researchers) there are alternatives: [IRIS](https://iris.igpmn.org/), [YADA](http://www.texlips.net/yada/) etc are also available for Matlab, with [gEcon](https://gecon.r-forge.r-project.org/) for [R](https://cran.r-project.org/), plus a number of commercial alternatives.
+
+::: {.callout-caution}
+## Notable characteristics of Dynare include:
+    
+- Their definition of user friendly isn't the same as mine.
+- The terminology that they use is at times a little strange; this partly reflects the history of the program rather than the methods being used.
+- Data handling is somewhat _ad hoc_.
+- There are a lot of embedded methods (Kalman filter, MCMC, etc) and it is not always clear to the casual user how (or why) they are being implemented.
+- I wouldn't recommend Dynare as a forecast platform although you could use it. In my experience IRIS (for one) is better but the learning curve is steeper.
+
+:::
+
+## Dynare model files
+
+We begin with getting a representative DSGE model into Dynare, then solve and simulate it. Each model in Dynare file requires a fairly precisely structured text file to control both the specification of the model (and any data) and what we wish to do with it.
+
+### File structure
+
+The Dynare files have the extension `.mod` so we will often call them mod files. The structure of a mod file has to be as follows :
+
+1. Preamble
+2. Model
+3. Steady-state/initial values
+4. Shocks
+5. Computation
+    
+Many of these are specified as blocks; they have a begin/end form:
+```matlab
+ < Begin block >;
+
+    < commands >;
+
+ end;
+```
+
+## Example model
+
+We will code the canonical closed economy New Keynesian model with three variables: Output gap, $y_t$, inflation deviations from target, $\pi_t$, and the nominal interest rate, $i_t$. Model equations are:
+\begin{eqnarray}
+y_t   &=& y_{t+1}-\frac{1}{\sigma} (i_t - \pi^e_{t+1}) \\
+\pi_t &=& \beta \pi^e_{t+1}+\kappa y_t + \varepsilon_t \\
+i_t   &=& \theta_y y_t + \theta_\pi \pi_t
+\end{eqnarray}
+comprising
+
+1. a dynamic IS curve;
+2. a New Keynesian Phillips curve w/cost-push shock;
+3. a standard Taylor-type rule
+
+and $x^e_{t+1}$ is shorthand for $E_t x_{t+1}$. To meaningfully simulate this we will need to specify some values for the parameters ($\beta$, $\kappa$, $\sigma$, $\theta_\pi$, $\theta_y$, $\hbox{var}(\varepsilon_t)$), some sort of data and probably some shocks.
+
+### Dynare code
+
+#### Preamble
+
+Define the variables and parameters of the model, and set numerical values for any parameters. All endogenous variables are declared as of type `var` and shocks as `varexo`. All the parameters are declared with the command `parameters`. 
+
+For the example model:
+```matlab
+var y, i, pi;
+varexo eps;
+
+parameters beta, kappa, sigma, theta_y, theta_pi;
+
+beta = 0.99;
+kappa = 0.05;
+sigma = 2;
+theta_y = 0.5;
+theta_pi = 1.5;
+```
+
+#### Model
+
+Whatever the model, linearize each equation (although Dynare is able to solve the model from its original form) and enter them into a mod file. We need to follow some simple rules so $x^e_{t+1}$ is entered as `x(+1)` or $x_{t-1}$ as `x(-1)`. We don't specify the conditioning date as they are always the same.
+
+For a linear model the block usually starts with `model(linear);` and conclude with `end;`. In between we enter all the (linearized) model equations. This is the big advantage: Dynare doesn't need you to input the model matrices as a pre-processor does this for you.
+
+One way of entering the model above is:
+```matlab
+model(linear);
+
+    y = y(+1) - (1/sigma)*(i-pi(+1));
+    pi = beta*pi(+1) + kappa*y + eps;
+    i = theta_y*y + theta_pi*pi;
+
+end;
+```
+Equation order doesn't matter, nor does normalization.
+
+#### Data/steady state
+
+All models need data, but some can get away with zero (but not missing). In particular linear models specified as _deviations from steady state_ are, but few others. Most models won't fit any arbitrary data set -- there will always be some **implicit residual**. How we deal with these is important for forecasting, so we will want to supply some historical data and calculate the implicit residual which can be done. 
+
+For now, assume a linear model. Of course linearity doesn't mean zero is the baseline around which we should simulate a model by applying arbitrary shocks, but ours is. We can either enter the exact steady-state values in the `.mod` file or leave Dynare to find the steady-state values through numerical methods. In either case, some initial values are entered with the command  `initval;` followed by the numerical values for each variables and then `end;`. By using the command `steady;` Dynare uses the steady state of the model rather than the values you just entered which become the approximate steady state.
+
+For our example we could use:
+```matlab
+initval;
+
+    y  = 0;
+    pi = 0;
+    i  = 0;
+
+end;
+```
+and then
+```matlab
+steady;
+```
+This is a belt-and-braces approach; we've given it both the exact steady state and made sure it solve for it too. Beware: Dynare isn't very good at finding arbitrary steady states without helpful starting values.
+
+#### Shocks
+
+Shocks are entered using the command `shocks;` followed by the variance of each shocks which is declared as `var`.^[Not to be confused with `var` above. I did say it was strange...] Once all the shocks are declared we conclude with the command `end;`. 
+
+For our example, the single shock is declared as:
+```matlab
+shocks;
+
+    var eps = 0.001;
+
+end;
+```
+Often in Dynare things can be done in several different ways. An alternative formulation is:
+```matlab
+shocks;
+
+    var eps;
+    stderr 0.001;
+
+end;
+```
+
+#### Computation
+
+Once we have defined preamble, the model, the steady state and the shocks we can then simulate the model. To simulate a model we usually enter the command `stoch_simul` perhaps with some options that will tell Dynare what to do with the model. (Why `stoch_simul` you may ask: what's wrong with calling it something like `simul`?) Dynare produces outputs such as a model summary, eigenvalues, the covariance of exogenous shocks, the solved transition function, model
+moments, correlations and autocorrelations of the simulated variables as well as graphs. 
+
+A common option is to set the number of periods for the impulse responses, for example `IRF=30`, which computes impulse response functions for 30 periods. 
+
+So we would specify 
+```matlab
+stoch_simul(IRF=30);
+```
+Other additional options will be necessary if we have a lot of shocks or endogenous variables and so on. 
+
+## Exercises
+
+Let's code this up and look at the simulations. (Hint: copy/paste.)
+
+They're going to look pretty boring. To be more interesting we can do a couple of things:
+    
+- More shock persistence, so $\varepsilon_t = \rho\varepsilon_{t-1} + \epsilon_t$.
+- Interest rate persistence, so $i_t=\gamma i_{t-1}+(1-\gamma ) (\theta_y y_t + \theta_{\pi}\pi_t)$
+
+Code these up following the rules above (how do we define $\varepsilon$ now?) and check you get the same answers if $\rho =\gamma =0$. Set $\rho =\gamma =0.8$ and see what happens.
+
+## Aside on estimation
+
+For estimation we need additional information. Sometimes we need to introduce measurement equations specifically, unless straight state variables. Smets/Wouters model, for example, uses
+```matlab
+// measurement equations
+
+pinfobs = pinf + constepinf;
+```
+so observed inflation is related to the state variable. We also need to declare the estimated parameters, which we do together with their priors. Example again from Smets/Wouters:
+```matlab
+estimated_params;
+
+    // Param Name, init, lb, ub, Prior, P1, P2
+    // Priors: <P>_PDF, <P> = BETA, GAMMA, etc}
+
+    stderr ea, 0.4, 0.01, 3, INV_GAMMA_PDF, 0.1, 0.2;
+    cthetaa, .9, .01, .9999, BETA_PDF, 0.5, 0.20;
+    csadjcost, 6.3325, 2, 15, NORMAL_PDF, 4, 1.5;
+    ...
+
+end;
+```
+Observed variables are attached to states using:
+```matlab
+varobs dy dc dinve labobs pinfobs dw robs;
+```
+Essentially just another declaration, can be put anywhere before estimation.
+

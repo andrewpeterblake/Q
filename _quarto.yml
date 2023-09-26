@@ -19,6 +19,7 @@ book:
       chapters:
         - intro.qmd
         - R2021.qmd
+        - RegressionLemma.qmd
         - Kalman.qmd
     - part: "Quantiles"
       chapters:
@@ -32,6 +33,7 @@ book:
       chapters: 
       - BK.qmd
       - BVAR.qmd
+      - Dynare.qmd
     - part: "End matter"
       chapters:
       - summary.qmd
