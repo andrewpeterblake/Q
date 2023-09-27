@@ -308,23 +308,22 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#literature" id="toc-literature" class="nav-link active" data-scroll-target="#literature"><span class="header-section-number">5.1</span> Literature</a></li>
-  <li><a href="#reminder-of-a-state-space-model" id="toc-reminder-of-a-state-space-model" class="nav-link" data-scroll-target="#reminder-of-a-state-space-model"><span class="header-section-number">5.2</span> Reminder of a state-space model</a>
+  <li><a href="#literature" id="toc-literature" class="nav-link active" data-scroll-target="#literature"><span class="header-section-number">5.1</span> Literature</a>
   <ul class="collapse">
-  <li><a href="#a-useful-class-of-models" id="toc-a-useful-class-of-models" class="nav-link" data-scroll-target="#a-useful-class-of-models"><span class="header-section-number">5.2.1</span> A useful class of models</a></li>
+  <li><a href="#reminder-of-a-state-space-model" id="toc-reminder-of-a-state-space-model" class="nav-link" data-scroll-target="#reminder-of-a-state-space-model"><span class="header-section-number">5.1.1</span> Reminder of a state-space model</a></li>
   </ul></li>
+  <li><a href="#a-useful-class-of-models" id="toc-a-useful-class-of-models" class="nav-link" data-scroll-target="#a-useful-class-of-models"><span class="header-section-number">5.2</span> A useful class of models</a></li>
   <li><a href="#what-is-a-filter" id="toc-what-is-a-filter" class="nav-link" data-scroll-target="#what-is-a-filter"><span class="header-section-number">5.3</span> What is a filter?</a>
   <ul class="collapse">
-  <li><a href="#forecasting" id="toc-forecasting" class="nav-link" data-scroll-target="#forecasting"><span class="header-section-number">5.3.1</span> Forecasting</a></li>
-  <li><a href="#uncertainty" id="toc-uncertainty" class="nav-link" data-scroll-target="#uncertainty"><span class="header-section-number">5.3.2</span> Uncertainty</a></li>
-  <li><a href="#prediction-error" id="toc-prediction-error" class="nav-link" data-scroll-target="#prediction-error"><span class="header-section-number">5.3.3</span> Prediction error</a></li>
-  <li><a href="#current-data-predictions" id="toc-current-data-predictions" class="nav-link" data-scroll-target="#current-data-predictions"><span class="header-section-number">5.3.4</span> Current-data predictions</a></li>
-  <li><a href="#estimated-model-covariances" id="toc-estimated-model-covariances" class="nav-link" data-scroll-target="#estimated-model-covariances"><span class="header-section-number">5.3.5</span> Estimated model covariances</a></li>
+  <li><a href="#three-estimation-problems" id="toc-three-estimation-problems" class="nav-link" data-scroll-target="#three-estimation-problems"><span class="header-section-number">5.3.1</span> Three estimation problems</a></li>
+  <li><a href="#forecasting" id="toc-forecasting" class="nav-link" data-scroll-target="#forecasting"><span class="header-section-number">5.3.2</span> Forecasting</a></li>
+  <li><a href="#uncertainty" id="toc-uncertainty" class="nav-link" data-scroll-target="#uncertainty"><span class="header-section-number">5.3.3</span> Uncertainty</a></li>
+  <li><a href="#prediction-error" id="toc-prediction-error" class="nav-link" data-scroll-target="#prediction-error"><span class="header-section-number">5.3.4</span> Prediction error</a></li>
+  <li><a href="#current-data-predictions" id="toc-current-data-predictions" class="nav-link" data-scroll-target="#current-data-predictions"><span class="header-section-number">5.3.5</span> Current-data predictions</a></li>
+  <li><a href="#estimated-model-covariances" id="toc-estimated-model-covariances" class="nav-link" data-scroll-target="#estimated-model-covariances"><span class="header-section-number">5.3.6</span> Estimated model covariances</a></li>
   </ul></li>
-  <li><a href="#the-kalman-filter" id="toc-the-kalman-filter" class="nav-link" data-scroll-target="#the-kalman-filter"><span class="header-section-number">5.4</span> The Kalman filter</a>
-  <ul class="collapse">
-  <li><a href="#kalman-filter-trick" id="toc-kalman-filter-trick" class="nav-link" data-scroll-target="#kalman-filter-trick"><span class="header-section-number">5.4.1</span> Kalman filter trick</a></li>
-  </ul></li>
+  <li><a href="#the-kalman-filter" id="toc-the-kalman-filter" class="nav-link" data-scroll-target="#the-kalman-filter"><span class="header-section-number">5.4</span> The Kalman filter</a></li>
+  <li><a href="#the-kalman-filter-evaluates-the-likelihood" id="toc-the-kalman-filter-evaluates-the-likelihood" class="nav-link" data-scroll-target="#the-kalman-filter-evaluates-the-likelihood"><span class="header-section-number">5.5</span> The Kalman filter evaluates the likelihood</a></li>
   </ul>
 </nav>
     </div>
@@ -352,9 +351,8 @@ div.csl-indent {
 <section id="literature" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="literature"><span class="header-section-number">5.1</span> Literature</h2>
 <p>Alternatives to what follows can be found in <span class="citation" data-cites="Harvey89">Harvey (<a href="references.html#ref-Harvey89" role="doc-biblioref">1989</a>)</span>, <span class="citation" data-cites="Hamilton1994">Hamilton (<a href="references.html#ref-Hamilton1994" role="doc-biblioref">1994</a>)</span>, <span class="citation" data-cites="KimNelson">Kim and Nelson (<a href="references.html#ref-KimNelson" role="doc-biblioref">1999</a>)</span>, <span class="citation" data-cites="Durbin">Durbin and Koopman (<a href="references.html#ref-Durbin" role="doc-biblioref">2001</a>)</span> or <span class="citation" data-cites="BISSM">Triantafyllopoulos (<a href="references.html#ref-BISSM" role="doc-biblioref">2021</a>)</span>. There are many books devoted to the Kalman filter <a href="https://www.amazon.co.uk/s?k=kalman+filtering&amp;i=stripbooks">as a casual Amazon search</a> mostly from an engineering perspective. However econometricians since <span class="citation" data-cites="HarveyPierse">Harvey and Pierse (<a href="references.html#ref-HarveyPierse" role="doc-biblioref">1984</a>)</span> have used it in a way somewhat different from standard engineering applications. We will cover the filter and then look at a simple example if filtering, then develop a maximum likelihood estimation approach.</p>
-</section>
-<section id="reminder-of-a-state-space-model" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="reminder-of-a-state-space-model"><span class="header-section-number">5.2</span> Reminder of a state-space model</h2>
+<section id="reminder-of-a-state-space-model" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="reminder-of-a-state-space-model"><span class="header-section-number">5.1.1</span> Reminder of a state-space model</h3>
 <p>Consider the trend-cycle model <span class="math display">\[\begin{equation}
   y_t = \chi_t + \tau_t + \varepsilon_t
 \end{equation}\]</span> where the cycle equation is <span class="math display">\[\begin{equation}
@@ -373,8 +371,10 @@ y_t &amp;=
 \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}
 \begin{bmatrix} v_{1t} \\ v_{2t} \end{bmatrix}
 \end{align}\]</span></p>
-<section id="a-useful-class-of-models" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="a-useful-class-of-models"><span class="header-section-number">5.2.1</span> A useful class of models</h3>
+</section>
+</section>
+<section id="a-useful-class-of-models" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="a-useful-class-of-models"><span class="header-section-number">5.2</span> A useful class of models</h2>
 <p>We need a framework that nests this type of model (and many more). State-space models are one such framework, amenable to classical (and Bayesian) estimation. Quite a lot of apparatus required before we can apply maximum likelihood.</p>
 <p><strong>Key points</strong>:</p>
 <ul>
@@ -384,7 +384,6 @@ y_t &amp;=
 <li>Has the useful spin-off that we can also use it to calculate the value of the likelihood function.</li>
 </ul>
 </section>
-</section>
 <section id="what-is-a-filter" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="what-is-a-filter"><span class="header-section-number">5.3</span> What is a filter?</h2>
 <p>Imagine we had a time-varying parameter model where we estimate <span class="math inline">\(\beta_t\)</span>; this becomes a time series so we have a lot of parameters to estimate: we outline an estimation method here, which we will then characterise as the <em>Kalman Filter</em>.</p>
@@ -392,6 +391,10 @@ y_t &amp;=
 y_t     &amp;= H_t\beta_t + e_t, &amp;var(e_t) = R \\
 \beta_t &amp;= \mu + F \beta_{t-1} + v_t, &amp;var(v_t)=Q
 \end{align}\]</span> where <span class="math inline">\(\beta_t\)</span> is a vector of stochastic variables, <span class="math inline">\(y_t\)</span> a vector of measurements and the data forms an information set such that <span class="math inline">\(\psi_T = \{y_T,y_{T-1},...,y_1\}\)</span>.</p>
+<p>Note that written this way the shocks are potentially reduced form ones. Typically there will be less shocks then either states (or observables) or it may be that structural shocks enter into one or more relationships. We would then write <span class="math inline">\(e_t = B\eta_t\)</span> and <span class="math inline">\(v_t = G\nu_t\)</span> where <span class="math inline">\(B\)</span> and <span class="math inline">\(G\)</span> are matrices of appropriate dimension that feed the structural shocks into the right equations. If we assume both <span class="math inline">\(eta_t\)</span> and <span class="math inline">\(\nu_t\)</span> only contains independent unit variance shocks, then <span class="math inline">\(R = B\mathbb{E}(\eta_t\eta_t')B' = BB'\)</span> and similarly <span class="math inline">\(Q=GG'\)</span>.</p>
+<p>The reason for using the reduced form shocks is toreduce the amount of notation. We will also (to further reduce notation) mostly set <span class="math inline">\(\mu = 0\)</span>, but it is straightforward to have a vector of constants, which we include in the final formulae.</p>
+<section id="three-estimation-problems" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="three-estimation-problems"><span class="header-section-number">5.3.1</span> Three estimation problems</h3>
 <p><span class="citation" data-cites="Jazwinski">Jazwinski (<a href="references.html#ref-Jazwinski" role="doc-biblioref">1970</a>)</span> defines three type of estimation problem</p>
 <ul>
 <li><strong>Smoothing</strong> is the problem of estimating <span class="math inline">\(\beta_k\)</span> for any <span class="math inline">\(k&lt;T\)</span></li>
@@ -401,67 +404,92 @@ y_t     &amp;= H_t\beta_t + e_t, &amp;var(e_t) = R \\
 <blockquote class="blockquote">
 <p>“The object of filtering is to update our knowledge of the system each time a new observation <span class="math inline">\(y_t\)</span> is brought in.” (<span class="citation" data-cites="Durbin">Durbin and Koopman (<a href="references.html#ref-Durbin" role="doc-biblioref">2001</a>)</span>)</p>
 </blockquote>
-<p>Filtering is specifically this: perhaps we have some estimates already of <span class="math inline">\(\beta_t\)</span> for <span class="math inline">\(t=1...t-1\)</span>, then given the new period-<span class="math inline">\(t\)</span> observation of <span class="math inline">\(y_t\)</span> how should we estimate a new value of <span class="math inline">\(\beta_t\)</span>? This immediately implies a recursive structure to estimation problems, consistent with on-line (or real-time) estimation. The Kalman filter uses the period <span class="math inline">\(t\)</span> news available from observed <span class="math inline">\(y_t\)</span> to update our estimates of <span class="math inline">\(\beta_t\)</span> using the regression lemma.</p>
-<section id="forecasting" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="forecasting"><span class="header-section-number">5.3.1</span> Forecasting</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If we understand the notation we are a long way to understanding the solution. <span class="math display">\[
+\begin{align}
+\beta_{t|t-1} &amp;= \mathbb{E}[\beta_t | \psi_{t-1}] &amp;&amp; \hbox{Estimate of } \beta_t \hbox{ conditional on } \psi_{t-1} \hbox{ (predicted)} \\
+\beta_{t|t}   &amp;= \mathbb{E}[\beta_t | \psi_t]     &amp;&amp; \hbox{Current } (\psi_t) \hbox{ sample estimate} \hbox{ (filtered)}\\
+\beta_{t|T}   &amp;= \mathbb{E}[\beta_t | \psi_T]     &amp;&amp; \hbox{Full } (\psi_T) \hbox{ sample estimate} \hbox{ (smoothed)}\\
+P_{t|j}       &amp;= \mathbb{E}\left[(\beta_t - \beta_{t|j}) (\beta_t - \beta _{t|j})'\right]  &amp;&amp; \hbox{Conditional cov. based on } \psi_j,\ j=[t-1,t,T]\\
+y_{t|t-1}     &amp;= \mathbb{E}[y_t | \psi_{t-1}] = H_t \beta_{t|t-1}  &amp;&amp; \hbox{Prediction of}\ y_t \hbox{ given } \psi_{t-1}\\
+\eta_{t|t-1}  &amp;= y_t - y_{t|t-1} = y_t - H_t \beta_{t|t-1}  &amp;&amp; \hbox{Prediction error given }\psi_{t-1} \\
+f_{t|t-1}     &amp;= \mathbb{E}[\eta_{t|t-1}\eta_{t|t-1}']      &amp;&amp; \hbox{Conditional } (\psi_{t-1}) \hbox{ variance of prediction error}
+\end{align}
+\]</span></p>
+</div>
+</div>
+<p>In what follows we will calculate some quantities that are consequences of the state space formulation of our problem that will allow us to apply the regression lemma to estimate the unobserved state variables.</p>
+</section>
+<section id="forecasting" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="forecasting"><span class="header-section-number">5.3.2</span> Forecasting</h3>
 <p>Consider the simple first-order VAR model <span class="math display">\[\begin{equation}
   \beta_t = F\beta_{t-1}+v_{t},\quad v_t\sim N(0,Q)
 \end{equation}\]</span> We can use to make the <em>conditional</em> forecast <span class="math display">\[\begin{equation}
   \beta_{t|t-1} = F\beta_{t-1}
-\end{equation}\]</span> where <span class="math inline">\(\beta_{t|t-1}=E[\beta_t|\psi_{t-1}]\)</span> and <span class="math inline">\(\psi_{t-1}\)</span> is the information set available at time <span class="math inline">\(t-1\)</span>.</p>
+\end{equation}\]</span> where <span class="math inline">\(\beta_{t|t-1}= \mathbb{E}[\beta_t|\psi_{t-1}]\)</span> and <span class="math inline">\(\psi_{t-1}\)</span> is the information set available at time <span class="math inline">\(t-1\)</span>.</p>
 <p>If <span class="math inline">\(\psi_{t-1}\)</span> includes <span class="math inline">\(\beta_{t-1}\)</span> we can straightforwardly forecast next period (and the next-but-one period etc) using the model. This is a standard forecasting exercise given any estimated (or even calibrated) economic model.</p>
 </section>
-<section id="uncertainty" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="uncertainty"><span class="header-section-number">5.3.2</span> Uncertainty</h3>
-<p>How can we assess the associated forecast uncertainty? The forecast covariance <span class="math inline">\(P_{t|t-1} = var(\beta_t|\psi_{t-1})\)</span> is given by <span class="math display">\[\begin{align}
-P_{t|t-1} &amp;= E\left[ (\beta_t - \beta_{t|t-1})(\beta_t-\beta_{t|t-1})'\right]   \\
-  &amp;= E\left[ (F\beta_{t-1}+v_t-F\beta_{t-1|t-1}) \left(\beta_{t-1}'F'+v_t'-\beta_{t-1|t-1}'F'\right) \right] \\
-&amp;= E\left[ F\left( \beta _{t-1}-\beta _{t-1|t-1}\right) \left( \beta_{t-1}-\beta _{t-1|t-1}\mu_z \right) ' F' \right] + E[v_t v_t']  \notag \\
+<section id="uncertainty" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="uncertainty"><span class="header-section-number">5.3.3</span> Uncertainty</h3>
+<p>How can we assess the associated forecast uncertainty? The forecast covariance <span class="math inline">\(P_{t|t-1} = var(\beta_t|\psi_{t-1})\)</span> is given by <span class="math display">\[\begin{align*}
+P_{t|t-1} &amp;= \mathbb{E}\left[ (\beta_t - \beta_{t|t-1})(\beta_t-\beta_{t|t-1})'\right]   \\
+  &amp;= \mathbb{E}\left[ (F\beta_{t-1}+v_t-F\beta_{t-1|t-1}) \left(\beta_{t-1}'F'+v_t'-\beta_{t-1|t-1}'F'\right) \right] \\
+&amp;= \mathbb{E}\left[ F\left(\beta _{t-1}-\beta _{t-1|t-1}\right) \left( \beta_{t-1}-\beta _{t-1|t-1}\right) ' F' \right] + \mathbb{E}[v_t v_t'] \\
+&amp;= F\mathbb{E}\left[\left(\beta _{t-1}-\beta _{t-1|t-1}\right) \left( \beta_{t-1}-\beta _{t-1|t-1} \right)' \right] F' + \mathbb{E}[v_t v_t'] \\
 &amp;= FP_{t-1|t-1}F' + Q
-\end{align}\]</span> where <span class="math inline">\(P_{t-1|t-1} = var(\beta_{t-1}|\psi_{t-1})\)</span>. The forecast error variance depends on the previous error variance; that value depends on the information set.</p>
+\end{align*}\]</span> where <span class="math inline">\(P_{t-1|t-1} = var(\beta_{t-1}|\psi_{t-1})\)</span>. The forecast error variance depends on the previous error variance; that value depends on the information set.</p>
 <p>If <span class="math inline">\(\beta_{t-1}\)</span> forms part of the information set <span class="math inline">\(\psi_{t-1}\)</span> then <span class="math display">\[\begin{equation}
 P_{t-1|t-1} = var \left(\beta_{t-1}|\psi_{t-1}\right) = 0
-\end{equation}\]</span> and there is no uncertainty other than from the disturbance terms and <span class="math inline">\(P_t=Q\)</span>.</p>
+\end{equation}\]</span> and there is no uncertainty other than from the disturbance terms and <span class="math inline">\(P_{t|t-1}=P_t=Q\)</span>.</p>
 <p>If <span class="math inline">\(\beta_{t-1}\)</span> does not form part of the information set <span class="math inline">\(\psi_{t-1}\)</span> but <span class="math inline">\(\beta _{t-2}\)</span> does then <span class="math inline">\(P_{t-1|t-1}=Q\)</span> and <span class="math inline">\(P_{t|t-1}=FQF'+Q\)</span>. This can be continued backwards; the unconditional (steady-state) covariance of <span class="math inline">\(\beta_t\)</span> is the limit <span class="math inline">\(P=FPF'+Q\)</span>. We can easily calculate error bands for <span class="math inline">\(\beta_t\)</span> using the appropriate information set.</p>
 </section>
-<section id="prediction-error" class="level3" data-number="5.3.3">
-<h3 data-number="5.3.3" class="anchored" data-anchor-id="prediction-error"><span class="header-section-number">5.3.3</span> Prediction error</h3>
+<section id="prediction-error" class="level3" data-number="5.3.4">
+<h3 data-number="5.3.4" class="anchored" data-anchor-id="prediction-error"><span class="header-section-number">5.3.4</span> Prediction error</h3>
 <p>We can turn this around, as it must be the <em>prediction errors</em> are given by <span class="math display">\[\begin{align}
-\eta_{t|t-1} &amp;= y_t - E[y_t|\psi_{t-1}]  \\
-             &amp;= y_t - E[H_t\beta_t+e_t|\psi_{t-1}] \\
+\eta_{t|t-1} &amp;= y_t - \mathbb{E}[y_t|\psi_{t-1}]  \\
+             &amp;= y_t - \mathbb{E}[H_t\beta_t+e_t|\psi_{t-1}] \\
              &amp;= y_t-H_t\beta_{t|t-1}
 \end{align}\]</span> where <span class="math inline">\(\eta_{t|t-1}\)</span> is uncorrelated with <span class="math inline">\(\psi_{t-1}\)</span>. So the ‘news’ over that contained in <span class="math inline">\(y_t\)</span> above <span class="math inline">\(\psi_{t-1}\)</span> is captured by <span class="math inline">\(\eta_{t|t-1}\)</span>. It will be that <span class="math inline">\(\eta_{t|t-1}\sim N(0,\Sigma_{\eta\eta})\)</span>; we need to find an expression for the covariance.</p>
 </section>
-<section id="current-data-predictions" class="level3" data-number="5.3.4">
-<h3 data-number="5.3.4" class="anchored" data-anchor-id="current-data-predictions"><span class="header-section-number">5.3.4</span> Current-data predictions</h3>
-<p>Now we find <span class="math inline">\(E [\beta_t | \psi_t]\)</span> – the best prediction of the unknown coefficient vector given <em>current</em> information. Using the regression lemma we know that <span class="math display">\[\begin{align}
-E[\beta_t | \psi_t ] &amp;= E[\beta_t | \psi_{t-1}, \eta_{t|t-1} ]  \\
-&amp;= E[\beta_t | \psi_{t-1}] +\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1}  \\
+<section id="current-data-predictions" class="level3" data-number="5.3.5">
+<h3 data-number="5.3.5" class="anchored" data-anchor-id="current-data-predictions"><span class="header-section-number">5.3.5</span> Current-data predictions</h3>
+<p>Now we find <span class="math inline">\(\mathbb{E}[\beta_t | \psi_t]\)</span> – the best prediction of the unknown coefficient vector given <em>current</em> information. Using the regression lemma we know that <span class="math display">\[\begin{align}
+\mathbb{E}[\beta_t | \psi_t ] &amp;= \mathbb{E}[\beta_t | \psi_{t-1}, \eta_{t|t-1} ]  \\
+&amp;= \mathbb{E}[\beta_t | \psi_{t-1}] +\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1}  \\
 &amp;= \beta_{t|t-1} + \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1} \eta_{t|t-1}
 \end{align}\]</span> because <span class="math inline">\(\psi_{t-1}\)</span> and <span class="math inline">\(\eta_{t|t-1}\)</span> are uncorrelated and <span class="math inline">\(\eta_{t|t-1}\)</span> is mean zero.</p>
 <p>Similarly, we can find <span class="math inline">\(P_{t|t}\)</span> as the best prediction of the variance of <span class="math inline">\(\beta_t\)</span> given <span class="math inline">\(\psi_t\)</span>. Using the regression lemma we know that <span class="math display">\[\begin{align}
-P_{t|t} &amp;= E[(\beta_t-\beta_{t|t})(\beta_t - \beta_{t|t})'|\psi_{t-1}, \eta_{t|t-1}] \\
-        &amp;= E[(\beta_t - \beta_{t|t})(\beta_t-\beta_{t|t})'|\psi_{t-1}] - \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta\beta} \\
+P_{t|t} &amp;= \mathbb{E}[(\beta_t-\beta_{t|t})(\beta_t - \beta_{t|t})'|\psi_{t-1}, \eta_{t|t-1}] \\
+        &amp;= \mathbb{E}[(\beta_t - \beta_{t|t})(\beta_t-\beta_{t|t})'|\psi_{t-1}] - \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta\beta} \\
         &amp;=P_{t|t-1}-\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1} \Sigma_{\eta\beta}
 \end{align}\]</span></p>
 </section>
-<section id="estimated-model-covariances" class="level3" data-number="5.3.5">
-<h3 data-number="5.3.5" class="anchored" data-anchor-id="estimated-model-covariances"><span class="header-section-number">5.3.5</span> Estimated model covariances</h3>
+<section id="estimated-model-covariances" class="level3" data-number="5.3.6">
+<h3 data-number="5.3.6" class="anchored" data-anchor-id="estimated-model-covariances"><span class="header-section-number">5.3.6</span> Estimated model covariances</h3>
 <p>All we need do is plug the relevant expressions into the regression lemma. So, what is <span class="math inline">\(\Sigma_{\beta\eta}\)</span>? <span class="math display">\[\begin{align}
-\Sigma_{\beta\eta} &amp;= E[(\beta_t-\beta_{t|t-1}) \eta_{t|t-1}'] \\
-&amp;= E\left[(\beta_t-\beta_{t|t-1}) (y_t-H_t\beta_{t|t-1})'\right] \\
-&amp;= E\left[(\beta_t-\beta_{t|t-1}) (H_t\beta_t+e_t-H_t\beta_{t|t-1})'\right] \\
-&amp;= E[(\beta_t-\beta_{t|t-1}) (\beta_t-\beta_{t|t-1})'H_t'] + E[(\beta_t - \beta_{t|t-1}) e_t'] \\
+\Sigma_{\beta\eta} &amp;= \mathbb{E}[(\beta_t-\beta_{t|t-1}) \eta_{t|t-1}'] \\
+&amp;= \mathbb{E}\left[(\beta_t-\beta_{t|t-1}) (y_t-H_t\beta_{t|t-1})'\right] \\
+&amp;= \mathbb{E}\left[(\beta_t-\beta_{t|t-1}) (H_t\beta_t+e_t-H_t\beta_{t|t-1})'\right] \\
+&amp;= \mathbb{E}[(\beta_t-\beta_{t|t-1}) (\beta_t-\beta_{t|t-1})'H_t'] + \mathbb{E}[(\beta_t - \beta_{t|t-1}) e_t'] \\
 &amp;= P_{t|t-1} H_t' \tag{$\Sigma_{\beta\eta}$}
-\end{align}\]</span> as <span class="math inline">\(E[(\beta_t - \beta_{t|t-1})e_t']=0\)</span>.</p>
+\end{align}\]</span> as <span class="math inline">\(\mathbb{E}[(\beta_t - \beta_{t|t-1})e_t']=0\)</span>.</p>
 <p>What is <span class="math inline">\(\Sigma_{\eta\eta}\)</span>? <span class="math display">\[\begin{align}
-\Sigma_{\eta\eta} &amp;= E[(y_t-H_t \beta_{t|t-1})(y_t-H_t\beta_{t|t-1})'] \\
-                  &amp;= E[(H_t\beta_t+e_t-H_t\beta_{t|t-1})(H_t\beta_t+e_t-H_t\beta_{t|t-1})'] \\
-                  &amp;= E[(H_t\beta_t-H_t \beta_{t|t-1})(H_t\beta_t-H_t\beta_{t|t-1})'] + E[e_t e_t'] \\
-                  &amp;= E[H_t(\beta_t-\beta_{t|t-1})(\beta_t-\beta_{t|t-1})'H_t'] + R \\
+\Sigma_{\eta\eta} &amp;= \mathbb{E}[(y_t-H_t \beta_{t|t-1})(y_t-H_t\beta_{t|t-1})'] \\
+                  &amp;= \mathbb{E}[(H_t\beta_t+e_t-H_t\beta_{t|t-1})(H_t\beta_t+e_t-H_t\beta_{t|t-1})'] \\
+                  &amp;= \mathbb{E}[(H_t\beta_t-H_t \beta_{t|t-1})(H_t\beta_t-H_t\beta_{t|t-1})'] + \mathbb{E}[e_t e_t'] \\
+                  &amp;= \mathbb{E}[H_t(\beta_t-\beta_{t|t-1})(\beta_t-\beta_{t|t-1})'H_t'] + R \\
                   &amp;= H_t P_{t|t-1} H_t' + R \\
                   &amp;= f_{t|t-1} \tag{$\Sigma_{\eta\eta}$} \label{svv}
-\end{align}\]</span> where we define <span class="math inline">\(f_{t|t-1}=E[\eta_{t|t-1}\eta_{t|t-1}']\)</span>. Now we’re ready.</p>
+\end{align}\]</span> where we define <span class="math inline">\(f_{t|t-1}=\mathbb{E}[\eta_{t|t-1}\eta_{t|t-1}']\)</span>. Now we’re ready.</p>
 </section>
 </section>
 <section id="the-kalman-filter" class="level2" data-number="5.4">
@@ -472,30 +500,30 @@ P_{t|t} &amp;= E[(\beta_t-\beta_{t|t})(\beta_t - \beta_{t|t})'|\psi_{t-1}, \eta_
 <li>an update that uses <span class="math inline">\(\eta_{t|t-1}\)</span> to obtain the best <span class="math inline">\(t\)</span>-period prediction now based on <span class="math inline">\(\psi_t\)</span>.</li>
 </ul>
 <p>These must be of the form <span class="math display">\[\begin{align}
-E[\beta_t | \psi_{t-1}] &amp;= \mu + F E [\beta_t | \psi_{t-1}] \\
-E[P_t|\psi_{t-1}]       &amp;= F E[P_{t-1}|\psi_{t-1}] F' + Q \\
-E[\beta_t | \psi_t]     &amp;= E[\beta_t|\psi_{t-1}] + \Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1} \\
-E[P_t|\psi_t]           &amp;= E[P_t|\psi_{t-1}] -\Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta \beta}
+\mathbb{E}[\beta_t | \psi_{t-1}] &amp;= \mu + F \mathbb{E} [\beta_t | \psi_{t-1}] \\
+\mathbb{E}[P_t|\psi_{t-1}]       &amp;= F \mathbb{E}[P_{t-1}|\psi_{t-1}] F' + Q \\
+\mathbb{E}[\beta_t | \psi_t]     &amp;= \mathbb{E}[\beta_t|\psi_{t-1}] + \Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1} \\
+\mathbb{E}[P_t|\psi_t]           &amp;= \mathbb{E}[P_t|\psi_{t-1}] -\Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta \beta}
 \end{align}\]</span> These are specifically <span class="math display">\[\begin{align}
-\beta_{t|t-1} &amp;= \mu +F\beta_{t-1|t-1}                                  \tag{Predicted $\beta$}\\
-P_{t|t-1}     &amp;= F P_{t-1|t-1}F' + Q                                    \tag{Predicted $P$}\\
-\eta_{t|t-1}  &amp;= y_t-H_t\beta_{t|t-1}                                   \tag{Prediction error}\\
-f_{t|t-1}     &amp;= H_t P_{t|t-1}H_t' + R                                  \tag{Pred. err. variance}\\
-\beta_{t|t}   &amp;= \beta_{t|t-1}+P_{t|t-1}H_t' f_{t|t-1}^{-1}\eta_{t|t-1} \tag{Updated $\beta$}\\
-P_{t|t}       &amp;= P_{t|t-1} - P_{t|t-1}H_t' f_{t|t-1}^{-1}H_tP_{t|t-1}   \tag{Updated $P$}
-\end{align}\]</span> The filter evaluates these recursively, beginning from <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(P_0\)</span>.</p>
-<p>Treatment of these initial condition reflects knowledge/model</p>
+\beta_{t|t-1} &amp;= \mu +F\beta_{t-1|t-1}                                  &amp;&amp;\hbox{Predicted } \beta \\
+P_{t|t-1}     &amp;= F P_{t-1|t-1}F' + Q                                    &amp;&amp;\hbox{Predicted } P \\
+\eta_{t|t-1}  &amp;= y_t-H_t\beta_{t|t-1}                                   &amp;&amp;\hbox{Prediction error} \\
+f_{t|t-1}     &amp;= H_t P_{t|t-1}H_t' + R                                  &amp;&amp;\hbox{Pred. error variance} \\
+\beta_{t|t}   &amp;= \beta_{t|t-1}+P_{t|t-1}H_t' f_{t|t-1}^{-1}\eta_{t|t-1} &amp;&amp;\hbox{Updated } \beta \\
+P_{t|t}       &amp;= P_{t|t-1} - P_{t|t-1}H_t' f_{t|t-1}^{-1}H_tP_{t|t-1}   &amp;&amp;\hbox{Updated } P
+\end{align}\]</span> The filter evaluates these recursively, beginning from <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(P_0\)</span>. Treatment of these initial condition reflects knowledge/model:</p>
 <ul>
 <li>Stationary models can use the steady-state</li>
 <li>Non-stationary models use something which is often (confusingly) called a <em>diffuse prior</em> (zero mean, large variance)</li>
 </ul>
-<section id="kalman-filter-trick" class="level3" data-number="5.4.1">
-<h3 data-number="5.4.1" class="anchored" data-anchor-id="kalman-filter-trick"><span class="header-section-number">5.4.1</span> Kalman filter trick</h3>
-<p>For <strong><em>known</em></strong> initial conditions – say <span class="math inline">\(\beta_0 \sim N(\mu_0, P_0)\)</span> – the likelihood of a state-space model with <span class="math inline">\(T\)</span> observations of <span class="math inline">\(m\)</span> variables is <span class="math display">\[\begin{align}
-\log L(\theta | y) &amp;= \sum_{t=1}^T \log \left(p \left( \theta | \psi_{t-1}, \theta \right)\right) \\
-  &amp;= - \Phi - \frac{1}{2}\sum_{t=1}^T \left( \log(\det(f_{t|t-1})) + \eta_{t|t-1}' f_{t|t-1}^{-1} \eta_{t|t-1} | \theta \right)
-\end{align}\]</span> where <span class="math inline">\(\Phi = \frac{Tm}{2}\log \left( 2\pi \right)\)</span> and <span class="math inline">\(\theta\)</span> are all the non-state parameters to be estimated. We can use the Kalman filter to obtain <span class="math inline">\(\eta_{t|t-1}\)</span> and <span class="math inline">\(f_{t|t-1}\)</span> as they are the <em>prediction error</em> and its <em>variance</em>. This is the <strong><em>prediction error decomposition</em></strong> of the log-likelihood.</p>
-<p>A maximum likelihood estimate maximizes <span class="math inline">\(\log L(y|\theta)\)</span> by choice of <span class="math inline">\(\theta\)</span>.</p>
+</section>
+<section id="the-kalman-filter-evaluates-the-likelihood" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="the-kalman-filter-evaluates-the-likelihood"><span class="header-section-number">5.5</span> The Kalman filter evaluates the likelihood</h2>
+<p>There is an extremely useful spin-off to using the Kalman filter. For <strong><em>known</em></strong> initial conditions – say <span class="math inline">\(\beta_0 = b_0\)</span> – the likelihood of a state-space model with <span class="math inline">\(T\)</span> observations of <span class="math inline">\(m\)</span> variables is <span class="math display">\[\begin{align}
+\log L(\theta | y) &amp;= \sum_{t=1}^T \log \left(p (\theta | \psi_{t-1})\right) \\
+  &amp;= - \Phi - \frac{1}{2}\sum_{t=1}^T \left( \log(\det(f_{t|t-1})) + \eta_{t|t-1}' f_{t|t-1}^{-1} \eta_{t|t-1} | \psi_{t-1} \right)
+\end{align}\]</span> where <span class="math inline">\(\Phi = \frac{Tm}{2}\log \left( 2\pi \right)\)</span> with <span class="math inline">\(\theta\)</span> all the non-state parameters to be estimated. We can use the Kalman filter to obtain <span class="math inline">\(\eta_{t|t-1}\)</span> and <span class="math inline">\(f_{t|t-1}\)</span> as they are the <em>prediction error</em> and its <em>variance</em>. This is the <strong><em>prediction error decomposition</em></strong> of the log-likelihood.</p>
+<p>A maximum likelihood estimate maximizes <span class="math inline">\(\log L(\theta | y)\)</span> by choice of <span class="math inline">\(\theta\)</span>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -524,7 +552,6 @@ Kim, Chang-Jin, and Charles R. Nelson. 1999. <em>State-Space Models with Regime 
 Triantafyllopoulos, Kostas. 2021. <em>Bayesian Inference of State Space Models: Kalman Filtering and Beyond</em>. Springer Texts in Statistics. Cham, Switzerland: Springer.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->

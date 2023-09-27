@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Alternatives to what follows can be found in @Harvey89, @Hamilton1994, @KimNelson, @Durbin or @BISSM. There are many books devoted to the Kalman filter [as a casual Amazon search](https://www.amazon.co.uk/s?k=kalman+filtering&i=stripbooks) mostly from an engineering perspective. However econometricians since @HarveyPierse have used it in a way somewhat different from standard engineering applications. We will cover the filter and then look at a simple example if filtering, then develop a maximum likelihood estimation approach.
 
-## Reminder of a state-space model
+### Reminder of a state-space model
 
 Consider the trend-cycle model 
 \begin{equation}
@@ -39,7 +39,7 @@ y_t &=
 \begin{bmatrix} v_{1t} \\ v_{2t} \end{bmatrix}
 \end{align}
 
-### A useful class of models
+## A useful class of models
 
 We need a framework that nests this type of model (and many more). State-space models are one such framework, amenable to classical (and Bayesian) estimation. Quite a lot of apparatus required before we can apply maximum likelihood.
 
@@ -59,17 +59,40 @@ Simple observation and transition equations
 y_t     &= H_t\beta_t + e_t, &var(e_t) = R \\
 \beta_t &= \mu + F \beta_{t-1} + v_t, &var(v_t)=Q
 \end{align}
-where $\beta_t$ is a vector of stochastic variables, $y_t$ a vector of measurements and the data forms an information set such that $\psi_T = \{y_T,y_{T-1},...,y_1\}$.
+where $\beta_t$ is a vector of stochastic variables, $y_t$ a vector of measurements and the data forms an information set such that $\psi_T = \{y_T,y_{T-1},...,y_1\}$. 
+
+Note that written this way the shocks are potentially reduced form ones. Typically there will be less shocks then either states (or observables) or it may be that structural shocks enter into one or more relationships. We would then write $e_t = B\eta_t$ and $v_t = G\nu_t$ where $B$ and $G$ are matrices of appropriate dimension that feed the structural shocks into the right equations. If we assume both $eta_t$ and $\nu_t$ only contains independent unit variance shocks, then $R = B\mathbb{E}(\eta_t\eta_t')B' = BB'$ and similarly $Q=GG'$. 
+
+The reason for using the reduced form shocks is toreduce the amount of notation. We will also (to further reduce notation) mostly set $\mu = 0$, but it is straightforward to have a vector of constants, which we include in the final formulae.
+
+### Three estimation problems
 
 @Jazwinski defines three type of estimation problem
 
--   **Smoothing** is the problem of estimating $\beta_k$ for any $k<T$
--   **Filtering** is the problem of estimating $\beta_k$ for $k=T$
--   **Prediction** is the problem of estimating $\beta_k$ for any $k>T$
+- **Smoothing** is the problem of estimating $\beta_k$ for any $k<T$
+- **Filtering** is the problem of estimating $\beta_k$ for $k=T$
+- **Prediction** is the problem of estimating $\beta_k$ for any $k>T$
 
 > "The object of filtering is to update our knowledge of the system each time a new observation $y_t$ is brought in." (@Durbin)
 
-Filtering is specifically this: perhaps we have some estimates already of $\beta_t$ for $t=1...t-1$, then given the new period-$t$ observation of $y_t$ how should we estimate a new value of $\beta_t$? This immediately implies a recursive structure to estimation problems, consistent with on-line (or real-time) estimation. The Kalman filter uses the period $t$ news available from observed $y_t$ to update our estimates of $\beta_t$ using the regression lemma.
+::: {.callout-note}
+## Notation
+
+If we understand the notation we are a long way to understanding the solution.
+$$
+\begin{align}
+\beta_{t|t-1} &= \mathbb{E}[\beta_t | \psi_{t-1}] && \hbox{Estimate of } \beta_t \hbox{ conditional on } \psi_{t-1} \hbox{ (predicted)} \\ 
+\beta_{t|t}   &= \mathbb{E}[\beta_t | \psi_t]     && \hbox{Current } (\psi_t) \hbox{ sample estimate} \hbox{ (filtered)}\\ 
+\beta_{t|T}   &= \mathbb{E}[\beta_t | \psi_T]     && \hbox{Full } (\psi_T) \hbox{ sample estimate} \hbox{ (smoothed)}\\ 
+P_{t|j}       &= \mathbb{E}\left[(\beta_t - \beta_{t|j}) (\beta_t - \beta _{t|j})'\right]  && \hbox{Conditional cov. based on } \psi_j,\ j=[t-1,t,T]\\ 
+y_{t|t-1}     &= \mathbb{E}[y_t | \psi_{t-1}] = H_t \beta_{t|t-1}  && \hbox{Prediction of}\ y_t \hbox{ given } \psi_{t-1}\\ 
+\eta_{t|t-1}  &= y_t - y_{t|t-1} = y_t - H_t \beta_{t|t-1}  && \hbox{Prediction error given }\psi_{t-1} \\ 
+f_{t|t-1}     &= \mathbb{E}[\eta_{t|t-1}\eta_{t|t-1}']      && \hbox{Conditional } (\psi_{t-1}) \hbox{ variance of prediction error}
+\end{align}
+$$
+:::
+
+In what follows we will calculate some quantities that are consequences of the state space formulation of our problem that will allow us to apply the regression lemma to estimate the unobserved state variables.
 
 ### Forecasting
 
@@ -81,26 +104,27 @@ We can use to make the *conditional* forecast
 \begin{equation}
   \beta_{t|t-1} = F\beta_{t-1}
 \end{equation} 
-where $\beta_{t|t-1}=E[\beta_t|\psi_{t-1}]$ and $\psi_{t-1}$ is the information set available at time $t-1$.
+where $\beta_{t|t-1}= \mathbb{E}[\beta_t|\psi_{t-1}]$ and $\psi_{t-1}$ is the information set available at time $t-1$.
 
 If $\psi_{t-1}$ includes $\beta_{t-1}$ we can straightforwardly forecast next period (and the next-but-one period etc) using the model. This is a standard forecasting exercise given any estimated (or even calibrated) economic model.
 
 ### Uncertainty
 
 How can we assess the associated forecast uncertainty? The forecast covariance $P_{t|t-1} = var(\beta_t|\psi_{t-1})$ is given by 
-\begin{align}
-P_{t|t-1} &= E\left[ (\beta_t - \beta_{t|t-1})(\beta_t-\beta_{t|t-1})'\right]   \\
-  &= E\left[ (F\beta_{t-1}+v_t-F\beta_{t-1|t-1}) \left(\beta_{t-1}'F'+v_t'-\beta_{t-1|t-1}'F'\right) \right] \\
-&= E\left[ F\left( \beta _{t-1}-\beta _{t-1|t-1}\right) \left( \beta_{t-1}-\beta _{t-1|t-1}\mu_z \right) ' F' \right] + E[v_t v_t']  \notag \\
+\begin{align*}
+P_{t|t-1} &= \mathbb{E}\left[ (\beta_t - \beta_{t|t-1})(\beta_t-\beta_{t|t-1})'\right]   \\
+  &= \mathbb{E}\left[ (F\beta_{t-1}+v_t-F\beta_{t-1|t-1}) \left(\beta_{t-1}'F'+v_t'-\beta_{t-1|t-1}'F'\right) \right] \\
+&= \mathbb{E}\left[ F\left(\beta _{t-1}-\beta _{t-1|t-1}\right) \left( \beta_{t-1}-\beta _{t-1|t-1}\right) ' F' \right] + \mathbb{E}[v_t v_t'] \\
+&= F\mathbb{E}\left[\left(\beta _{t-1}-\beta _{t-1|t-1}\right) \left( \beta_{t-1}-\beta _{t-1|t-1} \right)' \right] F' + \mathbb{E}[v_t v_t'] \\
 &= FP_{t-1|t-1}F' + Q
-\end{align}
+\end{align*}
 where $P_{t-1|t-1} = var(\beta_{t-1}|\psi_{t-1})$. The forecast error variance depends on the previous error variance; that value depends on the information set. 
 
 If $\beta_{t-1}$ forms part of the information set $\psi_{t-1}$ then 
 \begin{equation}
  P_{t-1|t-1} = var \left(\beta_{t-1}|\psi_{t-1}\right) = 0
 \end{equation} 
-and there is no uncertainty other than from the disturbance terms and $P_t=Q$.
+and there is no uncertainty other than from the disturbance terms and $P_{t|t-1}=P_t=Q$.
 
 If $\beta_{t-1}$ does not form part of the information set $\psi_{t-1}$ but $\beta _{t-2}$ does then $P_{t-1|t-1}=Q$ and $P_{t|t-1}=FQF'+Q$. This can be continued backwards; the unconditional (steady-state) covariance of $\beta_t$ is the limit $P=FPF'+Q$. We can easily calculate error bands for $\beta_t$ using the appropriate information set.
 
@@ -108,26 +132,26 @@ If $\beta_{t-1}$ does not form part of the information set $\psi_{t-1}$ but $\be
 
 We can turn this around, as it must be the *prediction errors* are given by 
 \begin{align}
-\eta_{t|t-1} &= y_t - E[y_t|\psi_{t-1}]  \\
-             &= y_t - E[H_t\beta_t+e_t|\psi_{t-1}] \\
+\eta_{t|t-1} &= y_t - \mathbb{E}[y_t|\psi_{t-1}]  \\
+             &= y_t - \mathbb{E}[H_t\beta_t+e_t|\psi_{t-1}] \\
              &= y_t-H_t\beta_{t|t-1}
 \end{align} 
 where $\eta_{t|t-1}$ is uncorrelated with $\psi_{t-1}$. So the 'news' over that contained in $y_t$ above $\psi_{t-1}$ is captured by $\eta_{t|t-1}$. It will be that $\eta_{t|t-1}\sim N(0,\Sigma_{\eta\eta})$; we need to find an expression for the covariance.
 
 ### Current-data predictions
 
-Now we find $E [\beta_t | \psi_t]$ -- the best prediction of the unknown coefficient vector given *current* information. Using the regression lemma we know that 
+Now we find $\mathbb{E}[\beta_t | \psi_t]$ -- the best prediction of the unknown coefficient vector given *current* information. Using the regression lemma we know that 
 \begin{align}
-E[\beta_t | \psi_t ] &= E[\beta_t | \psi_{t-1}, \eta_{t|t-1} ]  \\
-&= E[\beta_t | \psi_{t-1}] +\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1}  \\
+\mathbb{E}[\beta_t | \psi_t ] &= \mathbb{E}[\beta_t | \psi_{t-1}, \eta_{t|t-1} ]  \\
+&= \mathbb{E}[\beta_t | \psi_{t-1}] +\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1}  \\
 &= \beta_{t|t-1} + \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1} \eta_{t|t-1}
 \end{align}
 because $\psi_{t-1}$ and $\eta_{t|t-1}$ are uncorrelated and $\eta_{t|t-1}$ is mean zero.
 
 Similarly, we can find $P_{t|t}$ as the best prediction of the variance of $\beta_t$ given $\psi_t$. Using the regression lemma we know that 
 \begin{align}
-P_{t|t} &= E[(\beta_t-\beta_{t|t})(\beta_t - \beta_{t|t})'|\psi_{t-1}, \eta_{t|t-1}] \\
-        &= E[(\beta_t - \beta_{t|t})(\beta_t-\beta_{t|t})'|\psi_{t-1}] - \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta\beta} \\
+P_{t|t} &= \mathbb{E}[(\beta_t-\beta_{t|t})(\beta_t - \beta_{t|t})'|\psi_{t-1}, \eta_{t|t-1}] \\
+        &= \mathbb{E}[(\beta_t - \beta_{t|t})(\beta_t-\beta_{t|t})'|\psi_{t-1}] - \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta\beta} \\
         &=P_{t|t-1}-\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1} \Sigma_{\eta\beta} 
 \end{align}
 
@@ -135,24 +159,24 @@ P_{t|t} &= E[(\beta_t-\beta_{t|t})(\beta_t - \beta_{t|t})'|\psi_{t-1}, \eta_{t|t
 
 All we need do is plug the relevant expressions into the regression lemma. So, what is $\Sigma_{\beta\eta}$? 
 \begin{align}
-\Sigma_{\beta\eta} &= E[(\beta_t-\beta_{t|t-1}) \eta_{t|t-1}'] \\
-&= E\left[(\beta_t-\beta_{t|t-1}) (y_t-H_t\beta_{t|t-1})'\right] \\
-&= E\left[(\beta_t-\beta_{t|t-1}) (H_t\beta_t+e_t-H_t\beta_{t|t-1})'\right] \\
-&= E[(\beta_t-\beta_{t|t-1}) (\beta_t-\beta_{t|t-1})'H_t'] + E[(\beta_t - \beta_{t|t-1}) e_t'] \\
+\Sigma_{\beta\eta} &= \mathbb{E}[(\beta_t-\beta_{t|t-1}) \eta_{t|t-1}'] \\
+&= \mathbb{E}\left[(\beta_t-\beta_{t|t-1}) (y_t-H_t\beta_{t|t-1})'\right] \\
+&= \mathbb{E}\left[(\beta_t-\beta_{t|t-1}) (H_t\beta_t+e_t-H_t\beta_{t|t-1})'\right] \\
+&= \mathbb{E}[(\beta_t-\beta_{t|t-1}) (\beta_t-\beta_{t|t-1})'H_t'] + \mathbb{E}[(\beta_t - \beta_{t|t-1}) e_t'] \\
 &= P_{t|t-1} H_t' \tag{$\Sigma_{\beta\eta}$} 
 \end{align}
-as $E[(\beta_t - \beta_{t|t-1})e_t']=0$.
+as $\mathbb{E}[(\beta_t - \beta_{t|t-1})e_t']=0$.
 
 What is $\Sigma_{\eta\eta}$? 
 \begin{align}
-\Sigma_{\eta\eta} &= E[(y_t-H_t \beta_{t|t-1})(y_t-H_t\beta_{t|t-1})'] \\
-                  &= E[(H_t\beta_t+e_t-H_t\beta_{t|t-1})(H_t\beta_t+e_t-H_t\beta_{t|t-1})'] \\
-                  &= E[(H_t\beta_t-H_t \beta_{t|t-1})(H_t\beta_t-H_t\beta_{t|t-1})'] + E[e_t e_t'] \\
-                  &= E[H_t(\beta_t-\beta_{t|t-1})(\beta_t-\beta_{t|t-1})'H_t'] + R \\
+\Sigma_{\eta\eta} &= \mathbb{E}[(y_t-H_t \beta_{t|t-1})(y_t-H_t\beta_{t|t-1})'] \\
+                  &= \mathbb{E}[(H_t\beta_t+e_t-H_t\beta_{t|t-1})(H_t\beta_t+e_t-H_t\beta_{t|t-1})'] \\
+                  &= \mathbb{E}[(H_t\beta_t-H_t \beta_{t|t-1})(H_t\beta_t-H_t\beta_{t|t-1})'] + \mathbb{E}[e_t e_t'] \\
+                  &= \mathbb{E}[H_t(\beta_t-\beta_{t|t-1})(\beta_t-\beta_{t|t-1})'H_t'] + R \\
                   &= H_t P_{t|t-1} H_t' + R \\
                   &= f_{t|t-1} \tag{$\Sigma_{\eta\eta}$} \label{svv}
 \end{align}
-where we define $f_{t|t-1}=E[\eta_{t|t-1}\eta_{t|t-1}']$. Now we're ready. 
+where we define $f_{t|t-1}=\mathbb{E}[\eta_{t|t-1}\eta_{t|t-1}']$. Now we're ready. 
 
 ## The Kalman filter
 
@@ -163,34 +187,32 @@ The equations of the filter are
 
 These must be of the form 
 \begin{align}
-E[\beta_t | \psi_{t-1}] &= \mu + F E [\beta_t | \psi_{t-1}] \\
-E[P_t|\psi_{t-1}]       &= F E[P_{t-1}|\psi_{t-1}] F' + Q \\
-E[\beta_t | \psi_t]     &= E[\beta_t|\psi_{t-1}] + \Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1} \\
-E[P_t|\psi_t]           &= E[P_t|\psi_{t-1}] -\Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta \beta}
+\mathbb{E}[\beta_t | \psi_{t-1}] &= \mu + F \mathbb{E} [\beta_t | \psi_{t-1}] \\
+\mathbb{E}[P_t|\psi_{t-1}]       &= F \mathbb{E}[P_{t-1}|\psi_{t-1}] F' + Q \\
+\mathbb{E}[\beta_t | \psi_t]     &= \mathbb{E}[\beta_t|\psi_{t-1}] + \Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1} \\
+\mathbb{E}[P_t|\psi_t]           &= \mathbb{E}[P_t|\psi_{t-1}] -\Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta \beta}
 \end{align}
-These are specifically 
+These are specifically
 \begin{align}
-\beta_{t|t-1} &= \mu +F\beta_{t-1|t-1}                                  \tag{Predicted $\beta$}\\
-P_{t|t-1}     &= F P_{t-1|t-1}F' + Q                                    \tag{Predicted $P$}\\
-\eta_{t|t-1}  &= y_t-H_t\beta_{t|t-1}                                   \tag{Prediction error}\\
-f_{t|t-1}     &= H_t P_{t|t-1}H_t' + R                                  \tag{Pred. err. variance}\\
-\beta_{t|t}   &= \beta_{t|t-1}+P_{t|t-1}H_t' f_{t|t-1}^{-1}\eta_{t|t-1} \tag{Updated $\beta$}\\
-P_{t|t}       &= P_{t|t-1} - P_{t|t-1}H_t' f_{t|t-1}^{-1}H_tP_{t|t-1}   \tag{Updated $P$}
+\beta_{t|t-1} &= \mu +F\beta_{t-1|t-1}                                  &&\hbox{Predicted } \beta \\
+P_{t|t-1}     &= F P_{t-1|t-1}F' + Q                                    &&\hbox{Predicted } P \\
+\eta_{t|t-1}  &= y_t-H_t\beta_{t|t-1}                                   &&\hbox{Prediction error} \\
+f_{t|t-1}     &= H_t P_{t|t-1}H_t' + R                                  &&\hbox{Pred. error variance} \\
+\beta_{t|t}   &= \beta_{t|t-1}+P_{t|t-1}H_t' f_{t|t-1}^{-1}\eta_{t|t-1} &&\hbox{Updated } \beta \\
+P_{t|t}       &= P_{t|t-1} - P_{t|t-1}H_t' f_{t|t-1}^{-1}H_tP_{t|t-1}   &&\hbox{Updated } P
 \end{align}
-The filter evaluates these recursively, beginning from $\beta_0$, $P_0$.
-
-Treatment of these initial condition reflects knowledge/model 
+The filter evaluates these recursively, beginning from $\beta_0$, $P_0$. Treatment of these initial condition reflects knowledge/model:
 
 - Stationary models can use the steady-state 
 - Non-stationary models use something which is often (confusingly) called a *diffuse prior* (zero mean, large variance)
 
-### Kalman filter trick
+## The Kalman filter evaluates the likelihood
 
-For ***known*** initial conditions -- say $\beta_0 \sim N(\mu_0, P_0)$ -- the likelihood of a state-space model with $T$ observations of $m$ variables is 
+There is an extremely useful spin-off to using the Kalman filter. For ***known*** initial conditions -- say $\beta_0 = b_0$ -- the likelihood of a state-space model with $T$ observations of $m$ variables is 
 \begin{align}
-\log L(\theta | y) &= \sum_{t=1}^T \log \left(p \left( \theta | \psi_{t-1}, \theta \right)\right) \\
-  &= - \Phi - \frac{1}{2}\sum_{t=1}^T \left( \log(\det(f_{t|t-1})) + \eta_{t|t-1}' f_{t|t-1}^{-1} \eta_{t|t-1} | \theta \right)
+\log L(\theta | y) &= \sum_{t=1}^T \log \left(p (\theta | \psi_{t-1})\right) \\
+  &= - \Phi - \frac{1}{2}\sum_{t=1}^T \left( \log(\det(f_{t|t-1})) + \eta_{t|t-1}' f_{t|t-1}^{-1} \eta_{t|t-1} | \psi_{t-1} \right)
 \end{align}
-where $\Phi = \frac{Tm}{2}\log \left( 2\pi \right)$ and $\theta$ are all the non-state parameters to be estimated. We can use the Kalman filter to obtain $\eta_{t|t-1}$ and $f_{t|t-1}$ as they are the *prediction error* and its *variance*. This is the ***prediction error decomposition*** of the log-likelihood.
+where $\Phi = \frac{Tm}{2}\log \left( 2\pi \right)$ with $\theta$ all the non-state parameters to be estimated. We can use the Kalman filter to obtain $\eta_{t|t-1}$ and $f_{t|t-1}$ as they are the *prediction error* and its *variance*. This is the ***prediction error decomposition*** of the log-likelihood.
 
-A maximum likelihood estimate maximizes $\log L(y|\theta)$ by choice of $\theta$.
+A maximum likelihood estimate maximizes $\log L(\theta | y)$ by choice of $\theta$.
