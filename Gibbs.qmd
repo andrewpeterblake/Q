@@ -30,7 +30,7 @@ kable(p, escape = FALSE, align="c") %>%
 
 For this discrete example, the sums across the columns and rows are the **marginal** densities for the parameters: they don't depend on the other parameter. Gibbs sampling estimates these sums by constructing sequences from the **conditional** densities that have the right joint density.
  
-# Gibbs Sampling
+## The Gibbs' Sampler
 
 Suppose there are $k$ variables $\phi_i$ jointly distributed
 $$

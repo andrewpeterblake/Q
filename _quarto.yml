@@ -19,6 +19,7 @@ book:
       chapters:
         - intro.qmd
         - R2021.qmd
+        - ssm.qmd
         - RegressionLemma.qmd
         - Kalman.qmd
     - part: "Quantiles"

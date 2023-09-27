@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quantiles, Networks, Time - 5&nbsp; Kalman filtering</title>
+<title>Quantiles, Networks, Time - 3&nbsp; State-Space Models: time series models with structure</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -49,8 +49,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./QR.html" rel="next">
-<link href="./RegressionLemma.html" rel="prev">
+<link href="./RegressionLemma.html" rel="next">
+<link href="./R2021.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -96,7 +96,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Methods matter</a></li><li class="breadcrumb-item"><a href="./Kalman.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Kalman filtering</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Methods matter</a></li><li class="breadcrumb-item"><a href="./ssm.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">State-Space Models: time series models with structure</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -153,7 +153,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ssm.html" class="sidebar-item-text sidebar-link">
+  <a href="./ssm.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">State-Space Models: time series models with structure</span></span></a>
   </div>
 </li>
@@ -165,7 +165,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Kalman.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Kalman.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span></a>
   </div>
 </li>
@@ -308,23 +308,26 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#literature" id="toc-literature" class="nav-link active" data-scroll-target="#literature"><span class="header-section-number">5.1</span> Literature</a></li>
-  <li><a href="#reminder-of-a-state-space-model" id="toc-reminder-of-a-state-space-model" class="nav-link" data-scroll-target="#reminder-of-a-state-space-model"><span class="header-section-number">5.2</span> Reminder of a state-space model</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">3.1</span> Introduction</a></li>
+  <li><a href="#a-useful-class-of-models" id="toc-a-useful-class-of-models" class="nav-link" data-scroll-target="#a-useful-class-of-models"><span class="header-section-number">3.2</span> A useful class of models</a>
   <ul class="collapse">
-  <li><a href="#a-useful-class-of-models" id="toc-a-useful-class-of-models" class="nav-link" data-scroll-target="#a-useful-class-of-models"><span class="header-section-number">5.2.1</span> A useful class of models</a></li>
+  <li><a href="#unobserved-variables-and-coefficients" id="toc-unobserved-variables-and-coefficients" class="nav-link" data-scroll-target="#unobserved-variables-and-coefficients"><span class="header-section-number">3.2.1</span> Unobserved variables and coefficients</a></li>
   </ul></li>
-  <li><a href="#what-is-a-filter" id="toc-what-is-a-filter" class="nav-link" data-scroll-target="#what-is-a-filter"><span class="header-section-number">5.3</span> What is a filter?</a>
+  <li><a href="#dynamic-economic-models" id="toc-dynamic-economic-models" class="nav-link" data-scroll-target="#dynamic-economic-models"><span class="header-section-number">3.3</span> Dynamic economic models</a>
   <ul class="collapse">
-  <li><a href="#forecasting" id="toc-forecasting" class="nav-link" data-scroll-target="#forecasting"><span class="header-section-number">5.3.1</span> Forecasting</a></li>
-  <li><a href="#uncertainty" id="toc-uncertainty" class="nav-link" data-scroll-target="#uncertainty"><span class="header-section-number">5.3.2</span> Uncertainty</a></li>
-  <li><a href="#prediction-error" id="toc-prediction-error" class="nav-link" data-scroll-target="#prediction-error"><span class="header-section-number">5.3.3</span> Prediction error</a></li>
-  <li><a href="#current-data-predictions" id="toc-current-data-predictions" class="nav-link" data-scroll-target="#current-data-predictions"><span class="header-section-number">5.3.4</span> Current-data predictions</a></li>
-  <li><a href="#estimated-model-covariances" id="toc-estimated-model-covariances" class="nav-link" data-scroll-target="#estimated-model-covariances"><span class="header-section-number">5.3.5</span> Estimated model covariances</a></li>
+  <li><a href="#general-state-space-model" id="toc-general-state-space-model" class="nav-link" data-scroll-target="#general-state-space-model"><span class="header-section-number">3.3.1</span> General state space model</a></li>
   </ul></li>
-  <li><a href="#the-kalman-filter" id="toc-the-kalman-filter" class="nav-link" data-scroll-target="#the-kalman-filter"><span class="header-section-number">5.4</span> The Kalman filter</a>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">3.4</span> Examples</a>
   <ul class="collapse">
-  <li><a href="#kalman-filter-trick" id="toc-kalman-filter-trick" class="nav-link" data-scroll-target="#kalman-filter-trick"><span class="header-section-number">5.4.1</span> Kalman filter trick</a></li>
+  <li><a href="#structural-time-series-models-stsms" id="toc-structural-time-series-models-stsms" class="nav-link" data-scroll-target="#structural-time-series-models-stsms"><span class="header-section-number">3.4.1</span> Structural time series models (STSMs)</a></li>
+  <li><a href="#trend-cycle-model" id="toc-trend-cycle-model" class="nav-link" data-scroll-target="#trend-cycle-model"><span class="header-section-number">3.4.2</span> Trend-cycle model</a></li>
+  <li><a href="#time-varying-parameters-tvp" id="toc-time-varying-parameters-tvp" class="nav-link" data-scroll-target="#time-varying-parameters-tvp"><span class="header-section-number">3.4.3</span> Time-varying parameters (TVP)</a></li>
+  <li><a href="#dynamic-factor-model" id="toc-dynamic-factor-model" class="nav-link" data-scroll-target="#dynamic-factor-model"><span class="header-section-number">3.4.4</span> Dynamic factor model</a></li>
+  <li><a href="#var" id="toc-var" class="nav-link" data-scroll-target="#var"><span class="header-section-number">3.4.5</span> VAR</a></li>
+  <li><a href="#multiple-representations-arma11" id="toc-multiple-representations-arma11" class="nav-link" data-scroll-target="#multiple-representations-arma11"><span class="header-section-number">3.4.6</span> Multiple representations: ARMA(1,1)</a></li>
+  <li><a href="#dsge-model" id="toc-dsge-model" class="nav-link" data-scroll-target="#dsge-model"><span class="header-section-number">3.4.7</span> DSGE model</a></li>
   </ul></li>
+  <li><a href="#estimation-problem" id="toc-estimation-problem" class="nav-link" data-scroll-target="#estimation-problem"><span class="header-section-number">3.5</span> Estimation problem</a></li>
   </ul>
 </nav>
     </div>
@@ -333,8 +336,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Kalman filtering</span></h1>
-<p class="subtitle lead">Estimating unobserved components</p>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">State-Space Models: time series models with structure</span></h1>
 </div>
 
 
@@ -349,153 +351,265 @@ div.csl-indent {
 
 </header>
 
-<section id="literature" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="literature"><span class="header-section-number">5.1</span> Literature</h2>
-<p>Alternatives to what follows can be found in <span class="citation" data-cites="Harvey89">Harvey (<a href="references.html#ref-Harvey89" role="doc-biblioref">1989</a>)</span>, <span class="citation" data-cites="Hamilton1994">Hamilton (<a href="references.html#ref-Hamilton1994" role="doc-biblioref">1994</a>)</span>, <span class="citation" data-cites="KimNelson">Kim and Nelson (<a href="references.html#ref-KimNelson" role="doc-biblioref">1999</a>)</span>, <span class="citation" data-cites="Durbin">Durbin and Koopman (<a href="references.html#ref-Durbin" role="doc-biblioref">2001</a>)</span> or <span class="citation" data-cites="BISSM">Triantafyllopoulos (<a href="references.html#ref-BISSM" role="doc-biblioref">2021</a>)</span>. There are many books devoted to the Kalman filter <a href="https://www.amazon.co.uk/s?k=kalman+filtering&amp;i=stripbooks">as a casual Amazon search</a> mostly from an engineering perspective. However econometricians since <span class="citation" data-cites="HarveyPierse">Harvey and Pierse (<a href="references.html#ref-HarveyPierse" role="doc-biblioref">1984</a>)</span> have used it in a way somewhat different from standard engineering applications. We will cover the filter and then look at a simple example if filtering, then develop a maximum likelihood estimation approach.</p>
-</section>
-<section id="reminder-of-a-state-space-model" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="reminder-of-a-state-space-model"><span class="header-section-number">5.2</span> Reminder of a state-space model</h2>
-<p>Consider the trend-cycle model <span class="math display">\[\begin{equation}
-  y_t = \chi_t + \tau_t + \varepsilon_t
-\end{equation}\]</span> where the cycle equation is <span class="math display">\[\begin{equation}
-  \chi_t = c+\rho_1 \chi_{t-1} + \rho_2 \chi_{t-2}+v_{1t}
-\end{equation}\]</span> and the trend equation is <span class="math display">\[\begin{equation}
-  \tau_t = \tau_{t-1} + v_{2t}
-\end{equation}\]</span></p>
-<p>In state space this can be written <span class="math display">\[\begin{align}
-y_t &amp;=
-\begin{bmatrix} 1 &amp; 0 &amp; 1 \end{bmatrix}
-\begin{bmatrix} \chi_t \\ \chi_{t-1} \\ \tau_t \end{bmatrix} + [1] \varepsilon_t\\
-\begin{bmatrix} \chi_t \\ \chi_{t-1} \\ \tau_t \end{bmatrix} &amp;=
-\begin{bmatrix} c \\ 0 \\ 0 \end{bmatrix} +
-\begin{bmatrix} \rho_1 &amp; \rho_2 &amp; 0 \\ 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}
-\begin{bmatrix} \chi_{t-1} \\ \chi_{t-2} \\ \tau_{t-1} \end{bmatrix} +
-\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}
-\begin{bmatrix} v_{1t} \\ v_{2t} \end{bmatrix}
-\end{align}\]</span></p>
-<section id="a-useful-class-of-models" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="a-useful-class-of-models"><span class="header-section-number">5.2.1</span> A useful class of models</h3>
-<p>We need a framework that nests this type of model (and many more). State-space models are one such framework, amenable to classical (and Bayesian) estimation. Quite a lot of apparatus required before we can apply maximum likelihood.</p>
-<p><strong>Key points</strong>:</p>
+<section id="introduction" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">3.1</span> Introduction</h2>
+<p>What is (a) state space (model) and why do we use it? Here we</p>
 <ul>
-<li>Many quantities routinely used to build models and analyse policy are <em>unobservable</em>.</li>
-<li>Econometricians face a major problem estimating such models: everything unobserved needs estimating simultaneously (states and parameters).</li>
-<li>Fortunately there is a method we can use: the <strong><em>Kalman filter</em></strong> (<span class="citation" data-cites="Kalman">Kalman (<a href="references.html#ref-Kalman" role="doc-biblioref">1960</a>)</span>).</li>
-<li>Has the useful spin-off that we can also use it to calculate the value of the likelihood function.</li>
+<li>explain the model form (and explain what state space is);</li>
+<li>discuss the reasons for using them.</li>
 </ul>
+<p>This is best illustrated by discussing a number of example models and applications. We will also explore what this implies for estimation.</p>
+<p>The standard textbook for this is <span class="citation" data-cites="Harvey89">Harvey (<a href="references.html#ref-Harvey89" role="doc-biblioref">1989</a>)</span> (which understandably feels a little dated both in terms of content and notation) as well as <span class="citation" data-cites="Hamilton1994">Hamilton (<a href="references.html#ref-Hamilton1994" role="doc-biblioref">1994</a>)</span>, <span class="citation" data-cites="Durbin">Durbin and Koopman (<a href="references.html#ref-Durbin" role="doc-biblioref">2001</a>)</span> and <span class="citation" data-cites="KimNelson">Kim and Nelson (<a href="references.html#ref-KimNelson" role="doc-biblioref">1999</a>)</span>. Each of these have numerous classical and Bayesian applications and extensions.</p>
 </section>
-</section>
-<section id="what-is-a-filter" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="what-is-a-filter"><span class="header-section-number">5.3</span> What is a filter?</h2>
-<p>Imagine we had a time-varying parameter model where we estimate <span class="math inline">\(\beta_t\)</span>; this becomes a time series so we have a lot of parameters to estimate: we outline an estimation method here, which we will then characterise as the <em>Kalman Filter</em>.</p>
-<p>Simple observation and transition equations <span class="math display">\[\begin{align}
-y_t     &amp;= H_t\beta_t + e_t, &amp;var(e_t) = R \\
-\beta_t &amp;= \mu + F \beta_{t-1} + v_t, &amp;var(v_t)=Q
-\end{align}\]</span> where <span class="math inline">\(\beta_t\)</span> is a vector of stochastic variables, <span class="math inline">\(y_t\)</span> a vector of measurements and the data forms an information set such that <span class="math inline">\(\psi_T = \{y_T,y_{T-1},...,y_1\}\)</span>.</p>
-<p><span class="citation" data-cites="Jazwinski">Jazwinski (<a href="references.html#ref-Jazwinski" role="doc-biblioref">1970</a>)</span> defines three type of estimation problem</p>
+<section id="a-useful-class-of-models" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="a-useful-class-of-models"><span class="header-section-number">3.2</span> A useful class of models</h2>
+<p>State-space models are a useful framework amenable to both classical and Bayesian estimation. Their set-up encompasses a number of common economic models with interesting features such as time variation or unobserved components. In either case this implies we need to estimate unknown values of a time series.</p>
+<p>Model form is quite general but has multiple interpretations and is <em>often not unique</em>. There is also quite a lot of additional apparatus required before we can apply either maximum likelihood estimation or Gibbs sampling.</p>
+<section id="unobserved-variables-and-coefficients" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="unobserved-variables-and-coefficients"><span class="header-section-number">3.2.1</span> Unobserved variables and coefficients</h3>
+<p>A lot of <strong><em>quantities</em></strong> that we routinely use to build models and analyse policy are <strong><em>unobservable</em></strong>: often correspond to concepts with economic meaning rather than being inherently measurable, e.g.:</p>
 <ul>
-<li><strong>Smoothing</strong> is the problem of estimating <span class="math inline">\(\beta_k\)</span> for any <span class="math inline">\(k&lt;T\)</span></li>
-<li><strong>Filtering</strong> is the problem of estimating <span class="math inline">\(\beta_k\)</span> for <span class="math inline">\(k=T\)</span></li>
-<li><strong>Prediction</strong> is the problem of estimating <span class="math inline">\(\beta_k\)</span> for any <span class="math inline">\(k&gt;T\)</span></li>
+<li>Business cycle or output gap, natural rate of interest, persistent exogenous shocks such as productivity or preferences</li>
+<li>Other models have latent variables with no clear interpretation: popular procedure to reduce large data sets to dynamic factors</li>
 </ul>
-<blockquote class="blockquote">
-<p>“The object of filtering is to update our knowledge of the system each time a new observation <span class="math inline">\(y_t\)</span> is brought in.” (<span class="citation" data-cites="Durbin">Durbin and Koopman (<a href="references.html#ref-Durbin" role="doc-biblioref">2001</a>)</span>)</p>
-</blockquote>
-<p>Filtering is specifically this: perhaps we have some estimates already of <span class="math inline">\(\beta_t\)</span> for <span class="math inline">\(t=1...t-1\)</span>, then given the new period-<span class="math inline">\(t\)</span> observation of <span class="math inline">\(y_t\)</span> how should we estimate a new value of <span class="math inline">\(\beta_t\)</span>? This immediately implies a recursive structure to estimation problems, consistent with on-line (or real-time) estimation. The Kalman filter uses the period <span class="math inline">\(t\)</span> news available from observed <span class="math inline">\(y_t\)</span> to update our estimates of <span class="math inline">\(\beta_t\)</span> using the regression lemma.</p>
-<section id="forecasting" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="forecasting"><span class="header-section-number">5.3.1</span> Forecasting</h3>
-<p>Consider the simple first-order VAR model <span class="math display">\[\begin{equation}
-  \beta_t = F\beta_{t-1}+v_{t},\quad v_t\sim N(0,Q)
-\end{equation}\]</span> We can use to make the <em>conditional</em> forecast <span class="math display">\[\begin{equation}
-  \beta_{t|t-1} = F\beta_{t-1}
-\end{equation}\]</span> where <span class="math inline">\(\beta_{t|t-1}=E[\beta_t|\psi_{t-1}]\)</span> and <span class="math inline">\(\psi_{t-1}\)</span> is the information set available at time <span class="math inline">\(t-1\)</span>.</p>
-<p>If <span class="math inline">\(\psi_{t-1}\)</span> includes <span class="math inline">\(\beta_{t-1}\)</span> we can straightforwardly forecast next period (and the next-but-one period etc) using the model. This is a standard forecasting exercise given any estimated (or even calibrated) economic model.</p>
-</section>
-<section id="uncertainty" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="uncertainty"><span class="header-section-number">5.3.2</span> Uncertainty</h3>
-<p>How can we assess the associated forecast uncertainty? The forecast covariance <span class="math inline">\(P_{t|t-1} = var(\beta_t|\psi_{t-1})\)</span> is given by <span class="math display">\[\begin{align}
-P_{t|t-1} &amp;= E\left[ (\beta_t - \beta_{t|t-1})(\beta_t-\beta_{t|t-1})'\right]   \\
-  &amp;= E\left[ (F\beta_{t-1}+v_t-F\beta_{t-1|t-1}) \left(\beta_{t-1}'F'+v_t'-\beta_{t-1|t-1}'F'\right) \right] \\
-&amp;= E\left[ F\left( \beta _{t-1}-\beta _{t-1|t-1}\right) \left( \beta_{t-1}-\beta _{t-1|t-1}\mu_z \right) ' F' \right] + E[v_t v_t']  \notag \\
-&amp;= FP_{t-1|t-1}F' + Q
-\end{align}\]</span> where <span class="math inline">\(P_{t-1|t-1} = var(\beta_{t-1}|\psi_{t-1})\)</span>. The forecast error variance depends on the previous error variance; that value depends on the information set.</p>
-<p>If <span class="math inline">\(\beta_{t-1}\)</span> forms part of the information set <span class="math inline">\(\psi_{t-1}\)</span> then <span class="math display">\[\begin{equation}
-P_{t-1|t-1} = var \left(\beta_{t-1}|\psi_{t-1}\right) = 0
-\end{equation}\]</span> and there is no uncertainty other than from the disturbance terms and <span class="math inline">\(P_t=Q\)</span>.</p>
-<p>If <span class="math inline">\(\beta_{t-1}\)</span> does not form part of the information set <span class="math inline">\(\psi_{t-1}\)</span> but <span class="math inline">\(\beta _{t-2}\)</span> does then <span class="math inline">\(P_{t-1|t-1}=Q\)</span> and <span class="math inline">\(P_{t|t-1}=FQF'+Q\)</span>. This can be continued backwards; the unconditional (steady-state) covariance of <span class="math inline">\(\beta_t\)</span> is the limit <span class="math inline">\(P=FPF'+Q\)</span>. We can easily calculate error bands for <span class="math inline">\(\beta_t\)</span> using the appropriate information set.</p>
-</section>
-<section id="prediction-error" class="level3" data-number="5.3.3">
-<h3 data-number="5.3.3" class="anchored" data-anchor-id="prediction-error"><span class="header-section-number">5.3.3</span> Prediction error</h3>
-<p>We can turn this around, as it must be the <em>prediction errors</em> are given by <span class="math display">\[\begin{align}
-\eta_{t|t-1} &amp;= y_t - E[y_t|\psi_{t-1}]  \\
-             &amp;= y_t - E[H_t\beta_t+e_t|\psi_{t-1}] \\
-             &amp;= y_t-H_t\beta_{t|t-1}
-\end{align}\]</span> where <span class="math inline">\(\eta_{t|t-1}\)</span> is uncorrelated with <span class="math inline">\(\psi_{t-1}\)</span>. So the ‘news’ over that contained in <span class="math inline">\(y_t\)</span> above <span class="math inline">\(\psi_{t-1}\)</span> is captured by <span class="math inline">\(\eta_{t|t-1}\)</span>. It will be that <span class="math inline">\(\eta_{t|t-1}\sim N(0,\Sigma_{\eta\eta})\)</span>; we need to find an expression for the covariance.</p>
-</section>
-<section id="current-data-predictions" class="level3" data-number="5.3.4">
-<h3 data-number="5.3.4" class="anchored" data-anchor-id="current-data-predictions"><span class="header-section-number">5.3.4</span> Current-data predictions</h3>
-<p>Now we find <span class="math inline">\(E [\beta_t | \psi_t]\)</span> – the best prediction of the unknown coefficient vector given <em>current</em> information. Using the regression lemma we know that <span class="math display">\[\begin{align}
-E[\beta_t | \psi_t ] &amp;= E[\beta_t | \psi_{t-1}, \eta_{t|t-1} ]  \\
-&amp;= E[\beta_t | \psi_{t-1}] +\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1}  \\
-&amp;= \beta_{t|t-1} + \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1} \eta_{t|t-1}
-\end{align}\]</span> because <span class="math inline">\(\psi_{t-1}\)</span> and <span class="math inline">\(\eta_{t|t-1}\)</span> are uncorrelated and <span class="math inline">\(\eta_{t|t-1}\)</span> is mean zero.</p>
-<p>Similarly, we can find <span class="math inline">\(P_{t|t}\)</span> as the best prediction of the variance of <span class="math inline">\(\beta_t\)</span> given <span class="math inline">\(\psi_t\)</span>. Using the regression lemma we know that <span class="math display">\[\begin{align}
-P_{t|t} &amp;= E[(\beta_t-\beta_{t|t})(\beta_t - \beta_{t|t})'|\psi_{t-1}, \eta_{t|t-1}] \\
-        &amp;= E[(\beta_t - \beta_{t|t})(\beta_t-\beta_{t|t})'|\psi_{t-1}] - \Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta\beta} \\
-        &amp;=P_{t|t-1}-\Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1} \Sigma_{\eta\beta}
-\end{align}\]</span></p>
-</section>
-<section id="estimated-model-covariances" class="level3" data-number="5.3.5">
-<h3 data-number="5.3.5" class="anchored" data-anchor-id="estimated-model-covariances"><span class="header-section-number">5.3.5</span> Estimated model covariances</h3>
-<p>All we need do is plug the relevant expressions into the regression lemma. So, what is <span class="math inline">\(\Sigma_{\beta\eta}\)</span>? <span class="math display">\[\begin{align}
-\Sigma_{\beta\eta} &amp;= E[(\beta_t-\beta_{t|t-1}) \eta_{t|t-1}'] \\
-&amp;= E\left[(\beta_t-\beta_{t|t-1}) (y_t-H_t\beta_{t|t-1})'\right] \\
-&amp;= E\left[(\beta_t-\beta_{t|t-1}) (H_t\beta_t+e_t-H_t\beta_{t|t-1})'\right] \\
-&amp;= E[(\beta_t-\beta_{t|t-1}) (\beta_t-\beta_{t|t-1})'H_t'] + E[(\beta_t - \beta_{t|t-1}) e_t'] \\
-&amp;= P_{t|t-1} H_t' \tag{$\Sigma_{\beta\eta}$}
-\end{align}\]</span> as <span class="math inline">\(E[(\beta_t - \beta_{t|t-1})e_t']=0\)</span>.</p>
-<p>What is <span class="math inline">\(\Sigma_{\eta\eta}\)</span>? <span class="math display">\[\begin{align}
-\Sigma_{\eta\eta} &amp;= E[(y_t-H_t \beta_{t|t-1})(y_t-H_t\beta_{t|t-1})'] \\
-                  &amp;= E[(H_t\beta_t+e_t-H_t\beta_{t|t-1})(H_t\beta_t+e_t-H_t\beta_{t|t-1})'] \\
-                  &amp;= E[(H_t\beta_t-H_t \beta_{t|t-1})(H_t\beta_t-H_t\beta_{t|t-1})'] + E[e_t e_t'] \\
-                  &amp;= E[H_t(\beta_t-\beta_{t|t-1})(\beta_t-\beta_{t|t-1})'H_t'] + R \\
-                  &amp;= H_t P_{t|t-1} H_t' + R \\
-                  &amp;= f_{t|t-1} \tag{$\Sigma_{\eta\eta}$} \label{svv}
-\end{align}\]</span> where we define <span class="math inline">\(f_{t|t-1}=E[\eta_{t|t-1}\eta_{t|t-1}']\)</span>. Now we’re ready.</p>
-</section>
-</section>
-<section id="the-kalman-filter" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="the-kalman-filter"><span class="header-section-number">5.4</span> The Kalman filter</h2>
-<p>The equations of the filter are</p>
+<p>Alternatively we might be interested in models with <strong><em>time-varying parameters</em></strong>:</p>
 <ul>
-<li>the conditional expectation depending on <span class="math inline">\(\psi_{t-1}\)</span>;</li>
-<li>an update that uses <span class="math inline">\(\eta_{t|t-1}\)</span> to obtain the best <span class="math inline">\(t\)</span>-period prediction now based on <span class="math inline">\(\psi_t\)</span>.</li>
+<li>Contrasting examples are models with slowly evolving parameters or with regime switches;</li>
+<li>The coefficients of these models are both unobserved and (potentially) time-varying;</li>
 </ul>
-<p>These must be of the form <span class="math display">\[\begin{align}
-E[\beta_t | \psi_{t-1}] &amp;= \mu + F E [\beta_t | \psi_{t-1}] \\
-E[P_t|\psi_{t-1}]       &amp;= F E[P_{t-1}|\psi_{t-1}] F' + Q \\
-E[\beta_t | \psi_t]     &amp;= E[\beta_t|\psi_{t-1}] + \Sigma_{\beta\eta} \Sigma_{\eta\eta}^{-1}\eta_{t|t-1} \\
-E[P_t|\psi_t]           &amp;= E[P_t|\psi_{t-1}] -\Sigma_{\beta\eta}\Sigma_{\eta\eta}^{-1}\Sigma_{\eta \beta}
-\end{align}\]</span> These are specifically <span class="math display">\[\begin{align}
-\beta_{t|t-1} &amp;= \mu +F\beta_{t-1|t-1}                                  \tag{Predicted $\beta$}\\
-P_{t|t-1}     &amp;= F P_{t-1|t-1}F' + Q                                    \tag{Predicted $P$}\\
-\eta_{t|t-1}  &amp;= y_t-H_t\beta_{t|t-1}                                   \tag{Prediction error}\\
-f_{t|t-1}     &amp;= H_t P_{t|t-1}H_t' + R                                  \tag{Pred. err. variance}\\
-\beta_{t|t}   &amp;= \beta_{t|t-1}+P_{t|t-1}H_t' f_{t|t-1}^{-1}\eta_{t|t-1} \tag{Updated $\beta$}\\
-P_{t|t}       &amp;= P_{t|t-1} - P_{t|t-1}H_t' f_{t|t-1}^{-1}H_tP_{t|t-1}   \tag{Updated $P$}
-\end{align}\]</span> The filter evaluates these recursively, beginning from <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(P_0\)</span>.</p>
-<p>Treatment of these initial condition reflects knowledge/model</p>
+<p>Econometricians face major problems estimating such models: the set up is complicated and data requirements may be excessive. Fortunately there is a method we can use to estimate where we are (‘the state’ of state space) given available observable data.</p>
+<p>The estimation method we usually use is the <strong><em>Kalman filter</em></strong>, see <span class="citation" data-cites="Kalman">Kalman (<a href="references.html#ref-Kalman" role="doc-biblioref">1960</a>)</span>. As an estimation process, this has the useful spin-off that we can also use it to calculate the value of the likelihood function at the same time.</p>
+</section>
+</section>
+<section id="dynamic-economic-models" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="dynamic-economic-models"><span class="header-section-number">3.3</span> Dynamic economic models</h2>
+<p>Consider a first order VAR (we’ll show how this isn’t restrictive) <span class="math display">\[
+     x_t = \mu + A x_{t-1} + v_t
+\]</span> with <span class="math inline">\(v_t\sim N(0,Q)\)</span>. Estimation of this model is easy – actually very easy as the unrestricted <span class="math inline">\(A\)</span> matrix means we can use OLS (the proof of this is left as an exercise…). Instead we augment this with a second set of equations to turn it into a system where we map the data to the state <span class="math display">\[
+    \overbrace{y_t}^{Data} = \overbrace{x_t}^{State}
+\]</span> This reflects an important characteristic of state space models: all data needs to be fed into the model through <strong><em>observation equations</em></strong>. This seems an odd way to go about estimating a VAR: but we now generalize this to allow that for variables we <strong><em>can’t</em></strong> see.</p>
+<section id="general-state-space-model" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="general-state-space-model"><span class="header-section-number">3.3.1</span> General state space model</h3>
+<p>State space models consist of two sets of equations: (1) <strong><em>Observation</em></strong> equations and (2) <strong><em>State</em></strong> or <strong><em>Transition</em></strong> equations. The classical Kalman filter set up might be:</p>
 <ul>
-<li>Stationary models can use the steady-state</li>
-<li>Non-stationary models use something which is often (confusingly) called a <em>diffuse prior</em> (zero mean, large variance)</li>
+<li>Observation equations <span class="math display">\[
+\overbrace{y_t}^{Data} = \underbrace{H}_{Coefficients}  \overbrace{\beta_t}^{State} +\ e_t
+\]</span></li>
+<li>State/Transition equations <span class="math display">\[
+\beta_t = \mu + F\beta_{t-1} + v_t
+\]</span></li>
 </ul>
-<section id="kalman-filter-trick" class="level3" data-number="5.4.1">
-<h3 data-number="5.4.1" class="anchored" data-anchor-id="kalman-filter-trick"><span class="header-section-number">5.4.1</span> Kalman filter trick</h3>
-<p>For <strong><em>known</em></strong> initial conditions – say <span class="math inline">\(\beta_0 \sim N(\mu_0, P_0)\)</span> – the likelihood of a state-space model with <span class="math inline">\(T\)</span> observations of <span class="math inline">\(m\)</span> variables is <span class="math display">\[\begin{align}
-\log L(\theta | y) &amp;= \sum_{t=1}^T \log \left(p \left( \theta | \psi_{t-1}, \theta \right)\right) \\
-  &amp;= - \Phi - \frac{1}{2}\sum_{t=1}^T \left( \log(\det(f_{t|t-1})) + \eta_{t|t-1}' f_{t|t-1}^{-1} \eta_{t|t-1} | \theta \right)
-\end{align}\]</span> where <span class="math inline">\(\Phi = \frac{Tm}{2}\log \left( 2\pi \right)\)</span> and <span class="math inline">\(\theta\)</span> are all the non-state parameters to be estimated. We can use the Kalman filter to obtain <span class="math inline">\(\eta_{t|t-1}\)</span> and <span class="math inline">\(f_{t|t-1}\)</span> as they are the <em>prediction error</em> and its <em>variance</em>. This is the <strong><em>prediction error decomposition</em></strong> of the log-likelihood.</p>
-<p>A maximum likelihood estimate maximizes <span class="math inline">\(\log L(y|\theta)\)</span> by choice of <span class="math inline">\(\theta\)</span>.</p>
+<p>We assume <span class="math inline">\(v_t\sim N(0,Q)\)</span>, <span class="math inline">\(e_t\sim N(0,R)\)</span> and <span class="math inline">\(cov(e_t,v_t)=0\)</span>. Set up like this, coefficients of <span class="math inline">\(H\)</span> are akin to linear regression parameters. Even more generally there could be further coefficients i.e.&nbsp;<span class="math inline">\(y_t = H \beta_t + B e_t\)</span>.</p>
+<p>Now consider the following variation <span class="math display">\[
+    \begin{align*}
+    y_t    &amp;= \underbrace{H_t}_{Data} \beta_t + e_t \\
+     \beta_t &amp;= \mu + F \beta_{t-1} + v_t
+    \end{align*}
+\]</span> This allows <span class="math inline">\(H_t\)</span> to <em>potentially</em> vary through time; written like this we can think of <span class="math inline">\(H_t\)</span> as data and <span class="math inline">\(\beta_t\)</span> as the regression parameters. For the time being consider <span class="math inline">\(F\)</span> and <span class="math inline">\(\mu\)</span> to be time-invariant and the disturbances to have constant variances, although we can easily generalize this.</p>
+<p>Written one way the measurement equation is familiar from our understanding of regression models; written another it looks like a time-varying parameter model. The state equation is familiar from our analysis of dynamic macromodels but here looks more like a potential dynamic process for the regression coefficients to vary through time. One big difference is the combination of the two. In particular, this formalizes the role of ‘signal’ – <span class="math inline">\(v_t\)</span> – and ‘noise’ – <span class="math inline">\(e_t\)</span>.</p>
+<p>Model allows for the possibility that we neither directly observe the ‘driving’ variables of the system nor do we measure them accurately. To make sense of state space it is convenient to look at a variety of example models.</p>
+</section>
+</section>
+<section id="examples" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="examples"><span class="header-section-number">3.4</span> Examples</h2>
+<section id="structural-time-series-models-stsms" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="structural-time-series-models-stsms"><span class="header-section-number">3.4.1</span> Structural time series models (STSMs)</h3>
+<p>Alternative time series decomposition associated with <span class="citation" data-cites="Harvey89">Harvey (<a href="references.html#ref-Harvey89" role="doc-biblioref">1989</a>)</span>. Suggests instead that economic time series might be split into <span class="math display">\[
+    \begin{align}
+    y_t &amp;=\mu_t + e_t     &amp;e_t\sim N\left(0,\sigma_v^2\right) \\
+    \mu_t &amp;=\mu_{t-1}+\lambda_{t-1}+\xi_t   &amp;\xi_t\sim N\left(0,\sigma_\xi^2\right) \\
+    \lambda_t &amp;=\lambda_{t-1}+\zeta_t   &amp;\zeta_t\sim N\left(0,\sigma_\zeta^2 \right)
+    \end{align}
+\]</span> This is known as the <strong><em>local linear trend</em></strong> model. Both the trend level and slope can vary over time.</p>
+<p>In state space this is: <span class="math display">\[
+    \begin{align}
+    y_t &amp;= \overset{H}{\begin{bmatrix} 1 &amp; 0 \end{bmatrix}}
+    \overset{\beta_t}{\begin{bmatrix}\mu_t \\ \lambda_t \end{bmatrix} } + e_{t} \\
+    \overset{\beta_t}{\begin{bmatrix}\mu_t \\ \lambda_t \end{bmatrix}} &amp;=
+    \overset{F}{\begin{bmatrix} 1 &amp; 1 \\  0 &amp; 1 \end{bmatrix}}
+    \overset{\beta_{t-1}}{\begin{bmatrix}\mu_{t-1} \\ \lambda_{t-1} \end{bmatrix}} +
+    \begin{bmatrix} \xi_t \\ \zeta_t\end{bmatrix}
+    \end{align}
+\]</span> The only parameters of this model that we need to estimate are the variances.</p>
+</section>
+<section id="trend-cycle-model" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="trend-cycle-model"><span class="header-section-number">3.4.2</span> Trend-cycle model</h3>
+<p>What if we wanted to decompose GDP into a trend and a cycle. Let observed GDP be modeled as: <span class="math display">\[
+    y_t = \chi_t + \tau_t
+    \]</span> where the cycle <span class="math inline">\(\chi_t\)</span> is an <span class="math inline">\(AR(2)\)</span> process and the trend <span class="math inline">\(\tau_t\)</span> a random walk <span class="math display">\[
+    \begin{align}
+    \chi_t &amp;= c + \rho_1 \chi_{t-1} + \rho_2 \chi_{t-2} + v_{1t} \\
+    \tau_t &amp;= \tau_{t-1} + v_{2t}
+    \end{align}
+\]</span> In state space form this is: <span class="math display">\[
+    \begin{align}
+    y_{t}&amp; =\overset{H}{\left[\begin{array}{ccc} 1 &amp; 0 &amp; 1 \end{array} \right] }
+    \overset{\beta_t} {\left[ \begin{array}{c} \chi_t \\  \chi_{t-1} \\ \tau_t  \end{array} \right] } \\
+    \overset{\beta_t} {\left[\begin{array}{c} \chi_t \\  \chi_{t-1} \\ \tau_t \end{array}\right] }
+    &amp; =\overset{\mu }{\left[\begin{array}{c} c \\  0 \\  0 \end{array} \right] } +
+        \overset{F} {\left[\begin{array}{ccc} \rho_1 &amp; \rho_2 &amp; 0 \\
+    1 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 1
+    \end{array}
+    \right] }\overset{\beta_{t-1}}{\left[
+    \begin{array}{c}
+    \chi_{t-1} \\
+    \chi_{t-2} \\
+    \tau_{t-1}  
+    \end{array}
+    \right] }+\left[
+    \begin{array}{c}
+    v_{1t} \\
+    0 \\
+    v_{2t}
+    \end{array}
+    \right]
+    \end{align}
+\]</span> where <span class="math inline">\(R=0\)</span> (there is no measurement error) and <span class="math inline">\(H\)</span> is time invariant</p>
+</section>
+<section id="time-varying-parameters-tvp" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="time-varying-parameters-tvp"><span class="header-section-number">3.4.3</span> Time-varying parameters (TVP)</h3>
+<p>Sometimes we wish to model structural change by incorporating time-varying parameters. From the equations above we could set this up as <span class="math display">\[\begin{align*}
+    y_t     &amp;= H_t \beta_t + e_t \\
+    \beta_t &amp;= \beta_{t-1} + v_t
+    \end{align*}\]</span> The time-varying coefficients (<span class="math inline">\(\beta_t\)</span>) multiply a vector of time-varying regressors (<span class="math inline">\(H_t\)</span>). As the data is fixed the distribution of <span class="math inline">\(\beta_t\)</span> will be conditionally normal if all the errors are normal.</p>
+<p>We set <span class="math inline">\(F=I\)</span> so the parameters are assumed to follow a random walk and the steady-state variance of <span class="math inline">\(\beta_t\)</span> is infinite. The model becomes time-invariant with <span class="math inline">\(\beta=\beta_0\)</span> if <span class="math inline">\(Q = (\sigma_{\nu}^2=)\ 0\)</span>. We now explicitly write the simplest TVP model <span class="math display">\[
+    y_t = c_t + X_t B_t + e_t
+\]</span> where <span class="math inline">\(c_t\)</span> and <span class="math inline">\(B_t\)</span> both follow a random walk. In state space form <span class="math display">\[
+    \begin{align}
+    y_t &amp;= \overset{H_t} {\begin{bmatrix} 1 &amp; X_t \end{bmatrix} }
+     \overset{\beta_t} {\begin{bmatrix} c_t \\ B_t \end{bmatrix} } + e_t &amp; var(e) = R \\
+     \overset{\beta_t} {\begin{bmatrix} c_t \\ B_t \end{bmatrix} } &amp;=
+     \overset{\beta_{t-1}} {\begin{bmatrix} c_{t-1} \\  B_{t-1} \end{bmatrix}}
+     + \begin{bmatrix} v_{1t} \\ v_{2t} \end{bmatrix} &amp; var(v) = Q
+    \end{align}
+\]</span> where <span class="math inline">\(F=I\)</span> and <span class="math inline">\(\mu=0\)</span>. As <span class="math inline">\(\sigma_{\nu}^2 \neq 0\)</span> the coefficients aren’t fixed even though <span class="math inline">\(F=I\)</span>.</p>
+</section>
+<section id="dynamic-factor-model" class="level3" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="dynamic-factor-model"><span class="header-section-number">3.4.4</span> Dynamic factor model</h3>
+<p>Assume a panel of series <span class="math inline">\(y_{it}\)</span> has a common component <span class="math inline">\(f_t\)</span> <span class="math display">\[
+\begin{align}
+    y_{it} &amp;= B_i f_t + e_{it}, \qquad &amp;i=1,\ldots ,N \\
+    f_t    &amp;= c+\rho_1 f_{t-1} + \rho_2 f_{t-2} + v_t
+\end{align}
+\]</span> In state space form <span class="math display">\[
+    \begin{align*}
+    \left[
+    \begin{array}{c}y_{1t} \\ y_{2t} \\ \vdots \\ y_{Nt}\end{array}\right] &amp;=
+    \overset{H}{\left[ \begin{array}{cc}B_1 &amp; 0 \\ B_2 &amp; 0 \\ \vdots &amp; \vdots \\ B_N &amp; 0\end{array}\right] }
+    \overset{\beta_t}{\left[ \begin{array}{c}f_t \\ f_{t-1} \end{array}\right] } + \left[ \begin{array}{c} e_{1t} \\ e_{2t} \\ \vdots \\ e_{Nt} \end{array}\right] \\
+    \overset{\beta_t}{\left[ \begin{array}{c} f_t  \\ f_{t-1} \end{array}\right] } &amp;=
+    \overset{\mu }{\left[  \begin{array}{c}c \\ 0 \end{array} \right] }+
+    \overset{F}{\left[ \begin{array}{cc}
+    \rho_1 &amp; \rho_2 \\  1 &amp; 0 \end{array} \right] }
+    \overset{\beta_{t-1}}{\left[  \begin{array}{c} f_{t-1} \\ f_{t-2} \end{array} \right] }+\left[ \begin{array}{c} v_t \\ 0\end{array}
+    \right]
+    \end{align*}
+\]</span> - The factors have dynamics but the observed variables do not</p>
+</section>
+<section id="var" class="level3" data-number="3.4.5">
+<h3 data-number="3.4.5" class="anchored" data-anchor-id="var"><span class="header-section-number">3.4.5</span> VAR</h3>
+<p>At a more abstract level, a <span class="math inline">\(k\)</span>-variable, <span class="math inline">\(p\)</span>-lag VAR <span class="math display">\[
+  X_t = c + \sum_{i=1}^p A_i X_{t-i} + \varepsilon_t,\quad\hbox{where}\ Y_t = X_t
+\]</span> This can always be written <span class="math display">\[
+    \begin{align*}
+    Y_t &amp;=
+    \overset{H}{\left[ I \ 0 \  ...\right] }
+    \overset{\beta_t}{\left[ \begin{array}{c}X_t \\ X_{t-1} \\ \vdots\end{array}\right] } \\
+    \overset{\beta_t}{\left[ \begin{array}{c} X_t  \\ X_{t-1} \\ \vdots \end{array}\right] } &amp;=
+    \overset{\mu}{\left[  \begin{array}{c}c \\ 0 \\ \vdots\end{array} \right] }+
+    \overset{F}{\left[ \begin{array}{ccc}
+    A_1 &amp; A_2 &amp; \ldots \\  I &amp; 0 &amp; \ldots \\ \vdots &amp; \vdots &amp; \ddots \end{array} \right] }
+    \overset{\beta_{t-1}}{\left[ \begin{array}{c}X_{t-1} \\ X_{t-2} \\ \vdots\end{array}\right] } +
+    \left[ \begin{array}{c} \varepsilon_t \\ 0 \\ \vdots\end{array}
+    \right]
+    \end{align*}
+\]</span> This is an important example: this model has entirely observed variables. The size of the resulting state is <span class="math inline">\(p\times k\)</span>, potentially quite large: however written this way the model is easy to simulate.</p>
+<p>We can ask the question: can we find <strong><em>unobserved</em></strong> variables that preserve the properties of <span class="math inline">\(Y_t\)</span>? What if: <span class="math display">\[
+     Y_t = X_t = P \tilde X_t
+\]</span> then <span class="math display">\[
+    \tilde X_t = P^{-1}A P \tilde X_{t-1} + P^{-1} \varepsilon_t = \tilde A \tilde X_{t-1} + \tilde \varepsilon_t
+\]</span> This shows that the state space representation is not unique.</p>
+</section>
+<section id="multiple-representations-arma11" class="level3" data-number="3.4.6">
+<h3 data-number="3.4.6" class="anchored" data-anchor-id="multiple-representations-arma11"><span class="header-section-number">3.4.6</span> Multiple representations: ARMA(1,1)</h3>
+<p>This reflects the fact that model representations in general are not unique. For example, two representations of <span class="math display">\[
+    y_t = \phi y_{t-1} + \varepsilon_t + \theta \varepsilon_{t-1}  
+\]</span> This can be written either as <span class="math display">\[
+    y_t = \left[ 1 \ 0\right]  \left[ \begin{array}{c}y_t \\ \varepsilon_t \end{array}\right], \qquad
+    \left[ \begin{array}{c} y_t  \\ \varepsilon_t \end{array}\right]  =
+    \left[ \begin{array}{ccc} \phi &amp; \theta \\ 0 &amp; 0 \end{array} \right]
+    \left[ \begin{array}{c}y_{t-1} \\ \varepsilon_{t-1} \end{array}\right]   +
+    \left[ \begin{array}{c} 1 \\ 1 \end{array} \right] \varepsilon_t
+\]</span> or <span class="math display">\[
+    y_t = \begin{bmatrix} 1 &amp; 0 \end{bmatrix} \begin{bmatrix} y_t \\ \theta\varepsilon_t \end{bmatrix}, \qquad
+    \begin{bmatrix} y_t  \\ \theta\varepsilon_t \end{bmatrix} =
+    \begin{bmatrix} \phi &amp; 1 \\ 0 &amp; 0 \end{bmatrix}
+    \begin{bmatrix} y_{t-1} \\ \theta\varepsilon_{t-1} \end{bmatrix} +
+    \begin{bmatrix} 1 \\ \theta \end{bmatrix} \varepsilon_t
+\]</span></p>
+</section>
+<section id="dsge-model" class="level3" data-number="3.4.7">
+<h3 data-number="3.4.7" class="anchored" data-anchor-id="dsge-model"><span class="header-section-number">3.4.7</span> DSGE model</h3>
+<p>Take a simple New Keynesian model <span class="math display">\[\begin{align}
+y_t    &amp;= y_{t+1}^e-\frac{1}{\sigma} (i_t - \pi_{t+1}^e) + e_t^1 \\
+\pi_t  &amp;= \beta \pi_{t+1}^e + \kappa y_t + e_t^2 \\
+i_t    &amp;= \gamma i_{t-1} + (1-\gamma) \delta \pi_t + \varepsilon_t^3 \\
+e_t^1  &amp;= \rho_1 e_{t-1}^1 + \varepsilon_t^1 \\
+e_t^2  &amp;= \rho_2 e_{t-1}^2 + \varepsilon_t^2
+\end{align}\]</span> The model comprises a dynamic IS curve, a Phillips Curve and a policy rule with smoothing. There are three shocks, two of which are persistent. This we need to write in the general algebraic linear state-space form: <span class="math display">\[
+E\begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = A \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + B \varepsilon_t  
+\]</span> We map our variables to their algebraic equivalent as (<span class="math inline">\(z_t\)</span>, <span class="math inline">\(x_t\)</span>) <span class="math inline">\(=\)</span> ((<span class="math inline">\(e^1_t\)</span>, <span class="math inline">\(e^2_t\)</span>, <span class="math inline">\(i_t\)</span>), (<span class="math inline">\(y_t\)</span>, <span class="math inline">\(\pi_t\)</span>)). Then the model in state-space form but including the matrix <span class="math inline">\(E\)</span> is <span class="math display">\[
+\begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+                1 &amp; 0 &amp; -\frac{1}{\sigma} &amp; 1 &amp; \frac{1}{\sigma} \\
+                0 &amp; 1 &amp; 0 &amp; 0 &amp; \beta
+\end{bmatrix}
+\begin{bmatrix} e^1_t \\ e^2_t \\ i_t \\ y^e_{t+1} \\ \pi^e_{t+1} \end{bmatrix}
+   =
+   \begin{bmatrix} \rho_1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; \rho_2 &amp; 0 &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; \gamma &amp; 0 &amp; (1-\gamma)\delta \\
+                0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+                0 &amp; 0 &amp; 0 &amp; -\kappa &amp; 1
+   \end{bmatrix}
+\begin{bmatrix} e^1_{t-1} \\ e^2_{t-1} \\ i_{t-1} \\ y_t \\ \pi_t \end{bmatrix}    
+   +
+      \begin{bmatrix}
+                1 &amp; 0 &amp; 0  \\
+                0 &amp; 1 &amp; 0 \\
+                0 &amp; 0 &amp; 1 \\
+                0 &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; 0
+   \end{bmatrix}
+   \begin{bmatrix} \varepsilon^1_t \\ \varepsilon^2_t \\ \varepsilon^3_t \end{bmatrix}    
+\]</span> As the left matrix is invertible we can write this in the form <span class="math display">\[
+\begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = C \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + D \varepsilon_t  
+\]</span> where <span class="math inline">\(C = E^{-1}A\)</span>, <span class="math inline">\(D=E^{-1}B\)</span>. However, even in this form it doesn’t quite conform to the standard state space model. This is because we retain the expectations in the model. Typically we need to solve the model for the expectations using the <span class="citation" data-cites="BK1980">(<a href="references.html#ref-BK1980" role="doc-biblioref"><strong>BK1980?</strong></a>)</span> method or similar such that <span class="math display">\[
+x_t = -N z_{t-1} - G \varepsilon_t
+\]</span> Substituting this in we get a final state-space form <span class="math display">\[\begin{align}
+\begin{bmatrix} z_t \\ x_t \end{bmatrix} &amp;= \begin{bmatrix} C_{11} - C_{12}N &amp; 0 \\ -N &amp; 0 \end{bmatrix} \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + \begin{bmatrix} D_1-C_{12}G \\ -G \end{bmatrix} \varepsilon_t \\
+&amp;= P \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + Q \varepsilon_t
+\end{align}\]</span> This needs to be augmented with an observation equation, perhaps <span class="math display">\[
+\begin{bmatrix} i_t \\ y_t \\ \pi_t \end{bmatrix}
+= \begin{bmatrix} 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+                0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix} e^1_t \\ e^2_t \\ i_t \\ y_t \\ \pi_t \end{bmatrix}
+\]</span> where we don’t observe the autoregressive shocks.</p>
+</section>
+</section>
+<section id="estimation-problem" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="estimation-problem"><span class="header-section-number">3.5</span> Estimation problem</h2>
+<p>Recall the observation equation and transition equations <span class="math display">\[
+    \begin{align}
+    y_t       &amp;= H\beta_t + e_t,         &amp;var(e_t)=R \\
+    \beta_t   &amp;= \mu + F\beta_{t-1}+v_t  &amp;var(v_t)=Q
+    \end{align}
+\]</span> where here we treat <span class="math inline">\(H\)</span> as time invariant.</p>
+<p>Notice that at least some parameters of the state space model (<span class="math inline">\(H\)</span>, <span class="math inline">\(\mu\)</span>, <span class="math inline">\(F\)</span>, <span class="math inline">\(R\)</span> and <span class="math inline">\(Q\)</span>) and the state variables (<span class="math inline">\(\beta_t\)</span>) are both unknown. <strong><em>Simultaneous</em></strong> estimation of both sets of unknowns is usually required. This is usually approached iteratively, with the unknown state estimated conditional on some initial estimate of the parameters (or in the Bayesian case <em>sampled</em>) using an appropriate method, usually the <em>Kalman Filter</em> and then then the parameters updated conditional on the state which is repeated until convergence. This can be done using Gibb’s Sampling if we can derive the a conditional density for the unobserved components.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -508,23 +622,13 @@ Hamilton, J. D. 1994. <em>Time Series Analysis</em>. Princeton, NJ: Princeton Un
 <div id="ref-Harvey89" class="csl-entry" role="listitem">
 Harvey, Andrew C. 1989. <em>Forecasting, Structural Time Series Models and the Kalman Filter</em>. Cambridge: Cambridge University Press.
 </div>
-<div id="ref-HarveyPierse" class="csl-entry" role="listitem">
-Harvey, Andrew C., and Richard G. Pierse. 1984. <span>“Estimating Missing Observations in Economic Time Series.”</span> <em>Journal of the American Statistical Association</em> 79 (385): 125–31.
-</div>
-<div id="ref-Jazwinski" class="csl-entry" role="listitem">
-Jazwinski, Andrew H. 1970. <em>Stochastic Processes and Filtering Theory</em>. Mineola, N.Y.: Dover Publications Inc.
-</div>
 <div id="ref-Kalman" class="csl-entry" role="listitem">
 Kalman, R. E. 1960. <span>“A New Approach to Linear Filtering and Prediction Problems.”</span> <em>Transactions of the ASME Journal of Basic Engineering</em> 82 (Series D): 35–45.
 </div>
 <div id="ref-KimNelson" class="csl-entry" role="listitem">
 Kim, Chang-Jin, and Charles R. Nelson. 1999. <em>State-Space Models with Regime Switching: Classical and Gibbs-Sampling Approaches with Applications</em>. MIT Press.
 </div>
-<div id="ref-BISSM" class="csl-entry" role="listitem">
-Triantafyllopoulos, Kostas. 2021. <em>Bayesian Inference of State Space Models: Kalman Filtering and Beyond</em>. Springer Texts in Statistics. Cham, Switzerland: Springer.
 </div>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -878,13 +982,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./RegressionLemma.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The regression lemma</span></span>
+      <a href="./R2021.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Non-econometric methods for econometricians</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./QR.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantile regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./RegressionLemma.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The regression lemma</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

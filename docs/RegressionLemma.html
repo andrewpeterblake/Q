@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quantiles, Networks, Time - 3&nbsp; The regression lemma</title>
+<title>Quantiles, Networks, Time - 4&nbsp; The regression lemma</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./Kalman.html" rel="next">
-<link href="./R2021.html" rel="prev">
+<link href="./ssm.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -130,7 +130,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Methods matter</a></li><li class="breadcrumb-item"><a href="./RegressionLemma.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The regression lemma</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Methods matter</a></li><li class="breadcrumb-item"><a href="./RegressionLemma.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The regression lemma</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -187,14 +187,20 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ssm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">State-Space Models: time series models with structure</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./RegressionLemma.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The regression lemma</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The regression lemma</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Kalman.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span></a>
   </div>
 </li>
       </ul>
@@ -211,19 +217,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./QR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Gibbs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./CK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span></a>
   </div>
 </li>
       </ul>
@@ -240,13 +246,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Stemp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,19 +269,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./BK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./BVAR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Dynare.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Dynare basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Dynare basics</span></span></a>
   </div>
 </li>
       </ul>
@@ -292,7 +298,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -336,21 +342,21 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#a-different-view-of-regression" id="toc-a-different-view-of-regression" class="nav-link active" data-scroll-target="#a-different-view-of-regression"><span class="header-section-number">3.1</span> A different view of regression</a>
+  <li><a href="#a-different-view-of-regression" id="toc-a-different-view-of-regression" class="nav-link active" data-scroll-target="#a-different-view-of-regression"><span class="header-section-number">4.1</span> A different view of regression</a>
   <ul class="collapse">
-  <li><a href="#unconditional-moments" id="toc-unconditional-moments" class="nav-link" data-scroll-target="#unconditional-moments"><span class="header-section-number">3.1.1</span> Unconditional moments</a></li>
-  <li><a href="#conditional-mean-for-z_1" id="toc-conditional-mean-for-z_1" class="nav-link" data-scroll-target="#conditional-mean-for-z_1"><span class="header-section-number">3.1.2</span> Conditional mean for <span class="math inline">\(z_1\)</span></a></li>
+  <li><a href="#unconditional-moments" id="toc-unconditional-moments" class="nav-link" data-scroll-target="#unconditional-moments"><span class="header-section-number">4.1.1</span> Unconditional moments</a></li>
+  <li><a href="#conditional-mean-for-z_1" id="toc-conditional-mean-for-z_1" class="nav-link" data-scroll-target="#conditional-mean-for-z_1"><span class="header-section-number">4.1.2</span> Conditional mean for <span class="math inline">\(z_1\)</span></a></li>
   </ul></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">3.2</span> Example</a>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">4.2</span> Example</a>
   <ul class="collapse">
-  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution"><span class="header-section-number">3.2.1</span> Solution</a></li>
-  <li><a href="#observing-different-z-variables" id="toc-observing-different-z-variables" class="nav-link" data-scroll-target="#observing-different-z-variables"><span class="header-section-number">3.2.2</span> Observing different <span class="math inline">\(z\)</span> variables</a></li>
-  <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks"><span class="header-section-number">3.2.3</span> Remarks</a></li>
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution"><span class="header-section-number">4.2.1</span> Solution</a></li>
+  <li><a href="#observing-different-z-variables" id="toc-observing-different-z-variables" class="nav-link" data-scroll-target="#observing-different-z-variables"><span class="header-section-number">4.2.2</span> Observing different <span class="math inline">\(z\)</span> variables</a></li>
+  <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks"><span class="header-section-number">4.2.3</span> Remarks</a></li>
   </ul></li>
-  <li><a href="#updating-the-update-and-assessing-uncertainty" id="toc-updating-the-update-and-assessing-uncertainty" class="nav-link" data-scroll-target="#updating-the-update-and-assessing-uncertainty"><span class="header-section-number">3.3</span> Updating the update and assessing uncertainty</a>
+  <li><a href="#updating-the-update-and-assessing-uncertainty" id="toc-updating-the-update-and-assessing-uncertainty" class="nav-link" data-scroll-target="#updating-the-update-and-assessing-uncertainty"><span class="header-section-number">4.3</span> Updating the update and assessing uncertainty</a>
   <ul class="collapse">
-  <li><a href="#updating-an-estimate-with-new-information" id="toc-updating-an-estimate-with-new-information" class="nav-link" data-scroll-target="#updating-an-estimate-with-new-information"><span class="header-section-number">3.3.1</span> Updating an estimate with new information</a></li>
-  <li><a href="#covariances" id="toc-covariances" class="nav-link" data-scroll-target="#covariances"><span class="header-section-number">3.3.2</span> Covariances</a></li>
+  <li><a href="#updating-an-estimate-with-new-information" id="toc-updating-an-estimate-with-new-information" class="nav-link" data-scroll-target="#updating-an-estimate-with-new-information"><span class="header-section-number">4.3.1</span> Updating an estimate with new information</a></li>
+  <li><a href="#covariances" id="toc-covariances" class="nav-link" data-scroll-target="#covariances"><span class="header-section-number">4.3.2</span> Covariances</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -360,7 +366,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The regression lemma</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The regression lemma</span></h1>
 </div>
 
 
@@ -375,11 +381,11 @@ div.csl-indent {
 
 </header>
 
-<section id="a-different-view-of-regression" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="a-different-view-of-regression"><span class="header-section-number">3.1</span> A different view of regression</h2>
+<section id="a-different-view-of-regression" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="a-different-view-of-regression"><span class="header-section-number">4.1</span> A different view of regression</h2>
 <p>Here we derive a simple characterization of predicting a vector of unknown stochastic variables using observed data that is essentially regression using population statistics rather than using a sample proxy. <span class="citation" data-cites="TWA">Anderson (<a href="references.html#ref-TWA" role="doc-biblioref">2004</a>)</span>, <span class="citation" data-cites="Hamilton">Hamilton (<a href="references.html#ref-Hamilton" role="doc-biblioref">1994</a>)</span> and many multivariate statistics textbooks contain similar treatments.</p>
-<section id="unconditional-moments" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="unconditional-moments"><span class="header-section-number">3.1.1</span> Unconditional moments</h3>
+<section id="unconditional-moments" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="unconditional-moments"><span class="header-section-number">4.1.1</span> Unconditional moments</h3>
 <p>Let <span class="math inline">\(z\)</span> be vector of stochastic variables such that <span class="math display">\[
   z\sim N(\mu,\Sigma)
 \]</span> or <span class="math display">\[
@@ -401,8 +407,8 @@ z_2
 \right)
 \]</span> The <em>unconditional</em> covariance of <span class="math inline">\(z_1\)</span> is unaffected by the known covariance between it and <span class="math inline">\(z_2\)</span>, <span class="math inline">\(\Sigma_{12}\)</span>.</p>
 </section>
-<section id="conditional-mean-for-z_1" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="conditional-mean-for-z_1"><span class="header-section-number">3.1.2</span> Conditional mean for <span class="math inline">\(z_1\)</span></h3>
+<section id="conditional-mean-for-z_1" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="conditional-mean-for-z_1"><span class="header-section-number">4.1.2</span> Conditional mean for <span class="math inline">\(z_1\)</span></h3>
 <p>How do we best use the information in an observed part of the vector <span class="math inline">\(z\)</span> – say <span class="math inline">\(z_2\)</span> – to better predict the unobserved part?</p>
 <p>Assume there is linear relationship between the two <span class="math inline">\(z\)</span> variables such that<br>
 <span class="math display">\[
@@ -428,8 +434,8 @@ z_1 = Bz_2 + \varepsilon\qquad \text{or}\qquad \varepsilon =z_1-Bz_2
 \]</span> This is a formula that updates the unconditional expectation by a weighted average of the “innovation” (deviation from predicted value) of the observed variables.</p>
 </section>
 </section>
-<section id="example" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="example"><span class="header-section-number">3.2</span> Example</h2>
+<section id="example" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="example"><span class="header-section-number">4.2</span> Example</h2>
 <p>As an example, consider the <span class="math inline">\(4\times 4\)</span> covariance matrix <span class="math inline">\(\Sigma\)</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
@@ -489,12 +495,12 @@ size of matrix: [1600 != 4 x 4]</code></pre>
 </div>
 </div>
 <p>Denote the first two series <span class="math inline">\(z_1^1\)</span> and <span class="math inline">\(z_1^2\)</span>, and the second two <span class="math inline">\(z_2^1\)</span> and <span class="math inline">\(z_2^2\)</span>; thus <span class="math inline">\(z_1\)</span> from earlier is a vector of the first two (<span class="math inline">\(z_2^1\)</span> and <span class="math inline">\(z_2^2\)</span>) and <span class="math inline">\(z_2\)</span> a vector of the second two (<span class="math inline">\(z_2^1\)</span> and <span class="math inline">\(z_2^2\)</span>).</p>
-<section id="problem" class="level4" data-number="3.2.0.1">
-<h4 data-number="3.2.0.1" class="anchored" data-anchor-id="problem"><span class="header-section-number">3.2.0.1</span> Problem</h4>
+<section id="problem" class="level4" data-number="4.2.0.1">
+<h4 data-number="4.2.0.1" class="anchored" data-anchor-id="problem"><span class="header-section-number">4.2.0.1</span> Problem</h4>
 <p>If we know <span class="math inline">\(\Sigma\)</span>, and can observe these last two series (on light blue backgrounds), how well can we reconstruct the first (light red backgrounds) two ?</p>
 </section>
-<section id="solution" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="solution"><span class="header-section-number">3.2.1</span> Solution</h3>
+<section id="solution" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="solution"><span class="header-section-number">4.2.1</span> Solution</h3>
 <p>Calculate <span class="math inline">\(B\)</span> from the above formula. By inspection <span class="math display">\[
 \Sigma_{22} = \left[\begin{array}{r}4.44 &amp;-1.86 \\-1.86 &amp;2.42 \\\end{array}\right]
 \]</span> and <span class="math display">\[
@@ -547,8 +553,8 @@ B = \left[\begin{array}{r}-0.214 &amp;-0.377 \\-0.795 &amp;0.679 \\\end{array}\r
 </div>
 <p>where the correlations between the variables and their fitted values are 0.59, 0.76 respectively.</p>
 </section>
-<section id="observing-different-z-variables" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="observing-different-z-variables"><span class="header-section-number">3.2.2</span> Observing different <span class="math inline">\(z\)</span> variables</h3>
+<section id="observing-different-z-variables" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="observing-different-z-variables"><span class="header-section-number">4.2.2</span> Observing different <span class="math inline">\(z\)</span> variables</h3>
 <p>What if instead of observing both of the last <span class="math inline">\(z\)</span> variables we only observe one, say the last one? Nothing we have said so far restricts us from having only one observable, or three – and of course ordering is arbitrary.</p>
 <p>Lets assume we just see the last variable. Calculate <span class="math inline">\(B\)</span> from the above formula. As before, by inspection <span class="math display">\[
 \Sigma_{22} = \left[\begin{array}{r}2.42 \\\end{array}\right]
@@ -615,16 +621,16 @@ B = \left[\begin{array}{r}-0.213 &amp;1.289 &amp;-0.766 \\\end{array}\right]'
 </div>
 <p>where we have color coded the backgrounds accordingly. In general, predictions are usually a bit worse, but sometimes almost as good – and may even look a bit better! Comparing them to our previous results the correlations between the variables and their predicted values are now 0.34, 0.51, 0.43 respectively, where of course we are predicting one more series now.</p>
 </section>
-<section id="remarks" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="remarks"><span class="header-section-number">3.2.3</span> Remarks</h3>
+<section id="remarks" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="remarks"><span class="header-section-number">4.2.3</span> Remarks</h3>
 <p>Depending on the covariance matrix, correlation can be a lot lower. If the <span class="math inline">\(z_1\)</span> and <span class="math inline">\(z_2\)</span> vectors are uncorrelated then <span class="math inline">\(\Sigma_{12}\approx 0\)</span> so <span class="math inline">\(B\approx 0\)</span>.In these circumstances the best prediction is then close to the unconditional mean; if <span class="math inline">\(\Sigma_{11}&gt;0\)</span> then predictions will be poor although the absolute value of those errors depends on <span class="math inline">\(\Sigma_{11}\)</span>.</p>
 <p>This also illustrates that there are some variables that are better at predicting the things you are interested in than others. It practice it is frequently the case that there is low correlation between predicted and actual – as ever, you need good regressors to get a good fit between predicted and actual.</p>
 </section>
 </section>
-<section id="updating-the-update-and-assessing-uncertainty" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="updating-the-update-and-assessing-uncertainty"><span class="header-section-number">3.3</span> Updating the update and assessing uncertainty</h2>
-<section id="updating-an-estimate-with-new-information" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="updating-an-estimate-with-new-information"><span class="header-section-number">3.3.1</span> Updating an estimate with new information</h3>
+<section id="updating-the-update-and-assessing-uncertainty" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="updating-the-update-and-assessing-uncertainty"><span class="header-section-number">4.3</span> Updating the update and assessing uncertainty</h2>
+<section id="updating-an-estimate-with-new-information" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="updating-an-estimate-with-new-information"><span class="header-section-number">4.3.1</span> Updating an estimate with new information</h3>
 <p>This result easily generalizes: what if we already have an estimate but we get some new information that we could use to improve our estimate? We can solve this using the formula we have already derived. In effect we can divide <span class="math inline">\(z_2\)</span> and include some further variables denoted <span class="math inline">\(v\)</span> such that <span class="math display">\[
 \begin{bmatrix}
 z_1 \\
@@ -656,8 +662,8 @@ v
 \mathbb{E}[z_1|z_2, v] = \mathbb{E}[z_1|z_2] +\Sigma_{1v} \Sigma_{vv}^{-1}v
 \]</span></p>
 </section>
-<section id="covariances" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="covariances"><span class="header-section-number">3.3.2</span> Covariances</h3>
+<section id="covariances" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="covariances"><span class="header-section-number">4.3.2</span> Covariances</h3>
 <p>So far concentrated on the expected value, but can similarly construct the conditional covariance. The conditional variance for the <span class="math inline">\(z_1\)</span> given <span class="math inline">\(z_2\)</span> is <span class="math display">\[
 \begin{align}
 var(z_1|z_2) &amp;= \mathbb{E}\left[\left(z_1 - \mathbb{E}(z_1|z_2) \right) \left(z_1 - \mathbb{E}(z_1|z_2) \right)' \right] \\
@@ -1042,13 +1048,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./R2021.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Non-econometric methods for econometricians</span></span>
+      <a href="./ssm.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">State-Space Models: time series models with structure</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Kalman.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

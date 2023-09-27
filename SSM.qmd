@@ -1,43 +1,10 @@
----
-title: "State-Space Models: time series models with structure"
-subtitle: "Economic Modelling & Forecasting"
-author: 
-  - name: "Andrew P Blake"
-    email: andrew.blake@bankofengland.co.uk
-    affiliation:
-      - name: CCBS, Bank of England
-author-title: "Presenter"
-published-title: "Date"
-date: 2023 09 22
-date-format: iso
-format: 
-  html:
-    theme: flatly
-    toc: true
-    linkcolor: "#21a4a6"
-    code-fold: false
-    code-block-bg: "#21a4a626"
-    code-block-border-left: "#12273f"
-    embed-resources: true
-highlight-style: pygments
-title-block-banner: "#12273f"
-title-block-banner-color: "white"
-citation-location: margin
-editor: source
-abstract-title: "Disclaimer"
-abstract: |
-  _The Bank of England does not accept any liability for misleading or inaccurate information
-  or omissions in the information provided. The subject matter reflects the views of the
-  individual presenter and not the wider Bank of England or its Policy Committees._
-css: logo.css
-bibliography: refsBayes.bib
----
+# State-Space Models: time series models with structure
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# Introduction
+## Introduction
 
 What is (a) state space (model) and why do we use it? Here we
 
@@ -48,13 +15,13 @@ This is best illustrated by discussing a number of example models and applicatio
 
 The standard textbook for this is @Harvey89 (which understandably feels a little dated both in terms of content and notation) as well as @Hamilton1994, @Durbin and @KimNelson. Each of these have numerous classical and Bayesian applications and extensions.
 
-# A useful class of models
+## A useful class of models
 
 State-space models are a useful framework amenable to both classical and Bayesian estimation. Their set-up encompasses a number of common economic models with interesting features such as time variation or unobserved components. In either case this implies we need to estimate unknown values of a time series.
 
 Model form is quite general but has multiple interpretations and is _often not unique_. There is also quite a lot of additional apparatus required before we can apply either maximum likelihood estimation or Gibbs sampling.
 
-## Unobserved variables and coefficients
+### Unobserved variables and coefficients
 
 A lot of ***quantities*** that we routinely use to build models and analyse policy are ***unobservable***: often correspond to concepts with economic meaning rather than being inherently measurable, e.g.:
 
@@ -70,7 +37,7 @@ Econometricians face major problems estimating such models: the set up is compli
 
 The estimation method we usually use is the ***Kalman filter***, see @Kalman. As an estimation process, this has the useful spin-off that we can also use it to calculate the value of the likelihood function at the same time.
 
-# Dynamic economic models
+## Dynamic economic models
 
 Consider a first order VAR (we'll show how this isn't restrictive) 
 $$
@@ -82,7 +49,7 @@ $$
 $$
 This reflects an important characteristic of state space models: all data needs to be fed into the model through ***observation equations***. This seems an odd way to go about estimating a VAR: but we now generalize this to allow that for variables we ***can't*** see.
 
-## General state space model
+### General state space model
 
 State space models consist of two sets of equations: (1) ***Observation*** equations and (2) ***State*** or ***Transition*** equations. The classical Kalman filter set up might be:
 
@@ -110,9 +77,9 @@ Written one way the measurement equation is familiar from our understanding of r
 
 Model allows for the possibility that we neither directly observe the 'driving' variables of the system nor do we measure them accurately. To make sense of state space it is convenient to look at a variety of example models.
 
-# Examples
+## Examples
 
-## Structural time series models (STSMs)
+### Structural time series models (STSMs)
 
 Alternative time series decomposition associated with @Harvey89. Suggests instead that economic time series might be split into 
 $$
@@ -137,7 +104,7 @@ $$
 $$
 The only parameters of this model that we need to estimate are the variances.
 
-## Trend-cycle model
+### Trend-cycle model
 
 What if we wanted to decompose GDP into a trend and a cycle. Let observed GDP be modeled as:
 $$
@@ -176,7 +143,7 @@ $$
 $$ 
 where $R=0$ (there is no measurement error) and $H$ is time invariant
 
-## Time-varying parameters (TVP)
+### Time-varying parameters (TVP)
 
 Sometimes we wish to model structural change by incorporating time-varying parameters. From the equations above we could set this up as 
     \begin{align*}
@@ -201,7 +168,7 @@ $$
 $$ 
 where $F=I$ and $\mu=0$. As $\sigma_{\nu}^2 \neq 0$ the coefficients aren't fixed even though $F=I$.
 
-## Dynamic factor model
+### Dynamic factor model
 
 Assume a panel of series $y_{it}$ has a common component $f_t$ 
 $$
@@ -227,7 +194,7 @@ $$
 $$
 -   The factors have dynamics but the observed variables do not
 
-## VAR
+### VAR
 
 At a more abstract level, a $k$-variable, $p$-lag VAR 
 $$
@@ -260,7 +227,7 @@ $$
 $$
 This shows that the state space representation is not unique.
 
-## Multiple representations: ARMA(1,1)
+### Multiple representations: ARMA(1,1)
 
 This reflects the fact that model representations in general are not unique. For example, two representations of 
 $$
@@ -283,8 +250,7 @@ $$
     \begin{bmatrix} 1 \\ \theta \end{bmatrix} \varepsilon_t
 $$
 
-
-## DSGE model
+### DSGE model
 
 Take a simple New Keynesian model
 \begin{align}
@@ -349,7 +315,7 @@ $$
 $$
 where we don't observe the autoregressive shocks.
 
-# Estimation problem
+## Estimation problem
 
 Recall the observation equation and transition equations 
 $$
@@ -361,11 +327,4 @@ $$
 where here we treat $H$ as time invariant.
 
 Notice that at least some parameters of the state space model ($H$, $\mu$, $F$, $R$ and $Q$) and the state variables ($\beta_t$) are both unknown. ***Simultaneous*** estimation of both sets of unknowns is usually required.   This is usually approached iteratively, with the unknown state estimated conditional on some initial estimate of the parameters (or in the Bayesian case *sampled*) using an appropriate method, usually the *Kalman Filter* and then then the parameters updated conditional on the state which is repeated until convergence. This can be done using Gibb's Sampling if we can derive the a conditional density for the unobserved components. 
-
-
-
-
-
-
-
 
