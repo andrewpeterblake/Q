@@ -118,7 +118,7 @@ P_{t|t-1} &= \mathbb{E}\left[ (\beta_t - \beta_{t|t-1})(\beta_t-\beta_{t|t-1})'\
 &= F\mathbb{E}\left[\left(\beta _{t-1}-\beta _{t-1|t-1}\right) \left( \beta_{t-1}-\beta _{t-1|t-1} \right)' \right] F' + \mathbb{E}[v_t v_t'] \\
 &= FP_{t-1|t-1}F' + Q
 \end{align*}
-where $P_{t-1|t-1} = var(\beta_{t-1}|\psi_{t-1})$. The forecast error variance depends on the previous error variance; that value depends on the information set. 
+where $P_{t-1|t-1} = var(\beta_{t-1}|\psi_{t-1})$. The forecast error variance depends on the previous error variance; that value depends on the information set.
 
 If $\beta_{t-1}$ forms part of the information set $\psi_{t-1}$ then 
 \begin{equation}
