@@ -25,7 +25,7 @@ posterior <- function(v, p) {
 }
 ```
 
-# Complicated densities
+## Complicated densities
 
 What if we have a posterior density that is too complicated to factor into a full set of conditional densities? Recall that Gibbs Sampling is a procedure that generates _marginal densities_ from _conditional densities_. What if we don't have conditional densities?
 
@@ -49,7 +49,7 @@ typically isn't. This is because the predictive model $f(\cdot)$ depends on all 
 
 Can we derive a technique that generates marginal densities from a _joint density_? Turns out we (perhaps surprisingly) can, using the _Metropolis-Hastings algorithm_.
 
-## Target density
+### Target density
 
 We'll derive the simplest posterior density that we can use in an exercise, but we begin with a more general case. Consider a posterior likelihood that is the product of a likelihood and $k$ prior densities, say
 \begin{equation}
@@ -77,7 +77,7 @@ subject to the arbitrary bounds that $0.001 < \rho_1 <0.999$.
 
 We have $k$ of these, so in any code we could specify this in a matrix where each prior is specified in a row containing a name, a PDF type, the parameters of the PDF, as well as a lower and upper bound.
 
-### Example 1
+## Example 1
 
 First example: target density is the product of six parameters densities of four types: Normal, Gamma, Inverse Gamma and Beta. Any suitable density could be used as a prior, so the Uniform, say, or the Inverse Weibull or Log Gamma could be slotted in -- and we will later on. All that is required is that the some function exists to evaluate the density. Obviously we could generalize this to one or three or more parameter distributions with appropriate code. 
 
@@ -103,7 +103,7 @@ kable(pp, digits=3) %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
-## Analytic densities
+### Analytic densities
 
 ```{r theoretical}
 #| message: false
@@ -124,7 +124,7 @@ ggplot(densd) +
   facet_wrap(~Parameter, scales="free", labeller=label_parsed, ncol=2)
 ```
 
-## Random draws
+### Random draws
 
 ```{r warning=FALSE}
 #| warning: false
@@ -145,11 +145,11 @@ ggplot(bind_rows(drawd, densd)) +
   facet_wrap(~ Parameter, ncol=2, scales="free", labeller=label_parsed)
 ```
 
-# Estimating the marginals from the joint density
+## Estimating the marginals from the joint density
 
 First we need to understand the estimation procedure. The MH algorithm uses only information from the posterior to estimate the marginal processes that generated it, in stark contrast with Gibbs Sampling that uses conditional densities to approximate the unconditional one and then back out the marginals. 
 
-## Metropolis-Hastings
+### Metropolis-Hastings
 
 A thorough explanation can be found in @Chib or @BDA, and here we describe the procedure without proof. Our aim is to draw samples from some distribution
 $$
@@ -169,7 +169,7 @@ $$
 $$
 Practically, this requires we compute $\alpha$ and draw a number $u$ from $U(0,1)$, and if $u<\alpha$ accept $\theta^{k+1}$ otherwise keep $\theta^k$. 
 
-## Simplification
+### Simplification
 
 The _random walk_ version of the algorithm takes the specific candidate density $q(\theta^{k+1}|\theta^k)$ as  
 $$
@@ -207,12 +207,12 @@ $$
 **Step 3** If $u\sim U(0,1)$ is less than $\alpha$, keep $\theta^{k+1}$, else repeat $\theta^k$ and discard the new draw
 :::
 
-Notes:
-
+::: {.callout-note}
 - The density $\mathcal{H}(\theta)$ will usually be a posterior, combining the priors and likelihood information;
 - At present we have no likelihood information, so all we need is a function to evaluate the (log) joint prior.
+:::
 
-## The simple problem
+## A simpler problem
 
 We have no data (or indeed model) to pass to the posterior function (as there is no likelihood). Generalizing this to incorporate likelihood information is straightforward.
 ```{r MH_function}
@@ -367,55 +367,4 @@ as_tibble(t(draws2), .name_repair=~rownames(draws2)) %>%
   theme_minimal() + 
   labs(title="RW-MH estimate of pure prior, Example 2", x="", y="") 
 ```
-
-# Matlab example
-
-Here's a line-by-line example in Matlab^&trade;^ of two parameters distributed multivariate normal. We can use the Matlab command `mvnpdf(b,mu,V)` to evaluate the density of any vector $b$ distributed $N(mu,V)$. Similar examples can be found in, e.g., @BDA.
-
-The underlying densities are assumed to be:
-
-<center>
-![](MH1.png){width=65%}
-</center>
-
-We will use the very simple Matlab code:
-```{matlab}
-b    = [-3;-3];
-V    = 3*eye(2); V(2,2) = 0.4;
-mu   = [-0.2; 2.5];
-s    = 2.25;
-n    = 2*1024;
-burn = 1*1024;
-
-bold      = b;
-allb      = nan(2,n);
-allb(:,1) = bold;
-naccept   = 0;
-for i = 1:n-1
-    bnew = mvnrnd(bold,s^2*eye(2))';
-    rold = mvnpdf(bold,mu,V);
-    rnew = mvnpdf(bnew,mu,V);
-    if rnew/rold > rand(1,1)
-        bold = bnew;
-        naccept = naccept+1;
-    end
-    allb(:,i+1) = bold;
-    subplot(1,2,1); plot(allb(1,i:i+1),allb(2,i:i+1),'r:*'); hold on
-    if i > burn+1
-      subplot(1,2,2); plot(allb(:,burn+1:end)'); xlim([1 1024]); axis square; title('MH sequence')
-    end
-end
-
-fprintf('Acceptance ratio: %4.2f\n',naccept/n)
-```
-
-The draws in two dimensions are plotted left -- they go red once we've passed the burn in period. The draws past the burn in are plotted right.
-
-{{< video https://vimeo.com/864729727 >}}
-
-And here's the fit:
-
-<center>
-![](MH2.png){width=65%}
-</center>
 

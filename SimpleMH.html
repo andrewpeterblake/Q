@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Metropolis-Hastings</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="SimpleMH_files/libs/clipboard/clipboard.min.js"></script>
+<script src="SimpleMH_files/libs/quarto-html/quarto.js"></script>
+<script src="SimpleMH_files/libs/quarto-html/popper.min.js"></script>
+<script src="SimpleMH_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="SimpleMH_files/libs/quarto-html/anchor.min.js"></script>
+<link href="SimpleMH_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="SimpleMH_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="SimpleMH_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="SimpleMH_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="SimpleMH_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="SimpleMH_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="SimpleMH_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Metropolis-Hastings</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="complicated-densities" class="level1">
+<h1>Complicated densities</h1>
+<p>What if we have a posterior density that is too complicated to factor into a full set of conditional densities? Recall that Gibbs Sampling is a procedure that generates <em>marginal densities</em> from <em>conditional densities</em>. What if we don’t have conditional densities?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why can’t we use Gibbs for DSGEs?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Say a model only has two unknown parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\gamma\)</span>. Any predictions of that model conditional on them is: <span class="math display">\[\begin{equation}
+  y = f(X,\ \alpha,\ \gamma)
+\end{equation}\]</span> The likelihood of that model <span class="math display">\[\begin{equation}
+  \mathcal{L}(\alpha,\ \gamma\ | \ y,\ X)
+\end{equation}\]</span> is readily available but the conditional density of say, <span class="math inline">\(\alpha\)</span> <span class="math display">\[\begin{equation}
+  \mathcal{P}(\alpha\ | \ y,\ X,\ \gamma)
+\end{equation}\]</span> typically isn’t. This is because the predictive model <span class="math inline">\(f(\cdot)\)</span> depends on all the parameters through the reduced form solution used in DSGEs even if the underlying model is linear, i.e.&nbsp;the solution in <span class="citation" data-cites="BK1980">@BK1980</span>. As <span class="math inline">\(f(X,\ \alpha,\ \gamma)\)</span> <strong><em>always</em></strong> depends on both <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\gamma\)</span> it is difficult to find an appropriate conditional likelihood which isolates one of them.</p>
+</div>
+</div>
+<p>Can we derive a technique that generates marginal densities from a <em>joint density</em>? Turns out we (perhaps surprisingly) can, using the <em>Metropolis-Hastings algorithm</em>.</p>
+<section id="target-density" class="level2">
+<h2 class="anchored" data-anchor-id="target-density">Target density</h2>
+<p>We’ll derive the simplest posterior density that we can use in an exercise, but we begin with a more general case. Consider a posterior likelihood that is the product of a likelihood and <span class="math inline">\(k\)</span> prior densities, say <span class="math display">\[\begin{equation}
+\mathcal{H}(\theta\ | \ y) = \mathcal{L}(\theta\ | \ y)\times \mathcal{P}_1(\theta_1)\times \mathcal{P}_2(\theta_2)\times \mathcal{P}_3(\theta_3)\times ...\times \mathcal{P}_k(\theta_k)
+\end{equation}\]</span> This is the <em>target density</em>. How can we estimate the densities of the underlying <span class="math inline">\(\theta_i\)</span> from this posterior alone? This (somewhat amazingly) turns out to be rather simple.</p>
+<p>The trick is to simulate draws for all the elements of <span class="math inline">\(\theta\)</span> from the target density – despite not having a generating function to draw from the density – and then estimating the marginal densities from the resulting series.</p>
+</section>
+<section id="simplified-problem-estimating-known-prior" class="level2">
+<h2 class="anchored" data-anchor-id="simplified-problem-estimating-known-prior">Simplified problem: estimating (known) prior</h2>
+<p>As the aim is to introduce MH in as simple a context as possible, we will sample from a posterior distribution for which we don’t have an appropriate random number generator but for marginal distributions that we do. This means we can compare analytical and estimated results.</p>
+<p>We will try an estimate the marginal distributions for the priors alone; essentially <span class="math inline">\(\mathcal{H}(\theta\ | \ y)\)</span> where <span class="math inline">\(\mathcal{L}(y\ |\ \theta)\)</span> is flat for all values of the prior so <span class="math display">\[\begin{equation}
+\mathcal{H}(\theta\ | \ y) = \mathcal{P}_1(\theta_1)\times \mathcal{P}_2(\theta_2)\times \mathcal{P}_3(\theta_3)\times ...\times \mathcal{P}_k(\theta_k)
+\end{equation}\]</span> This means we know what the marginals should look like – they are just the priors!</p>
+<p>Assume there are <span class="math inline">\(k\)</span> unknown parameters with a prior density set by the investigator, such as <span class="math display">\[\begin{equation}
+  \mathcal{P}(\rho_1) \sim \text{Beta}(1.2,1.8)
+\end{equation}\]</span> subject to the arbitrary bounds that <span class="math inline">\(0.001 &lt; \rho_1 &lt;0.999\)</span>.</p>
+<p>We have <span class="math inline">\(k\)</span> of these, so in any code we could specify this in a matrix where each prior is specified in a row containing a name, a PDF type, the parameters of the PDF, as well as a lower and upper bound.</p>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
+<p>First example: target density is the product of six parameters densities of four types: Normal, Gamma, Inverse Gamma and Beta. Any suitable density could be used as a prior, so the Uniform, say, or the Inverse Weibull or Log Gamma could be slotted in – and we will later on. All that is required is that the some function exists to evaluate the density. Obviously we could generalize this to one or three or more parameter distributions with appropriate code.</p>
+<p>For example we could fit a Skew-<span class="math inline">\(t\)</span> say, as long as we can evaluate the (log) density for this 4 parameter distribution. See <span class="citation" data-cites="LossModels">@LossModels</span> for a very comprehensive list of densities we could use – I cannot recommend this highly enough.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+lb
+</th>
+<th style="text-align:right;">
+ub
+</th>
+<th style="text-align:left;">
+PDF
+</th>
+<th style="text-align:right;">
+p1
+</th>
+<th style="text-align:right;">
+p2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+beta
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+0.999
+</td>
+<td style="text-align:left;">
+beta
+</td>
+<td style="text-align:right;">
+2.3
+</td>
+<td style="text-align:right;">
+1.200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rho[1]
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+0.999
+</td>
+<td style="text-align:left;">
+beta
+</td>
+<td style="text-align:right;">
+1.2
+</td>
+<td style="text-align:right;">
+1.800
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kappa
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+3.000
+</td>
+<td style="text-align:left;">
+gamma
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+4.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mu
+</td>
+<td style="text-align:right;">
+-5.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:left;">
+norm
+</td>
+<td style="text-align:right;">
+-2.0
+</td>
+<td style="text-align:right;">
+0.550
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma[1]
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+5.000
+</td>
+<td style="text-align:left;">
+invgamma
+</td>
+<td style="text-align:right;">
+12.0
+</td>
+<td style="text-align:right;">
+0.050
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sigma[2]
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+5.000
+</td>
+<td style="text-align:left;">
+invgamma
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+0.075
+</td>
+</tr>
+</tbody>
+
+</table>
+<p>Parameters of six densities used in Example 1</p>
+</div>
+</div>
+</section>
+</section>
+<section id="analytic-densities" class="level2">
+<h2 class="anchored" data-anchor-id="analytic-densities">Analytic densities</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="SimpleMH_files/figure-html/theoretical-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Plots of the theoretical densities given parameters in Table</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="random-draws" class="level2">
+<h2 class="anchored" data-anchor-id="random-draws">Random draws</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="SimpleMH_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">True density known so we can draw from an appropriate random number generator</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="estimating-the-marginals-from-the-joint-density" class="level1">
+<h1>Estimating the marginals from the joint density</h1>
+<p>First we need to understand the estimation procedure. The MH algorithm uses only information from the posterior to estimate the marginal processes that generated it, in stark contrast with Gibbs Sampling that uses conditional densities to approximate the unconditional one and then back out the marginals.</p>
+<section id="metropolis-hastings" class="level2">
+<h2 class="anchored" data-anchor-id="metropolis-hastings">Metropolis-Hastings</h2>
+<p>A thorough explanation can be found in <span class="citation" data-cites="Chib">@Chib</span> or <span class="citation" data-cites="BDA">@BDA</span>, and here we describe the procedure without proof. Our aim is to draw samples from some distribution <span class="math display">\[
+\mathcal{H}(\theta)
+\]</span> where a direct approach is not feasible, because we don’t have a random number generator. The Metropolis-Hastings algorithm requires that we can evaluate this posterior density at some arbitrary points. As the form of the marginals is (potentially) unknown, we draw values from some arbitrary density and decide whether it looks like it came from the marginals that generated the posterior. <span class="math inline">\(\mathcal{H}(\theta)\)</span> is typically the posterior density where this distribution is far too complex to directly sample.</p>
+<p>This indirect approach is to specify a <em>candidate density</em> <span class="math display">\[
+  q(\theta^{k+1}|\theta^k)
+\]</span> from which we <em>can</em> make candidate draws. Given some value for the parameters <span class="math inline">\(\theta^k\)</span>, we can randomly generate new values, which may or may not be independent of this draws.</p>
+<p>The MH algorithm requires that we are able to evaluate <span class="math inline">\(\frac{H(\theta^{k+1})}{H(\theta^k)}\)</span>, and then draw a <em>candidate</em> value <span class="math inline">\(\theta^{k+1}\)</span> from <span class="math inline">\(q(\theta^{k+1}|\theta^k)\)</span>. We then accept this candidate value with the probability <span class="math display">\[
+  \alpha = \min \left(\frac{H(\theta^{k+1})/q(\theta^{k+1}|\theta^k)}{H(\theta^k)/q(\theta^k|\theta^{k+1})}, 1\right)
+\]</span> Practically, this requires we compute <span class="math inline">\(\alpha\)</span> and draw a number <span class="math inline">\(u\)</span> from <span class="math inline">\(U(0,1)\)</span>, and if <span class="math inline">\(u&lt;\alpha\)</span> accept <span class="math inline">\(\theta^{k+1}\)</span> otherwise keep <span class="math inline">\(\theta^k\)</span>.</p>
+</section>
+<section id="simplification" class="level2">
+<h2 class="anchored" data-anchor-id="simplification">Simplification</h2>
+<p>The <em>random walk</em> version of the algorithm takes the specific candidate density <span class="math inline">\(q(\theta^{k+1}|\theta^k)\)</span> as<br>
+<span class="math display">\[
+\theta^{k+1} = \theta^k + \epsilon_t
+\]</span> where <span class="math inline">\(\epsilon_t\sim N(0,\Sigma)\)</span> for some <span class="math inline">\(\Sigma\)</span> which we need to choose. This is a simple vector-random walk. Let <span class="math inline">\(\theta^k\)</span> be some existing draw and <span class="math inline">\(\theta^{k+1}\)</span> be a new draw. We can write <span class="math display">\[
+  \epsilon_t = \theta^{k+1}-\theta^k
+\]</span> then <span class="math display">\[
+  P(\epsilon_t) = P(\theta^{k+1}-\theta^k)
+\]</span></p>
+<p>Because this is a normal density (which is symmetric) then<br>
+<span class="math display">\[
+  P(\epsilon_t) = P(-\epsilon_t)
+\]</span> Symmetry implies an acceptance probability of<br>
+<span class="math display">\[
+  \frac{H(\theta^{k+1})}{H(\theta^k)}
+\]</span> as <span class="math inline">\(q(\theta^{k+1}|\theta^k) = q(\theta^k|\theta^{k+1})\)</span> so these terms cancel.</p>
+<section id="algorithm" class="level4">
+<h4 class="anchored" data-anchor-id="algorithm">Algorithm</h4>
+<div>
+<p><strong>Step 1</strong> Draw a <em>candidate</em> value <span class="math inline">\(\theta^{G+1}\)</span> from <span class="math inline">\(q(\theta^{k+1}|\theta^k)\)</span>, specifically <span class="math inline">\(\theta^{k+1} = \theta^k + \epsilon_t\)</span> where <span class="math inline">\(\epsilon_t\sim N(0,\Sigma)\)</span></p>
+<p><strong>Step 2</strong> Compute the acceptance probability <span class="math display">\[
+  \alpha = \min \left(\frac{H(\theta^{k+1})}{H(\theta^k)}, 1\right)
+\]</span></p>
+<p><strong>Step 3</strong> If <span class="math inline">\(u\sim U(0,1)\)</span> is less than <span class="math inline">\(\alpha\)</span>, keep <span class="math inline">\(\theta^{k+1}\)</span>, else repeat <span class="math inline">\(\theta^k\)</span> and discard the new draw</p>
+</div>
+<p>Notes:</p>
+<ul>
+<li>The density <span class="math inline">\(\mathcal{H}(\theta)\)</span> will usually be a posterior, combining the priors and likelihood information;</li>
+<li>At present we have no likelihood information, so all we need is a function to evaluate the (log) joint prior.</li>
+</ul>
+</section>
+</section>
+<section id="the-simple-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-simple-problem">The simple problem</h2>
+<p>We have no data (or indeed model) to pass to the posterior function (as there is no likelihood). Generalizing this to incorporate likelihood information is straightforward.</p>
+<p>We need to specify the scale of the random walk: assume <span class="math display">\[
+  \Sigma = sI
+\]</span> We should choose a value of <span class="math inline">\(s\)</span> to ensure that the whole parameter space is explored as</p>
+<ul>
+<li>if <span class="math inline">\(s\)</span> too small we don’t walk far enough, and stay too close to potentially only local maxima;</li>
+<li>if <span class="math inline">\(s\)</span> too large may jump over highest density points at every step and take a long time to converge.</li>
+</ul>
+<p>We check if it is a suitable value by monitoring the acceptance rate: between about 1/5 and 2/5 fine.</p>
+<section id="estimating-example-1" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-example-1">Estimating example 1</h3>
+<p>Choose some arbitrary initial values at which we can evaluate our posterior likelihood (remembering for this example this only the joint prior). These are 0.9, 0.2, 0.4, -2, 1.5, 1.5. As we have chosen values close to the highest density this evaluates as 0.425433. We choose <span class="math inline">\(s=0.25\)</span> and do 100000 iterations and discard the first half. For the run that generates the graphs below we get the message:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Acceptance ratio: 0.33554"</code></pre>
+</div>
+</div>
+<p>The acceptance ratio is good, so we plot the draws:</p>
+<div class="cell" data-layout-align="center" data-fig-cap-location="margin">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="SimpleMH_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Plots of the 50,000 draws</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>or just the first few to better see the algorithm in action:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="SimpleMH_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Plots of first 333 draws</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Clearly there are some repeat values. What do the estimated densiites from each of these sequences look like?</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="SimpleMH_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Histograms of draws and theoretical priors</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Pretty good! Compare this with the sequence of draws we got from the correct random number generators for each density.</p>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+lb
+</th>
+<th style="text-align:right;">
+ub
+</th>
+<th style="text-align:left;">
+PDF
+</th>
+<th style="text-align:right;">
+p1
+</th>
+<th style="text-align:right;">
+p2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+eta
+</td>
+<td style="text-align:right;">
+0.250
+</td>
+<td style="text-align:right;">
+5.000
+</td>
+<td style="text-align:left;">
+invweibull
+</td>
+<td style="text-align:right;">
+2.3
+</td>
+<td style="text-align:right;">
+1.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zeta[1]
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+6.000
+</td>
+<td style="text-align:left;">
+paralogis
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zeta[2]
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+3.000
+</td>
+<td style="text-align:left;">
+paralogis
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+delta
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+5.000
+</td>
+<td style="text-align:left;">
+invpareto
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+0.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alpha[1]
+</td>
+<td style="text-align:right;">
+1.001
+</td>
+<td style="text-align:right;">
+5.000
+</td>
+<td style="text-align:left;">
+lgamma
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alpha[2]
+</td>
+<td style="text-align:right;">
+1.001
+</td>
+<td style="text-align:right;">
+5.000
+</td>
+<td style="text-align:left;">
+lgamma
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+upsilon[1]
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+0.999
+</td>
+<td style="text-align:left;">
+unif
+</td>
+<td style="text-align:right;">
+0.3
+</td>
+<td style="text-align:right;">
+0.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+upsilon[2]
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:right;">
+0.999
+</td>
+<td style="text-align:left;">
+unif
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+</tr>
+</tbody>
+
+</table>
+<p>All-different distributions – Inverse Weibull, Paralogistic, Inverse Pareto, Log Gamma and Uniform</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="SimpleMH_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Plots of the theoretical densities given parameters in Table 2</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="SimpleMH_files/figure-html/MHcall2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Walk a little less <span class="math inline">\(s=0.125\)</span> (could iterate a little more?)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="matlab-example" class="level1">
+<h1>Matlab example</h1>
+<p>Here’s a line-by-line example in Matlab<sup>™</sup> of two parameters distributed multivariate normal. We can use the Matlab command <code>mvnpdf(b,mu,V)</code> to evaluate the density of any vector <span class="math inline">\(b\)</span> distributed <span class="math inline">\(N(mu,V)\)</span>. Similar examples can be found in, e.g., <span class="citation" data-cites="BDA">@BDA</span>.</p>
+<p>The underlying densities are assumed to be:</p>
+<center>
+<img src="MH1.png" class="img-fluid" style="width:65.0%">
+</center>
+<p>We will use the very simple Matlab code:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">b</span>    <span class="op">=</span> [<span class="op">-</span><span class="fl">3</span><span class="op">;-</span><span class="fl">3</span>]<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">V</span>    <span class="op">=</span> <span class="fl">3</span><span class="op">*</span><span class="va">eye</span>(<span class="fl">2</span>)<span class="op">;</span> <span class="va">V</span>(<span class="fl">2</span><span class="op">,</span><span class="fl">2</span>) <span class="op">=</span> <span class="fl">0.4</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">mu</span>   <span class="op">=</span> [<span class="op">-</span><span class="fl">0.2</span><span class="op">;</span> <span class="fl">2.5</span>]<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="va">s</span>    <span class="op">=</span> <span class="fl">2.25</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="va">n</span>    <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="fl">1024</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="va">burn</span> <span class="op">=</span> <span class="fl">1</span><span class="op">*</span><span class="fl">1024</span><span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="va">bold</span>      <span class="op">=</span> <span class="va">b</span><span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="va">allb</span>      <span class="op">=</span> <span class="va">nan</span>(<span class="fl">2</span><span class="op">,</span><span class="va">n</span>)<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="va">allb</span>(<span class="op">:,</span><span class="fl">1</span>) <span class="op">=</span> <span class="va">bold</span><span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="va">naccept</span>   <span class="op">=</span> <span class="fl">0</span><span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="va">bnew</span> <span class="op">=</span> <span class="va">mvnrnd</span>(<span class="va">bold</span><span class="op">,</span><span class="va">s</span><span class="op">^</span><span class="fl">2</span><span class="op">*</span><span class="va">eye</span>(<span class="fl">2</span>))<span class="op">';</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="va">rold</span> <span class="op">=</span> <span class="va">mvnpdf</span>(<span class="va">bold</span><span class="op">,</span><span class="va">mu</span><span class="op">,</span><span class="va">V</span>)<span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="va">rnew</span> <span class="op">=</span> <span class="va">mvnpdf</span>(<span class="va">bnew</span><span class="op">,</span><span class="va">mu</span><span class="op">,</span><span class="va">V</span>)<span class="op">;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="va">rnew</span><span class="op">/</span><span class="va">rold</span> <span class="op">&gt;</span> <span class="va">rand</span>(<span class="fl">1</span><span class="op">,</span><span class="fl">1</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">bold</span> <span class="op">=</span> <span class="va">bnew</span><span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="va">naccept</span> <span class="op">=</span> <span class="va">naccept</span><span class="op">+</span><span class="fl">1</span><span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="va">allb</span>(<span class="op">:,</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span>) <span class="op">=</span> <span class="va">bold</span><span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="va">subplot</span>(<span class="fl">1</span><span class="op">,</span><span class="fl">2</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span> <span class="va">plot</span>(<span class="va">allb</span>(<span class="fl">1</span><span class="op">,</span><span class="va">i</span><span class="op">:</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span>)<span class="op">,</span><span class="va">allb</span>(<span class="fl">2</span><span class="op">,</span><span class="va">i</span><span class="op">:</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span>)<span class="op">,</span><span class="ss">'r:*'</span>)<span class="op">;</span> <span class="va">hold</span> <span class="va">on</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="va">i</span> <span class="op">&gt;</span> <span class="va">burn</span><span class="op">+</span><span class="fl">1</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>      <span class="va">subplot</span>(<span class="fl">1</span><span class="op">,</span><span class="fl">2</span><span class="op">,</span><span class="fl">2</span>)<span class="op">;</span> <span class="va">plot</span>(<span class="va">allb</span>(<span class="op">:,</span><span class="va">burn</span><span class="op">+</span><span class="fl">1</span><span class="op">:</span><span class="kw">end</span>)<span class="op">'</span>)<span class="op">;</span> <span class="va">xlim</span>([<span class="fl">1</span> <span class="fl">1024</span>])<span class="op">;</span> <span class="va">axis</span> <span class="va">square</span><span class="op">;</span> <span class="va">title</span>(<span class="ss">'MH sequence'</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Acceptance ratio: %4.2f\n'</span><span class="op">,</span><span class="va">naccept</span><span class="op">/</span><span class="va">n</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The draws in two dimensions are plotted left – they go red once we’ve passed the burn in period. The draws past the burn in are plotted right.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://player.vimeo.com/video/864729727" frameborder="0" allow="autoplay; title=" "="" fullscreen;="" picture-in-picture"="" allowfullscreen=""></iframe></div>
+<p>And here’s the fit:</p>
+<center>
+<img src="MH2.png" class="img-fluid" style="width:65.0%">
+</center>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

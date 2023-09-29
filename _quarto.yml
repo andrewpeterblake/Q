@@ -27,6 +27,7 @@ book:
         - QR.qmd
         - Gibbs.qmd
         - CK.qmd
+        - SMH.qmd
     - part: "Networks"
       chapters: 
         - Stemp.qmd
