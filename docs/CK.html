@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quantiles, Networks, Time - 5&nbsp; Carter-Kohn</title>
+<title>Quantiles, Networks, Time - 8&nbsp; Carter-Kohn</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,8 +83,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Stemp.html" rel="next">
-<link href="./QR.html" rel="prev">
+<link href="./SMH.html" rel="next">
+<link href="./Gibbs.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +112,8 @@ div.csl-indent {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -130,10 +131,10 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./QR.html">Quantiles</a></li><li class="breadcrumb-item"><a href="./CK.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./QR.html">Quantiles</a></li><li class="breadcrumb-item"><a href="./CK.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -187,8 +188,20 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ssm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">State-Space Models: time series models with structure</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RegressionLemma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The regression lemma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./Kalman.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span></a>
   </div>
 </li>
       </ul>
@@ -205,13 +218,25 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./QR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Gibbs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./CK.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SMH.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Metropolis-Hastings</span></span></a>
   </div>
 </li>
       </ul>
@@ -228,13 +253,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Stemp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></span></a>
   </div>
 </li>
       </ul>
@@ -251,13 +276,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./BK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./BVAR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Dynare.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dynare basics</span></span></a>
   </div>
 </li>
       </ul>
@@ -274,7 +305,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -318,39 +349,39 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#using-the-kalman-filter" id="toc-using-the-kalman-filter" class="nav-link active" data-scroll-target="#using-the-kalman-filter"><span class="header-section-number">5.1</span> Using the Kalman Filter</a></li>
-  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood"><span class="header-section-number">5.2</span> Maximum likelihood</a>
+  <li><a href="#using-the-kalman-filter" id="toc-using-the-kalman-filter" class="nav-link active" data-scroll-target="#using-the-kalman-filter"><span class="header-section-number">8.1</span> Using the Kalman Filter</a></li>
+  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood"><span class="header-section-number">8.2</span> Maximum likelihood</a>
   <ul class="collapse">
-  <li><a href="#classical-maximum-likelihood-estimation" id="toc-classical-maximum-likelihood-estimation" class="nav-link" data-scroll-target="#classical-maximum-likelihood-estimation"><span class="header-section-number">5.2.1</span> Classical Maximum Likelihood Estimation</a></li>
-  <li><a href="#poisson-example" id="toc-poisson-example" class="nav-link" data-scroll-target="#poisson-example"><span class="header-section-number">5.2.2</span> Poisson example</a></li>
+  <li><a href="#classical-maximum-likelihood-estimation" id="toc-classical-maximum-likelihood-estimation" class="nav-link" data-scroll-target="#classical-maximum-likelihood-estimation"><span class="header-section-number">8.2.1</span> Classical Maximum Likelihood Estimation</a></li>
+  <li><a href="#poisson-example" id="toc-poisson-example" class="nav-link" data-scroll-target="#poisson-example"><span class="header-section-number">8.2.2</span> Poisson example</a></li>
   </ul></li>
-  <li><a href="#poisson-example-1" id="toc-poisson-example-1" class="nav-link" data-scroll-target="#poisson-example-1"><span class="header-section-number">5.3</span> Poisson example</a>
+  <li><a href="#poisson-example-1" id="toc-poisson-example-1" class="nav-link" data-scroll-target="#poisson-example-1"><span class="header-section-number">8.3</span> Poisson example</a>
   <ul class="collapse">
-  <li><a href="#ml-and-regression" id="toc-ml-and-regression" class="nav-link" data-scroll-target="#ml-and-regression"><span class="header-section-number">5.3.1</span> ML and regression</a></li>
+  <li><a href="#ml-and-regression" id="toc-ml-and-regression" class="nav-link" data-scroll-target="#ml-and-regression"><span class="header-section-number">8.3.1</span> ML and regression</a></li>
   </ul></li>
-  <li><a href="#kalman-filter-tricks" id="toc-kalman-filter-tricks" class="nav-link" data-scroll-target="#kalman-filter-tricks"><span class="header-section-number">5.4</span> Kalman filter tricks</a></li>
-  <li><a href="#full-sample-estimates-of-beta_t" id="toc-full-sample-estimates-of-beta_t" class="nav-link" data-scroll-target="#full-sample-estimates-of-beta_t"><span class="header-section-number">5.5</span> Full sample estimates of <span class="math inline">\(\beta_t\)</span></a>
+  <li><a href="#kalman-filter-tricks" id="toc-kalman-filter-tricks" class="nav-link" data-scroll-target="#kalman-filter-tricks"><span class="header-section-number">8.4</span> Kalman filter tricks</a></li>
+  <li><a href="#full-sample-estimates-of-beta_t" id="toc-full-sample-estimates-of-beta_t" class="nav-link" data-scroll-target="#full-sample-estimates-of-beta_t"><span class="header-section-number">8.5</span> Full sample estimates of <span class="math inline">\(\beta_t\)</span></a>
   <ul class="collapse">
-  <li><a href="#the-regression-lemma-again" id="toc-the-regression-lemma-again" class="nav-link" data-scroll-target="#the-regression-lemma-again"><span class="header-section-number">5.5.1</span> The regression lemma again</a></li>
+  <li><a href="#the-regression-lemma-again" id="toc-the-regression-lemma-again" class="nav-link" data-scroll-target="#the-regression-lemma-again"><span class="header-section-number">8.5.1</span> The regression lemma again</a></li>
   </ul></li>
-  <li><a href="#smoothing" id="toc-smoothing" class="nav-link" data-scroll-target="#smoothing"><span class="header-section-number">5.6</span> Smoothing</a></li>
-  <li><a href="#kalman-filter-in-econometrics" id="toc-kalman-filter-in-econometrics" class="nav-link" data-scroll-target="#kalman-filter-in-econometrics"><span class="header-section-number">5.7</span> Kalman filter in econometrics</a>
+  <li><a href="#smoothing" id="toc-smoothing" class="nav-link" data-scroll-target="#smoothing"><span class="header-section-number">8.6</span> Smoothing</a></li>
+  <li><a href="#kalman-filter-in-econometrics" id="toc-kalman-filter-in-econometrics" class="nav-link" data-scroll-target="#kalman-filter-in-econometrics"><span class="header-section-number">8.7</span> Kalman filter in econometrics</a>
   <ul class="collapse">
-  <li><a href="#classical-approach" id="toc-classical-approach" class="nav-link" data-scroll-target="#classical-approach"><span class="header-section-number">5.7.1</span> Classical approach</a></li>
-  <li><a href="#bayesian-approach" id="toc-bayesian-approach" class="nav-link" data-scroll-target="#bayesian-approach"><span class="header-section-number">5.7.2</span> Bayesian approach</a></li>
+  <li><a href="#classical-approach" id="toc-classical-approach" class="nav-link" data-scroll-target="#classical-approach"><span class="header-section-number">8.7.1</span> Classical approach</a></li>
+  <li><a href="#bayesian-approach" id="toc-bayesian-approach" class="nav-link" data-scroll-target="#bayesian-approach"><span class="header-section-number">8.7.2</span> Bayesian approach</a></li>
   </ul></li>
-  <li><a href="#carter-kohn-algorithm" id="toc-carter-kohn-algorithm" class="nav-link" data-scroll-target="#carter-kohn-algorithm"><span class="header-section-number">5.8</span> Carter-Kohn algorithm</a></li>
-  <li><a href="#joint-distribution" id="toc-joint-distribution" class="nav-link" data-scroll-target="#joint-distribution"><span class="header-section-number">5.9</span> Joint distribution</a></li>
-  <li><a href="#the-carter-kohn-equations" id="toc-the-carter-kohn-equations" class="nav-link" data-scroll-target="#the-carter-kohn-equations"><span class="header-section-number">5.10</span> The Carter-Kohn equations</a>
+  <li><a href="#carter-kohn-algorithm" id="toc-carter-kohn-algorithm" class="nav-link" data-scroll-target="#carter-kohn-algorithm"><span class="header-section-number">8.8</span> Carter-Kohn algorithm</a></li>
+  <li><a href="#joint-distribution" id="toc-joint-distribution" class="nav-link" data-scroll-target="#joint-distribution"><span class="header-section-number">8.9</span> Joint distribution</a></li>
+  <li><a href="#the-carter-kohn-equations" id="toc-the-carter-kohn-equations" class="nav-link" data-scroll-target="#the-carter-kohn-equations"><span class="header-section-number">8.10</span> The Carter-Kohn equations</a>
   <ul class="collapse">
-  <li><a href="#deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma" id="toc-deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma" class="nav-link" data-scroll-target="#deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma"><span class="header-section-number">5.10.1</span> Deriving <span class="math inline">\(\Sigma_{\beta\varsigma}\)</span> and <span class="math inline">\(\Sigma_{\varsigma\varsigma}\)</span></a></li>
+  <li><a href="#deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma" id="toc-deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma" class="nav-link" data-scroll-target="#deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma"><span class="header-section-number">8.10.1</span> Deriving <span class="math inline">\(\Sigma_{\beta\varsigma}\)</span> and <span class="math inline">\(\Sigma_{\varsigma\varsigma}\)</span></a></li>
   </ul></li>
-  <li><a href="#kalman-gain-again" id="toc-kalman-gain-again" class="nav-link" data-scroll-target="#kalman-gain-again"><span class="header-section-number">5.11</span> ‘Kalman gain’ again</a>
+  <li><a href="#kalman-gain-again" id="toc-kalman-gain-again" class="nav-link" data-scroll-target="#kalman-gain-again"><span class="header-section-number">8.11</span> ‘Kalman gain’ again</a>
   <ul class="collapse">
-  <li><a href="#conditional-mean-and-variance-of-the-state" id="toc-conditional-mean-and-variance-of-the-state" class="nav-link" data-scroll-target="#conditional-mean-and-variance-of-the-state"><span class="header-section-number">5.11.1</span> Conditional mean and variance of the state</a></li>
+  <li><a href="#conditional-mean-and-variance-of-the-state" id="toc-conditional-mean-and-variance-of-the-state" class="nav-link" data-scroll-target="#conditional-mean-and-variance-of-the-state"><span class="header-section-number">8.11.1</span> Conditional mean and variance of the state</a></li>
   </ul></li>
-  <li><a href="#state-space-gibbs-sampling-in-practice" id="toc-state-space-gibbs-sampling-in-practice" class="nav-link" data-scroll-target="#state-space-gibbs-sampling-in-practice"><span class="header-section-number">5.12</span> State-space Gibbs sampling in practice</a></li>
-  <li><a href="#comparing-the-filters-and-smoothers" id="toc-comparing-the-filters-and-smoothers" class="nav-link" data-scroll-target="#comparing-the-filters-and-smoothers"><span class="header-section-number">5.13</span> Comparing the filters and smoothers</a></li>
+  <li><a href="#state-space-gibbs-sampling-in-practice" id="toc-state-space-gibbs-sampling-in-practice" class="nav-link" data-scroll-target="#state-space-gibbs-sampling-in-practice"><span class="header-section-number">8.12</span> State-space Gibbs sampling in practice</a></li>
+  <li><a href="#comparing-the-filters-and-smoothers" id="toc-comparing-the-filters-and-smoothers" class="nav-link" data-scroll-target="#comparing-the-filters-and-smoothers"><span class="header-section-number">8.13</span> Comparing the filters and smoothers</a></li>
   </ul>
 </nav>
     </div>
@@ -359,7 +390,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></h1>
 </div>
 
 
@@ -374,8 +405,8 @@ div.csl-indent {
 
 </header>
 
-<section id="using-the-kalman-filter" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="using-the-kalman-filter"><span class="header-section-number">5.1</span> Using the Kalman Filter</h2>
+<section id="using-the-kalman-filter" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="using-the-kalman-filter"><span class="header-section-number">8.1</span> Using the Kalman Filter</h2>
 <p>Establish the usefulness of the Kalman Filter (and not just for state estimation). Refresh idea of maximum likelihood estimation in the context of state space models.</p>
 <ul>
 <li>Introduce <em>smoothing</em></li>
@@ -384,10 +415,10 @@ div.csl-indent {
 </ul>
 <p>Follow <span class="citation" data-cites="KimNelson">Kim and Nelson (<a href="references.html#ref-KimNelson" role="doc-biblioref">1999</a>)</span>; also see <span class="citation" data-cites="Harvey89">Harvey (<a href="references.html#ref-Harvey89" role="doc-biblioref">1989</a>)</span>, <span class="citation" data-cites="Hamilton1994">Hamilton (<a href="references.html#ref-Hamilton1994" role="doc-biblioref">1994</a>)</span>, <span class="citation" data-cites="Durbin">Durbin and Koopman (<a href="references.html#ref-Durbin" role="doc-biblioref">2001</a>)</span></p>
 </section>
-<section id="maximum-likelihood" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">5.2</span> Maximum likelihood</h2>
-<section id="classical-maximum-likelihood-estimation" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="classical-maximum-likelihood-estimation"><span class="header-section-number">5.2.1</span> Classical Maximum Likelihood Estimation</h3>
+<section id="maximum-likelihood" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">8.2</span> Maximum likelihood</h2>
+<section id="classical-maximum-likelihood-estimation" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="classical-maximum-likelihood-estimation"><span class="header-section-number">8.2.1</span> Classical Maximum Likelihood Estimation</h3>
 <p>The principle of maximum likelihood is that the parameters should be chosen so that the probability of observing a given sample is maximized.</p>
 <p>For time series models the joint density of <span class="math inline">\(\psi_T = \{y_T, y_{T-1},\ldots ,y_1 \}\)</span> and parameters <span class="math inline">\(\theta\)</span> in conditional form is <span class="math display">\[\begin{equation}
 p(\theta|\psi_T) = \prod\nolimits_{t=1}^T p (y_t|\psi_{t-1},\theta)
@@ -396,8 +427,8 @@ p(\theta|\psi_T) = \prod\nolimits_{t=1}^T p (y_t|\psi_{t-1},\theta)
 p(y_t) = (2\pi)^{-\frac{n}{2}}|var(y_t)|^{-\frac{1}{2}}e^{\left\{ -\frac{1}{2}(y_t-\mu )' var(y_t)^{-1}(y_t-\mu)\right\} }
 \end{equation}\]</span> Notice this depends on the observed data <em>and</em> the values of the parameters. It can be multivariate and for any underlying density. A maximum likelihood (ML) estimate of <span class="math inline">\(\theta\)</span> maximizes the likelihood of the parameter given an observed sample.</p>
 </section>
-<section id="poisson-example" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="poisson-example"><span class="header-section-number">5.2.2</span> Poisson example</h3>
+<section id="poisson-example" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="poisson-example"><span class="header-section-number">8.2.2</span> Poisson example</h3>
 <p>Th Poisson distribution is a nice one to consider as the maximum likelihood estimate can be calculated easily – essentially in your head.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>The Poisson distribution is <span class="math display">\[\begin{equation}
 p(y_i,\ \theta )=\frac{e^{-\theta }\theta ^{y_i}}{y_i!}
@@ -428,8 +459,8 @@ p(y,\ \theta) =\prod_{i=1}^{10}p(y_i,\ \theta )
 \end{equation}\]</span></p>
 </section>
 </section>
-<section id="poisson-example-1" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="poisson-example-1"><span class="header-section-number">5.3</span> Poisson example</h2>
+<section id="poisson-example-1" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="poisson-example-1"><span class="header-section-number">8.3</span> Poisson example</h2>
 <p>The Poisson density for each observation is <span class="math display">\[\begin{equation}
    p(y_i, \theta) = \frac{e^{-\theta} \theta^{y_i}}{y_i!}
 \end{equation}\]</span> for <span class="math inline">\(y&gt;0\)</span>, zero otherwise, with <span class="math inline">\(E[Y]=var(Y)=\theta\)</span>. For <span class="math inline">\(n\)</span> independent observations, joint density is <span class="math display">\[\begin{equation}
@@ -564,8 +595,8 @@ L(\theta | y) = P(y,\theta)
 <p><img src="CK_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<section id="ml-and-regression" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="ml-and-regression"><span class="header-section-number">5.3.1</span> ML and regression</h3>
+<section id="ml-and-regression" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="ml-and-regression"><span class="header-section-number">8.3.1</span> ML and regression</h3>
 <p>Linear regression problem is <span class="math display">\[\begin{equation}
 L(\beta|y,X) = \frac{1}{(2\pi \sigma^2)^{n/2}}\exp \left[ - \frac{1}{2\sigma^2} (y-X\beta)'(y-X\beta) \right]
 \end{equation}\]</span> The log-likelihood is <span class="math display">\[\begin{equation}
@@ -582,8 +613,8 @@ L(\beta|y,X) = \frac{1}{(2\pi \sigma^2)^{n/2}}\exp \left[ - \frac{1}{2\sigma^2} 
 \end{align}\]</span> ML estimate of <span class="math inline">\(\sigma^2\)</span> divided by <span class="math inline">\(n\)</span> (not <span class="math inline">\(n-k\)</span>) so biased in small samples but not asymptotically</p>
 </section>
 </section>
-<section id="kalman-filter-tricks" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="kalman-filter-tricks"><span class="header-section-number">5.4</span> Kalman filter tricks</h2>
+<section id="kalman-filter-tricks" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="kalman-filter-tricks"><span class="header-section-number">8.4</span> Kalman filter tricks</h2>
 <p>For some initial condition – say <span class="math inline">\(\beta_0 \sim N(\mu_0,P_0))\)</span> – the conditional log-likelihood for sample <span class="math inline">\(1\)</span> to <span class="math inline">\(T\)</span> <span class="math display">\[\begin{align}
 \log L(\psi_t|\theta) &amp;= \sum\nolimits_{t=1}^T\log p(y_t|\psi_{t-1},\theta) \\
 &amp;\propto -\sum\nolimits_{t=1}^T\left( \log \left\vert f_{t|t-1}\right\vert +\eta_{t|t-1}' f_{t|t-1}^{-1}\eta_{t|t-1} |\ \theta \right)
@@ -607,10 +638,10 @@ Maximisation
 \widehat{\theta}\sim N\left(\theta, -\frac{\partial^2 \log L(\psi_T|\theta)} {\partial\theta\partial\theta'} \right)
 \end{equation}\]</span></p>
 </section>
-<section id="full-sample-estimates-of-beta_t" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="full-sample-estimates-of-beta_t"><span class="header-section-number">5.5</span> Full sample estimates of <span class="math inline">\(\beta_t\)</span></h2>
-<section id="the-regression-lemma-again" class="level3" data-number="5.5.1">
-<h3 data-number="5.5.1" class="anchored" data-anchor-id="the-regression-lemma-again"><span class="header-section-number">5.5.1</span> The regression lemma again</h3>
+<section id="full-sample-estimates-of-beta_t" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="full-sample-estimates-of-beta_t"><span class="header-section-number">8.5</span> Full sample estimates of <span class="math inline">\(\beta_t\)</span></h2>
+<section id="the-regression-lemma-again" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="the-regression-lemma-again"><span class="header-section-number">8.5.1</span> The regression lemma again</h3>
 <p>You may recall that for any <span class="math display">\[\begin{equation}
 \begin{bmatrix} z \\ y \\ \varepsilon \end{bmatrix}
 \sim N\left(\begin{bmatrix} \mu_z \\ \mu_y \\ 0 \end{bmatrix},
@@ -625,8 +656,8 @@ E[z|y,\varepsilon] &amp;= \mu_z + \Sigma_{zy}\Sigma_{yy}^{-1}(y-\mu_y) + \Sigma_
 \end{align}\]</span> We use this to derive a recursive update to <em>smooth</em> our estimates. We will also derive an appropriate conditional expectation which we can use in Gibbs sampling.</p>
 </section>
 </section>
-<section id="smoothing" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="smoothing"><span class="header-section-number">5.6</span> Smoothing</h2>
+<section id="smoothing" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="smoothing"><span class="header-section-number">8.6</span> Smoothing</h2>
 <p>The Kalman filter estimates <span class="math inline">\(\beta_t\)</span> recursively: it only uses information available up until time <span class="math inline">\(t\)</span>. This means that the estimate of <span class="math inline">\(\beta_{T|T}\)</span> uses all available information, but any previous estimate doesn’t. Indeed there must be some values of <span class="math inline">\(\eta_{i|t-1}\)</span> <span class="math display">\[\begin{equation}
    \beta_{t|T} = E(\beta_t | \psi_{t-1}, \eta_{t|t-1}, \eta_{t+1|t-1},...,\eta_{T|t-1})
 \end{equation}\]</span> where the ‘news’ is relative to period <span class="math inline">\(t\)</span>.</p>
@@ -665,10 +696,10 @@ E[z|y,\varepsilon] &amp;= \mu_z + \Sigma_{zy}\Sigma_{yy}^{-1}(y-\mu_y) + \Sigma_
   P_{t|T} = P_{t|t} + K_{t|T} (P_{t+1|T}-P_{t+1|t}) K_{t|T}'.
 \end{equation}\]</span></p>
 </section>
-<section id="kalman-filter-in-econometrics" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="kalman-filter-in-econometrics"><span class="header-section-number">5.7</span> Kalman filter in econometrics</h2>
-<section id="classical-approach" class="level3" data-number="5.7.1">
-<h3 data-number="5.7.1" class="anchored" data-anchor-id="classical-approach"><span class="header-section-number">5.7.1</span> Classical approach</h3>
+<section id="kalman-filter-in-econometrics" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="kalman-filter-in-econometrics"><span class="header-section-number">8.7</span> Kalman filter in econometrics</h2>
+<section id="classical-approach" class="level3" data-number="8.7.1">
+<h3 data-number="8.7.1" class="anchored" data-anchor-id="classical-approach"><span class="header-section-number">8.7.1</span> Classical approach</h3>
 <p>The typical procedure is some variation on:</p>
 <ul>
 <li>Formulate state-space model</li>
@@ -683,8 +714,8 @@ E[z|y,\varepsilon] &amp;= \mu_z + \Sigma_{zy}\Sigma_{yy}^{-1}(y-\mu_y) + \Sigma_
 <li>Increasingly non-Gaussian non-linear models are estimated using the <em>particle filter</em></li>
 </ul>
 </section>
-<section id="bayesian-approach" class="level3" data-number="5.7.2">
-<h3 data-number="5.7.2" class="anchored" data-anchor-id="bayesian-approach"><span class="header-section-number">5.7.2</span> Bayesian approach</h3>
+<section id="bayesian-approach" class="level3" data-number="8.7.2">
+<h3 data-number="8.7.2" class="anchored" data-anchor-id="bayesian-approach"><span class="header-section-number">8.7.2</span> Bayesian approach</h3>
 <p>Bayesian approach is to generate the entire distribution of the model parameters.</p>
 <ul>
 <li>Now no longer just look for the point estimate obtained by maximum likelihood</li>
@@ -702,8 +733,8 @@ E[z|y,\varepsilon] &amp;= \mu_z + \Sigma_{zy}\Sigma_{yy}^{-1}(y-\mu_y) + \Sigma_
 <p>In this way the joint distribution of the two can be obtained from the resulting simulation.</p>
 </section>
 </section>
-<section id="carter-kohn-algorithm" class="level2" data-number="5.8">
-<h2 data-number="5.8" class="anchored" data-anchor-id="carter-kohn-algorithm"><span class="header-section-number">5.8</span> Carter-Kohn algorithm</h2>
+<section id="carter-kohn-algorithm" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="carter-kohn-algorithm"><span class="header-section-number">8.8</span> Carter-Kohn algorithm</h2>
 <ul>
 <li><p><strong>Step 2</strong> above relatively easy but how do we generate a sequence of states?</p>
 <ul>
@@ -726,8 +757,8 @@ B_{T-1} = \begin{bmatrix} \beta_1 &amp; \beta_2 &amp; \ldots &amp; \beta_{T-1} \
 <li>Just as for the Kalman smoother we use the outputs of the Kalman filter and a separate backward recursion to obtain the conditional distribution</li>
 </ul>
 </section>
-<section id="joint-distribution" class="level2" data-number="5.9">
-<h2 data-number="5.9" class="anchored" data-anchor-id="joint-distribution"><span class="header-section-number">5.9</span> Joint distribution</h2>
+<section id="joint-distribution" class="level2" data-number="8.9">
+<h2 data-number="8.9" class="anchored" data-anchor-id="joint-distribution"><span class="header-section-number">8.9</span> Joint distribution</h2>
 <p>Deriving the appropriate distributions is easy if we know what to condition on. The joint probability density function can be split into a sequence of conditional distributions: <span class="math inline">\(p(B_T|\psi_T)\)</span> can be written recursively <span class="math display">\[\begin{align}
 p(B_T|\psi_T) &amp;= p(\beta_T|\psi_T) \times p(B_{T-1}|\beta_T,\psi_T) \\
 &amp;= p(\beta_T|\psi_T) \times p(\beta_{T-1}|\beta_T,\psi_T) \times p(B_{T-2}|\beta_{T-1},\beta_T,\psi_T) \\
@@ -738,8 +769,8 @@ p(B_T|\psi_T) &amp;= p(\beta_T|\psi_T)\times p(\beta_{T-1}|\beta_T, \psi_T) \tim
 &amp;= p(\beta_T|\psi_T) \times \prod_{t=1}^{T-1} p(\beta_t|\beta_{t+1}, \psi_t)
 \end{align}\]</span></p>
 </section>
-<section id="the-carter-kohn-equations" class="level2" data-number="5.10">
-<h2 data-number="5.10" class="anchored" data-anchor-id="the-carter-kohn-equations"><span class="header-section-number">5.10</span> The Carter-Kohn equations</h2>
+<section id="the-carter-kohn-equations" class="level2" data-number="8.10">
+<h2 data-number="8.10" class="anchored" data-anchor-id="the-carter-kohn-equations"><span class="header-section-number">8.10</span> The Carter-Kohn equations</h2>
 <p>The estimated <span class="math inline">\(\beta\)</span> variables are distributed <span class="math display">\[\begin{align}
 \beta_{T|\psi_T} &amp;\sim N(\beta_{T|T}, P_{T|T}) \\
 \beta_{t|\psi_t, \beta_{t+1}} &amp;\sim N(\beta_{t|t,\beta_{t+1}},P_{t|t,\beta_{t+1}})
@@ -758,8 +789,8 @@ var[\beta_t|\psi_t,\beta_{t+1}] &amp;= var[\beta_t|\psi_t] -\Sigma_{\beta\varsig
 &amp;= P_{t|t} - \Sigma_{\beta\varsigma} \Sigma_{\varsigma\varsigma}^{-1} \Sigma_{\varsigma\beta} \\
 &amp;= P_{t|t,\beta_{t+1}}
 \end{align}\]</span> Both <span class="math inline">\(\beta_{t|t}\)</span> and <span class="math inline">\(P_{t|t}\)</span> are outputs of the Kalman filter.</p>
-<section id="deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma" class="level3" data-number="5.10.1">
-<h3 data-number="5.10.1" class="anchored" data-anchor-id="deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma"><span class="header-section-number">5.10.1</span> Deriving <span class="math inline">\(\Sigma_{\beta\varsigma}\)</span> and <span class="math inline">\(\Sigma_{\varsigma\varsigma}\)</span></h3>
+<section id="deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma" class="level3" data-number="8.10.1">
+<h3 data-number="8.10.1" class="anchored" data-anchor-id="deriving-sigma_betavarsigma-and-sigma_varsigmavarsigma"><span class="header-section-number">8.10.1</span> Deriving <span class="math inline">\(\Sigma_{\beta\varsigma}\)</span> and <span class="math inline">\(\Sigma_{\varsigma\varsigma}\)</span></h3>
 <p>As before we just plug in the definitions so <span class="math display">\[\begin{align}
 \Sigma_{\varsigma\varsigma} &amp;= var[\beta_{t+1}-F\beta_{t|t}-\mu] \\
 &amp;= var\left[ F\beta_t+\mu +v_{t+1}-F\beta_{t|t}-\mu \right] \\
@@ -772,8 +803,8 @@ var[\beta_t|\psi_t,\beta_{t+1}] &amp;= var[\beta_t|\psi_t] -\Sigma_{\beta\varsig
 \end{align}\]</span></p>
 </section>
 </section>
-<section id="kalman-gain-again" class="level2" data-number="5.11">
-<h2 data-number="5.11" class="anchored" data-anchor-id="kalman-gain-again"><span class="header-section-number">5.11</span> ‘Kalman gain’ again</h2>
+<section id="kalman-gain-again" class="level2" data-number="8.11">
+<h2 data-number="8.11" class="anchored" data-anchor-id="kalman-gain-again"><span class="header-section-number">8.11</span> ‘Kalman gain’ again</h2>
 <p>So using the definitions of the covariances and the regression lemma we get <span class="math display">\[\begin{align}
 \beta_{t|t,\beta_{t+1}} &amp;= \beta_{t|t} + \Sigma_{s\eta} \Sigma_{\eta\eta}^{-1}\varsigma_t \\
 &amp;= \beta_{t|t} + P_{t|t}F' \left( FP_{t|t}F' + Q\right)^{-1} (\beta_{t+1}-F\beta_{t|t}-\mu) \\
@@ -781,8 +812,8 @@ var[\beta_t|\psi_t,\beta_{t+1}] &amp;= var[\beta_t|\psi_t] -\Sigma_{\beta\varsig
 \end{align}\]</span> where <span class="math display">\[\begin{equation}
    K_{t|t+1} = - P_{t|t}F' (FP_{t|t}F' + Q)^{-1}
 \end{equation}\]</span> Like the Kalman smoother, this uses the filter’s estimate of <span class="math inline">\(P_{t|t}\)</span> and updates <span class="math inline">\(\beta_t\)</span> using the error in predicting <span class="math inline">\(\beta_{t+1}\)</span> not <span class="math inline">\(y_t\)</span>.</p>
-<section id="conditional-mean-and-variance-of-the-state" class="level3" data-number="5.11.1">
-<h3 data-number="5.11.1" class="anchored" data-anchor-id="conditional-mean-and-variance-of-the-state"><span class="header-section-number">5.11.1</span> Conditional mean and variance of the state</h3>
+<section id="conditional-mean-and-variance-of-the-state" class="level3" data-number="8.11.1">
+<h3 data-number="8.11.1" class="anchored" data-anchor-id="conditional-mean-and-variance-of-the-state"><span class="header-section-number">8.11.1</span> Conditional mean and variance of the state</h3>
 <p>Updating equations for the state and variance obtained directly from the regression lemma <span class="math display">\[\begin{align}
 \beta_{t|t,\beta_{t+1}} &amp;= \beta_{t|t} - K_{t|t+1}\varsigma_{t+1|t} \\
     P_{t|t,\beta_{t+1}} &amp;= P_{t|t}-P_{t|t}F'(FP_{t|t}F' + Q)^{-1}F P_{t|t}
@@ -792,13 +823,13 @@ var[\beta_t|\psi_t,\beta_{t+1}] &amp;= var[\beta_t|\psi_t] -\Sigma_{\beta\varsig
 \end{equation}\]</span> to give <span class="math inline">\(B_T|\psi_T\)</span>. This is a conditional sample that depends on a given parameter vector to use in a Gibbs sampling scheme that draws those parameters in turn from distributions conditioned on the states.</p>
 </section>
 </section>
-<section id="state-space-gibbs-sampling-in-practice" class="level2" data-number="5.12">
-<h2 data-number="5.12" class="anchored" data-anchor-id="state-space-gibbs-sampling-in-practice"><span class="header-section-number">5.12</span> State-space Gibbs sampling in practice</h2>
+<section id="state-space-gibbs-sampling-in-practice" class="level2" data-number="8.12">
+<h2 data-number="8.12" class="anchored" data-anchor-id="state-space-gibbs-sampling-in-practice"><span class="header-section-number">8.12</span> State-space Gibbs sampling in practice</h2>
 <p>Above approach cannot be used explicitly if <span class="math inline">\(\Sigma_{\varsigma\varsigma}\)</span> is singular, for example if we have more states than shocks (which is not uncommon). A simple modification given in KN can deal with this; we treat only those states that are shocked as observed.</p>
 <p>In general we need conditional distributions for all the other parameters to be estimated. Need to store the complete sequence of states and covariances to implement the Gibbs sampler. We will investigate the exact implementation of Gibbs sampling for state-space models in the exercises.</p>
 </section>
-<section id="comparing-the-filters-and-smoothers" class="level2" data-number="5.13">
-<h2 data-number="5.13" class="anchored" data-anchor-id="comparing-the-filters-and-smoothers"><span class="header-section-number">5.13</span> Comparing the filters and smoothers</h2>
+<section id="comparing-the-filters-and-smoothers" class="level2" data-number="8.13">
+<h2 data-number="8.13" class="anchored" data-anchor-id="comparing-the-filters-and-smoothers"><span class="header-section-number">8.13</span> Comparing the filters and smoothers</h2>
 <p><span class="math display">\[\begin{alignat*}{3}
 &amp;\text{Filter} &amp; &amp;\text{Innovation} &amp; &amp; \text{Gain and state covariance}  \\
 &amp; &amp;&amp; &amp;&amp;\\
@@ -1192,13 +1223,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./QR.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quantile regression</span></span>
+      <a href="./Gibbs.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Stemp.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Causal Inference</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./SMH.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Metropolis-Hastings</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
