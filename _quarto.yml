@@ -22,6 +22,7 @@ book:
         - ssm.qmd
         - RegressionLemma.qmd
         - Kalman.qmd
+        - Unemp.qmd
     - part: "Quantiles"
       chapters:
         - QR.qmd
