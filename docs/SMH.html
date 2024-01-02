@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quantiles, Networks, Time - 9&nbsp; Metropolis-Hastings</title>
+<title>Quantiles, Networks, Time - 11&nbsp; Metropolis-Hastings</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,7 +100,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./QR.html">Quantiles</a></li><li class="breadcrumb-item"><a href="./SMH.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Metropolis-Hastings</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./QR.html">Quantiles</a></li><li class="breadcrumb-item"><a href="./SMH.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Metropolis-Hastings</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -173,6 +173,12 @@ div.csl-indent {
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Unemp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Plotting unemployment forecasts</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -187,25 +193,31 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./QR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./GDP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">GDP@Risk</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Gibbs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./CK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./SMH.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Metropolis-Hastings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Metropolis-Hastings</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,13 +234,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Stemp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></span></a>
   </div>
 </li>
       </ul>
@@ -245,19 +257,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./BK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./BVAR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Dynare.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dynare basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dynare basics</span></span></a>
   </div>
 </li>
       </ul>
@@ -274,7 +286,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -318,25 +330,25 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#complicated-densities" id="toc-complicated-densities" class="nav-link active" data-scroll-target="#complicated-densities"><span class="header-section-number">9.1</span> Complicated densities</a>
+  <li><a href="#complicated-densities" id="toc-complicated-densities" class="nav-link active" data-scroll-target="#complicated-densities"><span class="header-section-number">11.1</span> Complicated densities</a>
   <ul class="collapse">
-  <li><a href="#target-density" id="toc-target-density" class="nav-link" data-scroll-target="#target-density"><span class="header-section-number">9.1.1</span> Target density</a></li>
+  <li><a href="#target-density" id="toc-target-density" class="nav-link" data-scroll-target="#target-density"><span class="header-section-number">11.1.1</span> Target density</a></li>
   </ul></li>
-  <li><a href="#simplified-problem-estimating-known-prior" id="toc-simplified-problem-estimating-known-prior" class="nav-link" data-scroll-target="#simplified-problem-estimating-known-prior"><span class="header-section-number">9.2</span> Simplified problem: estimating (known) prior</a></li>
-  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1"><span class="header-section-number">9.3</span> Example 1</a>
+  <li><a href="#simplified-problem-estimating-known-prior" id="toc-simplified-problem-estimating-known-prior" class="nav-link" data-scroll-target="#simplified-problem-estimating-known-prior"><span class="header-section-number">11.2</span> Simplified problem: estimating (known) prior</a></li>
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1"><span class="header-section-number">11.3</span> Example 1</a>
   <ul class="collapse">
-  <li><a href="#analytic-densities" id="toc-analytic-densities" class="nav-link" data-scroll-target="#analytic-densities"><span class="header-section-number">9.3.1</span> Analytic densities</a></li>
-  <li><a href="#random-draws" id="toc-random-draws" class="nav-link" data-scroll-target="#random-draws"><span class="header-section-number">9.3.2</span> Random draws</a></li>
+  <li><a href="#analytic-densities" id="toc-analytic-densities" class="nav-link" data-scroll-target="#analytic-densities"><span class="header-section-number">11.3.1</span> Analytic densities</a></li>
+  <li><a href="#random-draws" id="toc-random-draws" class="nav-link" data-scroll-target="#random-draws"><span class="header-section-number">11.3.2</span> Random draws</a></li>
   </ul></li>
-  <li><a href="#estimating-the-marginals-from-the-joint-density" id="toc-estimating-the-marginals-from-the-joint-density" class="nav-link" data-scroll-target="#estimating-the-marginals-from-the-joint-density"><span class="header-section-number">9.4</span> Estimating the marginals from the joint density</a>
+  <li><a href="#estimating-the-marginals-from-the-joint-density" id="toc-estimating-the-marginals-from-the-joint-density" class="nav-link" data-scroll-target="#estimating-the-marginals-from-the-joint-density"><span class="header-section-number">11.4</span> Estimating the marginals from the joint density</a>
   <ul class="collapse">
-  <li><a href="#metropolis-hastings" id="toc-metropolis-hastings" class="nav-link" data-scroll-target="#metropolis-hastings"><span class="header-section-number">9.4.1</span> Metropolis-Hastings</a></li>
-  <li><a href="#simplification" id="toc-simplification" class="nav-link" data-scroll-target="#simplification"><span class="header-section-number">9.4.2</span> Simplification</a></li>
+  <li><a href="#metropolis-hastings" id="toc-metropolis-hastings" class="nav-link" data-scroll-target="#metropolis-hastings"><span class="header-section-number">11.4.1</span> Metropolis-Hastings</a></li>
+  <li><a href="#simplification" id="toc-simplification" class="nav-link" data-scroll-target="#simplification"><span class="header-section-number">11.4.2</span> Simplification</a></li>
   </ul></li>
-  <li><a href="#a-simpler-problem" id="toc-a-simpler-problem" class="nav-link" data-scroll-target="#a-simpler-problem"><span class="header-section-number">9.5</span> A simpler problem</a>
+  <li><a href="#a-simpler-problem" id="toc-a-simpler-problem" class="nav-link" data-scroll-target="#a-simpler-problem"><span class="header-section-number">11.5</span> A simpler problem</a>
   <ul class="collapse">
-  <li><a href="#estimating-example-1" id="toc-estimating-example-1" class="nav-link" data-scroll-target="#estimating-example-1"><span class="header-section-number">9.5.1</span> Estimating example 1</a></li>
-  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2"><span class="header-section-number">9.5.2</span> Example 2</a></li>
+  <li><a href="#estimating-example-1" id="toc-estimating-example-1" class="nav-link" data-scroll-target="#estimating-example-1"><span class="header-section-number">11.5.1</span> Estimating example 1</a></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2"><span class="header-section-number">11.5.2</span> Example 2</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -346,7 +358,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Metropolis-Hastings</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Metropolis-Hastings</span></h1>
 </div>
 
 
@@ -361,8 +373,8 @@ div.csl-indent {
 
 </header>
 
-<section id="complicated-densities" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="complicated-densities"><span class="header-section-number">9.1</span> Complicated densities</h2>
+<section id="complicated-densities" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="complicated-densities"><span class="header-section-number">11.1</span> Complicated densities</h2>
 <p>What if we have a posterior density that is too complicated to factor into a full set of conditional densities? Recall that Gibbs Sampling is a procedure that generates <em>marginal densities</em> from <em>conditional densities</em>. What if we don’t have conditional densities?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -384,16 +396,16 @@ Why can’t we use Gibbs for DSGEs?
 </div>
 </div>
 <p>Can we derive a technique that generates marginal densities from a <em>joint density</em>? Turns out we (perhaps surprisingly) can, using the <em>Metropolis-Hastings algorithm</em>.</p>
-<section id="target-density" class="level3" data-number="9.1.1">
-<h3 data-number="9.1.1" class="anchored" data-anchor-id="target-density"><span class="header-section-number">9.1.1</span> Target density</h3>
+<section id="target-density" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="target-density"><span class="header-section-number">11.1.1</span> Target density</h3>
 <p>We’ll derive the simplest posterior density that we can use in an exercise, but we begin with a more general case. Consider a posterior likelihood that is the product of a likelihood and <span class="math inline">\(k\)</span> prior densities, say <span class="math display">\[\begin{equation}
 \mathcal{H}(\theta\ | \ y) = \mathcal{L}(\theta\ | \ y)\times \mathcal{P}_1(\theta_1)\times \mathcal{P}_2(\theta_2)\times \mathcal{P}_3(\theta_3)\times ...\times \mathcal{P}_k(\theta_k)
 \end{equation}\]</span> This is the <em>target density</em>. How can we estimate the densities of the underlying <span class="math inline">\(\theta_i\)</span> from this posterior alone? This (somewhat amazingly) turns out to be rather simple.</p>
 <p>The trick is to simulate draws for all the elements of <span class="math inline">\(\theta\)</span> from the target density – despite not having a generating function to draw from the density – and then estimating the marginal densities from the resulting series.</p>
 </section>
 </section>
-<section id="simplified-problem-estimating-known-prior" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="simplified-problem-estimating-known-prior"><span class="header-section-number">9.2</span> Simplified problem: estimating (known) prior</h2>
+<section id="simplified-problem-estimating-known-prior" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="simplified-problem-estimating-known-prior"><span class="header-section-number">11.2</span> Simplified problem: estimating (known) prior</h2>
 <p>As the aim is to introduce MH in as simple a context as possible, we will sample from a posterior distribution for which we don’t have an appropriate random number generator but for marginal distributions that we do. This means we can compare analytical and estimated results.</p>
 <p>We will try an estimate the marginal distributions for the priors alone; essentially <span class="math inline">\(\mathcal{H}(\theta\ | \ y)\)</span> where <span class="math inline">\(\mathcal{L}(y\ |\ \theta)\)</span> is flat for all values of the prior so <span class="math display">\[\begin{equation}
 \mathcal{H}(\theta\ | \ y) = \mathcal{P}_1(\theta_1)\times \mathcal{P}_2(\theta_2)\times \mathcal{P}_3(\theta_3)\times ...\times \mathcal{P}_k(\theta_k)
@@ -403,8 +415,8 @@ Why can’t we use Gibbs for DSGEs?
 \end{equation}\]</span> subject to the arbitrary bounds that <span class="math inline">\(0.001 &lt; \rho_1 &lt;0.999\)</span>.</p>
 <p>We have <span class="math inline">\(k\)</span> of these, so in any code we could specify this in a matrix where each prior is specified in a row containing a name, a PDF type, the parameters of the PDF, as well as a lower and upper bound.</p>
 </section>
-<section id="example-1" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="example-1"><span class="header-section-number">9.3</span> Example 1</h2>
+<section id="example-1" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="example-1"><span class="header-section-number">11.3</span> Example 1</h2>
 <p>First example: target density is the product of six parameters densities of four types: Normal, Gamma, Inverse Gamma and Beta. Any suitable density could be used as a prior, so the Uniform, say, or the Inverse Weibull or Log Gamma could be slotted in – and we will later on. All that is required is that the some function exists to evaluate the density. Obviously we could generalize this to one or three or more parameter distributions with appropriate code.</p>
 <p>For example we could fit a Skew-<span class="math inline">\(t\)</span> say, as long as we can evaluate the (log) density for this 4 parameter distribution. See <span class="citation" data-cites="LossModels">Klugman, Panjer, and Willmot (<a href="references.html#ref-LossModels" role="doc-biblioref">2008</a>)</span> for a very comprehensive list of densities we could use – I cannot recommend this highly enough.</p>
 <div class="cell" data-layout-align="center">
@@ -560,8 +572,8 @@ invgamma
 <p>Parameters of six densities used in Example 1</p>
 </div>
 </div>
-<section id="analytic-densities" class="level3" data-number="9.3.1">
-<h3 data-number="9.3.1" class="anchored" data-anchor-id="analytic-densities"><span class="header-section-number">9.3.1</span> Analytic densities</h3>
+<section id="analytic-densities" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="analytic-densities"><span class="header-section-number">11.3.1</span> Analytic densities</h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -573,8 +585,8 @@ invgamma
 </div>
 </div>
 </section>
-<section id="random-draws" class="level3" data-number="9.3.2">
-<h3 data-number="9.3.2" class="anchored" data-anchor-id="random-draws"><span class="header-section-number">9.3.2</span> Random draws</h3>
+<section id="random-draws" class="level3" data-number="11.3.2">
+<h3 data-number="11.3.2" class="anchored" data-anchor-id="random-draws"><span class="header-section-number">11.3.2</span> Random draws</h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -587,11 +599,11 @@ invgamma
 </div>
 </section>
 </section>
-<section id="estimating-the-marginals-from-the-joint-density" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="estimating-the-marginals-from-the-joint-density"><span class="header-section-number">9.4</span> Estimating the marginals from the joint density</h2>
+<section id="estimating-the-marginals-from-the-joint-density" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="estimating-the-marginals-from-the-joint-density"><span class="header-section-number">11.4</span> Estimating the marginals from the joint density</h2>
 <p>First we need to understand the estimation procedure. The MH algorithm uses only information from the posterior to estimate the marginal processes that generated it, in stark contrast with Gibbs Sampling that uses conditional densities to approximate the unconditional one and then back out the marginals.</p>
-<section id="metropolis-hastings" class="level3" data-number="9.4.1">
-<h3 data-number="9.4.1" class="anchored" data-anchor-id="metropolis-hastings"><span class="header-section-number">9.4.1</span> Metropolis-Hastings</h3>
+<section id="metropolis-hastings" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="metropolis-hastings"><span class="header-section-number">11.4.1</span> Metropolis-Hastings</h3>
 <p>A thorough explanation can be found in <span class="citation" data-cites="Chib">(<a href="references.html#ref-Chib" role="doc-biblioref"><strong>Chib?</strong></a>)</span> or <span class="citation" data-cites="BDA">(<a href="references.html#ref-BDA" role="doc-biblioref"><strong>BDA?</strong></a>)</span>, and here we describe the procedure without proof. Our aim is to draw samples from some distribution <span class="math display">\[
 \mathcal{H}(\theta)
 \]</span> where a direct approach is not feasible, because we don’t have a random number generator. The Metropolis-Hastings algorithm requires that we can evaluate this posterior density at some arbitrary points. As the form of the marginals is (potentially) unknown, we draw values from some arbitrary density and decide whether it looks like it came from the marginals that generated the posterior. <span class="math inline">\(\mathcal{H}(\theta)\)</span> is typically the posterior density where this distribution is far too complex to directly sample.</p>
@@ -602,8 +614,8 @@ invgamma
   \alpha = \min \left(\frac{H(\theta^{k+1})/q(\theta^{k+1}|\theta^k)}{H(\theta^k)/q(\theta^k|\theta^{k+1})}, 1\right)
 \]</span> Practically, this requires we compute <span class="math inline">\(\alpha\)</span> and draw a number <span class="math inline">\(u\)</span> from <span class="math inline">\(U(0,1)\)</span>, and if <span class="math inline">\(u&lt;\alpha\)</span> accept <span class="math inline">\(\theta^{k+1}\)</span> otherwise keep <span class="math inline">\(\theta^k\)</span>.</p>
 </section>
-<section id="simplification" class="level3" data-number="9.4.2">
-<h3 data-number="9.4.2" class="anchored" data-anchor-id="simplification"><span class="header-section-number">9.4.2</span> Simplification</h3>
+<section id="simplification" class="level3" data-number="11.4.2">
+<h3 data-number="11.4.2" class="anchored" data-anchor-id="simplification"><span class="header-section-number">11.4.2</span> Simplification</h3>
 <p>The <em>random walk</em> version of the algorithm takes the specific candidate density <span class="math inline">\(q(\theta^{k+1}|\theta^k)\)</span> as<br>
 <span class="math display">\[
 \theta^{k+1} = \theta^k + \epsilon_t
@@ -619,8 +631,8 @@ invgamma
 <span class="math display">\[
   \frac{H(\theta^{k+1})}{H(\theta^k)}
 \]</span> as <span class="math inline">\(q(\theta^{k+1}|\theta^k) = q(\theta^k|\theta^{k+1})\)</span> so these terms cancel.</p>
-<section id="algorithm" class="level4" data-number="9.4.2.1">
-<h4 data-number="9.4.2.1" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">9.4.2.1</span> Algorithm</h4>
+<section id="algorithm" class="level4" data-number="11.4.2.1">
+<h4 data-number="11.4.2.1" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">11.4.2.1</span> Algorithm</h4>
 <div>
 <p><strong>Step 1</strong> Draw a <em>candidate</em> value <span class="math inline">\(\theta^{G+1}\)</span> from <span class="math inline">\(q(\theta^{k+1}|\theta^k)\)</span>, specifically <span class="math inline">\(\theta^{k+1} = \theta^k + \epsilon_t\)</span> where <span class="math inline">\(\epsilon_t\sim N(0,\Sigma)\)</span></p>
 <p><strong>Step 2</strong> Compute the acceptance probability <span class="math display">\[
@@ -647,8 +659,8 @@ Note
 </section>
 </section>
 </section>
-<section id="a-simpler-problem" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="a-simpler-problem"><span class="header-section-number">9.5</span> A simpler problem</h2>
+<section id="a-simpler-problem" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="a-simpler-problem"><span class="header-section-number">11.5</span> A simpler problem</h2>
 <p>We have no data (or indeed model) to pass to the posterior function (as there is no likelihood). Generalizing this to incorporate likelihood information is straightforward.</p>
 <p>We need to specify the scale of the random walk: assume <span class="math display">\[
   \Sigma = sI
@@ -658,8 +670,8 @@ Note
 <li>if <span class="math inline">\(s\)</span> too large may jump over highest density points at every step and take a long time to converge.</li>
 </ul>
 <p>We check if it is a suitable value by monitoring the acceptance rate: between about 1/5 and 2/5 fine.</p>
-<section id="estimating-example-1" class="level3" data-number="9.5.1">
-<h3 data-number="9.5.1" class="anchored" data-anchor-id="estimating-example-1"><span class="header-section-number">9.5.1</span> Estimating example 1</h3>
+<section id="estimating-example-1" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="estimating-example-1"><span class="header-section-number">11.5.1</span> Estimating example 1</h3>
 <p>Choose some arbitrary initial values at which we can evaluate our posterior likelihood (remembering for this example this only the joint prior). These are 0.9, 0.2, 0.4, -2, 1.5, 1.5. As we have chosen values close to the highest density this evaluates as 0.425433. We choose <span class="math inline">\(s=0.25\)</span> and do 100000 iterations and discard the first half. For the run that generates the graphs below we get the message:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
@@ -701,8 +713,8 @@ Note
 </div>
 <p>Pretty good! Compare this with the sequence of draws we got from the correct random number generators for each density.</p>
 </section>
-<section id="example-2" class="level3" data-number="9.5.2">
-<h3 data-number="9.5.2" class="anchored" data-anchor-id="example-2"><span class="header-section-number">9.5.2</span> Example 2</h3>
+<section id="example-2" class="level3" data-number="11.5.2">
+<h3 data-number="11.5.2" class="anchored" data-anchor-id="example-2"><span class="header-section-number">11.5.2</span> Example 2</h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 
@@ -1278,12 +1290,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./CK.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Stemp.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Causal Inference</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Causal Inference</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

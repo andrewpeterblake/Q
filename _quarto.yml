@@ -26,6 +26,7 @@ book:
     - part: "Quantiles"
       chapters:
         - QR.qmd
+        - GDP.qmd
         - Gibbs.qmd
         - CK.qmd
         - SMH.qmd
@@ -46,7 +47,7 @@ book:
     - Appendix1.qmd
     - LinAlg.qmd
 
-bibliography: [CourseRefs.bib, BVAR.bib, Refs2.bib, refsBayes.bib]
+bibliography: [CourseRefs.bib, BVAR.bib, Refs2.bib, refsBayes.bib, qr.bib]
 
 format:
   html:
@@ -66,5 +67,5 @@ format:
       text: |
         \printindex
     
-editor: visual
+editor: source
 copyright: Bank of England

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quantiles, Networks, Time - 13&nbsp; BVAR with dummies</title>
+<title>Quantiles, Networks, Time - 15&nbsp; BVAR with dummies</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -131,7 +131,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./BK.html">Time</a></li><li class="breadcrumb-item"><a href="./BVAR.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./BK.html">Time</a></li><li class="breadcrumb-item"><a href="./BVAR.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -204,6 +204,12 @@ div.csl-indent {
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Kalman filtering</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Unemp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Plotting unemployment forecasts</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -218,25 +224,31 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./QR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./GDP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">GDP@Risk</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Gibbs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Gibbs Sampling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./CK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Carter-Kohn</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./SMH.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Metropolis-Hastings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Metropolis-Hastings</span></span></a>
   </div>
 </li>
       </ul>
@@ -253,13 +265,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Stemp.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Causal Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Mapping regional house price inflation</span></span></a>
   </div>
 </li>
       </ul>
@@ -276,19 +288,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./BK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./BVAR.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Dynare.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dynare basics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dynare basics</span></span></a>
   </div>
 </li>
       </ul>
@@ -305,7 +317,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -349,30 +361,30 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#estimating-bvars-using-us-data" id="toc-estimating-bvars-using-us-data" class="nav-link active" data-scroll-target="#estimating-bvars-using-us-data"><span class="header-section-number">13.1</span> Estimating BVARs using US data</a></li>
-  <li><a href="#bvars-with-dummy-variable-priors" id="toc-bvars-with-dummy-variable-priors" class="nav-link" data-scroll-target="#bvars-with-dummy-variable-priors"><span class="header-section-number">13.2</span> BVARs with dummy variable priors</a>
+  <li><a href="#estimating-bvars-using-us-data" id="toc-estimating-bvars-using-us-data" class="nav-link active" data-scroll-target="#estimating-bvars-using-us-data"><span class="header-section-number">15.1</span> Estimating BVARs using US data</a></li>
+  <li><a href="#bvars-with-dummy-variable-priors" id="toc-bvars-with-dummy-variable-priors" class="nav-link" data-scroll-target="#bvars-with-dummy-variable-priors"><span class="header-section-number">15.2</span> BVARs with dummy variable priors</a>
   <ul class="collapse">
-  <li><a href="#var-model" id="toc-var-model" class="nav-link" data-scroll-target="#var-model"><span class="header-section-number">13.2.1</span> VAR model</a></li>
+  <li><a href="#var-model" id="toc-var-model" class="nav-link" data-scroll-target="#var-model"><span class="header-section-number">15.2.1</span> VAR model</a></li>
   </ul></li>
-  <li><a href="#bvar-hyperparameters" id="toc-bvar-hyperparameters" class="nav-link" data-scroll-target="#bvar-hyperparameters"><span class="header-section-number">13.3</span> BVAR hyperparameters</a>
+  <li><a href="#bvar-hyperparameters" id="toc-bvar-hyperparameters" class="nav-link" data-scroll-target="#bvar-hyperparameters"><span class="header-section-number">15.3</span> BVAR hyperparameters</a>
   <ul class="collapse">
-  <li><a href="#further-priors" id="toc-further-priors" class="nav-link" data-scroll-target="#further-priors"><span class="header-section-number">13.3.1</span> Further priors</a></li>
-  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="header-section-number">13.3.2</span> Implementation</a></li>
+  <li><a href="#further-priors" id="toc-further-priors" class="nav-link" data-scroll-target="#further-priors"><span class="header-section-number">15.3.1</span> Further priors</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="header-section-number">15.3.2</span> Implementation</a></li>
   </ul></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">13.4</span> Examples</a>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">15.4</span> Examples</a>
   <ul class="collapse">
-  <li><a href="#example-1-bvar2-with-tau0.1" id="toc-example-1-bvar2-with-tau0.1" class="nav-link" data-scroll-target="#example-1-bvar2-with-tau0.1"><span class="header-section-number">13.4.1</span> Example 1: BVAR(2) with <span class="math inline">\(\tau=0.1\)</span></a></li>
-  <li><a href="#example-2-bvar2-with-tau1" id="toc-example-2-bvar2-with-tau1" class="nav-link" data-scroll-target="#example-2-bvar2-with-tau1"><span class="header-section-number">13.4.2</span> Example 2: BVAR(2) with <span class="math inline">\(\tau=1\)</span></a></li>
-  <li><a href="#example-3-bvar6-with-tau0.1" id="toc-example-3-bvar6-with-tau0.1" class="nav-link" data-scroll-target="#example-3-bvar6-with-tau0.1"><span class="header-section-number">13.4.3</span> Example 3: BVAR(6) with <span class="math inline">\(\tau=0.1\)</span></a></li>
-  <li><a href="#example-4-bvar6-with-tau1" id="toc-example-4-bvar6-with-tau1" class="nav-link" data-scroll-target="#example-4-bvar6-with-tau1"><span class="header-section-number">13.4.4</span> Example 4: BVAR(6) with <span class="math inline">\(\tau=1\)</span></a></li>
-  <li><a href="#coefficient-estimates" id="toc-coefficient-estimates" class="nav-link" data-scroll-target="#coefficient-estimates"><span class="header-section-number">13.4.5</span> Coefficient estimates</a></li>
+  <li><a href="#example-1-bvar2-with-tau0.1" id="toc-example-1-bvar2-with-tau0.1" class="nav-link" data-scroll-target="#example-1-bvar2-with-tau0.1"><span class="header-section-number">15.4.1</span> Example 1: BVAR(2) with <span class="math inline">\(\tau=0.1\)</span></a></li>
+  <li><a href="#example-2-bvar2-with-tau1" id="toc-example-2-bvar2-with-tau1" class="nav-link" data-scroll-target="#example-2-bvar2-with-tau1"><span class="header-section-number">15.4.2</span> Example 2: BVAR(2) with <span class="math inline">\(\tau=1\)</span></a></li>
+  <li><a href="#example-3-bvar6-with-tau0.1" id="toc-example-3-bvar6-with-tau0.1" class="nav-link" data-scroll-target="#example-3-bvar6-with-tau0.1"><span class="header-section-number">15.4.3</span> Example 3: BVAR(6) with <span class="math inline">\(\tau=0.1\)</span></a></li>
+  <li><a href="#example-4-bvar6-with-tau1" id="toc-example-4-bvar6-with-tau1" class="nav-link" data-scroll-target="#example-4-bvar6-with-tau1"><span class="header-section-number">15.4.4</span> Example 4: BVAR(6) with <span class="math inline">\(\tau=1\)</span></a></li>
+  <li><a href="#coefficient-estimates" id="toc-coefficient-estimates" class="nav-link" data-scroll-target="#coefficient-estimates"><span class="header-section-number">15.4.5</span> Coefficient estimates</a></li>
   </ul></li>
-  <li><a href="#tri-variate-bvar" id="toc-tri-variate-bvar" class="nav-link" data-scroll-target="#tri-variate-bvar"><span class="header-section-number">13.5</span> Tri-variate BVAR</a>
+  <li><a href="#tri-variate-bvar" id="toc-tri-variate-bvar" class="nav-link" data-scroll-target="#tri-variate-bvar"><span class="header-section-number">15.5</span> Tri-variate BVAR</a>
   <ul class="collapse">
-  <li><a href="#example-5-bvar4-with-tau.1-3-variables" id="toc-example-5-bvar4-with-tau.1-3-variables" class="nav-link" data-scroll-target="#example-5-bvar4-with-tau.1-3-variables"><span class="header-section-number">13.5.1</span> Example 5: BVAR(4) with <span class="math inline">\(\tau=.1\)</span>, 3 variables</a></li>
-  <li><a href="#example-6-bvar6-with-tau1-3-variables" id="toc-example-6-bvar6-with-tau1-3-variables" class="nav-link" data-scroll-target="#example-6-bvar6-with-tau1-3-variables"><span class="header-section-number">13.5.2</span> Example 6: BVAR(6) with <span class="math inline">\(\tau=1\)</span>, 3 variables</a></li>
+  <li><a href="#example-5-bvar4-with-tau.1-3-variables" id="toc-example-5-bvar4-with-tau.1-3-variables" class="nav-link" data-scroll-target="#example-5-bvar4-with-tau.1-3-variables"><span class="header-section-number">15.5.1</span> Example 5: BVAR(4) with <span class="math inline">\(\tau=.1\)</span>, 3 variables</a></li>
+  <li><a href="#example-6-bvar6-with-tau1-3-variables" id="toc-example-6-bvar6-with-tau1-3-variables" class="nav-link" data-scroll-target="#example-6-bvar6-with-tau1-3-variables"><span class="header-section-number">15.5.2</span> Example 6: BVAR(6) with <span class="math inline">\(\tau=1\)</span>, 3 variables</a></li>
   </ul></li>
-  <li><a href="#code-appendix" id="toc-code-appendix" class="nav-link" data-scroll-target="#code-appendix"><span class="header-section-number">13.6</span> Code appendix</a></li>
+  <li><a href="#code-appendix" id="toc-code-appendix" class="nav-link" data-scroll-target="#code-appendix"><span class="header-section-number">15.6</span> Code appendix</a></li>
   </ul>
 </nav>
     </div>
@@ -381,7 +393,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></h1>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">BVAR with dummies</span></h1>
 </div>
 
 
@@ -396,8 +408,8 @@ div.csl-indent {
 
 </header>
 
-<section id="estimating-bvars-using-us-data" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="estimating-bvars-using-us-data"><span class="header-section-number">13.1</span> Estimating BVARs using US data</h2>
+<section id="estimating-bvars-using-us-data" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="estimating-bvars-using-us-data"><span class="header-section-number">15.1</span> Estimating BVARs using US data</h2>
 <p>We will the Fed Funds rate, annual GDP growth and annual CPI inflation data from FRED, retrieved 2023-07-13. These are:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -410,11 +422,11 @@ div.csl-indent {
 </div>
 <p>We will build a variety and two and three variable BVARs. More details on the data are given below.</p>
 </section>
-<section id="bvars-with-dummy-variable-priors" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="bvars-with-dummy-variable-priors"><span class="header-section-number">13.2</span> BVARs with dummy variable priors</h2>
+<section id="bvars-with-dummy-variable-priors" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="bvars-with-dummy-variable-priors"><span class="header-section-number">15.2</span> BVARs with dummy variable priors</h2>
 <p>Rather than combine a prior distribution with a likelihood and draw from the resulting joint posterior distribution there is another convenient way of parameterizing the problem. We can instead add some ‘dummy variables’ that have the same properties of the prior so we have a single modified likelihood that incorporates the prior information. This approach was most obviously adopted by <span class="citation" data-cites="Banbura">Banbura, Giannone, and Reichlin (<a href="references.html#ref-Banbura" role="doc-biblioref">2010</a>)</span>. Further discussion of this can be found in <span class="citation" data-cites="PriorsVAR">Giannone, Lenza, and Primiceri (<a href="references.html#ref-PriorsVAR" role="doc-biblioref">2015</a>)</span>. In general this is a version of the <span class="citation" data-cites="Theil">Theil and Goldberger (<a href="references.html#ref-Theil" role="doc-biblioref">1961</a>)</span> <strong><em>mixed estimator</em></strong> given a Bayesian interpretation.</p>
-<section id="var-model" class="level3" data-number="13.2.1">
-<h3 data-number="13.2.1" class="anchored" data-anchor-id="var-model"><span class="header-section-number">13.2.1</span> VAR model</h3>
+<section id="var-model" class="level3" data-number="15.2.1">
+<h3 data-number="15.2.1" class="anchored" data-anchor-id="var-model"><span class="header-section-number">15.2.1</span> VAR model</h3>
 <p>Simple bi-variate two-lag VAR model:</p>
 <span class="math display">\[\begin{align}
   \left[\begin{matrix}g_t \cr \pi_t\end{matrix}\right] &amp;=
@@ -430,8 +442,8 @@ div.csl-indent {
 \end{align}\]</span>
 </section>
 </section>
-<section id="bvar-hyperparameters" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="bvar-hyperparameters"><span class="header-section-number">13.3</span> BVAR hyperparameters</h2>
+<section id="bvar-hyperparameters" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="bvar-hyperparameters"><span class="header-section-number">15.3</span> BVAR hyperparameters</h2>
 <p>We will (similarly to the straightforward Minnesota prior) need some control parameters:</p>
 <ul>
 <li><span class="math inline">\(\tau\)</span> controls the overall tightness of the prior for the AR coefficients</li>
@@ -445,8 +457,8 @@ div.csl-indent {
 <li><span class="math inline">\(\sigma_i\)</span> standard deviation of error terms from individual OLS regressions;</li>
 <li><span class="math inline">\(\mu_i\)</span> sample means of the data.</li>
 </ul>
-<section id="first-lag" class="level4" data-number="13.3.0.1">
-<h4 data-number="13.3.0.1" class="anchored" data-anchor-id="first-lag"><span class="header-section-number">13.3.0.1</span> First lag</h4>
+<section id="first-lag" class="level4" data-number="15.3.0.1">
+<h4 data-number="15.3.0.1" class="anchored" data-anchor-id="first-lag"><span class="header-section-number">15.3.0.1</span> First lag</h4>
 <p>Now consider the following artificial data for the <strong>first lag</strong>. We construct some dummy observations of the dependent and explanatory variables that look like: <span class="math display">\[\begin{equation}
   Y_{D,1} = \left[\begin{matrix}\frac{1}{\tau}\sigma_1 &amp; 0 \cr
     0 &amp; \frac{1}{\tau}\sigma_2\end{matrix}\right]
@@ -496,10 +508,10 @@ div.csl-indent {
   b_{12} = - \frac{\tau}{\sigma_1}\xi_{12}
 \end{equation}\]</span> which is clearly zero in expectation.</p>
 </section>
-<section id="further-priors" class="level3" data-number="13.3.1">
-<h3 data-number="13.3.1" class="anchored" data-anchor-id="further-priors"><span class="header-section-number">13.3.1</span> Further priors</h3>
-<section id="higher-lags" class="level4" data-number="13.3.1.1">
-<h4 data-number="13.3.1.1" class="anchored" data-anchor-id="higher-lags"><span class="header-section-number">13.3.1.1</span> Higher lags</h4>
+<section id="further-priors" class="level3" data-number="15.3.1">
+<h3 data-number="15.3.1" class="anchored" data-anchor-id="further-priors"><span class="header-section-number">15.3.1</span> Further priors</h3>
+<section id="higher-lags" class="level4" data-number="15.3.1.1">
+<h4 data-number="15.3.1.1" class="anchored" data-anchor-id="higher-lags"><span class="header-section-number">15.3.1.1</span> Higher lags</h4>
 <p>Rather than derive the implications we state the rest of the dummy priors. Consider the following artificial data for the <strong>second</strong> lag:</p>
 <p><span class="math display">\[\begin{align*}
   Y_{D,2} &amp;= \left[\begin{matrix}0 &amp; 0 \cr 0 &amp; 0\end{matrix}\right] \\
@@ -512,8 +524,8 @@ div.csl-indent {
 \end{equation}\]</span></p>
 <p>for <span class="math inline">\(j=1,...N\)</span>, <span class="math inline">\(i=1,...l\)</span>.</p>
 </section>
-<section id="constant" class="level4" data-number="13.3.1.2">
-<h4 data-number="13.3.1.2" class="anchored" data-anchor-id="constant"><span class="header-section-number">13.3.1.2</span> Constant</h4>
+<section id="constant" class="level4" data-number="15.3.1.2">
+<h4 data-number="15.3.1.2" class="anchored" data-anchor-id="constant"><span class="header-section-number">15.3.1.2</span> Constant</h4>
 <p>Consider the following artificial data for the <strong>constant</strong>:</p>
 <p><span class="math display">\[\begin{align*}
   Y_{D,3} &amp;= \left[\begin{matrix}0 &amp; 0 \end{matrix}\right] \\
@@ -521,8 +533,8 @@ div.csl-indent {
 \end{align*}\]</span></p>
 <p>so <span class="math inline">\(\lambda c_1 = \varepsilon_1\)</span> and <span class="math inline">\(\lambda c_2 = \varepsilon_2\)</span>. As <span class="math inline">\(\lambda \rightarrow \infty\)</span> the prior is implemented more tightly.</p>
 </section>
-<section id="covariances" class="level4" data-number="13.3.1.3">
-<h4 data-number="13.3.1.3" class="anchored" data-anchor-id="covariances"><span class="header-section-number">13.3.1.3</span> Covariances</h4>
+<section id="covariances" class="level4" data-number="15.3.1.3">
+<h4 data-number="15.3.1.3" class="anchored" data-anchor-id="covariances"><span class="header-section-number">15.3.1.3</span> Covariances</h4>
 <p>Dummy observations to implement the prior on the error covariance matrix are: <span class="math display">\[\begin{align*}
   Y_{D,4} &amp;= \left[\begin{matrix}\sigma_1 &amp; 0 \cr 0 &amp; \sigma_2\end{matrix}\right] \\
   X_{D,4} &amp;= \left[\begin{matrix}0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \cr
@@ -531,8 +543,8 @@ div.csl-indent {
 <p>with the magnitude of the diagonal elements of <span class="math inline">\(\Sigma\)</span> controlled by the scale of the diagonal elements of <span class="math inline">\(Y_{D,4}\)</span>, as larger diagonal elements implement the prior belief that the variance of <span class="math inline">\(\nu_1\)</span> and <span class="math inline">\(\nu_2\)</span> is larger.</p>
 <p><span class="citation" data-cites="Banbura">Banbura, Giannone, and Reichlin (<a href="references.html#ref-Banbura" role="doc-biblioref">2010</a>)</span> stop here, but there are additional priors that could be added.</p>
 </section>
-<section id="sum-of-coefficients" class="level4" data-number="13.3.1.4">
-<h4 data-number="13.3.1.4" class="anchored" data-anchor-id="sum-of-coefficients"><span class="header-section-number">13.3.1.4</span> Sum of coefficients</h4>
+<section id="sum-of-coefficients" class="level4" data-number="15.3.1.4">
+<h4 data-number="15.3.1.4" class="anchored" data-anchor-id="sum-of-coefficients"><span class="header-section-number">15.3.1.4</span> Sum of coefficients</h4>
 <p>We could add a prior that reflects the belief that the <strong>sum of coefficients</strong> on ‘own’ lags add up to 1. This is an additional ‘unit root’-style prior. Consider:</p>
 <p><span class="math display">\[\begin{align*}
   Y_{D,5} &amp;= \left[\begin{matrix} \gamma\mu_1 &amp; 0\cr 0 &amp; \gamma\mu_2\end{matrix}\right] \\
@@ -541,8 +553,8 @@ div.csl-indent {
 \end{align*}\]</span></p>
 <p>where <span class="math inline">\(\mu_1\)</span> is the sample mean of <span class="math inline">\(y_t\)</span> and <span class="math inline">\(\mu_2\)</span> is the sample mean of <span class="math inline">\(x_t\)</span>. Note that these dummy observations imply prior means of the form <span class="math inline">\(b_{ii} + d_{ii} = 1\)</span> where <span class="math inline">\(i = 1, 2\)</span> and <span class="math inline">\(\gamma\)</span> controls the tightness of the prior. As <span class="math inline">\(\gamma \rightarrow \infty\)</span> the prior is implemented more tightly. Forecast growth rates eventually converge to their sample averages.</p>
 </section>
-<section id="trends" class="level4" data-number="13.3.1.5">
-<h4 data-number="13.3.1.5" class="anchored" data-anchor-id="trends"><span class="header-section-number">13.3.1.5</span> Trends</h4>
+<section id="trends" class="level4" data-number="15.3.1.5">
+<h4 data-number="15.3.1.5" class="anchored" data-anchor-id="trends"><span class="header-section-number">15.3.1.5</span> Trends</h4>
 <p>We can also specify <strong>common stochastic trend</strong> dummies:</p>
 <p><span class="math display">\[\begin{align*}
   Y_{D,6} &amp;= \left[\begin{matrix}\delta\mu_1 &amp; \delta\mu_2 \end{matrix}\right] \\
@@ -551,8 +563,8 @@ div.csl-indent {
 <p>where this imposes that the coefficients are consistent with limiting the amount of drift between the predictions at their average values.</p>
 </section>
 </section>
-<section id="implementation" class="level3" data-number="13.3.2">
-<h3 data-number="13.3.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">13.3.2</span> Implementation</h3>
+<section id="implementation" class="level3" data-number="15.3.2">
+<h3 data-number="15.3.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">15.3.2</span> Implementation</h3>
 <p>The data and the artificial data are now stacked:</p>
 <p><span class="math display">\[\begin{equation}
   Y^* = \left[\begin{matrix} g_3 &amp; \pi_3 \cr
@@ -585,8 +597,8 @@ X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 <p>Estimation via Gibbs sampling now proceeds in a very straightforward way. There is no need to draw for the prior separately.</p>
 </section>
 </section>
-<section id="examples" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="examples"><span class="header-section-number">13.4</span> Examples</h2>
+<section id="examples" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="examples"><span class="header-section-number">15.4</span> Examples</h2>
 <p>First we use quarterly US Growth (FRED series <a href="https://fred.stlouisfed.org/series/A191RO1Q156NBEA">A191RO1Q156NBEA</a>) and CPI (FRED series <a href="https://fred.stlouisfed.org/series/CPALTT01USQ661S">CPALTT01USQ661S</a>) expressed as the annual inflation rate from 1961-01-01 to 2023-01-01 in a bi-variate BVAR. The last ten observations are:</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -695,8 +707,8 @@ X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>pce[[pnum]] <span class="ot">&lt;-</span> p[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where the string <code>controls</code> is put in the chart subtitle and the coefficient densities. It can be anything but is a good place to remind yourself of how you specified the model. Notice we save the coefficient plots for later use.</p>
-<section id="example-1-bvar2-with-tau0.1" class="level3" data-number="13.4.1">
-<h3 data-number="13.4.1" class="anchored" data-anchor-id="example-1-bvar2-with-tau0.1"><span class="header-section-number">13.4.1</span> Example 1: BVAR(2) with <span class="math inline">\(\tau=0.1\)</span></h3>
+<section id="example-1-bvar2-with-tau0.1" class="level3" data-number="15.4.1">
+<h3 data-number="15.4.1" class="anchored" data-anchor-id="example-1-bvar2-with-tau0.1"><span class="header-section-number">15.4.1</span> Example 1: BVAR(2) with <span class="math inline">\(\tau=0.1\)</span></h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -707,8 +719,8 @@ X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 </div>
 </section>
-<section id="example-2-bvar2-with-tau1" class="level3" data-number="13.4.2">
-<h3 data-number="13.4.2" class="anchored" data-anchor-id="example-2-bvar2-with-tau1"><span class="header-section-number">13.4.2</span> Example 2: BVAR(2) with <span class="math inline">\(\tau=1\)</span></h3>
+<section id="example-2-bvar2-with-tau1" class="level3" data-number="15.4.2">
+<h3 data-number="15.4.2" class="anchored" data-anchor-id="example-2-bvar2-with-tau1"><span class="header-section-number">15.4.2</span> Example 2: BVAR(2) with <span class="math inline">\(\tau=1\)</span></h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -719,8 +731,8 @@ X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 </div>
 </section>
-<section id="example-3-bvar6-with-tau0.1" class="level3" data-number="13.4.3">
-<h3 data-number="13.4.3" class="anchored" data-anchor-id="example-3-bvar6-with-tau0.1"><span class="header-section-number">13.4.3</span> Example 3: BVAR(6) with <span class="math inline">\(\tau=0.1\)</span></h3>
+<section id="example-3-bvar6-with-tau0.1" class="level3" data-number="15.4.3">
+<h3 data-number="15.4.3" class="anchored" data-anchor-id="example-3-bvar6-with-tau0.1"><span class="header-section-number">15.4.3</span> Example 3: BVAR(6) with <span class="math inline">\(\tau=0.1\)</span></h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -731,8 +743,8 @@ X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 </div>
 </section>
-<section id="example-4-bvar6-with-tau1" class="level3" data-number="13.4.4">
-<h3 data-number="13.4.4" class="anchored" data-anchor-id="example-4-bvar6-with-tau1"><span class="header-section-number">13.4.4</span> Example 4: BVAR(6) with <span class="math inline">\(\tau=1\)</span></h3>
+<section id="example-4-bvar6-with-tau1" class="level3" data-number="15.4.4">
+<h3 data-number="15.4.4" class="anchored" data-anchor-id="example-4-bvar6-with-tau1"><span class="header-section-number">15.4.4</span> Example 4: BVAR(6) with <span class="math inline">\(\tau=1\)</span></h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -743,8 +755,8 @@ X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 </div>
 </section>
-<section id="coefficient-estimates" class="level3" data-number="13.4.5">
-<h3 data-number="13.4.5" class="anchored" data-anchor-id="coefficient-estimates"><span class="header-section-number">13.4.5</span> Coefficient estimates</h3>
+<section id="coefficient-estimates" class="level3" data-number="15.4.5">
+<h3 data-number="15.4.5" class="anchored" data-anchor-id="coefficient-estimates"><span class="header-section-number">15.4.5</span> Coefficient estimates</h3>
 <p>All of these have underlying parameters. Their estimated posterior densities are:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -778,8 +790,8 @@ X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 </section>
 </section>
-<section id="tri-variate-bvar" class="level2" data-number="13.5">
-<h2 data-number="13.5" class="anchored" data-anchor-id="tri-variate-bvar"><span class="header-section-number">13.5</span> Tri-variate BVAR</h2>
+<section id="tri-variate-bvar" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="tri-variate-bvar"><span class="header-section-number">15.5</span> Tri-variate BVAR</h2>
 <p>Now we add the FedFunds rate (FRED series <a href="https://fred.stlouisfed.org/series/FEDFUNDS">FEDFUNDS</a>), so the last ten periods of the data set is now:</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -858,8 +870,8 @@ X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 </div>
 <p>Two more examples follow.</p>
-<section id="example-5-bvar4-with-tau.1-3-variables" class="level3" data-number="13.5.1">
-<h3 data-number="13.5.1" class="anchored" data-anchor-id="example-5-bvar4-with-tau.1-3-variables"><span class="header-section-number">13.5.1</span> Example 5: BVAR(4) with <span class="math inline">\(\tau=.1\)</span>, 3 variables</h3>
+<section id="example-5-bvar4-with-tau.1-3-variables" class="level3" data-number="15.5.1">
+<h3 data-number="15.5.1" class="anchored" data-anchor-id="example-5-bvar4-with-tau.1-3-variables"><span class="header-section-number">15.5.1</span> Example 5: BVAR(4) with <span class="math inline">\(\tau=.1\)</span>, 3 variables</h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -879,8 +891,8 @@ X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 </div>
 </section>
-<section id="example-6-bvar6-with-tau1-3-variables" class="level3" data-number="13.5.2">
-<h3 data-number="13.5.2" class="anchored" data-anchor-id="example-6-bvar6-with-tau1-3-variables"><span class="header-section-number">13.5.2</span> Example 6: BVAR(6) with <span class="math inline">\(\tau=1\)</span>, 3 variables</h3>
+<section id="example-6-bvar6-with-tau1-3-variables" class="level3" data-number="15.5.2">
+<h3 data-number="15.5.2" class="anchored" data-anchor-id="example-6-bvar6-with-tau1-3-variables"><span class="header-section-number">15.5.2</span> Example 6: BVAR(6) with <span class="math inline">\(\tau=1\)</span>, 3 variables</h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -901,8 +913,8 @@ X^* = \left [ \begin{matrix}1 &amp; g_2 &amp; \pi_2 &amp; g_1 &amp; \pi_1 \cr
 </div>
 </section>
 </section>
-<section id="code-appendix" class="level2" data-number="13.6">
-<h2 data-number="13.6" class="anchored" data-anchor-id="code-appendix"><span class="header-section-number">13.6</span> Code appendix</h2>
+<section id="code-appendix" class="level2" data-number="15.6">
+<h2 data-number="15.6" class="anchored" data-anchor-id="code-appendix"><span class="header-section-number">15.6</span> Code appendix</h2>
 <p>You can download the program and functions used for the estimates above from the links below. Put them in the same directory and they should recreate exactly (within sampling error) the same graphs as above. Ensure you have all the libraries available that are loaded at the top of <code>BVARdum.R</code>.</p>
 <p>Main program:</p>
 <div class="cell">
@@ -1283,12 +1295,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./BK.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear rational expectations models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Dynare.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dynare basics</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dynare basics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
