@@ -184,9 +184,9 @@ N   <- nrow(UNEMP)
 K   <- 12
 nt  <- 6
 
-ystart <- 2017
-meas   <- c("None") #c("None", "Var")
-setype <- "boot" # "rank" # "boot" "nid"
+ystart <- 2018
+meas   <- c("None", "Var")
+setype <- "rank" # "rank" # "boot" "nid"
 
 ares <- NULL
 for (samp in seq(N-K,N,nt)) {
