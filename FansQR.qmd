@@ -14,21 +14,21 @@ They suggest:
 
 This highlights the two useful features that makes this technique so valuable. The estimated forecast density need not be normal and is potentially state dependent. But it is difficult to tell how significant this effect is from one graph, or whether the upward spread of the density is associated with the subprime crisis. What happens if the unemployment rate is radically different from the experience of 2010? As the subprime crisis is no longer quite so recent we consider the following: when and how are the QR-forecast densities for U.S. unemployment asymmetric?
 
-@Capistran suggested combining forecasts by regressing the mean forecast on the out-turn, which for unemployment forecasts would be
+@Capistran suggested combining forecasts by regressing the out-turn on the mean forecast. For unemployment forecasts would be
 $$
    u_{t+k} = \beta_0+\beta_1 \hat u_{t,t+k}+\varepsilon_{t+k} 
 $$
-where $u_t$ is the quarterly unemployment rate expressed as a percentage and $\hat u_{t,t+k}$ is the SPF's mean forecast, $k =$ 1 to 4 quarters ahead. They find this an effective way to combine forecasts from different sources particularly with a non-stationary panel of forecasters, characteristic of the SPF. This models the conditional mean of unemployment as a 'bias corrected' forecast from the aggregated information. 
+where $u_t$ is the quarterly unemployment rate expressed as a percentage and $\hat u_{t,t+k}$ is the SPF's mean forecast, $k = 1$ to 4 quarters ahead. They find this an effective way to combine forecasts from different sources particularly with a non-stationary panel of forecasters, characteristic of the SPF. This models the conditional mean of unemployment as a 'bias corrected' forecast from the aggregated information. 
 
-@GL2012 instead use QR to predict the $\alpha$-quantile of $u_{t+k}$ so that
+@GL2012 use QR instead of OLS, and predict the $\alpha$-quantile of $u_{t+k}$ so that
 $$
   Q_\alpha(u_{t+k}) = \beta_0(\alpha) + \beta_1(\alpha) \hat u_{t,t+k} + \varepsilon{(\alpha)}_{t+k}
 $$
-where $Q_\alpha(\cdot)$ is the quantile function. This yields a sequence of models, indexed both by $\alpha$ and the forecast horizon. It is a simple matter to derive the required forecast density from them, smoothed using a kernel method.
+where $Q_\alpha(\cdot)$ is the quantile function. This yields a sequence of models, indexed both by $\alpha$ and the forecast horizon. It is a simple matter to derive the required forecast density from them, typically smoothed using a kernel method.
 
 ## A fan chart
 
-@GL2012 don't actually produce a fan chart, they plot the implied densities. We can do that, but the fan chart is more useful. 
+@GL2012 don't actually produce a fan chart, they plot the implied densities. We can do that, but the fan chart is more useful, particularly for something as visually striking as unemployment forecasts.
 
 The following code does a lot. It read the SPF individual forecasts and then averages them (you'll see why later). Then it does the QR, calculates the points for the fans a plots a fan chart.
 ```{r}
@@ -40,8 +40,7 @@ library(quantreg)
 library(moments)
 
 fls    <- "spfmicrodata.xlsx"
-UNRATE <- read_csv("UNRATE (1).csv", 
-                   col_types=cols(DATE=col_date(format="%d/%m/%Y"))) %>%
+UNRATE <- read_csv("UNRATE (1).csv", col_types=cols(DATE=col_date(format="%d/%m/%Y"))) %>%
   select(Date=DATE, UNRATE) %>% 
   mutate(UNRATE=as.numeric(UNRATE)) %>%
   drop_na()
