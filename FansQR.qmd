@@ -236,7 +236,6 @@ bck <- UNEMP %>%
 
 aresx %>%
   ggplot() +
-  #geom_area(aes(x=fdate, y=Inf, group=q), fill=tail_colour, position = "identity") +
   geom_rect(aes(xmin=fdate, xmax=Vintage %m+% months(3), ymin=-Inf, ymax=Inf, group=q), fill=tail_colour) +
   geom_area(aes(x=fdate, y=Vals, group=qs, fill=qs), position = "identity") +
   scale_fill_manual(values=col) +
