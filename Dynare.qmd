@@ -1,16 +1,20 @@
-# Dynare basics
+---
+title: Dynare basics
+---
 
-## What is Dynare?
+## Software for solving models
 
-Best answered by the authors themselves, from their website:
+Why do we need it? Any serious model will usually require a computer package to, say, analyse policy options. Lots of Matlab code (and other languages) is available to do this but it is convenient to use one of a few packages that makes the tedious things easier to do. It is also nice to be able to code up a model very quickly; we may need to marry that up with data too. Dynare is one such 'user friendly' program to we can use to solve, simulate and estimate DSGE models, and other stuff besides. Dynare is a [Matlab](https://uk.mathworks.com/products/matlab.html) program, so you need a licenced product^[Actually [Octave](https://octave.org/) will do, but is much slower.]. It runs on a variety of OS/hardware platforms too, including Debian Linux. It is available free from [http://www.dynare.org/](http://www.dynare.org/) and there is [extensive documentation](http://www.dynare.org/wp-repo/dynarewp001.pdf).
+
+:::{.callout-note title="What is Dynare?"}
+## Best answered by the authors themselves, from their website:
 
 > Dynare  ... handl[es] a wide class of economic models, in particular dynamic stochastic general equilibrium (DSGE) and overlapping generations (OLG) models. The models solved by Dynare include those relying on the rational expectations hypothesis ... [but also] models where expectations are formed differently [including] models where agents have limited rationality or imperfect knowledge of the state of the economy and, hence, form their expectations through a learning process.
 
 > Dynare offers a user-friendly and intuitive way of describing [...] models. It is able to perform simulations of the model given a calibration of the model parameters and is also able to estimate these parameters given a dataset. In practice, the user will write a text file containing the list of model variables, the dynamic equations linking these variables together, the computing tasks to be performed and the desired graphical or numerical outputs.
 
-## Software for solving models
-
-Why do we need it? Any serious model will usually require a computer package to, say, analyse policy options. Lots of Matlab code (and other languages) is available to do this but it is convenient to use one of a few packages that makes the tedious things easier to do. It is also nice to be able to code up a model very quickly; we may need to marry that up with data too. Dynare is one such 'user friendly' program to we can use to solve, simulate and estimate DSGE models, and other stuff besides. Dynare is a [Matlab](https://uk.mathworks.com/products/matlab.html) program, so you need a licenced product^[Actually [Octave](https://octave.org/) will do, but is much slower.]. It runs on a variety of OS/hardware platforms too, including Debian Linux. It is available free from [http://www.dynare.org/](http://www.dynare.org/) and there is [extensive documentation](http://www.dynare.org/wp-repo/dynarewp001.pdf).
+From [http://www.dynare.org/](http://www.dynare.org/)
+:::
 
 Although Dynare is frequently the tool of choice (particularly by researchers) there are alternatives: [IRIS](https://iris.igpmn.org/), [YADA](http://www.texlips.net/yada/) etc are also available for Matlab, with [gEcon](https://gecon.r-forge.r-project.org/) for [R](https://cran.r-project.org/), plus a number of commercial alternatives.
 

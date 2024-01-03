@@ -1,4 +1,6 @@
-# Gibbs Sampling
+---
+title: Gibbs Sampling
+---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, fig.align='center')
@@ -149,24 +151,25 @@ library(kableExtra)
 
 max_lag <- 4
 
-download.file("https://fred.stlouisfed.org/series/CPALTT01USQ661S/downloaddata/CPALTT01USQ661S.csv",
-              "CPI.csv")
-data <- readr::read_csv("CPI.csv")  %>% 
-  rename(Date=DATE, value=VALUE) %>% 
-  mutate(Vars = "INF", 
-         Vals = 100*(value/lag(value,4)-1),
-         lagi = list(0:max_lag)) %>%
+download.file("https://fred.stlouisfed.org/series/CPALTT01USQ661S/downloaddata/CPALTT01USQ661S.csv", "CPI.csv")
+data <- read.csv("CPI.csv")  %>%
+  mutate(Date=as.Date(DATE)) %>%
+  rename(value=VALUE) %>% 
+  mutate(name  = "INF", 
+         value = 100*(value/lag(value,4)-1),
+         lagi  = list(0:max_lag)) %>%
   slice(-c(1:4)) %>%
   unnest(cols = c(lagi)) %>%
   group_by(lagi) %>%
-  mutate(Vals = lag(Vals, lagi[1])) %>%
+  mutate(value = lag(value, first(lagi))) %>%
   ungroup() %>%
-  mutate(Varl = paste(Vars, lagi, sep="_"), 
-         Vars = if_else(lagi==0, Vars, Varl)) %>%
-  select(Date,Vars,Vals) %>%
-  pivot_wider(names_from = Vars, values_from = Vals) %>%
+  mutate(namel = paste(name, lagi, sep="_"), 
+         name  = if_else(lagi==0, name, namel)) %>%
+  select(Date, name, value) %>%
+  pivot_wider() %>%
   slice(-c(1:max_lag)) %>%
   mutate(constant = 1)
+
 ggplot(data) + 
   geom_line(aes(x=Date, y=INF), colour="red") +
   theme_minimal() +
