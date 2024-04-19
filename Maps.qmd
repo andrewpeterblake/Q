@@ -1,4 +1,6 @@
-# Mapping regional house price inflation
+---
+title: Mapping regional house price inflation
+---
 
 ## How heterogenous is UK house price inflation?
 

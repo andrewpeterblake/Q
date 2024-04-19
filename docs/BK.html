@@ -853,7 +853,7 @@ A_{22} = \left[\begin{matrix}0 &amp;-1.33 \\-0.07 &amp;1 \\\end{matrix}\right]
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gevalues</span>(geigen<span class="sc">::</span><span class="fu">gqz</span>(A, E, <span class="at">sort=</span><span class="st">"S"</span>))</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>e[<span class="fu">abs</span>(e) <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.378195      Inf</code></pre>
+<pre><code>[1] 1.378195     -Inf</code></pre>
 </div>
 </div>
 <p>which confirms that it has a unique saddle path stable solution. This is</p>
@@ -869,23 +869,23 @@ A_{22} = \left[\begin{matrix}0 &amp;-1.33 \\-0.07 &amp;1 \\\end{matrix}\right]
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>Po</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     [,1]      [,2]          [,3] [,4] [,5] [,6]
-[1,]  0.9  0.000000  0.000000e+00    0    0    0
-[2,]  0.0  0.800000  6.986592e-17    0    0    0
-[3,]  0.0 -1.863455  7.329156e-01    0    0    0
-[4,]  1.8 -1.241330 -2.446879e-01    0    0    0
-[5,]  0.0 -1.863455  7.329156e-01    0    0    0
-[6,]  0.0  1.397591  2.003133e-01    0    0    0</code></pre>
+<pre><code>     [,1]      [,2]       [,3] [,4] [,5] [,6]
+[1,]  0.9  0.000000  0.0000000    0    0    0
+[2,]  0.0  0.800000  0.0000000    0    0    0
+[3,]  0.0 -1.863455  0.7329156    0    0    0
+[4,]  1.8 -1.241330 -0.2446879    0    0    0
+[5,]  0.0 -1.863455  0.7329156    0    0    0
+[6,]  0.0  1.397591  0.2003133    0    0    0</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>Qo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     [,1]      [,2]          [,3]
-[1,]    1  0.000000  0.000000e+00
-[2,]    0  1.000000 -6.986592e-17
-[3,]    0 -2.329318 -7.329156e-01
-[4,]    2 -1.551663  2.446879e-01
-[5,]    0 -2.329318 -7.329156e-01
-[6,]    0  1.746989 -2.003133e-01</code></pre>
+<pre><code>     [,1]      [,2]       [,3]
+[1,]    1  0.000000  0.0000000
+[2,]    0  1.000000  0.0000000
+[3,]    0 -2.329318 -0.7329156
+[4,]    2 -1.551663  0.2446879
+[5,]    0 -2.329318 -0.7329156
+[6,]    0  1.746989 -0.2003133</code></pre>
 </div>
 </div>
 <section id="optimal-impulse-responses" class="level3" data-number="14.5.1">
@@ -942,7 +942,7 @@ E = \left[\begin{matrix}1 &amp;0 &amp;0 &amp;0 &amp;0 &amp;0 \\0 &amp;1 &amp;0 &
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> geigen<span class="sc">::</span><span class="fu">gevalues</span>(geigen<span class="sc">::</span><span class="fu">gqz</span>(A, E, <span class="at">sort=</span><span class="st">"S"</span>) )</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>e[<span class="fu">abs</span>(e) <span class="sc">&gt;</span> <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]     -Inf 1.378195      Inf</code></pre>
+<pre><code>[1] 4.787695e+15 1.378195e+00         -Inf</code></pre>
 </div>
 </div>
 <p>Again, it is with an extra unstable root for the extra jump variable. We could simplify the solution. As that top left 3 by 3 block, <span class="math inline">\(E_{11}\)</span>, is the identity matrix and <span class="math inline">\(E_{12}\)</span> is all zeros this <code>Ei</code> is always an identity matrix. However, here we simply re-use <code>solveGenBG</code></p>

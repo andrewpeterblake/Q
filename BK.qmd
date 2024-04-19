@@ -1,4 +1,6 @@
-# Linear rational expectations models
+---
+title: Linear rational expectations models
+---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

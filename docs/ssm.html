@@ -189,8 +189,8 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./QR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quantile regression</span></span></a>
+  <a href="./FansQR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quantile fan charts</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -605,7 +605,7 @@ E\begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = A \begin{bmatrix} z_{t-1} \\ x
    \begin{bmatrix} \varepsilon^1_t \\ \varepsilon^2_t \\ \varepsilon^3_t \end{bmatrix}    
 \]</span> As the left matrix is invertible we can write this in the form <span class="math display">\[
 \begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = C \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + D \varepsilon_t  
-\]</span> where <span class="math inline">\(C = E^{-1}A\)</span>, <span class="math inline">\(D=E^{-1}B\)</span>. However, even in this form it doesn’t quite conform to the standard state space model. This is because we retain the expectations in the model. Typically we need to solve the model for the expectations using the <span class="citation" data-cites="BK1980">(<a href="references.html#ref-BK1980" role="doc-biblioref"><strong>BK1980?</strong></a>)</span> method or similar such that <span class="math display">\[
+\]</span> where <span class="math inline">\(C = E^{-1}A\)</span>, <span class="math inline">\(D=E^{-1}B\)</span>. However, even in this form it doesn’t quite conform to the standard state space model. This is because we retain the expectations in the model. Typically we need to solve the model for the expectations using the <span class="citation" data-cites="BK80">Blanchard and Kahn (<a href="references.html#ref-BK80" role="doc-biblioref">1980</a>)</span> method or similar such that <span class="math display">\[
 x_t = -N z_{t-1} - G \varepsilon_t
 \]</span> Substituting this in we get a final state-space form <span class="math display">\[\begin{align}
 \begin{bmatrix} z_t \\ x_t \end{bmatrix} &amp;= \begin{bmatrix} C_{11} - C_{12}N &amp; 0 \\ -N &amp; 0 \end{bmatrix} \begin{bmatrix} z_{t-1} \\ x_{t-1} \end{bmatrix} + \begin{bmatrix} D_1-C_{12}G \\ -G \end{bmatrix} \varepsilon_t \\
@@ -632,6 +632,9 @@ x_t = -N z_{t-1} - G \varepsilon_t
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-BK80" class="csl-entry" role="listitem">
+Blanchard, O., and C. Kahn. 1980. <span>“The Solution of Linear Difference Models Under Rational Expectations.”</span> <em>Econometrica</em> 48 (5): 1305–11.
+</div>
 <div id="ref-Durbin" class="csl-entry" role="listitem">
 Durbin, J., and S. J. Koopman. 2001. <em>Time Series Analysis by State Space Methods</em>. Oxford: Oxford University Press.
 </div>

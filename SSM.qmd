@@ -295,7 +295,7 @@ As the left matrix is invertible we can write this in the form
 $$
 \begin{bmatrix} z_t \\ x_{t+1}^e \end{bmatrix} = C \begin{bmatrix} z_{t-1} \\ x_t \end{bmatrix} + D \varepsilon_t  
 $$
-where $C = E^{-1}A$, $D=E^{-1}B$. However, even in this form it doesn't quite conform to the standard state space model. This is because we retain the expectations in the model. Typically we need to solve the model for the expectations using the @BK1980 method or similar such that 
+where $C = E^{-1}A$, $D=E^{-1}B$. However, even in this form it doesn't quite conform to the standard state space model. This is because we retain the expectations in the model. Typically we need to solve the model for the expectations using the @BK80\index{Blanchard, O.}\index{Kahn, C.} method or similar such that 
 $$
  x_t = -N z_{t-1} - G \varepsilon_t
 $$

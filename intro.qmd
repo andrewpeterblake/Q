@@ -1,4 +1,6 @@
-# Introduction
+---
+title: Introduction
+---
 
 This is a book created using [Quarto](quarto.org) and includes all examples as executable code.
 
